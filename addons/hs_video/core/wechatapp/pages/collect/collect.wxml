@@ -1,0 +1,19 @@
+<!--pages/collect/collect.wxml-->
+<block wx:if='{{video_list}}' wx:for='{{video_list}}'>
+  <view bindtap='goto' data-index='{{index}}'>
+    <view class='info flex-y-center'>
+  <view class='shadow'></view>
+      <image src='{{item.pic_url}}'></image>
+      <view style='width:100%;'>
+        <view class='white-color font-13 title'>{{item.title}}</view>
+        <view class='white-color flex-x-center title' wx:if='{{item.style!=2}}'>时长：{{item.video_time}}</view>
+      </view>
+    </view>
+  </view>
+</block>
+<block wx:if='{{video_list.length==0}}'>
+  <view class='flex-x-center' style='margin-top:30rpx;'>快去首页找些自己喜欢的内容吧</view>
+</block>
+<view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
+  <image style="width: 160rpx;height: 80rpx" src="/images/loading.svg"></image>
+</view>

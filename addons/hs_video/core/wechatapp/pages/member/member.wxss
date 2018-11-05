@@ -1,0 +1,70 @@
+/* pages/member/member.wxss */
+
+.user {
+    padding: 40rpx 24rpx;
+    border-top: 1rpx solid #e3e3e3;
+    background-color: #fff;
+    position: relative;
+}
+
+.user image {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 80rpx;
+    margin-right: 32rpx;
+}
+
+.right {
+    vertical-align: bottom;
+}
+
+.list {
+    margin-top: 20rpx;
+    background-color: #fff;
+}
+
+.one {
+    border-bottom: 1rpx solid #e3e3e3;
+    padding: 24rpx;
+    height: 140rpx;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.one-1 {
+    width: 64rpx;
+    height: 40rpx;
+    color: #fff;
+    background-color: #ff4544;
+    border-radius: 8rpx;
+    margin-left: 24rpx;
+    font-size: 9pt;
+}
+
+.one-2 {
+    color: #ff5d21;
+    font-size: 13pt;
+}
+
+.one-3 {
+    width: 120rpx;
+    height: 60rpx;
+    border-radius: 30rpx;
+    color: #fff;
+    background-color: #ff5d21;
+    margin-left: 32rpx;
+}
+
+.price{
+    font-size: 9pt;
+    color: #999;
+    text-decoration:line-through;
+    text-align: right;
+}
+
+.content{
+    padding: 30rpx 24rpx;
+    font-size: 9pt;
+    color: #888;
+}

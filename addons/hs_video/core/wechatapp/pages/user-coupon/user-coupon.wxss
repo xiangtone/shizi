@@ -1,0 +1,106 @@
+/* pages/user-coupon/user-coupon.wxss */
+.user_coupon{
+    height:216rpx;
+    margin: auto;
+    margin-top: 40rpx;
+    margin-bottom: 20rpx;
+    width:95%;
+    position: relative;
+}
+.coupon{
+    width:100%;
+    height:100%;
+    position: absolute;
+    z-index: -1;
+}
+.coupon_left{
+     padding-top:20rpx;
+     margin-left:50rpx; 
+     width:60%;
+     height:60rpx;
+}
+.sub_price{
+    font-size: 46rpx;
+    color:#ff4544;
+    margin-right: 20rpx;
+}
+.sub_price_use{
+    font-size: 46rpx;
+    color:#999999;
+    margin-right: 20rpx;    
+}
+.original_cost{
+    font-size: 26rpx;
+    color:#999999;
+}
+.coupon_name{
+    font-size: 30rpx;
+    color:#303030;
+}
+.coupon_time{
+    margin-top: 2rpx;
+    font-size: 24rpx;
+    color:#999999;
+}
+.coupon_ringht{
+    float:right;
+    width:180rpx;
+}
+.coupon_ringht_use{
+    float:right;
+    margin-top:20rpx;
+    margin-right:7%; 
+    height:60%;
+}
+.coupon_use{
+    height:100%;
+    color:#999999;
+    font-size: 15px;
+    margin:auto;
+}
+.make{
+    height:40rpx;
+    border:1rpx solid #ff4544;
+    width:140rpx;
+    color:#ff4544;
+    font-size: 20rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40rpx;
+    background: #ffffff;
+    margin:10rpx;
+}
+.remaining_time{
+    font-size: 20rpx;
+    color:#999999;
+    width:160rpx;
+    margin-top: 14rpx;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+.user_coupoin_qrcode{
+    width: 438rpx;
+    height:438rpx;
+    overflow: hidden;
+    position: fixed;
+    top: 40%;
+    left: 15%;
+    background: #fff;
+    margin: -180rpx 60rpx;
+    z-index: 9999;
+    /* border-radius:20%; */
+}
+#modal-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000; 
+    opacity: 0.5;
+    overflow: hidden;
+    z-index: 7777;
+    color: #fff;
+}

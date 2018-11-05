@@ -1,0 +1,101 @@
+/* pages/search/search.wxss */
+
+page {
+    background-color: #fff;
+}
+
+.search-box {
+    width: 100%;
+    height: 100rpx;
+    padding: 17rpx 20rpx;
+    border-top: 1rpx #ccc solid;
+    border-bottom: 1rpx #ccc solid;
+}
+
+.search-input {
+    width: 618rpx;
+    height: 66rpx;
+    background-color: #eee;
+    border-radius: 10rpx;
+}
+
+.search-input image {
+    width: 30rpx;
+    height: 30rpx;
+    margin-left: 18rpx;
+    margin-right: 14rpx;
+}
+
+.search-history {
+    padding: 40rpx 24rpx 16rpx 24rpx;
+    color: #999;
+}
+
+.search-history image {
+    width: 36rpx;
+    height: 40rpx;
+}
+
+.label {
+    height: 64rpx;
+    padding: 10rpx 20rpx;
+    margin-right: 20rpx;
+    border-radius: 10rpx;
+    background-color: #eee;
+    margin-bottom: 16rpx;
+}
+
+.show-input {
+    width: 100%;
+    padding-left: 40rpx;
+    border-bottom: 1rpx #ccc solid;
+}
+
+.input-label {
+    width: 100%;
+    height: 80rpx;
+    border-bottom: 1rpx #ccc solid;
+}
+
+.input-label:last-child {
+    border: 0;
+}
+
+.input-label image {
+    width: 30rpx;
+    height: 30rpx;
+    margin-right: 14rpx;
+}
+
+.hide {
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.info {
+    width: 100%;
+    height: 420rpx;
+    position: relative;
+}
+
+.info image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.title {
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 0 20rpx;
+    text-align: center;
+    position: relative;
+    z-index: 9999;
+}

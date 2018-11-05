@@ -1,0 +1,71 @@
+<!--pages/order/order.wxml-->
+<view class='{{show?"no-scroll":""}}'>
+    <view class='order-type flex-row'>
+        <view class='flex-grow-1 flex-x-center'>
+            <navigator url='/pages/order/order?status=1' open-type='redirect' class='flex-y-center {{status==1?"active":""}}'>待使用</navigator>
+        </view>
+        <view class='flex-grow-1 flex-x-center' data-index='2'>
+            <navigator url='/pages/order/order?status=2' open-type='redirect' class='flex-y-center {{status==2?"active":""}}'>已完成</navigator>
+        </view>
+        <view class='flex-grow-1 flex-x-center' data-index='3' wx:if='{{store.refund == 1}}'>
+            <navigator url='/pages/order/order?status=3' open-type='redirect' class='flex-y-center {{status==3?"active":""}}'>退款</navigator>
+        </view>
+    </view>
+    <view class='order-list'>
+        <block wx:for='{{order_list}}'>
+            <view class='order-one'>
+                <view class='flex-row order-time'>
+                    <view class='flex-y-center'>{{item.order_no}}</view>
+                    <view class='flex-y-center'>{{item.addtime}}</view>
+                </view>
+                <view class='flex-row order-top' bindtap='goto' data-index='{{index}}'>
+                    <view class='flex-grow-0'>
+                        <image src='{{item.pic_url}}' class='order-img'></image>
+                    </view>
+                    <view class='flex-grow-1 flex-col' style='justify-content:space-between'>
+                        <view class='text-more-2 order-title'>{{item.title}}</view>
+                        <view class='order-price'>￥{{item.price}}</view>
+                    </view>
+                </view>
+                <view class='order-bottom flex-row flex-y-center' style='justify-content:flex-end'>
+                    <block wx:if='{{item.is_use==0}}'>
+                        <view class='order-btn flex-y-center' bindtap='refund' data-index='{{index}}' wx:if='{{item.price!=0 && item.is_refund==1 && store.refund == 1}}'>申请退款</view>
+                        <view class='order-btn flex-y-center' bindtap='formSubmit' data-index='{{index}}' wx:if='{{item.price==0 && item.is_refund==1 && store.refund == 1}}'>取消预约</view>
+                        <view class='flex-row order-btn flex-y-center' bindtap='getQrcode' data-index='{{index}}'>
+                            <image src='/images/icon-clerk.png'></image>
+                            <view>二维码</view>
+                        </view>
+                    </block>
+                    <block wx:if='{{item.is_use == 2}}'>
+                        <block wx:if='{{item.status == 0}}'>
+                            <view>退款申请中</view>
+                        </block>
+                        <block wx:if='{{item.status == 1}}'>
+                            <block wx:if='{{item.price == 0}}'>
+                                <view>取消成功</view>
+                            </block>
+                            <block wx:else>
+                                <view>退款成功</view>
+                            </block>
+                        </block>
+                        <block wx:if='{{item.status == 2}}'>
+                            <view>退款失败</view>
+                        </block>
+                    </block>
+                </view>
+            </view>
+        </block>
+    </view>
+
+    <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
+        <image style="width: 160rpx;height: 80rpx" src="/images/loading.svg"></image>
+    </view>
+</view>
+<view class='shadow-1 flex-x-center flex-y-center {{show?"":"hidden"}}' bindtap='qrcodeHide'>
+    <view class='qrcode'>
+        <view class='font-13 flex-x-center flex-y-center' style='height:100rpx'>核销二维码</view>
+        <view class='qrcode-img flex-x-center flex-y-center'>
+            <image src='{{url}}'></image>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,16 @@
+<!--pages/cat/cat.wxml-->
+<view class='info flex-row'>
+  <block wx:for='{{cat_list}}' wx:for-index='index' wx:for-item='item'>
+    <navigator url='/pages/cat-second/cat-second?cat_id={{item.id}}'>
+      <view class='info-block'>
+        <view class='img'>
+          <view class='shadow' style='border-radius:10rpx;'></view>
+          <image src='{{item.pic_url}}'></image>
+          <text class='info-t'>{{item.video_count}}个内容</text>
+        </view>
+        <view class='font-13'>{{item.name}}</view>
+        <view class='font-9' style='color:#999;'>{{item.update_time}}更新</view>
+      </view>
+    </navigator>
+  </block>
+</view>

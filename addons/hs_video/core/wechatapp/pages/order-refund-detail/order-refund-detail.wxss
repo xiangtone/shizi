@@ -1,0 +1,84 @@
+/* pages/order-refund-detail/order-refund-detail.wxss */
+@import "../../wxParse/wxParse.wxss";
+
+page {
+
+}
+
+.video {
+    width: 100%;
+    height: 520rpx;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 99;
+    background-color: #fff;
+}
+
+.kong {
+    width: 100%;
+    height: 520rpx;
+}
+
+.video video {
+    width: 100%;
+    height: 420rpx;
+}
+
+.info {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.info-title {
+    width: 100%;
+    height: 90rpx;
+    position: relative;
+    padding: 0 24rpx;
+}
+
+.info-title .right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 24rpx;
+}
+
+.info-content {
+    color: #999;
+    padding: 0 24rpx;
+    padding-bottom: 20rpx;
+    background-color: #fff;
+}
+
+.detail-1 {
+    padding-top: 20rpx;
+    padding-bottom: 20rpx;
+    background-color: #f2f2f2;
+}
+
+.form {
+    padding: 32rpx 24rpx;
+    background-color: #fff;
+    color: #999;
+}
+
+.cover {
+    position: relative;
+    width: 100%;
+    height: 420rpx;
+}
+
+.cover-img {
+    width: 100%;
+    height: 100%;
+}
+
+.cover-play {
+    position: absolute;
+    top: 146rpx;
+    left: 311rpx;
+    width: 128rpx;
+    height: 128rpx;
+}
