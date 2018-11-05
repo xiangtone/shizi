@@ -1,0 +1,13 @@
+www.dushujielong.com测试映射端口
+        location /fm/shizi/ {
+                proxy_pass http://127.0.0.1:2280;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header Host $host;
+               proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       }
+        location /ll/shizi/ {
+                proxy_pass http://127.0.0.1:2281;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header Host $host;
+               proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       }
