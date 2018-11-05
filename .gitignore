@@ -1,0 +1,8 @@
+﻿#过滤
+*.log
+.htaccess
+
+
+#过滤文件夹
+addons/hs_video/core/runtime
+.idea/
