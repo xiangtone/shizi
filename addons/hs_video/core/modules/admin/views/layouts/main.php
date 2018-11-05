@@ -119,6 +119,13 @@ $is_auth = Yii::$app->cache->get('IS_AUTH');
                 <a href="<?= $urlManager->createUrl(['admin/member/index']) ?>">会员设置</a>
             </div>
         </div>
+        <!--添加班级管理-->
+        <div class="nav-group <?= $this->params['active_nav_group'] == 8 ? 'active' : null ?>">
+            <a href="javascript:"><i class="iconfont icon-huiyuan"></i>班级管理</a>
+            <div class="sub-nav-list">
+                <a href="<?= $urlManager->createUrl(['admin/classes/index']) ?>">班级设置</a>
+            </div>
+        </div>
     </div>
 </div>
 <div class="main">
