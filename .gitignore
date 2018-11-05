@@ -6,3 +6,4 @@
 #过滤文件夹
 addons/hs_video/core/runtime/
 .idea/
+/addons/hs_video/core/runtime
