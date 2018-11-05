@@ -1,0 +1,49 @@
+<!--pages/user-comment/user-comment.wxml-->
+<view class='comment-list' style='padding-bottom: 100rpx;'>
+  <block wx:if='{{comment_list.length>0}}'>
+    <block wx:for='{{comment_list}}'>
+      <view class='comment-one' bindtap='goto' data-index='{{index}}'>
+        <view class='comment-title flex-row'>
+          <view class='flex-grow-0 flex-y-center left'>
+            <image src='{{item.avatar_url}}'></image>
+          </view>
+          <view class='flex-grow-1 flex-col flex-x-center' style='width:180rpx;'>
+            <view class='font-9 text-more'>{{item.nickname}} 回复了你的评论</view>
+            <view class='font-7'>{{item.time}}</view>
+          </view>
+        </view>
+        <view class='comment-content flex-row'>
+          <view class='left flex-grow-0'></view>
+          <view class='flex-grow-1'>
+            <view style='padding-bottom:20rpx;'>
+              <view>{{item.content}}</view>
+              <view class='flex-row img-block' wx:if='{{item.img.length>0}}'>
+                <block wx:for='{{item.img}}' wx:for-item='pic' wx:for-index='pic_i'>
+                  <image src='{{pic}}' bindtap='previewImg' data-index='{{index}}' data-i='{{pic_i}}'></image>
+                </block>
+              </view>
+            </view>
+            <view class='comment-list' style='background-color:#ddd;border-radius:10rpx;'>
+              <view class='comment-one'>
+                <view class='comment-content flex-row'>
+                  <view class='flex-grow-1'>
+                    <view>{{item.c1_content}}</view>
+                    <view class='flex-row img-block' wx:if='{{item.u_img.length>0}}'>
+                      <block wx:for='{{item.u_img}}' wx:for-item='v_pic' wx:for-index='v_pic_i'>
+                        <image src='{{v_pic}}' bindtap='previewImg_c' data-index='{{index}}' data-i='{{i}}' data-pic='{{v_pic_i}}'></image>
+                      </block>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </block>
+  <block wx:else>
+    <view class='flex-x-center grey-color font-9' style='padding:20rpx'>还没有人对你进行评论</view>
+  </block>
+
+</view>

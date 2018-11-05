@@ -1,0 +1,63 @@
+<!--pages/search/search.wxml-->
+<view class='flex-col' style='width:100%;height:100%;'>
+  <view class='flex-grow-0'>
+    <view class='search-box flex-y-center' style='justify-content:space-between'>
+      <view class='search-input flex-y-center'>
+        <image src='/images/icon-search-gray.png'></image>
+        <input type='text' auto-focus='true' confirm-type='search' bindfocus='inputfocus' bindblur='inputblur' bindinput='inputfocus' bindconfirm='inputconfirm' style='width:100%;' value='{{keyword}}'></input>
+      </view>
+      <view bindtap='cancel'>取消</view>
+    </view>
+  </view>
+  <view class='flex-grow-1'>
+    <block wx:if='{{show_search}}'>
+      <block wx:if='{{history_list && history_list.length>0}}'>
+        <view class='flex-col search-history'>
+          <view class='flex-row' style='justify-content:space-between;margin-bottom:24rpx;'>
+            <text>历史搜索</text>
+            <image src='/images/icon-delete.png' bindtap='deletehistory'></image>
+          </view>
+          <view class='flex-row' style='flex-wrap:wrap'>
+            <view class='label' wx:for='{{history_list}}' bindtap='searchclick' data-keyword='{{item.keyword}}'>{{item.keyword}}</view>
+          </view>
+        </view>
+      </block>
+      <block wx:if='{{hot_list && hot_list.length>0}}'>
+        <view class='flex-col search-history'>
+          <view class='flex-row' style='justify-content:space-between;margin-bottom:24rpx;'>
+            <text>热门搜索</text>
+          </view>
+          <view class='flex-row' style='flex-wrap:wrap'>
+            <view class='label' wx:for='{{hot_list}}' bindtap='searchclick' data-keyword='{{item.keyword}}'>{{item.keyword}}</view>
+          </view>
+        </view>
+      </block>
+    </block>
+    <block wx:if='{{show_result}}'>
+      <block wx:if='{{video_list && video_list.length>0}}'>
+        <block wx:for='{{video_list}}'>
+          <navigator url='/pages/video/video?id={{item.id}}'>
+            <view class='info flex-y-center'>
+              <view class='shadow'></view>
+              <image src='{{item.pic_url}}'></image>
+              <view style='width:100%;'>
+                <view class='white-color font-13 title'>{{item.title}}</view>
+                <view class='white-color flex-x-center title' wx:if='{{item.style != 2}}'>时长：{{item.video_time}}</view>
+              </view>
+            </view>
+          </navigator>
+        </block>
+      </block>
+    </block>
+    <block wx:if='{{show_input}}'>
+      <block wx:if='{{input_list && input_list.length>0}}'>
+        <view class='flex-col show-input'>
+          <view class='input-label flex-y-center' wx:for='{{input_list}}' bindtap='searchclick' data-keyword='{{item.title}}'>
+            <image src='/images/icon-search-gray.png'></image>
+            <view class='hide'>{{item.title}}</view>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+</view>

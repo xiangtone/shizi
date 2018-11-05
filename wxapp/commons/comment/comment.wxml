@@ -1,0 +1,27 @@
+<!--评论-->
+<view class='form {{show?"":"hidden"}}'>
+  <view class='form-content'>
+    <form bindsubmit='submit' report-submit='true'>
+      <textarea placeholder='{{name}}' placeholder-style='color:#eee;'show-confirm-bar='false' focus='{{focus}}' style='min-height:300rpx;' bindinput='input' bindconfirm='input' bindblur='input' value='{{content}}' name='content'></textarea>
+      <view class='img-block flex-row'>
+        <block wx:if='{{img_list.length>0}}' wx:for='{{img_list}}'>
+          <image src='{{item}}' bindtap='deleteImg' data-index='{{index}}'></image>
+        </block>
+      </view>
+      <view class='form-block flex-y-center'>
+        <view class='flex-row' style='width:100%;'>
+          <view class='flex-grow-0 flex-y-center' bindtap='hide'>取消</view>
+          <view class='flex-grow-1'></view>
+          <view class='flex-grow-0 flex-row flex-y-center'>
+
+            <block wx:if='{{img_list.length<5}}'>
+              <image class='flex-grow-0' src='/images/icon-add-img.png' bindtap='chooseImg' style='width:60rpx;height:60rpx;margin-right:20rpx;'></image>
+            </block>
+            <button class='submit flex-grow-1 {{(content!=""||img_list.length>0)?"active":""}}' form-type='submit'>发送</button>
+          </view>
+        </view>
+      </view>
+    </form>
+  </view>
+  <view class='hid' bindtap='hide'></view>
+</view>

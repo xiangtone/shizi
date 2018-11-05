@@ -1,0 +1,347 @@
+<!--pages/video/video.wxml-->
+
+<view class='{{share_show?"blur":""}} {{(share_show || show || show_modal)?"no-scroll":""}} w-100 h-100'>
+    <!-- 客服开始   -->
+    <import src="/commons/float-icon/float-icon.wxml" />
+    <template is="item" data="{{store: store,a:2}}" />
+    <!-- 客服结束 -->
+    <view class='video {{show?"hidden":""}} {{share_show?"hidden":""}}'>
+        <video src='{{video.video_url}}' class='{{play?"":"hidden"}}' controls='controls' id='video' poster='{{video.pic_url}}' duration='{{video.is_pay == 1 ? video_pay.time:""}}' bindtimeupdate='timeupdate' autoplay='true' wx:if='{{play}}'>
+            <cover-view style='width:750rpx;height:420rpx;' wx:if='{{video.style == 1}}'>
+                <cover-view class='w-100 h-100'>
+                    <cover-image style='width:100%;height:100%;' src='{{video.pic_url}}'></cover-image>
+                    <cover-image src='/images/icon-pause.png' class='cover-play' bindtap='pause' data-index='{{index}}'></cover-image>
+                </cover-view>
+            </cover-view>
+        </video>
+        <view class='cover {{play?"hidden":""}}' wx:if='{{video.is_pay==0}}'>
+            <image src='{{video.pic_url}}' class='cover-img'></image>
+            <image src='/images/icon-play-big.png' class='cover-play' bindtap='playVideo' wx:if='{{video.style < 2}}'></image>
+        </view>
+        <view class='cover {{play?"hidden":""}} bg' wx:if='{{video.is_pay==1}}'>
+            <view class='pay-text flex-x-center'>此内容需￥{{video_pay.price}}元购买</view>
+            <view class='flex-row flex-x-center'>
+                <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-1' bindtap='playVideo' wx:if='{{video_pay.time != 0}}'>
+                    <view>试看{{video_pay.d_time}}</view>
+                </view>
+
+                <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='{{store.member == 1 ? "showModal" : "buyVideo"}}'>
+                    <view>立即购买</view>
+                </view>
+            </view>
+        </view>
+        <view class='flex-y-center flex-row info-title border-bottom'>
+            <view class='font-13 text-more flex-grow-1'>{{video.title}}</view>
+            <view class='flex-y-center flex-grow-0'>
+                <view class='share-btn' bindtap='share_1'>
+                    <image src='/images/icon-share.png' class='share'></image>
+                </view>
+                <view class='flex-y-center' style='height:100%;margin-right:12rpx;' bindtap='{{collect_loading?"":"collect"}}'>
+                    <image src='{{collect_loading?"/images/loading2.svg":(video.collect!=0?"/images/icon-collect-un.png":"/images/icon-collect.png")}}' class='collect'></image>
+                    <text style='width:auto;'>{{video.collect_count}}</text>
+                </view>
+                <view class='flex-y-center' style='height:100%;' bindtap='show' data-id='{{0}}'>
+                    <image src='/images/icon-comment.png' class='collect'></image>
+                    <text style='width:auto;'>{{comment_count}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class='info'>
+        <!-- <scroll-view scroll-y='true' style='height:100%;' bindscrolltolower='load'> -->
+        <!-- <view class='kong'></view> -->
+        <view class='info-content border-bottom'>
+            <view class='flex-y-center flex-row' style='width:100%;height:70rpx;margin-bottom:32rpx;'>
+                <view class='flex-grow-0' wx:if='{{video.style != 2}}' style='margin-right:32rpx;'>
+                    时长：{{video.video_time}}
+                </view>
+                <view class='flex-grow-0 page-view flex-row flex-y-center'>
+                    <image src='/images/icon-page-view.png'></image>
+                    <view>{{video.page_view}}</view>
+                </view>
+            </view>
+            <block wx:if="{{video_coupon.length > 0}}">
+                <scroll-view scroll-x="true" class="scroll-view-x" scroll-with-animation="true">
+                    <block wx:for="{{video_coupon}}" wx:key="unique">
+                        <block wx:if="{{item.draw_type == 1}}">
+
+                            <block wx:if="{{item.type == 0}}">
+                                <view class="scroll-view-item">
+                                    <image src='/images/coupon.png' class="coupon"></image>
+                                    <view class="coupon_left">
+                                        <view class="sub_price">{{item.sub_price}}
+                                            <text style="font-size:15px;">元</text> </view>
+                                        <view class="original_cost">满{{item.original_cost}}元可用</view>
+                                    </view>
+                                    <view class="coupon_right">
+                                        <view class="coupon_name">优惠券</view>
+                                        <view class="coupon_receive" bindtap='coupon_receive' data-id="{{item.id}}">点击领取</view>
+                                    </view>
+                                </view>
+                            </block>
+
+                            <block wx:if="{{item.type == 1}}">
+                                <view class="scroll-view-item">
+                                    <image src='/images/coupon_receive.png' class="coupon"></image>
+                                    <view class="coupon_left">
+                                        <view class="sub_price">{{item.sub_price}}
+                                            <text style="font-size:15px;">元</text> </view>
+                                        <view class="original_cost">满{{item.original_cost}}元可用</view>
+                                    </view>
+                                    <view class="coupon_right">
+                                        <view class="coupon_name">优惠券</view>
+                                    </view>
+                                </view>
+                            </block>
+
+                        </block>
+                    </block>
+                </scroll-view>
+            </block>
+
+            <block wx:if="{{video_coupon.length > 0}}">
+                <view style="width:100%;height:20rpx;background:#f2f2f2;"></view>
+            </block>
+
+            <block wx:if="{{draw_type}}">
+                <block wx:for="{{draw_type}}" wx:if="{{index < 2 && flag == 0}}">
+                    <view class="collect_fees_coupon">
+                        <view class="fees_coupon_info">
+                            <image src='{{video.pic_url}}' style="width:120rpx;height:120rpx;margin:32rpx 0;float:left;"></image>
+                            <view class="fees_coupon_name_price">
+                                <view class="fees_coupon_name">优惠券</view>
+                                <view class="fees_coupon_price">
+                                    <text style="font-size:17px;color:#ff4544;margin-right:20rpx;">{{item.coupon_price}}<text style="font-size:13px;">元</text></text>
+                                    <text style="font-size:13px;color:#999999;text-decoration:line-through;">￥{{item.cost_price}}</text>
+                                </view>
+                            </view>
+                            <view class="fees_coupon_right">
+                                <block wx:if="{{item.percentage}}">
+                                    <view class="surplus">剩余{{item.percentage}}</view>
+                                </block>
+                                <block wx:else>
+                                    <view class="surplus">剩余100%</view>
+                                </block>
+                                <block wx:if="{{item.type == 0}}">
+                                    <view class="buynow" bindtap='buyNow' data-id="{{item.id}}" data-video-id="{{video_id}}" data-coupon-id="{{item.coupon_id}}" data-desc="{{item.desc}}">立即购买</view>
+                                </block>
+                                <block wx:else>
+                                    <view class="buy_now">已购买</view>
+                                </block>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+
+                <block wx:if="{{buy_coupon_length > 2 && flag == 0}}">
+                    <view class="chakan" bindtap='chakan'>查看其他{{video_coupon_length}}张代金券
+                        <image src="/images/xiala.png" style="width:24rpx;height:12rpx;margin-left:20rpx;"></image>
+                    </view> 
+                </block>
+                <view style="width:100%;height:20rpx;background:#f2f2f2;"></view> 
+
+                <block wx:for="{{draw_type}}" wx:if="{{flag == 1}}">
+                    <view class="collect_fees_coupon">
+                        <view class="fees_coupon_info">
+                            <image src='{{video.pic_url}}' style="width:120rpx;height:120rpx;margin:32rpx 0;float:left;"></image>
+                            <view class="fees_coupon_name_price">
+                                <view class="fees_coupon_name">优惠券</view>
+                                <view class="fees_coupon_price">
+                                    <text style="font-size:17px;color:#ff4544;margin-right:20rpx;">{{item.coupon_price}}<text style="font-size:13px;">元</text></text>
+                                    <text style="font-size:13px;color:#999999;text-decoration:line-through;">￥{{item.cost_price}}</text>
+                                </view>
+                            </view>
+                            <view class="fees_coupon_right">
+                                <block wx:if="{{item.percentage}}">
+                                    <view class="surplus">剩余{{item.percentage}}</view>
+                                </block>
+                                <block wx:else>
+                                    <view class="surplus">剩余100%</view>
+                                </block>
+                                <block wx:if="{{item.type == 0}}">
+                                    <view class="buynow" bindtap='buyNow' data-id="{{item.id}}" data-video-id="{{video_id}}" data-coupon-id="{{item.coupon_id}}" data-desc="{{item.desc}}">立即购买</view>
+                                </block>
+                                <block wx:else>
+                                    <view class="buy_now">已购买</view>
+                                </block>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+            </block>
+            <view style="margin-top:40rpx;">{{video.content}}</view>
+        </view>
+        <view class='detail' wx:if='{{video.detail}}'>
+            <view class='detail-content'>
+                <import src="../../wxParse/wxParse.wxml" />
+                <template is="wxParse" data="{{wxParseData:detail.nodes}}" />
+            </view>
+        </view>
+        <view class='detail' wx:if='{{video.form_list.length!=0 && video.order==1}}' style='padding-top:0;'>
+            <view class='detail-title flex-row flex-y-center border-bottom'>
+                <image src='/images/icon-prew.png' class='flex-grow-0'></image>
+                <view class='flex-grow-1'>{{video.form_name?video.form_name:"预定表单"}}</view>
+            </view>
+            <view class='form-list'>
+                <form bindsubmit='formSubmit' report-submit='true'>
+                    <block wx:for='{{video.form_list}}'>
+                        <block wx:if='{{item.type=="text"}}'>
+                            <view class='detail-text flex-row flex-y-center {{video.form_list.length == index+1?"border-0":" m-border-bottom"}}'>
+                                <view class='flex-grow-0 {{item.required==1?"required":""}}' style='margin-right:10rpx;'>{{item.name}}：
+                                </view>
+                                <view class='flex-grow-1'>
+                                    <input type='text' placeholder='{{item.tip}}' bindInput='formInput' bindConfirm='formInput' bindblur='formInput' data-index='{{index}}' value='{{item.value}}'></input>
+                                </view>
+                            </view>
+                        </block>
+                        <block wx:if='{{item.type == "textarea"}}'>
+                            <view class='detail-textarea flex-row flex-y-center {{video.form_list.length == index+1?"border-0":" m-border-bottom"}}'>
+                                <view class='flex-grow-0 {{item.required==1?"required":""}}' style='margin-right:10rpx;'>{{item.name}}：
+                                </view>
+                                <view class='flex-grow-1'>
+                                    <textarea auto-height='true' placeholder='{{item.tip}}' bindInput='formInput' bindConfirm='formInput' bindblur='formInput' data-index='{{index}}' value='{{item.value}}'></textarea>
+                                </view>
+                            </view>
+                        </block>
+                        <block wx:if='{{item.type == "time"}}'>
+                            <view class='detail-text flex-row flex-y-center {{video.form_list.length == index+1?"border-0":" m-border-bottom"}}'>
+                                <view class='flex-grow-0 {{item.required==1?"required":""}}' style='margin-right:10rpx;'>{{item.name}}：
+                                </view>
+                                <view class='flex-grow-1'>
+                                    <picker mode='time' value='{{item.value?item.value:"00:00"}}' start='00:00' end='23:59' bindchange='formInput' data-index='{{index}}'>
+                                        <view>{{item.value?item.value:"00:00"}}</view>
+                                    </picker>
+                                </view>
+                            </view>
+                        </block>
+                        <block wx:if='{{item.type == "date"}}'>
+                            <view class='detail-text flex-row flex-y-center {{video.form_list.length == index+1?"border-0":" m-border-bottom"}}'>
+                                <view class='flex-grow-0 {{item.required==1?"required":""}}' style='margin-right:10rpx;'>{{item.name}}：
+                                </view>
+                                <view class='flex-grow-1'>
+                                    <picker mode='date' value='{{item.value?item.value:time}}' bindchange='formInput' data-index='{{index}}'>
+                                        <view>{{item.value?item.value:time}}</view>
+                                    </picker>
+                                </view>
+                            </view>
+                        </block>
+                    </block>
+                    <button form-type='submit' class='detail-btn flex-y-center flex-x-center' hover-class='detail-btn-active'>{{video.money!=0?"立即预约￥"+video.money:"免费预约"}}
+                    </button>
+                </form>
+            </view>
+        </view>
+        <view class='flex-y-center' style='width:100%;height:100rpx;padding: 0 24rpx;'>
+            <image src='/images/icon-tuijian.png' style='width:32rpx;height:34rpx;'></image>
+            <view style='margin-left:12rpx'>相关推荐</view>
+        </view>
+        <view class='tuijian flex-row'>
+            <block wx:for='{{video_list}}'>
+                <view class='img flex-grow-0' bindtap='play' data-id='{{item.id}}'>
+                    <view class='shadow' style='z-index:9'></view>
+                    <image src='{{item.pic_url}}'></image>
+                    <view class='info-label'>
+                        <image src='/images/icon-play-littile.png' wx:if='{{item.style!=2}}'></image>
+                        <text class='title'>{{item.title}}</text>
+                        <text class='time' wx:if='{{item.style!=2}}'>{{item.video_time}}</text>
+                    </view>
+                </view>
+            </block>
+        </view>
+        <!--评论-->
+        <view class='flex-y-center' style='width:100%;height:100rpx;padding: 0 24rpx;'>
+            <image src='/images/icon-tuijian.png' style='width:32rpx;height:34rpx;'></image>
+            <view style='margin-left:12rpx'>评论（{{comment_count}}）</view>
+        </view>
+        <view class='comment-list'>
+            <block wx:if='{{comment_list.length>0}}' wx:for='{{comment_list}}'>
+                <view class='comment-one m-border-top'>
+                    <view class='comment-title flex-row'>
+                        <view class='flex-grow-0 flex-y-center left'>
+                            <image src='{{item.avatar_url}}'></image>
+                        </view>
+                        <view class='flex-grow-1 flex-col flex-x-center' style='width:180rpx;'>
+                            <view class='font-9 text-more'>{{item.nickname}}</view>
+                            <view class='font-7'>{{cc_count - index}}楼 {{item.time}}</view>
+                        </view>
+                        <view class='flex-grow-0 flex-y-center right' bindtap='{{thump_loading==index?"":"thump"}}' data-index='{{index}}'>
+                            <image src='{{thump_loading==index?"/images/loading2.svg":(item.thump?"/images/icon-goods.png":"/images/icon-goods-un.png")}}' style='width:32rpx;height:34rpx;margin-right:12rpx;'></image>
+                            <text>{{item.thump_count}}</text>
+                        </view>
+                        <view class='flex-grow-0 flex-y-center right' bindtap='show' data-id='{{item.id}}' data-name='{{item.nickname}}'>
+                            <image src='/images/icon-comment.png' style='width:32rpx;height:34rpx;margin-right:12rpx;'></image>
+                            <text>{{item.children.length}}</text>
+                        </view>
+                    </view>
+                    <view class='comment-content flex-row'>
+                        <view class='left flex-grow-0'></view>
+                        <view class='flex-grow-1'>
+                            <view style='padding-bottom:20rpx;'>
+                                <view>{{item.content}}</view>
+                                <view class='flex-row img-block' wx:if='{{item.img.length>0}}'>
+                                    <block wx:for='{{item.img}}' wx:for-item='pic' wx:for-index='pic_i'>
+                                        <image src='{{pic}}' bindtap='previewImg' data-index='{{index}}' data-i='{{pic_i}}'></image>
+                                    </block>
+                                </view>
+                            </view>
+                            <view class='comment-list'>
+                                <block wx:if='{{item.children.length>0}}' wx:for='{{item.children}}' wx:for-item='v' wx:for-index='i'>
+                                    <view class='comment-one'>
+                                        <view class='comment-title flex-row'>
+                                            <view class='flex-grow-0 flex-y-center left'>
+                                                <image src='{{v.avatar_url}}'></image>
+                                            </view>
+                                            <view class='flex-grow-1 flex-col flex-x-center' style='width:180rpx;'>
+                                                <view class='font-9 text-more'>{{v.nickname}} 回复 {{v.p_name}}</view>
+                                                <view class='font-7'>{{v.time}}</view>
+                                            </view>
+                                            <view class='flex-grow-0 flex-y-center right' bindtap='show' data-id='{{v.id}}' data-name='{{v.nickname}}'>
+                                                <image src='/images/icon-comment.png' style='width:32rpx;height:34rpx;'></image>
+                                            </view>
+                                        </view>
+                                        <view class='comment-content flex-row'>
+                                            <view class='flex-grow-1'>
+                                                <view>{{v.content}}</view>
+                                                <view class='flex-row img-block' wx:if='{{v.img.length>0}}'>
+                                                    <block wx:for='{{v.img}}' wx:for-item='v_pic' wx:for-index='v_pic_i'>
+                                                        <image src='{{v_pic}}' bindtap='previewImg_c' data-index='{{index}}' data-i='{{i}}' data-pic='{{v_pic_i}}'></image>
+                                                    </block>
+                                                </view>
+                                            </view>
+                                        </view>
+                                    </view>
+                                </block>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+        <!-- </scroll-view> -->
+    </view>
+    <view class='show_modal flex-row flex-x-center flex-y-center {{show_modal?"":"hidden"}}'>
+        <view class='modal'>
+            <view class='modal-title'>
+                <image class='w-100 h-100' src='/images/icon-video-title.png'></image>
+                <view class='modal-xx flex-x-center flex-y-center' bindtap='closeModal'>
+                    <image src='/images/icon-video-xx.png'></image>
+                </view>
+            </view>
+            <view class='modal-body'>
+                <view>此视频为付费视频</view>
+                <view>单独购买需支付￥{{video_pay.price}}</view>
+                <view>开通VIP自由畅想全站影视</view>
+            </view>
+            <view class='modal-footer flex-row flex-x-center'>
+                <view class='flex-grow-0 flex-x-center flex-y-center pay-btn-1 btn-3' bindtap='buyVideo'>单独购买</view>
+                <view class='flex-grow-0 flex-x-center flex-y-center pay-btn-1 btn-2' bindtap='buyVip'>开通VIP</view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class='Toast' wx:if='{{isShowToast}}'>
+    <image src='/images/icon-true.png'></image>
+    <view style=' margin-top: 32rpx;color:#fff;'>{{toast_text}}</view>
+</view>
+<include src="/commons/comment/comment.wxml" />
+<include src="/commons/share/share.wxml" />

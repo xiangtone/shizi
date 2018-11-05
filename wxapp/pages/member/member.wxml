@@ -1,0 +1,55 @@
+<!--pages/member/member.wxml-->
+<view>
+    <view class='user flex-row' style='background-image:url("/images/icon-member-title.png");background-size:cover' wx:if='{{user_info && user_info.is_member == 1}}'>
+        <view class='flex-grow-0'>
+            <image src='{{user_info.avatar_url}}'></image>
+        </view>
+        <view class='right flex-grow-1 flex-y-bottom'>
+            <view>
+                <view class='flex-row'>
+                    <view class='flex-grow-0'>{{user_info.nickname}}</view>
+                    <view class='flex-grow-0'>
+                        <image src='/images/icon-member.png' style='width:34rpx;height:28rpx;margin-left:10rpx;'></image>
+                    </view>
+                </view>
+                <view class='font-9 grey-color'>会员{{user_info.due_time}}到期</view>
+            </view>
+        </view>
+    </view>
+    <view class='user flex-row' wx:else>
+        <view class='flex-grow-0'>
+            <image src='{{user_info.avatar_url}}'></image>
+        </view>
+        <view class='right flex-grow-1 flex-y-bottom'>
+            <view>
+                <view class='flex-row'>
+                    <view class='flex-grow-0'>{{user_info.nickname}}</view>
+                </view>
+                <view class='font-9 grey-color'>当前未开通会员</view>
+            </view>
+        </view>
+    </view>
+    <view class='list'>
+        <block wx:if='{{list.length > 0}}' wx:for='{{list}}'>
+            <view class='one flex-row'>
+                <view class='flex-row flex-y-center'>
+                    <view class='flex-grow-0 text-more' style='width:320rpx;'>{{item.title}}</view>
+                    <view class='flex-grow-0 one-1 flex-x-center flex-y-center' wx:if='{{item.is_groom == 1}}'>推荐</view>
+                </view>
+                <view class='flex-row flex-grow-0 flex-y-center'>
+                    <view class='flex-grow-1 one-2' wx:if='{{user_info.is_member == 1 && item.s_price>0}}'>
+                        <view>￥{{item.s_price}}</view>
+                        <view class='price'>￥{{item.price}}</view>
+                    </view>
+                    <view class='flex-grow-1 one-2' wx:else>
+                        <view class='flex-y-center'>￥{{item.price}}</view>
+                    </view>
+                    <view class='flex-grow-0 one-3 flex-x-center flex-y-center' bindtap='submit' data-index='{{index}}'>{{user_info.is_member == 1?"续费":"开通"}}</view>
+                </view>
+            </view>
+        </block>
+    </view>
+    <view class='content'>
+        <text>{{content}}</text>
+    </view>
+</view>

@@ -1,0 +1,25 @@
+/* pages/user-video/user-video.wxss */
+
+.video-list {
+    width: 100%;
+    background-color: #fff;
+}
+
+.video-one {
+    width: 100%;
+    padding: 40rpx 32rpx;
+}
+
+.video-one .pic {
+    width: 220rpx;
+    height: 124rpx;
+    margin-right: 24rpx;
+    background-size: cover;
+    background-position: center;
+}
+
+.time {
+    color: #999;
+    margin-top: 10rpx;
+    font-size: 9pt;
+}

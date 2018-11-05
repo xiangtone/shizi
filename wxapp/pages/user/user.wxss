@@ -1,0 +1,77 @@
+/* pages/user/user.wxss */
+
+.user-info {
+    width: 100%;
+    height: 212rpx;
+    position: relative;
+}
+
+.user-info .user-info-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.user-info .avatar {
+    width: 140rpx;
+    height: 140rpx;
+    margin-left: 60rpx;
+    margin-right: 50rpx;
+    border-radius: 140rpx;
+    border: 8rpx solid rgba(255, 255, 255, 0.35);
+}
+
+.block {
+    height: 120rpx;
+    width: 100%;
+    padding: 0 24rpx;
+    position: relative;
+    background-color: #fff;
+    border-bottom: 1rpx solid #e3e3e3;
+}
+
+.block .right {
+    position: absolute;
+    top: 40rpx;
+    right: 0;
+}
+
+.member-icon {
+    width: 152rpx;
+    height: 40rpx;
+    margin-top: 14rpx;
+    background-color: #665144;
+    border-radius: 20rpx;
+    background-image: -webkit-linear-gradient(120deg, #665144, #392e25);
+    background-image: linear-gradient(120deg, #665144, #392e25);
+    font-size: 9pt;
+}
+
+.member-icon image {
+    width: 28rpx;
+    height: 24rpx;
+    margin-right: 8rpx;
+}
+
+.member-1 {
+    color: #999;
+    margin-right: 24rpx;
+    font-size: 9pt;
+}
+
+.login-btn {
+    border: 0;
+    background: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font-size: 13pt;
+}
+
+.login-btn::after {
+    content: '';
+    border: 0;
+}
