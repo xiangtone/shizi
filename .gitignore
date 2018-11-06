@@ -1,7 +1,7 @@
 ﻿#过滤
 *.log
 .htaccess
-
+/project.config.json
 
 #过滤文件夹
 addons/hs_video/core/runtime/
