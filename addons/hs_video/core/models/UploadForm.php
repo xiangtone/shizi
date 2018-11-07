@@ -47,7 +47,7 @@ class UploadForm extends Model
     {
         $min = self::getMaxUploadSize();
         return [
-            [['image'], 'file'],
+            [['image'], 'file', 'maxSize' => $min * 1024 * 1024, 'message' => '上传图片超过' . $min],
             [['video'], 'file', 'maxSize' => $min * 1024 * 1024, 'message' => '上传视频超过' . $min]
         ];
     }
