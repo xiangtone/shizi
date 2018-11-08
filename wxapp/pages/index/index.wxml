@@ -69,13 +69,13 @@
             <view style='width:100%;padding-bottom:72rpx;'>
                 <view class='video-head'>
                     <view class='video-head {{index==hide?"hide":""}}'>
-                    <block wx:if="{{item.style == 0 || item.style == 1}}">
-                        <image src='{{item.pic_url}}' style='width:100%;height:100%;'></image>
-                        <image class='play'  src='/images/icon-play-big.png' bindtap='play' data-index='{{index}}'></image>
-                    </block>
-                    <block wx:else>
-                        <image src='{{item.pic_url}}' style='width:100%;height:100%;' bindtap='videoplay' data-id='{{item.id}}'></image>
-                    </block>
+                        <block wx:if="{{item.style == 0 || item.style == 1}}">
+                            <image src='{{item.pic_url}}' style='width:100%;height:100%;'></image>
+                            <image class='play' src='/images/icon-play-big.png' bindtap='play' data-index='{{index}}'></image>
+                        </block>
+                        <block wx:else>
+                            <image src='{{item.pic_url}}' style='width:100%;height:100%;' bindtap='videoplay' data-id='{{item.id}}'></image>
+                        </block>
                         <image class='pic_style' src='{{store.video_icon?store.video_icon:"/images/icon-video-icon.png"}}' wx:if='{{store.pic_style==1 && item.style==0}}'></image>
                         <image class='pic_style' src='{{store.audio_icon?store.audio_icon:"/images/icon-audio-icon.png"}}' wx:if='{{store.pic_style==1 && item.style==1}}'></image>
                         <view class='pay-style flex-x-center flex-y-center' wx:if='{{item.pay}}'>收费</view>
@@ -94,7 +94,10 @@
                                 <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-1' bindtap='is_wifi' data-index='{{index}}'>
                                     <cover-view>试看{{item.pay.d_time}}</cover-view>
                                 </cover-view>
-                                <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='buyVideo' data-index='{{index}}'>
+                                <!-- <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='buyVideo' data-index='{{index}}'>
+                                    <cover-view>立即购买</cover-view>
+                                </cover-view> -->
+                                <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='buyCat' data-index='{{index}}'>
                                     <cover-view>立即购买</cover-view>
                                 </cover-view>
                             </cover-view>

@@ -23,7 +23,8 @@ use app\modules\api\models\PrewForm;
 use app\modules\api\models\QrocdeForm;
 use app\modules\api\models\RefundDetailForm;
 use app\modules\api\models\CouponOrderForm;
-
+use app\modules\api\models\OrderCatForm;
+use app\modules\api\models\OrderPayCatForm;
 class OrderController extends Controller
 {
     public function behaviors()
@@ -33,6 +34,29 @@ class OrderController extends Controller
                 'class' => LoginBehavior::className(),
             ],
         ]);
+    }
+     /**
+     * 购买视频
+     */
+    public function actionVideo()
+    {
+        $form = new OrderVideoForm();
+        $form->store_id = $this->store->id;
+        $form->user = \Yii::$app->user->identity;
+        $form->attributes = \Yii::$app->request->post();
+        $this->renderJson($form->save());
+    }
+    /**
+    * 购买分类
+    */
+    public function actionCat()
+    {
+
+        $form = new OrderCatForm();
+        $form->store_id = $this->store->id;
+        $form->user = \Yii::$app->user->identity;
+        $form->attributes = \Yii::$app->request->post();
+        $this->renderJson($form->save());
     }
     /**
      * 表单提交
@@ -51,7 +75,8 @@ class OrderController extends Controller
      */
     public function actionGetPayData()
     {
-        $form = new OrderPayDataForm();
+        //$form = new OrderPayDataForm();
+        $form = new OrderPayCatForm();
         $form->store_id = $this->store->id;
         $form->user = \Yii::$app->user->identity;
         $form->attributes = \Yii::$app->request->post();
@@ -144,17 +169,7 @@ class OrderController extends Controller
         $form->attributes = \Yii::$app->request->get();
         $this->renderJson($form->search());
     }
-    /**
-     * 购买视频
-     */
-    public function actionVideo()
-    {
-        $form = new OrderVideoForm();
-        $form->store_id = $this->store->id;
-        $form->user = \Yii::$app->user->identity;
-        $form->attributes = \Yii::$app->request->post();
-        $this->renderJson($form->save());
-    }
+   
 
     /**
      * 购买优惠券

@@ -25,7 +25,10 @@
                     <view>试看{{video_pay.d_time}}</view>
                 </view>
 
-                <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='{{store.member == 1 ? "showModal" : "buyVideo"}}'>
+                <!-- <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='{{store.member == 1 ? "showModal" : "buyVideo"}}'>
+                    <view>立即购买</view>
+                </view> -->
+                <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='{{store.member == 1 ? "showModal" : "buyCat"}}'>
                     <view>立即购买</view>
                 </view>
             </view>

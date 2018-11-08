@@ -14,6 +14,7 @@ use app\extensions\WechatTplMsg;
 use app\models\MemberOrder;
 use app\models\Option;
 use app\models\Order;
+use app\models\OrderCat;
 use app\models\Store;
 use app\models\User;
 use app\models\WechatApp;
@@ -42,19 +43,11 @@ class PayNotifyController extends Controller
     {
         if ($res['result_code'] != 'SUCCESS' && $res['return_code'] != 'SUCCESS')
             return;
-        $order = Order::findOne([
+        $order_cat = OrderCat::findOne([
             'order_no' => $res['out_trade_no'],
         ]);
-        if(!$order){
-            /*
-            $order2 = CouponOrder::findOne([
-                'order_no' => $res['out_trade_no'],
-            ]);
-            if (!$order2){
-                return $this->wechatPayNotify_1($res);
-            }
-            $store = Store::findOne($order2->store_id);
-            */
+        if(!$order_cat){
+           
             if (!$store)
                 return;
             $wechat_app = WechatApp::findOne($store->wechat_app_id);
@@ -72,23 +65,102 @@ class PayNotifyController extends Controller
                 echo "Sign 错误";
                 return;
             }
-            /*
-            if ($order2->is_pay == 1) {
-                echo "订单已支付";
+           
+        }
+        $store = Store::findOne($order_cat->store_id);
+        if (!$store)
+            return;
+        $wechat_app = WechatApp::findOne($store->wechat_app_id);
+        if (!$wechat_app)
+            return;
+        $wechat = new Wechat([
+            'appId' => $wechat_app->app_id,
+            'appSecret' => $wechat_app->app_secret,
+            'mchId' => $wechat_app->mch_id,
+            'apiKey' => $wechat_app->key,
+            'cachePath' => \Yii::$app->runtimePath . '/cache',
+        ]);
+        $new_sign = $wechat->pay->makeSign($res);
+        if ($new_sign != $res['sign']) {
+            echo "Sign 错误";
+            return;
+        }
+        if ($order_cat->is_pay == 1) {
+            echo "订单已支付";
+            return;
+        }
+        $order_cat->is_pay = 1;
+        $order_cat->pay_time = time();
+        $order_cat->pay_type = 1;
+        $order_cat->is_use =0;     //设置为使用,不设置会有问题
+        if ($order_cat->save()) {
+            if($order_cat->type == 0){
+                $wechat_tpl_meg_sender = new WechatTplMsg($order_cat->store_id, $order_cat->id, $wechat);
+                $wechat_tpl_meg_sender->payMsg();//支付成功消息通知
+            }
+            echo '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
+            return;
+        } else {
+            echo "支付失败";
+            return;
+        }
+    }
+    
+    /*
+        微信支付回调处理
+    */
+    /*
+    private function wechatPayNotify($res)
+    {
+        if ($res['result_code'] != 'SUCCESS' && $res['return_code'] != 'SUCCESS')
+            return;
+        $order = Order::findOne([
+            'order_no' => $res['out_trade_no'],
+        ]);
+        if(!$order){
+            
+            // $order2 = CouponOrder::findOne([
+            //     'order_no' => $res['out_trade_no'],
+            // ]);
+            // if (!$order2){
+            //     return $this->wechatPayNotify_1($res);
+            // }
+            // $store = Store::findOne($order2->store_id);
+            
+            if (!$store)
+                return;
+            $wechat_app = WechatApp::findOne($store->wechat_app_id);
+            if (!$wechat_app)
+                return;
+            $wechat = new Wechat([
+                'appId' => $wechat_app->app_id,
+                'appSecret' => $wechat_app->app_secret,
+                'mchId' => $wechat_app->mch_id,
+                'apiKey' => $wechat_app->key,
+                'cachePath' => \Yii::$app->runtimePath . '/cache',
+            ]);
+            $new_sign = $wechat->pay->makeSign($res);
+            if ($new_sign != $res['sign']) {
+                echo "Sign 错误";
                 return;
             }
-            $order2->is_pay = 1;
-            $order2->pay_time = time();
-            $order2->pay_type = 1;
-            if ($order2->save()) {
-                $this->couponReceive($order2);
-                echo '支付成功';
-                return;
-            } else {
-                echo "支付失败";
-                return;
-            }
-            */
+            
+            // if ($order2->is_pay == 1) {
+            //     echo "订单已支付";
+            //     return;
+            // }
+            // $order2->is_pay = 1;
+            // $order2->pay_time = time();
+            // $order2->pay_type = 1;
+            // if ($order2->save()) {
+            //     $this->couponReceive($order2);
+            //     echo '支付成功';
+            //     return;
+            // } else {
+            //     echo "支付失败";
+            //     return;
+            // }
+           
         }
         $store = Store::findOne($order->store_id);
         if (!$store)
@@ -128,6 +200,7 @@ class PayNotifyController extends Controller
             return;
         }
     }
+    */
     /*
     private function couponReceive($order2)
     {

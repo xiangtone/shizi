@@ -75,7 +75,17 @@ class UserController extends Controller
         $form->attributes = \Yii::$app->request->get();
         $this->renderJson($form->search());
     }
-
+    /**
+     * 首页视频列表--分类
+     */
+     public function actionVideoCatList()
+     {
+         $form = new ListForm();
+         $form->store_id = $this->store->id;
+         $form->user_id = \Yii::$app->user->identity->id;
+         $form->attributes = \Yii::$app->request->get();
+         $this->renderJson($form->getCatList());
+     }
     /**
      * 首页视频列表
      */

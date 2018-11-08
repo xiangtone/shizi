@@ -17,9 +17,10 @@ var api = {
     },
     user: {
         collect: _api_root + 'user/collect',
-        video: _api_root + 'user/video',
+        video: _api_root + 'user/video', //获取视频详情
         collect_video: _api_root + 'user/collect-video',
-        video_list: _api_root + 'user/video-list',
+        video_list: _api_root + 'user/video-list', //视频列表
+        video_cat_list: _api_root + 'user/video-cat-list', //视频分类列表
         comment: _api_root + 'user/comment',
         comment_list: _api_root + 'user/comment-list',
         thump: _api_root + 'user/thump',
@@ -48,8 +49,10 @@ var api = {
         refund: _api_root + 'order/refund',
         refund_prew: _api_root + 'order/refund-prew',
         refund_detail: _api_root + 'order/refund-detail',
-        video: _api_root + 'order/video',
+        video: _api_root + 'order/video', //视频订单
+        cat: _api_root + 'order/cat', //视频分类订单
         member_order: _api_root + 'order/member-order',
+        get_member_data: _api_root + 'order/get-member-data',
         get_member_data: _api_root + 'order/get-member-data',
         video_coupon: _api_root + 'order/video-coupon',
     },
