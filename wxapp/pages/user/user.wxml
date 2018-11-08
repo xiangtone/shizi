@@ -1,112 +1,108 @@
 <!--pages/user/user.wxml-->
 <view>
-    <view class='user-info flex-y-center flex-row'>
-        <image src='/images/icon-user-info-bg.png' class='user-info-bg'></image>
-        <block wx:if="{{user_info && user_info.id}}">
-            <image class='avatar flex-grow-0' src='{{user_info.avatar_url}}'></image>
-            <view class='flex-grow-1'>
-                <view class='white-color font-13'>{{user_info.nickname}}</view>
-                <view class='white-color font-9' style='margin-top:20rpx;' wx:if='{{store.member == 1}}'>
-                    <block wx:if='{{user_info.is_member == 1}}'>
-                        <view class='member-icon flex-x-center'>
-                            <view class='flex-row flex-y-center'>
-                                <image src='/images/icon-user-member.png' class='flex-grow-0'></image>
-                                <view class='flex-grow-1'>VIP会员</view>
-                            </view>
-                        </view>
-                    </block>
-                    <block wx:else>
-                        <view>您还不是VIP会员</view>
-                    </block>
-                </view>
+  <view class='user-info flex-y-center flex-row'>
+    <image src='/images/icon-user-info-bg.png' class='user-info-bg'></image>
+    <block wx:if="{{user_info && user_info.id}}">
+      <image class='avatar flex-grow-0' src='{{user_info.avatar_url}}'></image>
+      <view class='flex-grow-1'>
+        <view class='white-color font-13'>{{user_info.nickname}}</view>
+        <view class='white-color font-9' style='margin-top:20rpx;' wx:if='{{store.member == 1}}'>
+          <block wx:if='{{user_info.is_member == 1}}'>
+            <view class='member-icon flex-x-center'>
+              <view class='flex-row flex-y-center'>
+                <image src='/images/icon-user-member.png' class='flex-grow-0'></image>
+                <view class='flex-grow-1'>VIP会员</view>
+              </view>
             </view>
-        </block>
-        <block wx:else>
-            <image class='avatar flex-grow-0' src='/images/icon-user-default.png'></image>
-            <view class='flex-grow-1'>
-                <button class='white-color login-btn' open-type='getUserInfo' bindgetuserinfo='login' bindtap='login_1'>点击登录</button>
-            </view>
-        </block>
-    </view>
-    <block wx:if='{{store.member == 1}}'>
-        <navigator class='' url='/pages/member/member'>
-            <view class='flex-row flex-y-center block'>
-                <image class='flex-grow-0' src='/images/icon-user-member-1.png' style='width:50rpx;height:44rpx;'></image>
-                <view class='flex-grow-1' style='margin-left:20rpx;'>会员中心</view>
-                <view wx:if='{{user_info.is_member == 0}}' class='flex-grow-0 member-1'>开通VIP，畅享全站视频</view>
-                <view wx:if='{{user_info.is_member == 1}}' class='flex-grow-0 member-1'>续费会员</view>
-                <image class='flex-grow-0' src='/images/icon-right.png' style='width:12rpx;height:26rpx;'></image>
-            </view>
-        </navigator>
+          </block>
+          <block wx:else>
+            <view>您还不是VIP会员</view>
+          </block>
+        </view>
+      </view>
     </block>
-    <view class='' style='margin-top:20rpx;'>
-        <navigator class='block' url='/pages/user-coupon/user-coupon'>
-            <view class='flex-y-center' style='width:100%;height:100%;position:relative;'>
-                <image src='/images/coupon_pic.png' style='width:50rpx;height:50rpx;'></image>
-                <text style='margin-left:20rpx;'>优惠券</text>
-                <view class='right'>
-                    <image src='/images/icon-right.png' style='width:12rpx;height:26rpx;'></image>
-                </view>
-            </view>
-        </navigator>
-
-        <navigator class='block' url='/pages/user-binding/user-binding'>
-            <view class='flex-y-center' style='width:100%;height:100%;position:relative;'>
-                <image src='/images/icon-video-myPhone.png' style='width:50rpx;height:50rpx;'></image>
-                <text style='margin-left:20rpx;'>绑定手机号</text>
-                <view class='right'>
-                    <image src='/images/icon-right.png' style='width:12rpx;height:26rpx;'></image>
-                </view>
-            </view>
-        </navigator>
-
-        <navigator class='block' url='/pages/user-video/user-video'>
-            <view class='flex-y-center' style='width:100%;height:100%;position:relative;'>
-                <image src='/images/icon-user-video.png' style='width:50rpx;height:50rpx;'></image>
-                <text style='margin-left:20rpx;'>已购买的内容</text>
-                <view class='right'>
-                    <image src='/images/icon-right.png' style='width:12rpx;height:26rpx;'></image>
-                </view>
-            </view>
-        </navigator>
-        <navigator class='block' url='/pages/order/order?status=1'>
-            <view class='flex-y-center' style='width:100%;height:100%;position:relative;'>
-                <image src='/images/icon-order.png' style='width:50rpx;height:50rpx;'></image>
-                <text style='margin-left:20rpx;'>我的订单</text>
-                <view class='right'>
-                    <image src='/images/icon-right.png' style='width:12rpx;height:26rpx;'></image>
-                </view>
-            </view>
-        </navigator>
-        <navigator class='block' url='/pages/user-comment/user-comment'>
-            <view class='flex-y-center' style='width:100%;height:100%;position:relative;'>
-                <image src='/images/icon-comment.png' style='width:50rpx;height:50rpx;'></image>
-                <text style='margin-left:20rpx;'>评论过我的</text>
-                <view class='right'>
-                    <image src='/images/icon-right.png' style='width:12rpx;height:26rpx;'></image>
-                </view>
-            </view>
-        </navigator>
-
-        <navigator class='block' url='/pages/collect/collect'>
-            <view class='flex-y-center' style='width:100%;height:100%;position:relative;'>
-                <image src='/images/icon-user-collect.png' style='width:50rpx;height:50rpx;'></image>
-                <text style='margin-left:20rpx;'>我的收藏</text>
-                <view class='right'>
-                    <image src='/images/icon-right.png' style='width:12rpx;height:26rpx;'></image>
-                </view>
-            </view>
-        </navigator>
-
-        <navigator class='block' bindtap='tel' data-tel='{{contact_tel}}' wx:if='{{contact_tel !=""}}'>
-            <view class='flex-y-center' style='width:100%;height:100%;position:relative;'>
-                <image src='/images/icon-user-tel.png' style='width:50rpx;height:50rpx;'></image>
-                <text style='margin-left:20rpx;'>联系我们</text>
-                <view class='right'>
-                    <image src='/images/icon-right.png' style='width:12rpx;height:26rpx;'></image>
-                </view>
-            </view>
-        </navigator>
-    </view>
+    <block wx:else>
+      <image class='avatar flex-grow-0' src='/images/icon-user-default.png'></image>
+      <view class='flex-grow-1'>
+        <button class='white-color login-btn' open-type='getUserInfo' bindgetuserinfo='login' bindtap='login_1'>点击登录</button>
+      </view>
+    </block>
+  </view>
+  <block wx:if='{{store.member == 1}}'>
+    <navigator class='' url='/pages/member/member'>
+      <view class='flex-row flex-y-center block'>
+        <image class='flex-grow-0' src='/images/icon-user-member-1.png' style='width:50rpx;height:44rpx;'></image>
+        <view class='flex-grow-1' style='margin-left:20rpx;'>会员中心</view>
+        <view wx:if='{{user_info.is_member == 0}}' class='flex-grow-0 member-1'>开通VIP，畅享全站视频</view>
+        <view wx:if='{{user_info.is_member == 1}}' class='flex-grow-0 member-1'>续费会员</view>
+        <image class='flex-grow-0' src='/images/icon-right.png' style='width:12rpx;height:26rpx;'></image>
+      </view>
+    </navigator>
+  </block>
+  <view class='' style='margin-top:20rpx;'>
+    <navigator class='block' url='/pages/user-coupon/user-coupon'>
+      <view class='flex-y-center' style='width:100%;height:100%;position:relative;'>
+        <image src='/images/coupon_pic.png' style='width:50rpx;height:50rpx;'></image>
+        <text style='margin-left:20rpx;'>优惠券</text>
+        <view class='right'>
+          <image src='/images/icon-right.png' style='width:12rpx;height:26rpx;'></image>
+        </view>
+      </view>
+    </navigator>
+    <navigator class='block' url='/pages/user-binding/user-binding'>
+      <view class='flex-y-center' style='width:100%;height:100%;position:relative;'>
+        <image src='/images/icon-video-myPhone.png' style='width:50rpx;height:50rpx;'></image>
+        <text style='margin-left:20rpx;'>绑定手机号</text>
+        <view class='right'>
+          <image src='/images/icon-right.png' style='width:12rpx;height:26rpx;'></image>
+        </view>
+      </view>
+    </navigator>
+    <navigator class='block' url='/pages/user-video/user-video'>
+      <view class='flex-y-center' style='width:100%;height:100%;position:relative;'>
+        <image src='/images/icon-user-video.png' style='width:50rpx;height:50rpx;'></image>
+        <text style='margin-left:20rpx;'>已购买的内容</text>
+        <view class='right'>
+          <image src='/images/icon-right.png' style='width:12rpx;height:26rpx;'></image>
+        </view>
+      </view>
+    </navigator>
+    <navigator class='block' url='/pages/order/order?status=1'>
+      <view class='flex-y-center' style='width:100%;height:100%;position:relative;'>
+        <image src='/images/icon-order.png' style='width:50rpx;height:50rpx;'></image>
+        <text style='margin-left:20rpx;'>我的订单</text>
+        <view class='right'>
+          <image src='/images/icon-right.png' style='width:12rpx;height:26rpx;'></image>
+        </view>
+      </view>
+    </navigator>
+    <navigator class='block' url='/pages/user-comment/user-comment'>
+      <view class='flex-y-center' style='width:100%;height:100%;position:relative;'>
+        <image src='/images/icon-comment.png' style='width:50rpx;height:50rpx;'></image>
+        <text style='margin-left:20rpx;'>评论过我的</text>
+        <view class='right'>
+          <image src='/images/icon-right.png' style='width:12rpx;height:26rpx;'></image>
+        </view>
+      </view>
+    </navigator>
+    <navigator class='block' url='/pages/collect/collect'>
+      <view class='flex-y-center' style='width:100%;height:100%;position:relative;'>
+        <image src='/images/icon-user-collect.png' style='width:50rpx;height:50rpx;'></image>
+        <text style='margin-left:20rpx;'>我的收藏</text>
+        <view class='right'>
+          <image src='/images/icon-right.png' style='width:12rpx;height:26rpx;'></image>
+        </view>
+      </view>
+    </navigator>
+    <navigator class='block' bindtap='tel' data-tel='{{contact_tel}}' wx:if='{{contact_tel !=""}}'>
+      <view class='flex-y-center' style='width:100%;height:100%;position:relative;'>
+        <image src='/images/icon-user-tel.png' style='width:50rpx;height:50rpx;'></image>
+        <text style='margin-left:20rpx;'>联系我们</text>
+        <view class='right'>
+          <image src='/images/icon-right.png' style='width:12rpx;height:26rpx;'></image>
+        </view>
+      </view>
+    </navigator>
+  </view>
 </view>
 <include src="/commons/copyright/copyright.wxml" />

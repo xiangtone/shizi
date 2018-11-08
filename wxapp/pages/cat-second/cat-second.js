@@ -19,6 +19,7 @@ Page({
         app.pageOnLoad(this);
         is_loading_more = false;
         is_no_more = false;
+      console.log("onLoad",options)
         var page = this;
         page.setData({
             cat_id: options.cat_id
