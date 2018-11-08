@@ -164,6 +164,9 @@ class UserController extends Controller
                     'is_member' => $user->is_member,
                     'due_time' => $user->due_time ? $due_time : 0,
                     'binding' => $user->binding,
+                    'teacher_id' => $user->teacher_id,
+                    'channel_id' => $user->channel_id,
+                    'is_teacher' => $user->is_teacher,
                 ]
             ]
         ]);

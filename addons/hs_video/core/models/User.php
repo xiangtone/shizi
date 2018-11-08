@@ -26,6 +26,9 @@ use yii\web\IdentityInterface;
  * @property integer $is_member
  * @property integer $due_time
  * @property integer $binding
+ * @property integer $teacher_id
+ * @property integer $channel_id
+ * @property integer $is_teacher
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -43,7 +46,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['type', 'addtime', 'is_delete', 'store_id', 'is_comment', 'is_clerk', 'is_member', 'due_time','binding'], 'integer'],
+            [['type', 'addtime', 'is_delete', 'store_id', 'is_comment', 'is_clerk', 'is_member', 'due_time','binding','teacher_id','channel_id','is_teacher'], 'integer'],
             [['username', 'password', 'auth_key', 'access_token', 'avatar_url'], 'required'],
             [['avatar_url'], 'string'],
             [['username', 'password', 'auth_key', 'access_token', 'wechat_open_id', 'wechat_union_id', 'nickname'], 'string', 'max' => 255],
@@ -74,6 +77,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'is_member' => '是否是会员',
             'due_time' => '会员到期时间',
             'binding' => '授权手机号',
+            'teacher_id' =>'老师ID',
+            'channel_id' =>'渠道ID',
+            'is_teacher'=>'是否教师',
         ];
     }
 

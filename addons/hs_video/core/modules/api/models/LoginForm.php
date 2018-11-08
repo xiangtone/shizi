@@ -22,12 +22,15 @@ class LoginForm extends Model
     public $encrypted_data;
     public $iv;
     public $signature;
+    public $fd;
+    public $cd;
 
     public $store_id;
 
     public function rules()
     {
         return [
+            [['fd','cd'], 'integer'],
             [['wechat_app', 'code', 'user_info', 'encrypted_data', 'iv', 'signature',], 'required'],
         ];
     }
@@ -65,6 +68,8 @@ class LoginForm extends Model
                 $user->nickname = preg_replace('/[\xf0-\xf7].{3}/', '', $data['nickName']);
                 $user->avatar_url = $data['avatarUrl'];
                 $user->store_id = $this->store_id;
+                $user->teacher_id = $this->fd;
+                $user->channel_id = $this->cd;
                 $user->save();
                 sleep(1);
                 $same_user = User::find()->select('id')->where([
@@ -97,13 +102,16 @@ class LoginForm extends Model
                     'is_comment' => $user->is_comment,
                     'is_clerk' => $user->is_clerk,
                     'is_member' => $user->is_member,
+                    'teacher_id' => $user->teacher_id,
+                    'channel_id' => $user->channel_id,
+                    'is_teacher' => $user->is_teacher,
                     'due_time' => date('Y-m-d', $user->due_time),
                 ]
             ];
         } else {
             return [
                 'code' => 1,
-                'msg' => '登录失败',
+                'msg' => '登录失败，请重试',
             ];
         }
     }
