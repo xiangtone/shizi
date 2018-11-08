@@ -125,8 +125,14 @@ function _login($forward = '') {
 			$url = url('home/welcome/ext', array('m' => 'store'));
 			message('<a href="' . $url . '" class="btn btn-primary">您的账号已到期，请前往商城购买续费！</a>', $url, 'error');
 		}
-
-		itoast("欢迎回来，{$record['username']}", $forward, 'success');
+//url('account/display/switch', array('module' => $module['name'], 'version_id' => $version_id, 'uniacid' => $_W['uniacid']))
+//url('account/display/switch', array('module' => 'hs_video', 'version_id' => 4, 'uniacid' => 5))
+		//需要在小程序管理中进行用户授权
+		if ($record['username']=='fuming'){
+		itoast("欢迎回来，{$record['username']}", $forward, 'success');	
+	}else{
+		itoast("欢迎回来，{$record['username']}", url('account/display/switch', array('module' => 'hs_video', 'version_id' => 4, 'uniacid' => 5)), 'success');	
+	}
 	} else {
 		if (empty($failed)) {
 			pdo_insert('users_failed_login', array('ip' => CLIENT_IP, 'username' => trim($_GPC['username']), 'count' => '1', 'lastupdate' => TIMESTAMP));
