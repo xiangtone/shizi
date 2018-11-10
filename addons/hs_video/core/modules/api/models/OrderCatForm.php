@@ -6,7 +6,7 @@ namespace app\modules\api\models;
 
 
 use app\extensions\WechatTplMsg;
-use app\models\OrderCat;
+use app\models\Order;
 use app\models\Video;
 
 class OrderCatForm extends Model
@@ -30,24 +30,26 @@ class OrderCatForm extends Model
         if(!$this->validate()){
             return $this->getModelError();
         }
-        $order_cat = new OrderCat();
-        $order_cat->store_id = $this->store_id;
-        $order_cat->cat_id  = $this->cat_id;//视频分类id
-        $order_cat->user_id = $this->user->id;
-        $order_cat->is_delete = 0;
-        $order_cat->addtime = time();
-        $order_cat->order_no = $this->getOrderNo();
-        $order_cat->is_pay = 0;
-        $order_cat->is_refund = 0;
-        $order_cat->pay_time = 0;
-        $order_cat->type = 1;
-        $order_cat->pay_type = 0;
-        $order_cat->price = $this->price;
-        if($order_cat->save()){
+        $order = new Order();
+        $order->store_id = $this->store_id;
+        $order->video_id = $this->video_id;
+        $order->product_id = $this->cat_id;
+        $order->product_type = 'cat';
+        $order->user_id = $this->user->id;
+        $order->is_delete = 0;
+        $order->addtime = time();
+        $order->order_no = $this->getOrderNo();
+        $order->is_pay = 0;
+        $order->is_refund = 0;
+        $order->pay_time = 0;
+        $order->type = 1;
+        $order->pay_type = 0;
+        $order->price = $this->price;
+        if($order->save()){
             return [
                 'code'=>0,
                 'msg'=>'成功',
-                'data'=>$order_cat->id
+                'data'=>$order->id
             ];
         }
     }

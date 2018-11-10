@@ -94,12 +94,12 @@
                                 <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-1' bindtap='is_wifi' data-index='{{index}}'>
                                     <cover-view>试看{{item.pay.d_time}}</cover-view>
                                 </cover-view>
-                                <!-- <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='buyVideo' data-index='{{index}}'>
-                                    <cover-view>立即购买</cover-view>
-                                </cover-view> -->
-                                <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='buyCat' data-index='{{index}}'>
+                                <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='buyVideo' data-index='{{index}}'>
                                     <cover-view>立即购买</cover-view>
                                 </cover-view>
+                                <!-- <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='buyCat' data-index='{{index}}'>
+                                    <cover-view>立即购买</cover-view>
+                                </cover-view> -->
                             </cover-view>
                         </cover-view>
                     </video>

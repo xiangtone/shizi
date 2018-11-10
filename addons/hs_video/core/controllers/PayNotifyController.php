@@ -43,10 +43,11 @@ class PayNotifyController extends Controller
     {
         if ($res['result_code'] != 'SUCCESS' && $res['return_code'] != 'SUCCESS')
             return;
-        $order_cat = OrderCat::findOne([
+        $order = Order::findOne([
             'order_no' => $res['out_trade_no'],
         ]);
-        if(!$order_cat){
+        //订单号不存在-->提示错误
+        if(!$order){
            
             if (!$store)
                 return;
@@ -67,12 +68,14 @@ class PayNotifyController extends Controller
             }
            
         }
-        $store = Store::findOne($order_cat->store_id);
+        $store = Store::findOne($order->store_id);
         if (!$store)
             return;
         $wechat_app = WechatApp::findOne($store->wechat_app_id);
         if (!$wechat_app)
             return;
+
+        //wechat相关验证
         $wechat = new Wechat([
             'appId' => $wechat_app->app_id,
             'appSecret' => $wechat_app->app_secret,
@@ -85,17 +88,19 @@ class PayNotifyController extends Controller
             echo "Sign 错误";
             return;
         }
-        if ($order_cat->is_pay == 1) {
+        //已经支付了就返回
+        if ($order->is_pay == 1) {
             echo "订单已支付";
             return;
         }
-        $order_cat->is_pay = 1;
-        $order_cat->pay_time = time();
-        $order_cat->pay_type = 1;
-        $order_cat->is_use =0;     //设置为使用,不设置会有问题
-        if ($order_cat->save()) {
-            if($order_cat->type == 0){
-                $wechat_tpl_meg_sender = new WechatTplMsg($order_cat->store_id, $order_cat->id, $wechat);
+        //没支付就标记为已经支付
+        $order->is_pay = 1;
+        $order->pay_time = time();
+        $order->pay_type = 1;
+        $order->is_use =0;     //设置为使用,不设置会有问题
+        if ($order->save()) {
+            if($order->type == 0){
+                $wechat_tpl_meg_sender = new WechatTplMsg($order->store_id, $order->id, $wechat);
                 $wechat_tpl_meg_sender->payMsg();//支付成功消息通知
             }
             echo '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
@@ -253,7 +258,6 @@ class PayNotifyController extends Controller
      * @param $res
      * 会员购买  微信回调
      */
-     /*
     private function wechatPayNotify_1($res)
     {
         if ($res['result_code'] != 'SUCCESS' && $res['return_code'] != 'SUCCESS')
@@ -296,12 +300,12 @@ class PayNotifyController extends Controller
             return;
         }
     }
-    */
+    
     /**
      * 修改会员到期时间
      * @var \app\models\MemberOrder $order
      */
-     /*
+     
     private function due_time($order)
     {
         try {
@@ -317,5 +321,5 @@ class PayNotifyController extends Controller
 
         }
     }
-    */
+    
 }

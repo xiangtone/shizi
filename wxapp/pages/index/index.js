@@ -64,10 +64,11 @@ Page({
         is_loading_more = true;
         //console.log(api.user.video_cat_list)
         app.request({
-            url: api.user.video_cat_list,
+            //url: api.user.video_cat_list,
+            url: api.user.video_list,
             success: function(res) {
                 if (res.code == 0) {
-                    //console.log(res.data.list)
+                    console.log(res.data.list)
                     page.setData({
                         video_list: res.data.list,
                     });
@@ -135,8 +136,8 @@ Page({
                 confirmText: '立即购买',
                 success: function(e) {
                     if (e.confirm) {
-                        //page.buyVideo(option);
-                        page.buyCat(option);
+                        page.buyVideo(option);
+                        //page.buyCat(option);
                     }
                     if (e.cancel) {
                         if (video.pay.time != 0) {
@@ -398,7 +399,7 @@ Page({
         wx.showLoading({
             title: '提交中',
         })
-        console.log("buyVideo-->" + api.order.video)
+        console.log("index.js->>>buyVideo:" + api.order.video)
         app.request({
             url: api.order.video,
             method: 'POST',
@@ -466,7 +467,7 @@ Page({
         });
     },
     buyCat: function(option) {
-        console.log("buyCat-->" + api.order.cat)
+        console.log("index.js-->buyCat" + api.order.cat)
         var page = this;
         var index = option.currentTarget.dataset.index;
         var video_list = page.data.video_list;

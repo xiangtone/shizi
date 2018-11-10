@@ -183,10 +183,14 @@ class ListForm extends Model
 
         $count = $query->count();
         $p = new Pagination(['totalCount' => $count, 'pageSize' => $this->limit, 'page' => $this->page]);
+        //video表查询
         $list = $query->select([
             '*'
         ])->orderBy(['sort'=>SORT_ASC,'addtime' => SORT_DESC])->limit($p->limit)->offset($p->offset)->asArray()->all();
+        //查用户信息
         $user = User::findOne(['id'=>$this->user_id]);
+
+        //循环查找video的相关信息
         foreach ($list as $index => $value) {
             $list[$index]['show'] = -1;
             $exit = Collect::find()->where([
@@ -214,16 +218,23 @@ class ListForm extends Model
                 $res = getInfo::getVideoInfo($value['video_url']);
                 $list[$index]['video_url'] = $res['url'];
             }
+            //根据用户和视频id 去订单表 找付费情况
             $order = Order::find()->where([
                 'store_id'=>$this->store_id,'type'=>1,'is_pay'=>1, 'video_id'=>$value['id'],
                 'user_id'=>$this->user_id,'is_delete'=>0
             ])->exists();
+            //是否付费
             if($order){
                 $list[$index]['is_pay'] = 0;
+                //TODO: 进行产品类型判断 1.video 2.cat 3.member :product_type
             }
+
+
+            //是否是会员,是-全免
             if($user->is_member == 1){
                 $list[$index]['is_pay'] = 0;
             }
+            //找video_pay表查找视频价格
             $video_pay = VideoPay::find()->where(['video_id'=>$value['id'],'type'=>0])->asArray()->one();
             if($video_pay && $value['is_pay'] == 1){
                 $video_pay['d_time'] = TimeToDay::date($video_pay['time']);

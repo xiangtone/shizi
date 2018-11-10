@@ -75,8 +75,8 @@ class OrderController extends Controller
      */
     public function actionGetPayData()
     {
-        //$form = new OrderPayDataForm();
-        $form = new OrderPayCatForm();
+        $form = new OrderPayDataForm();
+        //$form = new OrderPayCatForm();
         $form->store_id = $this->store->id;
         $form->user = \Yii::$app->user->identity;
         $form->attributes = \Yii::$app->request->post();

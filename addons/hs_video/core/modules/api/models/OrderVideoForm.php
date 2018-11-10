@@ -37,6 +37,8 @@ class OrderVideoForm extends Model
         $order = new Order();
         $order->store_id = $this->store_id;
         $order->video_id = $this->video_id;
+        $order->product_id = $this->video_id;
+        $order->product_type = 'video';
         $order->user_id = $this->user->id;
         $order->is_delete = 0;
         $order->addtime = time();
