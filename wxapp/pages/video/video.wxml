@@ -28,6 +28,9 @@
                 <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='{{store.member == 1 ? "showModal" : "buyVideo"}}'>
                     <view>立即购买</view>
                 </view>
+                <!-- <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='{{store.member == 1 ? "showModal" : "buyCat"}}'>
+                    <view>立即购买</view>
+                </view> -->
             </view>
         </view>
         <view class='flex-y-center flex-row info-title border-bottom'>
@@ -136,9 +139,9 @@
                 <block wx:if="{{buy_coupon_length > 2 && flag == 0}}">
                     <view class="chakan" bindtap='chakan'>查看其他{{video_coupon_length}}张代金券
                         <image src="/images/xiala.png" style="width:24rpx;height:12rpx;margin-left:20rpx;"></image>
-                    </view> 
+                    </view>
                 </block>
-                <view style="width:100%;height:20rpx;background:#f2f2f2;"></view> 
+                <view style="width:100%;height:20rpx;background:#f2f2f2;"></view>
 
                 <block wx:for="{{draw_type}}" wx:if="{{flag == 1}}">
                     <view class="collect_fees_coupon">

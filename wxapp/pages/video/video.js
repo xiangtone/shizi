@@ -71,6 +71,7 @@ Page({
             });
         }
         var video_id = page.data.video_id;
+        //获取视频相关信息 视频价格
         app.request({
             url: api.user.video,
             data: {video_id: video_id},
@@ -733,7 +734,10 @@ Page({
             });
         }
     },
-    buyVideo: function () {
+    /**
+     * 购买视频
+     */
+    buyVideo: function() {
         var page = this;
         var video = page.data.video;
         wx.showModal({
@@ -812,7 +816,91 @@ Page({
             }
         })
     },
-    showModal: function () {
+    /**
+     * 购买分类
+     */
+    buyCat: function() {
+        var page = this;
+        var video = page.data.video;
+        console.log('buyCat-->cat_id' + video.cat_id);
+        console.log('buyCat-->price' + page.data.video_pay.price);
+        wx.showModal({
+            title: '提示',
+            content: '确认购买？',
+            success: function(e) {
+                if (e.confirm) {
+                    wx.showLoading({
+                        title: '提交中',
+                    })
+                    app.request({
+                        url: api.order.cat,
+                        method: 'POST',
+                        data: {
+                            cat: video.cat_id,
+                            price: page.data.video_pay.price
+                        },
+                        success: function(res) {
+                            if (res.code == 0) {
+                                app.request({
+                                    url: api.order.get_pay_data,
+                                    method: 'POST',
+                                    data: {
+                                        order_id: res.data,
+                                        pay_type: 'WECHAT_PAY'
+                                    },
+                                    success: function(result) {
+                                        wx.hideLoading();
+                                        if (result.code == 0) {
+                                            var pay_data = result.data;
+                                            wx.requestPayment({
+                                                timeStamp: pay_data.timeStamp,
+                                                nonceStr: pay_data.nonceStr,
+                                                package: pay_data.package,
+                                                signType: pay_data.signType,
+                                                paySign: pay_data.paySign,
+                                                success: function(res) {
+                                                    wx.showToast({
+                                                        title: '订单支付成功',
+                                                        icon: 'success'
+                                                    });
+                                                    setTimeout(function() {
+                                                        video.is_pay = 0;
+                                                        page.setData({
+                                                            video: video
+                                                        });
+                                                        page.playVideo();
+                                                    }, 2000)
+                                                },
+                                                fail: function(res) {
+                                                    wx.showToast({
+                                                        title: '订单未支付',
+                                                        image: '/images/icon-warning.png'
+                                                    });
+                                                }
+                                            });
+                                        } else {
+                                            wx.showModal({
+                                                title: '提示',
+                                                content: result.msg,
+                                                showCancel: false
+                                            });
+                                        }
+                                    }
+                                });
+                            } else {
+                                wx.showModal({
+                                    title: '警告',
+                                    content: res.msg,
+                                    showCancel: false
+                                })
+                            }
+                        }
+                    });
+                }
+            }
+        })
+    },
+    showModal: function() {
         var page = this;
         page.setData({
             show_modal: true
