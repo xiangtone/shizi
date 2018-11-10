@@ -18,7 +18,8 @@
     "pages/user-coupon/user-coupon",
     "pages/member/member",
     "pages/cancel-coupon/cancel-coupon",
-    "pages/user-binding/user-binding"
+    "pages/user-binding/user-binding",
+    "pages/user-teacher/user-teacher"
   ],
   "window":
   {
@@ -39,13 +40,13 @@
       "pagePath": "pages/index/index",
       "iconPath": "images/icon-tarBar-Recommend.png",
       "selectedIconPath": "images/icon-selected-Recommend.png",
-      "text": "推荐"
+      "text": "首页"
     },
     {
       "pagePath": "pages/cat/cat",
       "iconPath": "images/icon-tarBar-cat.png",
       "selectedIconPath": "images/icon-selected-cat.png",
-      "text": "分类"
+      "text": "课程"
     },
     {
       "pagePath": "pages/user/user",
