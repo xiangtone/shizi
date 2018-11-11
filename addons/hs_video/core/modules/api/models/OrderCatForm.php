@@ -1,11 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2017/12/19
- * Time: 15:31
+/***
+    视频分类表格视图
  */
-
 namespace app\modules\api\models;
 
 
@@ -13,18 +9,18 @@ use app\extensions\WechatTplMsg;
 use app\models\Order;
 use app\models\Video;
 
-class OrderVideoForm extends Model
+class OrderCatForm extends Model
 {
     public $store_id;
     public $user;
 
-    public $video_id;
+    public $cat_id;
     public $price;
 
     public function rules()
     {
         return [
-            [['video_id','price'],'required'],
+            [['cat_id','price'],'required'],
             [['price'],'number']
         ];
     }
@@ -37,8 +33,8 @@ class OrderVideoForm extends Model
         $order = new Order();
         $order->store_id = $this->store_id;
         $order->video_id = $this->video_id;
-        $order->product_id = $this->video_id;
-        $order->product_type = 'video';
+        $order->product_id = $this->cat_id;
+        $order->product_type = 'cat';
         $order->user_id = $this->user->id;
         $order->is_delete = 0;
         $order->addtime = time();
@@ -63,7 +59,7 @@ class OrderVideoForm extends Model
         $order_no = null;
         while(true){
             $order_no = date('YmdHis').rand(100000,999999);
-            $exit = Order::find()->where(['order_no'=>$order_no])->exists();
+            $exit = OrderCat::find()->where(['order_no'=>$order_no])->exists();
             if(!$exit){
                 break;
             }

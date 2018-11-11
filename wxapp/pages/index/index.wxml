@@ -1,145 +1,152 @@
 <!--index.wxml-->
 <!--搜索栏开始-->
 <view class='{{share_show?"no-scroll blur":""}}'>
-  <!-- 客服开始   -->
-  <import src="/commons/float-icon/float-icon.wxml" />
-  <template is="item" data="{{store: store,a:1}}" />
-  <!-- 客服结束 -->
-  <view class="search-block">
-    <navigator url="/pages/search/search">
-      <image src="/images/icon-search-white.png" />
-      <text class='white-color font-13'>搜索</text>
-    </navigator>
-  </view>
-  <!--搜索栏结束-->
+    <!-- 客服开始   -->
+    <import src="/commons/float-icon/float-icon.wxml" />
+    <template is="item" data="{{store: store,a:1}}" />
+    <!-- 客服结束 -->
+
+    <view class="search-block">
+        <navigator url="/pages/search/search">
+            <image src="/images/icon-search-white.png" />
+            <text class='white-color font-13'>搜索</text>
+        </navigator>
+    </view>
+    <!--搜索栏结束-->
   <view>
     {{fd}}
   </view>
-  <!--轮播图开始-->
-  <swiper class='banner' autoplay='true' interval='3000' duration='300' circular='true'>
-    <block wx:for='{{banner_list}}' wx:for-item='item' wx:for-index='index'>
-      <swiper-item>
-        <view bindtap='bannerTo' data-url='{{item.url}}'>
-          <image src="{{item.banner_url}}" class="slide-image" style='width:100%;height:590rpx' />
+    <!--轮播图开始-->
+    <swiper class='banner' autoplay='true' interval='3000' duration='300' circular='true'>
+        <block wx:for='{{banner_list}}' wx:for-item='item' wx:for-index='index'>
+            <swiper-item>
+                <view bindtap='bannerTo' data-url='{{item.url}}'>
+                    <image src="{{item.banner_url}}" class="slide-image" style='width:100%;height:590rpx' />
+                </view>
+            </swiper-item>
+        </block>
+    </swiper>
+    <!--轮播图结束-->
+    <!--栏目更新开始-->
+    <block wx:if='{{cat_list && home.cat_show==1}}'>
+        <view class='cat-block'>
+            <view class='block flex-x-center flex-y-center'>
+                <image src='{{home.cat_pic?home.cat_pic:"/images/icon-update.png"}}'></image>
+                <text class='black-color font-13' style='font-weight:bold;'>{{home.cat_text?home.cat_text:"栏目更新"}}</text>
+            </view>
+            <view class='w-100' style='position:relative;'>
+                <view class='shadow-1' wx:if='{{cat_list.length>3}}'></view>
+                <scroll-view scroll-x='true' style='width:100%;'>
+                    <view class='flex-row cat-list'>
+                        <block wx:for='{{cat_list}}'>
+                            <view class='cat-one flex-grow-0' bindtap='gotocat' data-index='{{index}}'>
+                                <view class='shadow'></view>
+                                <image src='{{item.cover_url}}' class='w-100 h-100'></image>
+                            </view>
+                        </block>
+                    </view>
+                </scroll-view>
+            </view>
         </view>
-      </swiper-item>
     </block>
-  </swiper>
-  <!--轮播图结束-->
-  <!--栏目更新开始-->
-  <block wx:if='{{cat_list && home.cat_show==1}}'>
-    <view class='cat-block'>
-      <view class='block flex-x-center flex-y-center'>
-        <image src='{{home.cat_pic?home.cat_pic:"/images/icon-update.png"}}'></image>
-        <text class='black-color font-13' style='font-weight:bold;'>{{home.cat_text?home.cat_text:"栏目更新"}}</text>
-      </view>
-      <view class='w-100' style='position:relative;'>
-        <view class='shadow-1' wx:if='{{cat_list.length>3}}'></view>
-        <scroll-view scroll-x='true' style='width:100%;'>
-          <view class='flex-row cat-list'>
-            <block wx:for='{{cat_list}}'>
-              <view class='cat-one flex-grow-0' bindtap='gotocat' data-index='{{index}}'>
-                <view class='shadow'></view>
-                <image src='{{item.cover_url}}' class='w-100 h-100'></image>
-              </view>
-            </block>
-          </view>
-        </scroll-view>
-      </view>
-    </view>
-  </block>
-  <!--栏目更新结束-->
-  <!-- 广告位开始 -->
-  <block wx:if='{{advertisement && home.advertisement_show == 1}}'>
-    <view class='advertisement' bindtap='gotoadvertisement'>
-      <image src='{{advertisement.pic}}' class='w-100 h-100'></image>
-    </view>
-  </block>
-  <!-- 广告位结束 -->
-  <!--精选视频开始-->
-  <block wx:if='{{video_list}}'>
-    <view class='block flex-x-center flex-y-center'>
-      <image src='{{home.video_pic?home.video_pic:"/images/icon-choice.png"}}'></image>
-      <text class='black-color font-13' style='font-weight:bold;'>{{home.video_text?home.video_text:"首页精选"}}</text>
-    </view>
-  </block>
-  <block wx:for='{{video_list}}' wx:for-item='item' wx:for-index='index'>
-    <block wx:if="{{item.is_index == 0}}">
-      <view style='width:100%;padding-bottom:72rpx;'>
-        <view class='video-head'>
-          <view class='video-head {{index==hide?"hide":""}}'>
-            <block wx:if="{{item.style == 0 || item.style == 1}}">
-              <image src='{{item.pic_url}}' style='width:100%;height:100%;'></image>
-              <image class='play' src='/images/icon-play-big.png' bindtap='play' data-index='{{index}}'></image>
-            </block>
-            <block wx:else>
-              <image src='{{item.pic_url}}' style='width:100%;height:100%;' bindtap='videoplay' data-id='{{item.id}}'></image>
-            </block>
-            <image class='pic_style' src='{{store.video_icon?store.video_icon:"/images/icon-video-icon.png"}}' wx:if='{{store.pic_style==1 && item.style==0}}'></image>
-            <image class='pic_style' src='{{store.audio_icon?store.audio_icon:"/images/icon-audio-icon.png"}}' wx:if='{{store.pic_style==1 && item.style==1}}'></image>
-            <view class='pay-style flex-x-center flex-y-center' wx:if='{{item.pay}}'>收费</view>
-            <view class='shadow'></view>
-          </view>
-          <video id='video_{{index}}' class='' bindtimeupdate='timeUpdate' bindplay='play_2' data-index='{{index}}' wx:if='{{index == hide}}' src='{{item.video_url}}' controls='controls' duration='{{item.is_pay == 1?item.pay.time:""}}' autoplay='true'>
-            <cover-view class='w-100 h-100 {{show_buy?"hide":""}}' wx:if='{{item.style == 1}}'>
-              <cover-image style='width:100%;height:100%;' src='{{item.pic_url}}'></cover-image>
-              <cover-image src='/images/icon-pause.png' class='play' bindtap='pause' data-index='{{index}}'></cover-image>
-            </cover-view>
-            <cover-view class='buy-cover {{show_buy?"":"hide"}}' wx:if='{{item.is_pay == 1}}'>
-              <cover-view class='pay-text flex-x-center'>
-                <cover-view>此内容需￥{{item.pay.price}}元购买</cover-view>
-              </cover-view>
-              <cover-view class='flex-row flex-x-center'>
-                <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-1' bindtap='is_wifi' data-index='{{index}}'>
-                  <cover-view>试看{{item.pay.d_time}}</cover-view>
-                </cover-view>
-                <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='buyVideo' data-index='{{index}}'>
-                  <cover-view>立即购买</cover-view>
-                </cover-view>
-              </cover-view>
-            </cover-view>
-          </video>
+    <!--栏目更新结束-->
+    <!-- 广告位开始 -->
+    <block wx:if='{{advertisement && home.advertisement_show == 1}}'>
+        <view class='advertisement' bindtap='gotoadvertisement'>
+            <image src='{{advertisement.pic}}' class='w-100 h-100'></image>
         </view>
-        <view class='video-title flex-row flex-y-center'>
-          <view class='flex-grow-1 font-15 black-color text-more' bindtap='videoplay' data-id='{{item.id}}'>{{item.title}}</view>
-          <view class='flex-y-center flex-grow-0'>
-            <view class='flex-y-center share-btn' bindtap='share' data-index='{{index}}'>
-              <image src='/images/icon-share.png' class='share'></image>
-            </view>
-            <view class='flex-y-center' style='height:100%;margin-right:12rpx;' bindtap='collect' data-index='{{index}}'>
-              <image src='{{collect_loading==index?"/images/loading2.svg":(item.collect!=0?"/images/icon-collect-un.png":"/images/icon-collect.png")}}' class='collect'></image>
-              <text style='width:auto;'>{{item.collect_count}}</text>
-            </view>
-            <view class='flex-y-center' style='height:100%;' bindtap='comment' data-index='{{index}}'>
-              <image src='/images/icon-comment.png' class='collect'></image>
-              <text style='width:auto;'>{{item.comment_count}}</text>
-            </view>
-          </view>
-        </view>
-        <view class='video-content'>
-          <view bindtap='videoplay' data-id='{{item.id}}' class='flex-y-center flex-row m-border-top' style='height:100rpx;'>
-            <view class='flex-grow-0' style='margin-right:32rpx;' wx:if='{{item.style != 2}}'>时长：{{item.video_time}}</view>
-            <view class='flex-grow-0 page-view flex-row flex-y-center'>
-              <image src='/images/icon-page-view.png'></image>
-              <view>{{item.page_view}}</view>
-            </view>
-          </view>
-          <view class='content'>
-            <view bindtap='videoplay' data-id='{{item.id}}' class='{{item.show!=-1?"":"more"}}'>{{item.content}}</view>
-            <view class='flex-y-center' style='position:relative;margin-top:34rpx;height:45rpx;'>
-              <view class='right flex-y-center' bindtap='more' data-index='{{index}}'>
-                <image src='{{item.show!=-1?"/images/icon-up.png":"/images/icon-down.png"}}' style='width:28rpx;height:14rpx;margin-right:10rpx;'></image>
-                <text class='font-9'>{{item.show!=-1?"收起":"展开"}}</text>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
     </block>
-  </block>
-  <!--精选视频结束-->
-  <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
-    <image style="width: 160rpx;height: 80rpx" src="/images/loading.svg"></image>
-  </view>
+    <!-- 广告位结束 -->
+
+
+    <!--精选视频开始-->
+    <block wx:if='{{video_list}}'>
+        <view class='block flex-x-center flex-y-center'>
+            <image src='{{home.video_pic?home.video_pic:"/images/icon-choice.png"}}'></image>
+            <text class='black-color font-13' style='font-weight:bold;'>{{home.video_text?home.video_text:"首页精选"}}</text>
+        </view>
+    </block>
+    <block wx:for='{{video_list}}' wx:for-item='item' wx:for-index='index'>
+        <block wx:if="{{item.is_index == 0}}">
+            <view style='width:100%;padding-bottom:72rpx;'>
+                <view class='video-head'>
+                    <view class='video-head {{index==hide?"hide":""}}'>
+                        <block wx:if="{{item.style == 0 || item.style == 1}}">
+                            <image src='{{item.pic_url}}' style='width:100%;height:100%;'></image>
+                            <image class='play' src='/images/icon-play-big.png' bindtap='play' data-index='{{index}}'></image>
+                        </block>
+                        <block wx:else>
+                            <image src='{{item.pic_url}}' style='width:100%;height:100%;' bindtap='videoplay' data-id='{{item.id}}'></image>
+                        </block>
+                        <image class='pic_style' src='{{store.video_icon?store.video_icon:"/images/icon-video-icon.png"}}' wx:if='{{store.pic_style==1 && item.style==0}}'></image>
+                        <image class='pic_style' src='{{store.audio_icon?store.audio_icon:"/images/icon-audio-icon.png"}}' wx:if='{{store.pic_style==1 && item.style==1}}'></image>
+                        <view class='pay-style flex-x-center flex-y-center' wx:if='{{item.pay}}'>收费</view>
+                        <view class='shadow'></view>
+                    </view>
+                    <video id='video_{{index}}' class='' bindtimeupdate='timeUpdate' bindplay='play_2' data-index='{{index}}' wx:if='{{index == hide}}' src='{{item.video_url}}' controls='controls' duration='{{item.is_pay == 1?item.pay.time:""}}' autoplay='true'>
+                        <cover-view class='w-100 h-100 {{show_buy?"hide":""}}' wx:if='{{item.style == 1}}'>
+                            <cover-image style='width:100%;height:100%;' src='{{item.pic_url}}'></cover-image>
+                            <cover-image src='/images/icon-pause.png' class='play' bindtap='pause' data-index='{{index}}'></cover-image>
+                        </cover-view>
+                        <cover-view class='buy-cover {{show_buy?"":"hide"}}' wx:if='{{item.is_pay == 1}}'>
+                            <cover-view class='pay-text flex-x-center'>
+                                <cover-view>此内容需￥{{item.pay.price}}元购买</cover-view>
+                            </cover-view>
+                            <cover-view class='flex-row flex-x-center'>
+                                <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-1' bindtap='is_wifi' data-index='{{index}}'>
+                                    <cover-view>试看{{item.pay.d_time}}</cover-view>
+                                </cover-view>
+                                <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='buyVideo' data-index='{{index}}'>
+                                    <cover-view>立即购买</cover-view>
+                                </cover-view>
+                                <!-- <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='buyCat' data-index='{{index}}'>
+                                    <cover-view>立即购买</cover-view>
+                                </cover-view> -->
+                            </cover-view>
+                        </cover-view>
+                    </video>
+                </view>
+                <view class='video-title flex-row flex-y-center'>
+                    <view class='flex-grow-1 font-15 black-color text-more' bindtap='videoplay' data-id='{{item.id}}'>{{item.title}}</view>
+                    <view class='flex-y-center flex-grow-0'>
+                        <view class='flex-y-center share-btn' bindtap='share' data-index='{{index}}'>
+                            <image src='/images/icon-share.png' class='share'></image>
+                        </view>
+                        <view class='flex-y-center' style='height:100%;margin-right:12rpx;' bindtap='collect' data-index='{{index}}'>
+                            <image src='{{collect_loading==index?"/images/loading2.svg":(item.collect!=0?"/images/icon-collect-un.png":"/images/icon-collect.png")}}' class='collect'></image>
+                            <text style='width:auto;'>{{item.collect_count}}</text>
+                        </view>
+                        <view class='flex-y-center' style='height:100%;' bindtap='comment' data-index='{{index}}'>
+                            <image src='/images/icon-comment.png' class='collect'></image>
+                            <text style='width:auto;'>{{item.comment_count}}</text>
+                        </view>
+                    </view>
+                </view>
+                <view class='video-content'>
+                    <view bindtap='videoplay' data-id='{{item.id}}' class='flex-y-center flex-row m-border-top' style='height:100rpx;'>
+                        <view class='flex-grow-0' style='margin-right:32rpx;' wx:if='{{item.style != 2}}'>时长：{{item.video_time}}</view>
+                        <view class='flex-grow-0 page-view flex-row flex-y-center'>
+                            <image src='/images/icon-page-view.png'></image>
+                            <view>{{item.page_view}}</view>
+                        </view>
+                    </view>
+                    <view class='content'>
+                        <view bindtap='videoplay' data-id='{{item.id}}' class='{{item.show!=-1?"":"more"}}'>{{item.content}}</view>
+                        <view class='flex-y-center' style='position:relative;margin-top:34rpx;height:45rpx;'>
+                            <view class='right flex-y-center' bindtap='more' data-index='{{index}}'>
+                                <image src='{{item.show!=-1?"/images/icon-up.png":"/images/icon-down.png"}}' style='width:28rpx;height:14rpx;margin-right:10rpx;'></image>
+                                <text class='font-9'>{{item.show!=-1?"收起":"展开"}}</text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </block>
+    <!--精选视频结束-->
+
+    <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
+        <image style="width: 160rpx;height: 80rpx" src="/images/loading.svg"></image>
+    </view>
 </view>
 <include src="/commons/share/share.wxml" />
