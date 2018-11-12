@@ -1,0 +1,20 @@
+<view>
+
+  <view class="binding-main2">
+    <view style="height:100rpx;border-bottom:1rpx solid #e2e2e2;">
+      <input bindinput="TeacherName" class="binding-btn " style="float:left;hieght:100rpx;" name="name" placeholder="姓名" />
+    </view>
+    <view style="height:100rpx;border-bottom:1rpx solid #e2e2e2;">
+      <input bindinput="CooName" class="binding-btn " style="float:left;hieght:100rpx;" name="coo" placeholder="工作单位" />
+    </view>
+    <view style="height:100rpx;border-bottom:1rpx solid #e2e2e2;">
+      <input bindinput="Bank" class="binding-btn " style="float:left;hieght:100rpx;" name="bank" placeholder="开户银行" />
+    </view>
+    <view style="height:100rpx;border-bottom:1rpx solid #e2e2e2;">
+      <input bindinput="BankAccount" type="number" class="binding-btn " style="float:left;hieght:100rpx;" name="account" placeholder="银行帐号" />
+    </view>
+  </view>
+
+
+  <button class="binding-footer" bindtap="onSubmit">提交</button>
+</view>

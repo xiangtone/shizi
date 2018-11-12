@@ -1,7 +1,7 @@
 //var _api_root = 'https://gf.xll9.com/addons/hs_video/core/web/index.php?store_id=1&r=api/';
 //var _api_root = 'http://127.0.0.1/ll/shizi/addons/hs_video/core/web/index.php?store_id=1&r=api/';
 //var _api_root = 'https://www.dushujielong.com/fm/shizi/addons/hs_video/core/web/index.php?store_id=1&r=api/';
-var siteInfo =  require('siteinfo.js')
+var siteInfo = require('siteinfo.js')
 var _api_root = siteInfo.apiroot
 var api = {
     default: {
@@ -35,7 +35,8 @@ var api = {
         cancel_coupon: _api_root + 'user/cancel-coupon',
         video_coupon: _api_root + 'order/video-coupon',
         clerk: _api_root + 'user/clerk',
-      teacher: _api_root + 'user/teacher',
+        teacher: _api_root + 'teacher/index',
+        teacher_edit: _api_root + 'teacher/edit',
         user_binding: _api_root + 'user/user-binding',
         user_hand_binding: _api_root + 'user/user-hand-binding',
         user_empower: _api_root + 'user/user-empower',

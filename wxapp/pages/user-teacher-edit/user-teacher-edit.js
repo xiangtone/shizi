@@ -13,7 +13,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     app.pageOnLoad(this);
     var page = this;
     app.request({
@@ -22,23 +22,9 @@ Page({
       data: {
         page: 1,
       },
-      success: function(res) {
+      success: function (res) {
         console.log(res)
         if (res.code == -3) {
-          wx.showModal({
-            title: '提示',
-            content: res.msg,
-            confirmText: '前往',
-            showCancel:false,
-            success: function(res) {
-              if (res.confirm) {
-                wx.redirectTo({
-                  url: '/pages/user-binding/user-binding',
-                })
-              }
-            }
-          })
-        }else if (res.code == -4) {
           wx.showModal({
             title: '提示',
             content: res.msg,
@@ -47,7 +33,7 @@ Page({
             success: function (res) {
               if (res.confirm) {
                 wx.redirectTo({
-                  url: '/pages/user-teacher-edit/user-teacher-edit',
+                  url: '/pages/user-binding/user-binding',
                 })
               }
             }
@@ -64,18 +50,64 @@ Page({
       },
     });
   },
-  getPhoneNumber: function(e) {
+  onSubmit: function () {
+    console.log('try submit')
+    app.request({
+      url: api.user.teacher_edit,
+      method: 'POST',
+      data: {
+        teacherName: this.data.teacherName,
+        cooName: this.data.cooName,
+        bank: this.data.bank,
+        bankAccount: this.data.bankAccount,
+      },
+      success: function (res) {
+        if (res.code == 0) {
+          page.setData({
+            binding: true,
+            binding_num: phone
+          })
+        } else {
+          wx.showToast({
+            title: '失败'+res.msg,
+            image: "/images/icon-warning.png",
+          });
+        }
+      },
+    })
+  },
+  TeacherName: function (e) {
+    this.setData({
+      teacherName: e.detail.value
+    })
+  },
+  CooName: function (e) {
+    this.setData({
+      cooName: e.detail.value
+    })
+  },
+  Bank: function (e) {
+    this.setData({
+      bank: e.detail.value
+    })
+  },
+  BankAccount: function (e) {
+    this.setData({
+      bankAccount: e.detail.value
+    })
+  },
+  getPhoneNumber: function (e) {
     var page = this;
     if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
       wx.showModal({
         title: '提示',
         showCancel: false,
         content: '未授权',
-        success: function(res) {}
+        success: function (res) { }
       })
     } else {
       wx.login({
-        success: function(res) {
+        success: function (res) {
           if (res.code) {
             var code = res.code;
             app.request({
@@ -86,7 +118,7 @@ Page({
                 encryptedData: e.detail.encryptedData,
                 code: code,
               },
-              success: function(res) {
+              success: function (res) {
                 if (res.code == 0) {
                   page.setData({
                     PhoneNumber: res.data.dataObj,
@@ -109,20 +141,20 @@ Page({
       });
     }
   },
-  gainPhone: function() {
+  gainPhone: function () {
     this.setData({
       gainPhone: true,
       handPhone: false,
     });
   },
-  handPhone: function() {
+  handPhone: function () {
     this.setData({
       gainPhone: false,
       handPhone: true,
     });
   },
 
-  nextStep: function() {
+  nextStep: function () {
     var page = this;
     var phone = this.data.handphone;
     if (!phone || phone.length != 11) {
@@ -139,7 +171,7 @@ Page({
       data: {
         content: phone,
       },
-      success: function(res) {
+      success: function (res) {
         if (res.code == 0) {
           page.timer()
           page.setData({
@@ -162,7 +194,7 @@ Page({
       },
     });
   },
-  timer: function() {
+  timer: function () {
     let promise = new Promise((resolve, reject) => {
       let setTimer = setInterval(
         () => {
@@ -182,94 +214,22 @@ Page({
     })
   },
 
-  HandPhoneInput: function(e) {
+  HandPhoneInput: function (e) {
     this.setData({
       handphone: e.detail.value
     })
   },
-  CodeInput: function(e) {
+  CodeInput: function (e) {
     this.setData({
       code: e.detail.value
     })
   },
-  PhoneInput: function(e) {
+  PhoneInput: function (e) {
     this.setData({
       phoneNum: e.detail.value
     })
   },
-
-  onSubmit: function() {
-    var gainPhone = this.data.gainPhone;
-    var handPhone = this.data.handPhone;
-    if (gainPhone) {
-      var phoneNum = this.data.phoneNum;
-      if (phoneNum) {
-        if (phoneNum.length != 11) {
-          wx.showToast({
-            title: '手机号码错误',
-            image: "/images/icon-warning.png",
-          });
-          return
-        }
-        var phone = phoneNum;
-      } else {
-        var phone = this.data.PhoneNumber;
-        if (!phone) {
-          wx.showToast({
-            title: '手机号码错误',
-            image: "/images/icon-warning.png",
-          });
-          return
-        }
-      }
-    } else {
-      var phone = this.data.handphone;
-      if (phone.length != 11) {
-        wx.showToast({
-          title: '手机号码错误',
-          image: "/images/icon-warning.png",
-        });
-        return
-      }
-      var code = this.data.code;
-      if (!code) {
-        wx.showToast({
-          title: '请输入验证码',
-          image: "/images/icon-warning.png",
-        });
-        return
-      }
-      if (code != this.data.content) {
-        wx.showToast({
-          title: '验证码错误',
-          image: "/images/icon-warning.png",
-        });
-        return
-      }
-    }
-    var page = this;
-    app.request({
-      url: api.user.user_empower,
-      method: 'POST',
-      data: {
-        phone: phone,
-      },
-      success: function(res) {
-        if (res.code == 0) {
-          page.setData({
-            binding: true,
-            binding_num: phone
-          })
-        } else {
-          wx.showToast({
-            title: '授权失败',
-            image: "/images/icon-warning.png",
-          });
-        }
-      },
-    })
-  },
-  renewal: function() {
+  renewal: function () {
     var page = this;
     page.setData({
       binding: false,
@@ -282,7 +242,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
     app.pageOnReady(this);
 
   },
@@ -290,13 +250,13 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     app.pageOnShow(this);
     var page = this;
     app.request({
       url: api.user.index,
       method: 'GET',
-      success: function(res) {
+      success: function (res) {
         if (res.code == 0) {
           if (res.data.user_info.binding) {
             page.setData({
@@ -318,7 +278,7 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
     app.pageOnHide(this);
 
   },
@@ -326,7 +286,7 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
     app.pageOnUnload(this);
 
   },
@@ -334,14 +294,14 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
@@ -349,7 +309,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

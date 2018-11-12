@@ -19,7 +19,8 @@
     "pages/member/member",
     "pages/cancel-coupon/cancel-coupon",
     "pages/user-binding/user-binding",
-    "pages/user-teacher/user-teacher"
+    "pages/user-teacher/user-teacher",
+    "pages/user-teacher-edit/user-teacher-edit"
   ],
   "window":
   {
