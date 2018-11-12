@@ -27,7 +27,7 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
+    onLoad: function(options) {
         app.pageOnLoad(this);
         is_loading_more = false;
         is_no_more = false;
@@ -50,7 +50,7 @@ Page({
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
-    onReady: function () {
+    onReady: function() {
         app.pageOnReady(this);
 
     },
@@ -58,7 +58,7 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function () {
+    onShow: function() {
         app.pageOnShow(this);
         var page = this;
         wx.showLoading({
@@ -74,8 +74,9 @@ Page({
         //获取视频相关信息 视频价格
         app.request({
             url: api.user.video,
-            data: {video_id: video_id},
-            success: function (res) {
+            data: { video_id: video_id },
+            success: function(res) {
+                console.log('视频相关信息', res);
                 page.loadComment(video_id);
                 if (res.code == 0) {
                     var video = res.data.video;
@@ -85,7 +86,7 @@ Page({
                             content: '该内容已下架',
                             showCancel: false,
                             confirmText: '去首页',
-                            success: function (res) {
+                            success: function(res) {
                                 if (res.confirm) {
                                     wx.switchTab({
                                         url: '/pages/index/index',
@@ -142,11 +143,10 @@ Page({
                     }
                 }
             },
-            complete: function (res) {
-            }
+            complete: function(res) {}
         });
     },
-    chakan: function () {
+    chakan: function() {
         this.setData({
             flag: 1,
         });
@@ -155,7 +155,7 @@ Page({
     /**
      * 生命周期函数--监听页面隐藏
      */
-    onHide: function () {
+    onHide: function() {
         app.pageOnHide(this);
 
         var page = this;
@@ -167,7 +167,7 @@ Page({
     /**
      * 生命周期函数--监听页面卸载
      */
-    onUnload: function () {
+    onUnload: function() {
         app.pageOnUnload(this);
 
     },
@@ -175,20 +175,20 @@ Page({
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh: function () {
+    onPullDownRefresh: function() {
 
     },
 
     /**
      * 页面上拉触底事件的处理函数
      */
-    onReachBottom: function () {
+    onReachBottom: function() {
         if (this.data.page == this.data.page_count) {
             return;
         }
         this.loadMoreComment();
     },
-    load: function () {
+    load: function() {
         if (this.data.page == this.data.page_count) {
             return;
         }
@@ -198,18 +198,18 @@ Page({
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function (res) {
+    onShareAppMessage: function(res) {
         var video = this.data.video;
         var result = {
             title: video.title,
             path: "/pages/video/video?id=" + video.id,
             imageUrl: video.pic_url,
-            success: function (res) {
+            success: function(res) {
                 wx.showToast({
                     title: '转发成功',
                 });
             },
-            fail: function (res) {
+            fail: function(res) {
                 // 转发失败
             }
         };
@@ -217,11 +217,11 @@ Page({
     },
 
     // 领取优惠券
-    coupon_receive: function (e) {
+    coupon_receive: function(e) {
         var page = this;
         var data = e.currentTarget.dataset;
         var video_coupon = page.data.video_coupon;
-        var video_coupon_check = video_coupon.find(function (v) {
+        var video_coupon_check = video_coupon.find(function(v) {
             return v.id == data.id
         })
         if (video_coupon_check.total_count <= 0) {
@@ -242,7 +242,7 @@ Page({
             data: {
                 coupon_id: data.id
             },
-            success: function (res) {
+            success: function(res) {
                 wx.hideLoading();
                 if (res.code == 0) {
 
@@ -265,11 +265,11 @@ Page({
             }
         });
     },
-    buyNow: function (option) {
+    buyNow: function(option) {
         var page = this;
         var data = option.currentTarget.dataset;
         var video_coupon = page.data.draw_type;
-        var video_coupon_check = video_coupon.find(function (v) {
+        var video_coupon_check = video_coupon.find(function(v) {
             return v.id == data.id
         })
         if (video_coupon_check.total_count <= 0) {
@@ -292,7 +292,7 @@ Page({
                 video_id: video_coupon_check.video_id,
                 coupon_id: video_coupon_check.id
             },
-            success: function (res) {
+            success: function(res) {
                 if (res.code == 0) {
                     app.request({
                         url: api.order.get_pay_data,
@@ -302,7 +302,7 @@ Page({
                             pay_type: 'WECHAT_PAY',
                             pay_data_type: 'video_coupon'
                         },
-                        success: function (result) {
+                        success: function(result) {
                             wx.hideLoading();
                             if (result.code == 0) {
                                 var pay_data = result.data;
@@ -312,12 +312,12 @@ Page({
                                     package: pay_data.package,
                                     signType: pay_data.signType,
                                     paySign: pay_data.paySign,
-                                    success: function (res) {
+                                    success: function(res) {
                                         wx.showToast({
                                             title: '订单支付成功',
                                             icon: 'success'
                                         });
-                                        setTimeout(function () {
+                                        setTimeout(function() {
                                             video_coupon_check.num += 1;
                                             if (video_coupon_check.user_num == video_coupon_check.num) {
                                                 video_coupon_check.type = 1;
@@ -336,7 +336,7 @@ Page({
                                             console.log(video_coupon)
                                         }, 2000)
                                     },
-                                    fail: function (res) {
+                                    fail: function(res) {
                                         wx.showToast({
                                             title: '订单未支付',
                                             image: '/images/icon-warning.png'
@@ -363,7 +363,7 @@ Page({
         });
     },
 
-    collect: function (option) {
+    collect: function(option) {
         var page = this;
         var video = page.data.video;
         page.setData({
@@ -372,8 +372,8 @@ Page({
         app.request({
             url: api.user.collect,
             method: "GET",
-            data: {video_id: video.id},
-            success: function (res) {
+            data: { video_id: video.id },
+            success: function(res) {
                 if (res.code == 0) {
                     var title = "已收藏";
                     if (res.data.collect == 1) {
@@ -388,7 +388,7 @@ Page({
                         isShowToast: true,
                         collect_loading: false
                     });
-                    setTimeout(function () {
+                    setTimeout(function() {
                         page.setData({
                             isShowToast: false
                         });
@@ -400,19 +400,19 @@ Page({
                     })
                 }
             },
-            complete: function (res) {
+            complete: function(res) {
                 page.setData({
                     collect_loading: false
                 });
             }
         });
     },
-    play: function (options) {
+    play: function(options) {
         wx.redirectTo({
             url: '/pages/video/video?id=' + options.currentTarget.dataset.id,
         })
     },
-    loadComment: function (id) {
+    loadComment: function(id) {
         var page = this;
         is_loading_more = true;
         app.request({
@@ -421,7 +421,7 @@ Page({
                 video_id: id,
                 page: 1
             },
-            success: function (res) {
+            success: function(res) {
                 if (res.code == 0) {
                     page.setData({
                         comment_list: res.data.list,
@@ -431,20 +431,20 @@ Page({
                     });
                 }
             },
-            fail: function (res) {
+            fail: function(res) {
                 wx.showModal({
                     title: '警告',
                     content: res.msg,
                     showCancel: false
                 })
             },
-            complete: function () {
+            complete: function() {
                 wx.hideLoading();
                 is_loading_more = false;
             }
         });
     },
-    loadMoreComment: function () {
+    loadMoreComment: function() {
         var page = this;
         var comment_list = page.data.comment_list;
         var p = page.data.page;
@@ -461,7 +461,7 @@ Page({
                 video_id: page.data.video.id,
                 page: (p + 1)
             },
-            success: function (res) {
+            success: function(res) {
                 wx.hideLoading();
                 if (res.code == 0) {
                     if (res.data.list.length > 0) {
@@ -483,12 +483,12 @@ Page({
                     });
                 }
             },
-            complete: function () {
+            complete: function() {
                 is_loading_more = false;
             }
         });
     },
-    thump: function (e) {
+    thump: function(e) {
         var page = this;
         var index = e.currentTarget.dataset.index;
         var comment_list = page.data.comment_list;
@@ -503,7 +503,7 @@ Page({
             data: {
                 c_id: id
             },
-            success: function (res) {
+            success: function(res) {
                 if (res.code == 0) {
                     var thump = !comment_list[index].thump;
                     var title = '取消点赞';
@@ -520,7 +520,7 @@ Page({
                         toast_text: title,
                         isShowToast: true
                     });
-                    setTimeout(function () {
+                    setTimeout(function() {
                         page.setData({
                             isShowToast: false
                         });
@@ -533,14 +533,14 @@ Page({
                     })
                 }
             },
-            complete: function () {
+            complete: function() {
                 page.setData({
                     thump_loading: -1
                 });
             }
         });
     },
-    previewImg: function (e) {
+    previewImg: function(e) {
         var page = this;
         var comment_list = page.data.comment_list;
         var index = e.currentTarget.dataset.index;
@@ -552,7 +552,7 @@ Page({
             urls: img_list,
         })
     },
-    previewImg_c: function (e) {
+    previewImg_c: function(e) {
         var page = this;
         var comment_list = page.data.comment_list;
         var index = e.currentTarget.dataset.index;
@@ -565,7 +565,7 @@ Page({
             urls: img_list,
         })
     },
-    formInput: function (e) {
+    formInput: function(e) {
         var page = this;
         var index = e.currentTarget.dataset.index;
         var video = page.data.video
@@ -576,13 +576,13 @@ Page({
             video: video
         });
     },
-    formSubmit: function (e) {
+    formSubmit: function(e) {
         var page = this;
         var formId = e.detail.formId;
         wx.showModal({
             title: '提示',
             content: '是否立即预约？',
-            success: function (e) {
+            success: function(e) {
                 if (e.confirm) {
                     var video = page.data.video;
                     var form_list = video.form_list;
@@ -609,7 +609,7 @@ Page({
                             video_id: video.id,
                             price: parseFloat(video.money)
                         },
-                        success: function (res) {
+                        success: function(res) {
                             if (res.code == 0) {
                                 if (video.money == 0) {
                                     wx.hideLoading();
@@ -624,7 +624,7 @@ Page({
                                             order_id: res.data,
                                             pay_type: 'WECHAT_PAY',
                                         },
-                                        success: function (result) {
+                                        success: function(result) {
                                             wx.hideLoading();
                                             if (result.code == 0) {
                                                 var pay_data = result.data;
@@ -634,18 +634,18 @@ Page({
                                                     package: pay_data.package,
                                                     signType: pay_data.signType,
                                                     paySign: pay_data.paySign,
-                                                    success: function (res) {
+                                                    success: function(res) {
                                                         wx.showToast({
                                                             title: '订单支付成功',
                                                             icon: 'success'
                                                         });
-                                                        setTimeout(function () {
+                                                        setTimeout(function() {
                                                             wx.redirectTo({
                                                                 url: '/pages/order/order?status=1',
                                                             })
                                                         }, 2000)
                                                     },
-                                                    fail: function (res) {
+                                                    fail: function(res) {
                                                         wx.showToast({
                                                             title: '订单未支付',
                                                             image: '/images/icon-warning.png'
@@ -675,7 +675,7 @@ Page({
             }
         })
     },
-    playVideo: function () {
+    playVideo: function() {
         var page = this;
         var video_play = wx.createVideoContext('video');
         var video = page.data.video;
@@ -687,12 +687,12 @@ Page({
             })
         } else {
             wx.getNetworkType({
-                success: function (res) {
+                success: function(res) {
                     if (res.networkType != 'wifi') {
                         wx.showModal({
                             title: '提示',
                             content: '当前网络状态不是WiFi，是否播放',
-                            success: function (e) {
+                            success: function(e) {
                                 if (e.confirm) {
                                     page.setData({
                                         play: true
@@ -711,7 +711,7 @@ Page({
             })
         }
     },
-    pause: function () {
+    pause: function() {
         var page = this;
         var video_play = wx.createVideoContext('video');
         video_play.pause();
@@ -719,7 +719,7 @@ Page({
             play: false
         });
     },
-    timeupdate: function (e) {
+    timeupdate: function(e) {
         var page = this;
         var video_pay = page.data.video_pay;
         if (page.data.video.is_pay == 0) {
@@ -743,7 +743,7 @@ Page({
         wx.showModal({
             title: '提示',
             content: '确认购买？',
-            success: function (e) {
+            success: function(e) {
                 if (e.confirm) {
                     wx.showLoading({
                         title: '提交中',
@@ -755,7 +755,7 @@ Page({
                             video_id: video.id,
                             price: page.data.video_pay.price
                         },
-                        success: function (res) {
+                        success: function(res) {
                             if (res.code == 0) {
                                 app.request({
                                     url: api.order.get_pay_data,
@@ -764,7 +764,7 @@ Page({
                                         order_id: res.data,
                                         pay_type: 'WECHAT_PAY'
                                     },
-                                    success: function (result) {
+                                    success: function(result) {
                                         wx.hideLoading();
                                         if (result.code == 0) {
                                             var pay_data = result.data;
@@ -774,12 +774,12 @@ Page({
                                                 package: pay_data.package,
                                                 signType: pay_data.signType,
                                                 paySign: pay_data.paySign,
-                                                success: function (res) {
+                                                success: function(res) {
                                                     wx.showToast({
                                                         title: '订单支付成功',
                                                         icon: 'success'
                                                     });
-                                                    setTimeout(function () {
+                                                    setTimeout(function() {
                                                         video.is_pay = 0;
                                                         page.setData({
                                                             video: video
@@ -787,7 +787,7 @@ Page({
                                                         page.playVideo();
                                                     }, 2000)
                                                 },
-                                                fail: function (res) {
+                                                fail: function(res) {
                                                     wx.showToast({
                                                         title: '订单未支付',
                                                         image: '/images/icon-warning.png'
@@ -824,6 +824,7 @@ Page({
         var video = page.data.video;
         console.log('buyCat-->cat_id' + video.cat_id);
         console.log('buyCat-->price' + page.data.video_pay.price);
+        console.log('buyCat-->video_id' + video.id);
         wx.showModal({
             title: '提示',
             content: '确认购买？',
@@ -836,7 +837,8 @@ Page({
                         url: api.order.cat,
                         method: 'POST',
                         data: {
-                            cat: video.cat_id,
+                            cat_id: video.cat_id,
+                            video_id: video.id,
                             price: page.data.video_pay.price
                         },
                         success: function(res) {
@@ -906,17 +908,17 @@ Page({
             show_modal: true
         });
     },
-    closeModal: function () {
+    closeModal: function() {
         this.setData({
             show_modal: false
         });
     },
-    buyVip: function () {
+    buyVip: function() {
         wx.navigateTo({
             url: '/pages/member/member',
         })
     },
-    backIndex: function (e) {
+    backIndex: function(e) {
         wx.switchTab({
             url: '/pages/index/index',
         })

@@ -13,14 +13,18 @@ class OrderCatForm extends Model
 {
     public $store_id;
     public $user;
-
-    public $cat_id;
+    //$form->attributes = \Yii::$app->request->post();要用POST的参数须先定义
+    public $cat_id;    // 需要先定义
+    public $video_id; // 需要定义
     public $price;
+    /**
+        *所有$this.store_id 等以上定义的变量要使用之前都 RULES操作，否则无法使用
 
+     */
     public function rules()
     {
         return [
-            [['cat_id','price'],'required'],
+            [['video_id','cat_id','price'],'required'],//需要加cat_id和video_id才能使用
             [['price'],'number']
         ];
     }
@@ -30,6 +34,7 @@ class OrderCatForm extends Model
         if(!$this->validate()){
             return $this->getModelError();
         }
+        
         $order = new Order();
         $order->store_id = $this->store_id;
         $order->video_id = $this->video_id;
@@ -59,7 +64,7 @@ class OrderCatForm extends Model
         $order_no = null;
         while(true){
             $order_no = date('YmdHis').rand(100000,999999);
-            $exit = OrderCat::find()->where(['order_no'=>$order_no])->exists();
+            $exit = Order::find()->where(['order_no'=>$order_no])->exists();
             if(!$exit){
                 break;
             }

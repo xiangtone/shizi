@@ -336,7 +336,9 @@
                 <view>开通VIP自由畅想全站影视</view>
             </view>
             <view class='modal-footer flex-row flex-x-center'>
-                <view class='flex-grow-0 flex-x-center flex-y-center pay-btn-1 btn-3' bindtap='buyVideo'>单独购买</view>
+                <!-- <view class='flex-grow-0 flex-x-center flex-y-center pay-btn-1 btn-3' bindtap='buyVideo'>单独购买</view> -->
+                <!-- 以下是测试分类购买接口 -->
+                <view class='flex-grow-0 flex-x-center flex-y-center pay-btn-1 btn-3' bindtap='buyCat'>单独购买</view>
                 <view class='flex-grow-0 flex-x-center flex-y-center pay-btn-1 btn-2' bindtap='buyVip'>开通VIP</view>
             </view>
         </view>

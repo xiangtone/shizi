@@ -93,13 +93,23 @@ class VideoForm extends Model
             } else {
                 $video['collect'] = $collect->is_delete;
             }
-            $order = Order::find()->where([
+            //查看该视频id是否购买
+            $order1 = Order::find()->where([
                 'store_id'=>$this->store_id,'type'=>1,'is_pay'=>1, 'video_id'=>$video['id'],
                 'user_id'=>$this->user_id,'is_delete'=>0
             ])->exists();
-            if($order){
+            
+            //查看分类id是否购买了
+            $order2 = Order::find()->where([
+                'store_id'=>$this->store_id,'type'=>1,'is_pay'=>1, 'product_id'=>$video['cat_id'],
+                'user_id'=>$this->user_id,'is_delete'=>0
+            ])->exists();
+            
+            //只要有一个买了就可以播放了
+            if($order2 || $order1){
                 $video['is_pay'] = 0;
             }
+            
             $user = User::findOne(['id'=>$this->user_id]);
             if($user->is_member == 1){
                 $video['is_pay'] = 0;
