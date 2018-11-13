@@ -2,16 +2,16 @@
 
   <view class="binding-main2">
     <view style="height:100rpx;border-bottom:1rpx solid #e2e2e2;">
-      <input bindinput="TeacherName" class="binding-btn " style="float:left;hieght:100rpx;" name="name" placeholder="姓名" />
+      <input bindinput="TeacherName" class="binding-btn " style="float:left;hieght:100rpx;" name="name" placeholder="姓名" value='{{teacherName}}'/>
     </view>
     <view style="height:100rpx;border-bottom:1rpx solid #e2e2e2;">
-      <input bindinput="CooName" class="binding-btn " style="float:left;hieght:100rpx;" name="coo" placeholder="工作单位" />
+      <input bindinput="CooName" class="binding-btn " style="float:left;hieght:100rpx;" name="coo" placeholder="工作单位" value='{{cooName}}' />
     </view>
     <view style="height:100rpx;border-bottom:1rpx solid #e2e2e2;">
-      <input bindinput="Bank" class="binding-btn " style="float:left;hieght:100rpx;" name="bank" placeholder="开户银行" />
+      <input bindinput="Bank" class="binding-btn " style="float:left;hieght:100rpx;" name="bank" placeholder="开户银行"  value='{{bank}}' />
     </view>
     <view style="height:100rpx;border-bottom:1rpx solid #e2e2e2;">
-      <input bindinput="BankAccount" type="number" class="binding-btn " style="float:left;hieght:100rpx;" name="account" placeholder="银行帐号" />
+      <input bindinput="BankAccount" type="number" class="binding-btn " style="float:left;hieght:100rpx;" name="account" placeholder="银行帐号"  value='{{bankAccount}}' />
     </view>
   </view>
 

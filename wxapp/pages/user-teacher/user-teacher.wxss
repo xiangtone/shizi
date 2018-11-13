@@ -1,4 +1,5 @@
 /* pages/user-binding/user-binding.wxss */
+@import "/commons/weui.wxss";
 .binding-header{
     height:88rpx;
     background: #ffffff;

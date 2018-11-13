@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.baidu.com/" versionCode="">
+  <application setting="false">
+    <name>
+      <![CDATA[学懂汉字]]>
+    </name>
+    <identifie>
+      <![CDATA[sc]]>
+    </identifie>
+    <version>
+      <![CDATA[2.1]]>
+    </version>
+    <type>
+      <![CDATA[business]]>
+    </type>
+    <ability>
+      <![CDATA[学懂汉字]]>
+    </ability>
+    <description>
+      <![CDATA[学懂汉字]]>
+    </description>
+    <author>
+      <![CDATA[学懂汉字]]>
+    </author>
+    <url>
+      <![CDATA[http://www.baidu.com/]]>
+    </url>
+  </application>
+  <platform>
+    <supports>
+      <item type="wxapp" />
+    </supports>
+  </platform>
+  <bindings>
+  </bindings>
+  <permissions>
+  </permissions>
+  <install>
+    <![CDATA[]]>
+  </install>
+  <uninstall>
+    <![CDATA[]]>
+  </uninstall>
+  <upgrade>
+    <![CDATA[]]>
+  </upgrade>
+</manifest>

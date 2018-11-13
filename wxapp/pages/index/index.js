@@ -373,21 +373,21 @@ Page({
       url: '/pages/cat-second/cat-second?cat_id=' + cat.id,
     })
   },
-  gotoadvertisement: function(e) {
-    var appid = this.data.advertisement.appid;
-    var path = this.data.advertisement.path;
-    wx.navigateToMiniProgram({
-      appId: appid,
-      path: path,
-      extraData: {
-        foo: 'bar'
-      },
-      envVersion: 'develop',
-      success(res) {
-        // 打开成功
-      }
-    })
-  },
+  // gotoadvertisement: function(e) {
+  //   var appid = this.data.advertisement.appid;
+  //   var path = this.data.advertisement.path;
+  //   wx.navigateToMiniProgram({
+  //     appId: appid,
+  //     path: path,
+  //     extraData: {
+  //       foo: 'bar'
+  //     },
+  //     envVersion: 'develop',
+  //     success(res) {
+  //       // 打开成功
+  //     }
+  //   })
+  // },
   timeUpdate: function(e) {
     var page = this;
     var index = e.currentTarget.dataset.index;

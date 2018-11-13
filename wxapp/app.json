@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/cover/cover",
     "pages/index/index",
     "pages/cat/cat",
     "pages/user/user",
@@ -26,7 +27,7 @@
   {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "视频",
+    "navigationBarTitleText": "",
     "navigationBarTextStyle": "black",
     "backgroundColor": "#EFEFF4"
   },

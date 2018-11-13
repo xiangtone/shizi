@@ -41,6 +41,10 @@ Page({
         } else if (res.code == 0) {
           page.setData({
             status: true,
+            teacherName: res.data.teacher_info.teacher_name,
+            cooName: res.data.teacher_info.school_name,
+            bank: res.data.teacher_info.bank_name,
+            bankAccount: res.data.teacher_info.bank_account,
           });
         } else {
           page.setData({
@@ -49,32 +53,6 @@ Page({
         }
       },
     });
-  },
-  onSubmit: function () {
-    console.log('try submit')
-    app.request({
-      url: api.user.teacher_edit,
-      method: 'POST',
-      data: {
-        teacherName: this.data.teacherName,
-        cooName: this.data.cooName,
-        bank: this.data.bank,
-        bankAccount: this.data.bankAccount,
-      },
-      success: function (res) {
-        if (res.code == 0) {
-          page.setData({
-            binding: true,
-            binding_num: phone
-          })
-        } else {
-          wx.showToast({
-            title: '失败'+res.msg,
-            image: "/images/icon-warning.png",
-          });
-        }
-      },
-    })
   },
   TeacherName: function (e) {
     this.setData({
@@ -94,6 +72,35 @@ Page({
   BankAccount: function (e) {
     this.setData({
       bankAccount: e.detail.value
+    })
+  },
+  onSubmit: function () {
+    console.log('try submit')
+    app.request({
+      url: api.user.teacher_edit,
+      method: 'POST',
+      data: {
+        teacherName: this.data.teacherName,
+        cooName: this.data.cooName,
+        bank: this.data.bank,
+        bankAccount: this.data.bankAccount,
+      },
+      success: function (res) {
+        if (res.code == 0) {
+          wx.showToast({
+            title: '更新成功',
+            image: "/images/icon-warning.png",
+          });
+          wx.redirectTo({
+            url: '/pages/user-teacher/user-teacher',
+          })
+        } else {
+          wx.showToast({
+            title: '失败' + res.msg,
+            image: "/images/icon-warning.png",
+          });
+        }
+      },
     })
   },
   getPhoneNumber: function (e) {
