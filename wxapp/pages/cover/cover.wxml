@@ -1,0 +1,12 @@
+<view class="bg">
+  <image src="res/bg.png" />
+</view>
+<view class="startBtn">
+  <image src="res/start.png" bindtap="GoLesson"/>
+</view>
+<view class="frontBtn">
+  <image src="res/index.png" bindtap="GoIndex" />
+  <image src="res/lesson.png" bindtap="GoCat"/>
+  <!-- <image src="res/class.png" /> -->
+  <image src="res/user.png" bindtap="GoUser" />
+</view>
