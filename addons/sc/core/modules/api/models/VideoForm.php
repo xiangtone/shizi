@@ -93,13 +93,23 @@ class VideoForm extends Model
             } else {
                 $video['collect'] = $collect->is_delete;
             }
-            $order = Order::find()->where([
+            //查看该视频id是否购买
+            $order1 = Order::find()->where([
                 'store_id'=>$this->store_id,'type'=>1,'is_pay'=>1, 'video_id'=>$video['id'],
                 'user_id'=>$this->user_id,'is_delete'=>0
             ])->exists();
-            if($order){
+            
+            //查看分类id是否购买了
+            $order2 = Order::find()->where([
+                'store_id'=>$this->store_id,'type'=>1,'is_pay'=>1, 'product_id'=>$video['cat_id'],
+                'user_id'=>$this->user_id,'is_delete'=>0
+            ])->exists();
+            
+            //只要有一个买了就可以播放了
+            if($order2 || $order1){
                 $video['is_pay'] = 0;
             }
+            
             $user = User::findOne(['id'=>$this->user_id]);
             if($user->is_member == 1){
                 $video['is_pay'] = 0;
@@ -111,7 +121,7 @@ class VideoForm extends Model
         $video_coupon= VideoCoupon::find()->where(['video_id'=>$this->video_id,'store_id'=>$this->store_id,'is_delete'=>0])->asArray()->all();
         foreach ($video_coupon as $key => &$value) {
             if($this->user_id){
-                $userCoupon = UserCoupon::findBySql("select sum(num) as total_num from sc_coupon_user where video_coupon_id = '$value[id]' && user_id = $this->user_id && video_id = $this->video_id && store_id = $this->store_id GROUP BY video_coupon_id;")->asArray()->one();
+                $userCoupon = UserCoupon::findBySql("select sum(num) as total_num from zjhj_video_coupon_user where video_coupon_id = '$value[id]' && user_id = $this->user_id && video_id = $this->video_id && store_id = $this->store_id GROUP BY video_coupon_id;")->asArray()->one();
             }else{
                 $userCoupon = [];
             }
@@ -128,7 +138,7 @@ class VideoForm extends Model
                 }
             }
             if($value['draw_type'] == 2){
-                $userCoupons = UserCoupon::findBySql("select sum(num) as total_num from sc_coupon_user where video_coupon_id = '$value[id]' && store_id = $this->store_id  && video_id = $this->video_id  GROUP BY video_coupon_id;")->asArray()->one();
+                $userCoupons = UserCoupon::findBySql("select sum(num) as total_num from zjhj_video_coupon_user where video_coupon_id = '$value[id]' && store_id = $this->store_id  && video_id = $this->video_id  GROUP BY video_coupon_id;")->asArray()->one();
                 $value['percentage'] = (100 - round($this->getNum($userCoupons['total_num'],$value['count']))).'%';
             }
             if($value['total_count'] <= 0){

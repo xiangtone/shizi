@@ -38,7 +38,7 @@ class UserCoupon extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '%coupon_user';
+        return 'zjhj_video_coupon_user';
     }
 
     /**

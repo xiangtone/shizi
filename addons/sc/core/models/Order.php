@@ -25,6 +25,8 @@ use Yii;
  * @property integer $addtime
  * @property integer $is_refund
  * @property integer $type
+ * @property integer $teacher_id
+ * @property integer $channel_id
  */
 class Order extends \yii\db\ActiveRecord
 {
@@ -42,7 +44,7 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['store_id', 'video_id', 'user_id', 'is_pay', 'pay_type', 'pay_time', 'is_use', 'use_time', 'clerk_id', 'is_delete', 'product_id', 'addtime', 'is_refund', 'type'], 'integer'],
+            [['store_id', 'video_id', 'user_id', 'is_pay', 'pay_type', 'pay_time', 'is_use', 'use_time', 'clerk_id', 'is_delete', 'product_id', 'addtime', 'is_refund', 'type', 'teacher_id', 'channel_id'], 'integer'],
             [['price'], 'number'],
             [['order_no'], 'string', 'max' => 255],
             [['product_type'], 'string', 'max' => 16],
@@ -60,7 +62,7 @@ class Order extends \yii\db\ActiveRecord
             'order_no' => Yii::t('app', '订单号'),
             'video_id' => Yii::t('app', '视频ID'),
             'user_id' => Yii::t('app', '用户ID'),
-            'is_pay' => Yii::t('app', '是否支付'),
+            'is_pay' => Yii::t('app', '是否支付 0已支付 1 未支付'),
             'pay_type' => Yii::t('app', '支付方式'),
             'pay_time' => Yii::t('app', '支付时间'),
             'is_use' => Yii::t('app', '是否使用 0--未使用 1--已使用 2--退款'),
@@ -73,6 +75,8 @@ class Order extends \yii\db\ActiveRecord
             'addtime' => Yii::t('app', '订单生成时间'),
             'is_refund' => Yii::t('app', '是否支持退款 0--不支持 1--支持'),
             'type' => Yii::t('app', '订单类型 0--预约 1--购买视频'),
+            'teacher_id' => Yii::t('app', '老师ID'),
+            'channel_id' => Yii::t('app', '渠道ID'),
         ];
     }
 }

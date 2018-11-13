@@ -16,7 +16,7 @@ class Classes extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '%classes';
+        return 'zjhj_video_classes';
     }
 
     /**
