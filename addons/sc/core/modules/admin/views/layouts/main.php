@@ -95,7 +95,7 @@ $is_auth = Yii::$app->cache->get('IS_AUTH');
             <a href="javascript:"><i class="iconfont icon-person"></i>用户管理</a>
             <div class="sub-nav-list">
                 <a href="<?= $urlManager->createUrl(['admin/user/index']) ?>">用户列表</a>
-                <a href="<?= $urlManager->createUrl(['admin/user/clerk']) ?>">核销员列表</a>
+                <!-- <a href="<?= $urlManager->createUrl(['admin/user/clerk']) ?>">核销员列表</a> -->
             </div>
         </div>
         <div class="nav-group <?= $this->params['active_nav_group'] == 4 ? 'active' : null ?>">
@@ -124,6 +124,12 @@ $is_auth = Yii::$app->cache->get('IS_AUTH');
             <a href="javascript:"><i class="iconfont icon-huiyuan"></i>班级管理</a>
             <div class="sub-nav-list">
                 <a href="<?= $urlManager->createUrl(['admin/classes/index']) ?>">班级设置</a>
+            </div>
+        </div>
+        <div class="nav-group <?= $this->params['active_nav_group'] == 9 ? 'active' : null ?>">
+            <a href="javascript:"><i class="iconfont icon-person"></i>老师管理</a>
+            <div class="sub-nav-list">
+                <a href="<?= $urlManager->createUrl(['admin/teacher/index']) ?>">老师列表</a>
             </div>
         </div>
     </div>

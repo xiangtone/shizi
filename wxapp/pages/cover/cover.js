@@ -40,7 +40,7 @@ Page({
     })
   },
   GoLesson: function () {
-    wx.redirectTo({
+    wx.navigateTo({
       url: '/pages/video/video?id=5',
     })
   },

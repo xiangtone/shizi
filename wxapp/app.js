@@ -1,4 +1,4 @@
-﻿//app.js
+//app.js
 var api = require('./api.js');
 var util = require('./utils/util.js');
 var is_login = false;
@@ -21,6 +21,13 @@ App({
     }
     if (options && options.cd) {
       wx.setStorageSync("cd", options.fd);
+    }else if (options&&options.q){
+      let q = decodeURIComponent(options.q)
+      console.log("onLoad q ", q)
+      let c = util.getUrlParam(q, "c")
+      if (c) {
+        wx.setStorageSync("cd", c);
+      }
     }
   },
   getStore: function() {
