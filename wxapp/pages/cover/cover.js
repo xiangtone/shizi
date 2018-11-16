@@ -41,7 +41,7 @@ Page({
   },
   GoLesson: function () {
     wx.navigateTo({
-      url: '/pages/video/video?id=5',
+      url: '/pages/video1/video1?id=8',
     })
   },
     onShareAppMessage: function(a) {

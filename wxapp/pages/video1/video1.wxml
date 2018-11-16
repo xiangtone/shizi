@@ -1,0 +1,89 @@
+<!--pages/video/video.wxml-->
+<view class="pbg">
+  <image src="/images/course/img_course_block_1a.jpg" />
+</view>
+<view class='{{share_show?"blur":""}} {{(share_show || show || show_modal)?"no-scroll":""}} w-100 h-100'>
+  <!-- 客服开始   -->
+  <import src="/commons/float-icon/float-icon.wxml" />
+  <template is="item" data="{{store: store,a:2}}" />
+  <!-- 客服结束 -->
+  <view class='video {{show?"hidden":""}} {{share_show?"hidden":""}}'>
+    <video src='{{video.video_url}}' class='{{play?"":"hidden"}}' controls='controls' id='video' poster='{{video.pic_url}}' duration='{{video.is_pay == 1 ? video_pay.time:""}}' bindtimeupdate='timeupdate' autoplay='true' wx:if='{{play}}'>
+      <cover-view style='width:750rpx;height:420rpx;' wx:if='{{video.style == 1}}'>
+        <cover-view class='w-100 h-100'>
+          <cover-image style='width:100%;height:100%;' src='{{video.pic_url}}'></cover-image>
+          <cover-image src='/images/icon-pause.png' class='cover-play' bindtap='pause' data-index='{{index}}'></cover-image>
+        </cover-view>
+      </cover-view>
+    </video>
+    <view class='cover {{play?"hidden":""}}' wx:if='{{video.is_pay==0}}'>
+      <image src='{{video.pic_url}}' class='cover-img'></image>
+      <image src='/images/icon-play-big.png' class='cover-play' bindtap='playVideo' wx:if='{{video.style < 2}}'></image>
+    </view>
+    <view class='cover {{play?"hidden":""}} bg' wx:if='{{video.is_pay==1}}'>
+      <view class='pay-text flex-x-center'>此内容需￥{{video_pay.price}}元购买</view>
+      <view class='flex-row flex-x-center'>
+        <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-1' bindtap='playVideo' wx:if='{{video_pay.time != 0}}'>
+          <view>试看{{video_pay.d_time}}</view>
+        </view>
+        <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='{{store.member == 1 ? "showModal" : "buyVideo"}}'>
+          <view>立即购买</view>
+        </view>
+        <!-- <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='{{store.member == 1 ? "showModal" : "buyCat"}}'>
+                    <view>立即购买</view>
+                </view> -->
+      </view>
+    </view>
+    <view class='flex-y-center flex-row info-title'>
+      <view class='font-13 text-more flex-grow-1'>
+        <image src="/images/course/img_course_title_block.png" style="width:410rpx;height:120rpx;z-index:10;position:absolute;left:0;top:0"></image>
+        <text style='z-index:20;position:absolute;left:75rpx;top:35rpx;font-weight:bold;color:#ffcab2;font-size:30rpx;'>{{video.title}}</text>
+      </view>
+      <view class='flex-y-center flex-grow-0'>
+        <view class='flex-y-center' style='height:100%;'>
+          <image src='/images/course/btn_course_last_none.png' class='collect'></image>
+        </view>
+        <view class='flex-y-center' style='height:100%;'>
+          <image src='/images/course/btn_course_next_none.png' class='collect'></image>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class='show_modal flex-row flex-x-center flex-y-center {{show_modal?"":"hidden"}}'>
+    <view class='modal'>
+      <view class='modal-title'>
+        <image class='w-100 h-100' src='/images/icon-video-title.png'></image>
+        <view class='modal-xx flex-x-center flex-y-center' bindtap='closeModal'>
+          <image src='/images/icon-video-xx.png'></image>
+        </view>
+      </view>
+      <view class='modal-body'>
+        <view>此视频为付费视频</view>
+        <view>单独购买需支付￥{{video_pay.price}}</view>
+        <view>开通VIP自由畅想全站影视</view>
+      </view>
+      <view class='modal-footer flex-row flex-x-center'>
+        <!-- <view class='flex-grow-0 flex-x-center flex-y-center pay-btn-1 btn-3' bindtap='buyVideo'>单独购买</view> -->
+        <!-- 以下是测试分类购买接口 -->
+        <view class='flex-grow-0 flex-x-center flex-y-center pay-btn-1 btn-3' bindtap='buyCat'>单独购买</view>
+        <view class='flex-grow-0 flex-x-center flex-y-center pay-btn-1 btn-2' bindtap='buyVip'>开通VIP</view>
+      </view>
+    </view>
+  </view>
+  <view class="functionBtn">
+    <image src='/images/course/btn_course_cyllk_none.png'></image>
+  </view>
+  <view class="functionBtn">
+    <image src='/images/course/btn_course_zjgh_none.png'></image>
+  </view>
+  <view class="shareBtn">
+    <image src='/images/course/btn_course_share_none.png'></image>
+  </view>
+</view>
+<view class='Toast' wx:if='{{isShowToast}}'>
+  <image src='/images/icon-true.png'></image>
+  <view style=' margin-top: 32rpx;color:#fff;'>{{toast_text}}</view>
+</view>
+<include src="/commons/comment/comment.wxml" />
+<include src="/commons/share/share.wxml" />

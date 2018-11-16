@@ -1,6 +1,6 @@
 <!--pages/cat-second/cat-second.wxml-->
 <block wx:for='{{video_list}}'>
-  <navigator url='/pages/video/video?id={{item.id}}'>
+  <navigator url='/pages/video1/video1?id={{item.id}}'>
     <view class='info flex-y-center'>
   <view class='shadow'></view>
       <image src='{{item.pic_url}}'></image>
