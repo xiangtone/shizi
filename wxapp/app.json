@@ -3,6 +3,8 @@
     "pages/cover/cover",
     "pages/index/index",
     "pages/cat/cat",
+    "pages/class/class",
+    "pages/class-edit/class-edit",
     "pages/user/user",
     "pages/video/video",
     "pages/video1/video1",

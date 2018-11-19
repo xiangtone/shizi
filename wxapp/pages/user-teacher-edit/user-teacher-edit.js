@@ -75,7 +75,6 @@ Page({
     })
   },
   onSubmit: function () {
-    console.log('try submit')
     app.request({
       url: api.user.teacher_edit,
       method: 'POST',

@@ -39,6 +39,11 @@ Page({
       url: '/pages/cat/cat',
     })
   },
+  GoClass: function () {
+    wx.navigateTo({
+      url: '/pages/class/class',
+    })
+  },
   GoLesson: function () {
     wx.navigateTo({
       url: '/pages/video1/video1?id=8',

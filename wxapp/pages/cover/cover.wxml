@@ -7,6 +7,6 @@
 <view class="frontBtn">
   <image src="res/index.png" bindtap="GoIndex" />
   <image src="res/lesson.png" bindtap="GoCat"/>
-  <!-- <image src="res/class.png" /> -->
+  <image src="res/class.png" bindtap="GoClass" />
   <image src="res/user.png" bindtap="GoUser" />
 </view>

@@ -20,6 +20,7 @@ use Yii;
  * @property string $bank_account
  * @property string $total_withdraw_amount
  * @property string $current_withdrew_amount
+ * @property integer $max_join_class
  */
 class Teacher extends \yii\db\ActiveRecord
 {
@@ -38,7 +39,7 @@ class Teacher extends \yii\db\ActiveRecord
     {
         return [
             [['id'], 'required'],
-            [['id', 'status', 'last_withdraw_time', 'apply_withdraw_time', 'withdraw_status'], 'integer'],
+            [['id', 'status', 'last_withdraw_time', 'apply_withdraw_time', 'withdraw_status', 'max_join_class'], 'integer'],
             [['ratio_ad', 'ratio_qa', 'total_withdraw_amount', 'current_withdrew_amount'], 'number'],
             [['teacher_name'], 'string', 'max' => 20],
             [['school_name'], 'string', 'max' => 100],
@@ -66,6 +67,7 @@ class Teacher extends \yii\db\ActiveRecord
             'bank_account' => '银行账号',
             'total_withdraw_amount' => '累计提现',
             'current_withdrew_amount' => '提现中金额',
+            'max_join_class' => '最多可加入班级数量',
         ];
     }
 }

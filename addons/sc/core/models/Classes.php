@@ -4,10 +4,16 @@ namespace app\models;
 
 use Yii;
 
-
 /**
- * Class Classes
- * @package app\models
+ * This is the model class for table "{{%classes}}".
+ *
+ * @property string $id
+ * @property string $class_name
+ * @property integer $type
+ * @property string $create_user_id
+ * @property string $create_time
+ * @property integer $is_delete
+ * @property string $img_url
  */
 class Classes extends \yii\db\ActiveRecord
 {
@@ -16,7 +22,7 @@ class Classes extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '%classes';
+        return '{{%classes}}';
     }
 
     /**
@@ -25,8 +31,9 @@ class Classes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type','create_user_id'], 'integer'],
-            [['class_name'], 'string', 'max' => 500],
+            [['type', 'create_user_id', 'create_time', 'is_delete'], 'integer'],
+            [['img_url'], 'string'],
+            [['class_name'], 'string', 'max' => 200],
         ];
     }
 
@@ -37,16 +44,12 @@ class Classes extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'class_name' => '班级名称',
-            'type' => '创建类型',
-            'create_user_id' => '创建者ID',
-            'create_time' => '创建时间',
-
+            'class_name' => 'Class Name',
+            'type' => '0系统自动创建1老师创建',
+            'create_user_id' => '0系统自动创建，老师user_id',
+            'create_time' => 'Create Time',
+            'is_delete' => '是否已经删除',
+            'img_url' => 'Img Url',
         ];
     }
-
-
-
-
 }
-
