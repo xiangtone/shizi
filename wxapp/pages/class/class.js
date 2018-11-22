@@ -27,7 +27,7 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function(options) {
+    onLoad: function (options) {
         app.pageOnLoad(this);
         is_loading_more = false;
         is_no_more = false;
@@ -50,23 +50,23 @@ Page({
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
-    onReady: function() {
+    onReady: function () {
         app.pageOnReady(this);
 
     },
-  edit:function(){
-wx.navigateTo({
-  url: '/pages/class-edit/class-edit',
-})
-  },
+    edit: function () {
+        wx.navigateTo({
+            url: '/pages/class-edit/class-edit',
+        })
+    },
 
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function() {
+    onShow: function () {
         app.pageOnShow(this);
         var page = this;
-        
+
         var user_info = wx.getStorageSync('user_info');
         if (user_info.is_member == 1) {
             page.setData({
@@ -74,9 +74,9 @@ wx.navigateTo({
             });
         }
         var video_id = page.data.video_id;
-        
+
     },
-    chakan: function() {
+    chakan: function () {
         this.setData({
             flag: 1,
         });
@@ -85,7 +85,7 @@ wx.navigateTo({
     /**
      * 生命周期函数--监听页面隐藏
      */
-    onHide: function() {
+    onHide: function () {
         app.pageOnHide(this);
 
         var page = this;
@@ -97,7 +97,7 @@ wx.navigateTo({
     /**
      * 生命周期函数--监听页面卸载
      */
-    onUnload: function() {
+    onUnload: function () {
         app.pageOnUnload(this);
 
     },
@@ -105,20 +105,20 @@ wx.navigateTo({
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh: function() {
+    onPullDownRefresh: function () {
 
     },
 
     /**
      * 页面上拉触底事件的处理函数
      */
-    onReachBottom: function() {
+    onReachBottom: function () {
         if (this.data.page == this.data.page_count) {
             return;
         }
         //this.loadMoreComment();
     },
-    load: function() {
+    load: function () {
         if (this.data.page == this.data.page_count) {
             return;
         }
@@ -128,18 +128,18 @@ wx.navigateTo({
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function(res) {
+    onShareAppMessage: function (res) {
         var video = this.data.video;
         var result = {
             title: video.title,
             path: "/pages/video/video?id=" + video.id,
             imageUrl: video.pic_url,
-            success: function(res) {
+            success: function (res) {
                 wx.showToast({
                     title: '转发成功',
                 });
             },
-            fail: function(res) {
+            fail: function (res) {
                 // 转发失败
             }
         };
@@ -147,11 +147,11 @@ wx.navigateTo({
     },
 
     // 领取优惠券
-    coupon_receive: function(e) {
+    coupon_receive: function (e) {
         var page = this;
         var data = e.currentTarget.dataset;
         var video_coupon = page.data.video_coupon;
-        var video_coupon_check = video_coupon.find(function(v) {
+        var video_coupon_check = video_coupon.find(function (v) {
             return v.id == data.id
         })
         if (video_coupon_check.total_count <= 0) {
@@ -172,7 +172,7 @@ wx.navigateTo({
             data: {
                 coupon_id: data.id
             },
-            success: function(res) {
+            success: function (res) {
                 wx.hideLoading();
                 if (res.code == 0) {
 
@@ -195,11 +195,11 @@ wx.navigateTo({
             }
         });
     },
-    buyNow: function(option) {
+    buyNow: function (option) {
         var page = this;
         var data = option.currentTarget.dataset;
         var video_coupon = page.data.draw_type;
-        var video_coupon_check = video_coupon.find(function(v) {
+        var video_coupon_check = video_coupon.find(function (v) {
             return v.id == data.id
         })
         if (video_coupon_check.total_count <= 0) {
@@ -222,7 +222,7 @@ wx.navigateTo({
                 video_id: video_coupon_check.video_id,
                 coupon_id: video_coupon_check.id
             },
-            success: function(res) {
+            success: function (res) {
                 if (res.code == 0) {
                     app.request({
                         url: api.order.get_pay_data,
@@ -232,7 +232,7 @@ wx.navigateTo({
                             pay_type: 'WECHAT_PAY',
                             pay_data_type: 'video_coupon'
                         },
-                        success: function(result) {
+                        success: function (result) {
                             wx.hideLoading();
                             if (result.code == 0) {
                                 var pay_data = result.data;
@@ -242,12 +242,12 @@ wx.navigateTo({
                                     package: pay_data.package,
                                     signType: pay_data.signType,
                                     paySign: pay_data.paySign,
-                                    success: function(res) {
+                                    success: function (res) {
                                         wx.showToast({
                                             title: '订单支付成功',
                                             icon: 'success'
                                         });
-                                        setTimeout(function() {
+                                        setTimeout(function () {
                                             video_coupon_check.num += 1;
                                             if (video_coupon_check.user_num == video_coupon_check.num) {
                                                 video_coupon_check.type = 1;
@@ -266,7 +266,7 @@ wx.navigateTo({
                                             console.log(video_coupon)
                                         }, 2000)
                                     },
-                                    fail: function(res) {
+                                    fail: function (res) {
                                         wx.showToast({
                                             title: '订单未支付',
                                             image: '/images/icon-warning.png'
@@ -293,7 +293,7 @@ wx.navigateTo({
         });
     },
 
-    collect: function(option) {
+    collect: function (option) {
         var page = this;
         var video = page.data.video;
         page.setData({
@@ -303,7 +303,7 @@ wx.navigateTo({
             url: api.user.collect,
             method: "GET",
             data: { video_id: video.id },
-            success: function(res) {
+            success: function (res) {
                 if (res.code == 0) {
                     var title = "已收藏";
                     if (res.data.collect == 1) {
@@ -318,7 +318,7 @@ wx.navigateTo({
                         isShowToast: true,
                         collect_loading: false
                     });
-                    setTimeout(function() {
+                    setTimeout(function () {
                         page.setData({
                             isShowToast: false
                         });
@@ -330,19 +330,19 @@ wx.navigateTo({
                     })
                 }
             },
-            complete: function(res) {
+            complete: function (res) {
                 page.setData({
                     collect_loading: false
                 });
             }
         });
     },
-    play: function(options) {
+    play: function (options) {
         wx.redirectTo({
             url: '/pages/video/video?id=' + options.currentTarget.dataset.id,
         })
     },
-    loadComment: function(id) {
+    loadComment: function (id) {
         var page = this;
         is_loading_more = true;
         app.request({
@@ -351,7 +351,7 @@ wx.navigateTo({
                 video_id: id,
                 page: 1
             },
-            success: function(res) {
+            success: function (res) {
                 if (res.code == 0) {
                     page.setData({
                         comment_list: res.data.list,
@@ -361,20 +361,20 @@ wx.navigateTo({
                     });
                 }
             },
-            fail: function(res) {
+            fail: function (res) {
                 wx.showModal({
                     title: '警告',
                     content: res.msg,
                     showCancel: false
                 })
             },
-            complete: function() {
+            complete: function () {
                 wx.hideLoading();
                 is_loading_more = false;
             }
         });
     },
-    loadMoreComment: function() {
+    loadMoreComment: function () {
         var page = this;
         var comment_list = page.data.comment_list;
         var p = page.data.page;
@@ -391,7 +391,7 @@ wx.navigateTo({
                 video_id: page.data.video.id,
                 page: (p + 1)
             },
-            success: function(res) {
+            success: function (res) {
                 wx.hideLoading();
                 if (res.code == 0) {
                     if (res.data.list.length > 0) {
@@ -413,12 +413,12 @@ wx.navigateTo({
                     });
                 }
             },
-            complete: function() {
+            complete: function () {
                 is_loading_more = false;
             }
         });
     },
-    thump: function(e) {
+    thump: function (e) {
         var page = this;
         var index = e.currentTarget.dataset.index;
         var comment_list = page.data.comment_list;
@@ -433,7 +433,7 @@ wx.navigateTo({
             data: {
                 c_id: id
             },
-            success: function(res) {
+            success: function (res) {
                 if (res.code == 0) {
                     var thump = !comment_list[index].thump;
                     var title = '取消点赞';
@@ -450,7 +450,7 @@ wx.navigateTo({
                         toast_text: title,
                         isShowToast: true
                     });
-                    setTimeout(function() {
+                    setTimeout(function () {
                         page.setData({
                             isShowToast: false
                         });
@@ -463,14 +463,14 @@ wx.navigateTo({
                     })
                 }
             },
-            complete: function() {
+            complete: function () {
                 page.setData({
                     thump_loading: -1
                 });
             }
         });
     },
-    previewImg: function(e) {
+    previewImg: function (e) {
         var page = this;
         var comment_list = page.data.comment_list;
         var index = e.currentTarget.dataset.index;
@@ -482,7 +482,7 @@ wx.navigateTo({
             urls: img_list,
         })
     },
-    previewImg_c: function(e) {
+    previewImg_c: function (e) {
         var page = this;
         var comment_list = page.data.comment_list;
         var index = e.currentTarget.dataset.index;
@@ -496,8 +496,8 @@ wx.navigateTo({
         })
     },
 
-    
-    pause: function() {
+
+    pause: function () {
         var page = this;
         var video_play = wx.createVideoContext('video');
         video_play.pause();
@@ -505,7 +505,7 @@ wx.navigateTo({
             play: false
         });
     },
-    timeupdate: function(e) {
+    timeupdate: function (e) {
         var page = this;
         var video_pay = page.data.video_pay;
         if (page.data.video.is_pay == 0) {
@@ -520,24 +520,24 @@ wx.navigateTo({
             });
         }
     },
-    
-    showModal: function() {
+
+    showModal: function () {
         var page = this;
         page.setData({
             show_modal: true
         });
     },
-    closeModal: function() {
+    closeModal: function () {
         this.setData({
             show_modal: false
         });
     },
-    buyVip: function() {
+    buyVip: function () {
         wx.navigateTo({
             url: '/pages/member/member',
         })
     },
-    backIndex: function(e) {
+    backIndex: function (e) {
         wx.redirectTo({
             url: '/pages/cover/cover',
         })

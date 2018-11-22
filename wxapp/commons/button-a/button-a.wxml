@@ -1,0 +1,6 @@
+<template name='buttonA'>
+  <view style='width:495rpx;height:132rpx;margin:0 auto ;position:relative'>
+    <image style='position:absolute' class='w-100 h-100' src="/images/course/btn_input_none.png"></image>
+    <view style='position:absolute;font-size:40rpx;font-weight:600;top:12rpx;color:#eee;text-align:center;width:100%;text-shadow: 2rpx 6rpx 8rpx #666666; letter-spacing:5rpx'>{{buttonTitle}}</view>
+  </view>
+</template>

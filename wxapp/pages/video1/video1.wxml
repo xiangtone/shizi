@@ -1,11 +1,10 @@
 <!--pages/video/video.wxml-->
-<view class="pbg">
-  <image src="/images/course/img_course_block_1a.jpg" />
-</view>
+<import src="/commons/bg/bg.wxml" />
+<template is="bg" data="{{store: store,a:2}}" />
 <view class='{{share_show?"blur":""}} {{(share_show || show || show_modal)?"no-scroll":""}} w-100 h-100'>
   <!-- 客服开始   -->
   <import src="/commons/float-icon/float-icon.wxml" />
-  <template is="item" data="{{store: store,a:2}}" />
+  <template is="item" data="{{store: store,a:2,shareShow:1}}" />
   <!-- 客服结束 -->
   <view class='video {{show?"hidden":""}} {{share_show?"hidden":""}}'>
     <video src='{{video.video_url}}' class='{{play?"":"hidden"}}' controls='controls' id='video' poster='{{video.pic_url}}' duration='{{video.is_pay == 1 ? video_pay.time:""}}' bindtimeupdate='timeupdate' autoplay='true' wx:if='{{play}}'>
@@ -76,9 +75,6 @@
   </view>
   <view class="functionBtn">
     <image src='/images/course/btn_course_zjgh_none.png'></image>
-  </view>
-  <view class="shareBtn">
-    <image src='/images/course/btn_course_share_none.png'></image>
   </view>
 </view>
 <view class='Toast' wx:if='{{isShowToast}}'>

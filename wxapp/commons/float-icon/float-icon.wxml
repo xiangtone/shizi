@@ -1,11 +1,12 @@
 <template name='item'>
-    <view direction="all" class="float-icon" style='{{a == 2 ?"bottom:150rpx":""}}'>
-        <view class='float-icon-1 flex-y-center' wx:if='{{a == 1}}' bindtap='backTop'>
-            <image src='{{store.top_icon?store.top_icon:"/images/icon-user-top.png"}}' class='w-100 h-100'></image>
-        </view>
-        <view class='float-icon-1 flex-y-center' wx:if='{{a == 2}}' bindtap='backIndex'>
-            <image src='{{store.index_icon?store.index_icon:"/images/icon-video-index.png"}}'
-                   class='w-100 h-100'></image>
+    <view class="float-icon" style="flex-direction:row;display:flex;">
+        <navigator url="/pages/cover/cover" open-type="reLaunch">
+            <view class='float-icon-1 flex-y-center' bindtap='backIndex'>
+                <image src='{{store.index_icon?store.index_icon:"/images/course/btn_course_home_none.png"}}' class='w-100 h-100'></image>
+            </view>
+        </navigator>
+        <view class='float-icon-1 flex-y-center' bindtap='backTop' wx:if='{{shareShow}}'>
+            <image src='{{store.top_icon?store.top_icon:"/images/course/btn_course_share_none.png"}}' class='w-100 h-100'></image>
         </view>
         <block wx:if="{{store.show_customer_service == 1}}">
             <button open-type="contact" class="float-icon-btn">

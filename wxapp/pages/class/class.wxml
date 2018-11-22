@@ -1,18 +1,13 @@
 <!-- pages/video/video.wxml -->
-<view class="pbg">
-  <image src="/images/course/img_course_block_1a.jpg" />
-</view>
-<view class='{{share_show?"blur":""}} {{(share_show || show || show_modal)?"no-scroll":""}} w-100 h-100'>
+<import src="/commons/bg/bg.wxml" />
+<template is="bg" data="{{store: store,a:2}}" />
+
   <!-- 客服开始 -->
   <import src="/commons/float-icon/float-icon.wxml" />
-  <template is="item" data="{{store: store,a:2}}" />
+  <template is="item" data="{{store: store,a:2,shareShow:0}}" />
   <!-- 客服结束 -->
-  
   <button class="binding-footer" bindtap="edit" style='background:none;width:80%'>创建班级</button>
-  <view class="shareBtn">
-    <image src='/images/course/btn_course_share_none.png'></image>
-  </view>
-</view>
+
 <view class='Toast' wx:if='{{isShowToast}}'>
   <image src='/images/icon-true.png'></image>
   <view style=' margin-top: 32rpx;color:#fff;'>{{toast_text}}</view>

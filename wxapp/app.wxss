@@ -217,8 +217,8 @@ button {
 .float-icon {
     position: fixed;
     z-index: 9999;
-    right: 50rpx;
-    bottom: 50rpx;
+    right: 16rpx;
+    bottom: 12rpx;
 }
 
 .bar-bottom~.float-icon {
@@ -248,13 +248,12 @@ button {
 }
 
 .float-icon .float-icon-1 {
-    width: 100rpx;
-    height: 100rpx;
-    margin-bottom: 10rpx;
+    width: 154rpx;
+    height: 87rpx;
 }
 
 .float-icon .float-icon-1 image {
-    width: 100rpx;
-    height: 100rpx;
-    border-radius: 100rpx;
+    width: 154rpx;
+    height: 87rpx;
+    /* border-radius: 100rpx; */
 }
