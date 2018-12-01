@@ -65,7 +65,8 @@ class ClassForm extends Model
                     $class->type = 1;
                     $class->create_user_id = $this->user_id;
                     $class->create_time = time();
-                    $class->img_url = $this->upload_img;
+                    preg_match_all('/\"(.*?)\"/',$this->upload_img,$aharr);
+                    $class->img_url =str_replace("\"","",$aharr[0][0]); 
                     if($class->save()){
                         return [
                             'code' => 0,

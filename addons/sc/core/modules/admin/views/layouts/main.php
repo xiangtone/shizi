@@ -71,11 +71,11 @@ $is_auth = Yii::$app->cache->get('IS_AUTH');
         </div>
 
         <div class="nav-group <?= $this->params['active_nav_group'] == 2 ? 'active' : null ?>">
-            <a href="javascript:"><i class="iconfont icon-shipinicon"></i>视频管理</a>
+            <a href="javascript:"><i class="iconfont icon-shipinicon"></i>内容管理</a>
             <div class="sub-nav-list">
                 <a href="<?= $urlManager->createUrl(['admin/video/banner']) ?>">轮播图列表</a>
-                <a href="<?= $urlManager->createUrl(['admin/video/cat']) ?>">视频分类</a>
-                <a href="<?= $urlManager->createUrl(['admin/video/list']) ?>">视频列表</a>
+                <a href="<?= $urlManager->createUrl(['admin/video/cat']) ?>">分类</a>
+                <a href="<?= $urlManager->createUrl(['admin/video/list']) ?>">列表</a>
             </div>
         </div>
 
@@ -123,7 +123,7 @@ $is_auth = Yii::$app->cache->get('IS_AUTH');
         <div class="nav-group <?= $this->params['active_nav_group'] == 8 ? 'active' : null ?>">
             <a href="javascript:"><i class="iconfont icon-huiyuan"></i>班级管理</a>
             <div class="sub-nav-list">
-                <a href="<?= $urlManager->createUrl(['admin/classes/index']) ?>">班级设置</a>
+                <a href="<?= $urlManager->createUrl(['admin/classes/index']) ?>">班级列表</a>
             </div>
         </div>
         <div class="nav-group <?= $this->params['active_nav_group'] == 9 ? 'active' : null ?>">

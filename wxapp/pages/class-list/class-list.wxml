@@ -1,0 +1,17 @@
+<!-- pages/video/video.wxml -->
+<import src="/commons/bg/bg.wxml" />
+<template is="bg" data="{{store: store,a:2}}" />
+<!-- 客服开始 -->
+<import src="/commons/float-icon/float-icon.wxml" />
+<template is="item" data="{{store: store,a:2,shareShow:0}}" />
+<!-- 客服结束 -->
+<view bindtap="edit">
+  <import src="/commons/button-a/button-a.wxml" />
+  <template is="buttonA" data="{{buttonTitle:'创建班级'}}" />
+</view>
+<view class='Toast' wx:if='{{isShowToast}}'>
+  <image src='/images/icon-true.png'></image>
+  <view style=' margin-top: 32rpx;color:#fff;'>{{toast_text}}</view>
+</view>
+<include src="/commons/comment/comment.wxml" />
+<include src="/commons/share/share.wxml" />
