@@ -3,6 +3,7 @@
 @import "/commons/share/share.wxss";
 @import "../../wxParse/wxParse.wxss";
 @import "/commons/weui.wxss";
+@import "/commons/sc-pub.wxss";
 
 page {
   background-color: #fff;

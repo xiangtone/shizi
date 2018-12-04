@@ -146,7 +146,7 @@ Page({
     var class_name = this.data.class_name;
     console.log(e)
     var form_id = e.detail.formId;
-    if (!class_name && img_list.length == 0) {
+    if (!class_name || img_list.length == 0) {
       wx.showModal({
         title: '提示',
         content: '请输入班级名称或图片',

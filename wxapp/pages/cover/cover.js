@@ -25,17 +25,17 @@ Page({
         });
     },
   GoIndex:function(){
-    wx.switchTab({
+    wx.navigateTo({
       url: '/pages/index/index',
     })
   },
   GoUser: function () {
-    wx.switchTab({
+    wx.navigateTo({
       url: '/pages/user/user',
     })
   },
   GoCat: function () {
-    wx.switchTab({
+    wx.navigateTo({
       url: '/pages/cat/cat',
     })
   },

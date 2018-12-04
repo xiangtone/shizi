@@ -1,0 +1,16 @@
+
+.input-cell-area {
+  background-color: #fae2ae;
+  height: 90rpx;
+}
+
+.input-hd-area {
+  width: 200rpx;
+}
+.input-placeholder {
+  color: #c9c9c9;
+}
+
+.weui-input .phcolor {
+  color: #333333
+}

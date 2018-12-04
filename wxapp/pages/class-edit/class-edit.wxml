@@ -8,27 +8,30 @@
   <template is="item" data="{{store: store,a:2}}" />
   <!-- 客服结束 -->
   <form bindsubmit='createClass' report-submit='true'>
-  <view class="weui-cells" style='background:none;margin-top:0'>
-    <view class="weui-cell weui-cell_input">
-      <view class="weui-cell__hd">
-        <view class="weui-label">班级名称</view>
-      </view>
-      <view class="weui-cell__bd">
-        <input bindinput='inputClassName' bindconfirm='inputClassName' bindblur='inputClassName' class="weui-input" type="text" placeholder="请填写班级名称" />
+    <view style="width:680rpx;margin: 0 auto;padding:45rpx 0;font-size:30rpx;color:#333333;">
+      <view style="box-shadow: 4px 10px 6px 4px rgba(140,32,27, 0.5);">
+        <view class="weui-cell weui-cell_input input-cell-area">
+          <view class="weui-cell__hd input-hd-area">
+            <view class="weui-label label-bold">班级名称</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input bindinput='inputClassName' bindconfirm='inputClassName' bindblur='inputClassName' bindblur="bindInputBlur" placeholder-class="phcolor" class="weui-input" type="text" placeholder="请填写班级名称" />
+          </view>
+        </view>
       </view>
     </view>
-  </view>
-  <view>
-    <block wx:if='{{img_list.length>0}}' wx:for='{{img_list}}'>
-      <image src='{{item}}' bindtap='chooseImg' data-index='{{index}}'></image>
-    </block>
-  </view>
-  <button class="binding-footer" bindtap="chooseImg" style='background:none;width:80%'>选择班级图片</button>
-  <button class="binding-footer" bindtap="createClass" style='background:none;width:80%'>创建</button>
+    <view>
+      <block wx:if='{{img_list.length>0}}' wx:for='{{img_list}}'>
+        <image src='{{item}}' bindtap='chooseImg' data-index='{{index}}'></image>
+      </block>
+    </view>
+    <button class="binding-footer" bindtap="chooseImg" style='background:none;width:80%'>
+      选择班级图片
+    </button>
+    <button class="binding-footer" bindtap="createClass" style='background:none;width:80%'>
+      创建
+    </button>
   </form>
-  <view class="shareBtn">
-    <image src='/images/course/btn_course_share_none.png'></image>
-  </view>
 </view>
 <view class='Toast' wx:if='{{isShowToast}}'>
   <image src='/images/icon-true.png'></image>

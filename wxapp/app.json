@@ -34,31 +34,6 @@
     "navigationBarTextStyle": "black",
     "backgroundColor": "#EFEFF4"
   },
-  "tabBar":
-  {
-    "borderStyle": "#ccc",
-    "color": "#7f7f7f",
-    "selectedColor": "#ff8b36",
-    "backgroundColor": "#fff",
-    "list": [
-    {
-      "pagePath": "pages/index/index",
-      "iconPath": "images/icon-tarBar-Recommend.png",
-      "selectedIconPath": "images/icon-selected-Recommend.png",
-      "text": "首页"
-    },
-    {
-      "pagePath": "pages/cat/cat",
-      "iconPath": "images/icon-tarBar-cat.png",
-      "selectedIconPath": "images/icon-selected-cat.png",
-      "text": "课程"
-    },
-    {
-      "pagePath": "pages/user/user",
-      "iconPath": "images/icon-tarBar-my.png",
-      "selectedIconPath": "images/icon-selected-my.png",
-      "text": "我的"
-    }]
-  },
+  
   "debug": "false"
 }

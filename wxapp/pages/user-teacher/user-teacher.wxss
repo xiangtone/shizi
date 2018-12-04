@@ -1,21 +1,11 @@
 /* pages/user-binding/user-binding.wxss */
 @import "/commons/weui.wxss";
+@import "/commons/sc-pub.wxss";
 
-.input-cell-area {
-  background-color: #fae2ae;
-  height: 90rpx;
-}
+
 
 .label-bold {
   font-weight: 700;
-}
-
-.weui-input .phcolor {
-  color: #333333
-}
-
-.input-hd-area {
-  width: 200rpx;
 }
 
 .binding-header {
@@ -68,9 +58,7 @@ button[class="binding-btn"]::after {
   border: 0;
 }
 
-.input-placeholder {
-  color: #c9c9c9;
-}
+
 
 .binding-btn.active {
   color: #353535;

@@ -79,6 +79,65 @@ Page({
   onReachBottom: function() {
 
   },
+  goTeacher:function(){
+    var page = this;
+    app.request({
+      url: api.user.teacher,
+      method: 'get',
+      data: {
+        page: 1,
+      },
+      success: function (res) {
+        console.log(res)
+        if (res.code == -3) {
+          wx.showModal({
+            title: '提示',
+            content: res.msg,
+            confirmText: '前往',
+            showCancel: false,
+            success: function (res) {
+              if (res.confirm) {
+                wx.navigateTo({
+                  url: '/pages/user-binding/user-binding',
+                })
+              }
+            }
+          })
+        } else if (res.code == -4) {
+          wx.showModal({
+            title: '提示',
+            content: res.msg,
+            confirmText: '前往',
+            showCancel: false,
+            success: function (res) {
+              if (res.confirm) {
+                wx.navigateTo({
+                  url: '/pages/user-teacher-edit/user-teacher-edit',
+                })
+              }
+            }
+          })
+        } else if (res.code == 0) {
+          if (res.data.teacher_info.status){
+            wx.navigateTo({
+              url: '/pages/user-teacher/user-teacher',
+            })
+          }else{
+            wx.showModal({
+              title: '提示',
+              content: '等待审核',
+              showCancel: false
+            })
+          }
+        } else {
+          page.setData({
+            status: false,
+          });
+        }
+      },
+    });
+    
+  },
   tel: function(option) {
     var tel = option.currentTarget.dataset.tel;
     wx.makePhoneCall({
