@@ -88,7 +88,7 @@ class ClassesForm extends \app\models\Model
             $sql_pagination = "SELECT   zjhj_video_classes.*,zjhj_video_user.*FROM zjhj_video_classes INNER JOIN zjhj_video_user ON zjhj_video_user.id=zjhj_video_classes.create_user_id WHERE  zjhj_video_classes.class_name='$this->keyword'";
         }else{
             $sql_count = "SELECT   COUNT(*)   FROM   zjhj_video_classes INNER JOIN zjhj_video_user ON zjhj_video_user.id=zjhj_video_classes.create_user_id ";
-            $sql_pagination = "SELECT zjhj_video_classes.id,zjhj_video_classes.class_name,zjhj_video_classes.type,zjhj_video_classes.create_user_id,zjhj_video_classes.create_time,zjhj_video_user.username
+            $sql_pagination = "SELECT zjhj_video_classes.*,zjhj_video_user.*
 FROM zjhj_video_classes INNER JOIN zjhj_video_user ON zjhj_video_user.id=zjhj_video_classes.create_user_id";
         }
         //var_dump($sql_count);die();

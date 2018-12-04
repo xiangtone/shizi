@@ -10,6 +10,7 @@ namespace app\modules\api\models;
 
 use app\models\Classes;
 use app\models\User;
+use app\models\ClassUser;
 
 class ClassForm extends Model
 {
@@ -68,9 +69,21 @@ class ClassForm extends Model
                     preg_match_all('/\"(.*?)\"/',$this->upload_img,$aharr);
                     $class->img_url =str_replace("\"","",$aharr[0][0]); 
                     if($class->save()){
-                        return [
-                            'code' => 0,
-                        ];
+                        $classUser = new ClassUser();
+                        $classUser->user_id = $this->user_id;
+                        $classUser->class_id = $class->id;
+                        $classUser->role = 1;
+                        $classUser->create_time = time();
+                        if ($classUser->save()){
+                            return [
+                                'code' => 0,
+                            ];
+                        }else{
+                            return [
+                                'code' => 6,
+                                'msg' => "班级保存名单失败，请重试",
+                            ];
+                        }
                     }else{
                         return [
                             'code' => 5,

@@ -58,7 +58,7 @@ $this->params['active_nav_group'] = 6;
                             </div>
                             <div class="col-9">
                                 <select name="type">
-                                    <option value ="1">老师创建</option>
+                                    <option value ="1">用户创建</option>
                                     <option value ="0">系统创建</option>
                                 </select>
                             </div>

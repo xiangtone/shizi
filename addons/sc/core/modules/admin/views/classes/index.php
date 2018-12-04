@@ -16,27 +16,30 @@ $this->params['active_nav_group'] = 8;
 <div class="main-nav" flex="cross:center dir:left box:first">
     <div>
         <nav class="breadcrumb rounded-0 mb-0" flex="cross:center">
-            <a class="breadcrumb-item" href="<?= $urlManager->createUrl(['admin/system/index']) ?>">系统</a>
-            <span class="breadcrumb-item active"><?= $this->title ?></span>
+            <a class="breadcrumb-item" href="<?=$urlManager->createUrl(['admin/system/index'])?>">系统</a>
+            <span class="breadcrumb-item active"><?=$this->title?></span>
         </nav>
     </div>
     <div>
-        <?= $this->render('/layouts/nav-right') ?>
+        <?=$this->render('/layouts/nav-right')?>
     </div>
 </div>
 <div class="main-body p-3" id="app">
-    <a href="<?= $urlManager->createUrl(['admin/classes/edit']) ?>" class="btn btn-primary">
+    <a href="<?=$urlManager->createUrl(['admin/classes/edit'])?>" class="btn btn-primary">
         添加</a>
     <div class="float-right">
 
         <form method="get">
-            <?php $_s = ['keyword'] ?>
-            <?php foreach ($_GET as $_gi => $_gv):if (in_array($_gi, $_s)) continue; ?>
-                <input type="hidden" name="<?= $_gi ?>" value="<?= $_gv ?>">
-            <?php endforeach; ?>
+            <?php $_s = ['keyword']?>
+            <?php foreach ($_GET as $_gi => $_gv): if (in_array($_gi, $_s)) {
+        continue;
+    }
+    ?>
+	                <input type="hidden" name="<?=$_gi?>" value="<?=$_gv?>">
+	            <?php endforeach;?>
             <div class="input-group">
                 <input class="form-control" placeholder="班级名称" name="keyword" autocomplete="off"
-                       value="<?= isset($_GET['keyword']) ? trim($_GET['keyword']) : null ?>" id="title_search">
+                       value="<?=isset($_GET['keyword']) ? trim($_GET['keyword']) : null?>" id="title_search">
                 <span class="input-group-btn"><button class="btn btn-primary">搜索</button></span>
             </div>
         </form>
@@ -50,6 +53,7 @@ $this->params['active_nav_group'] = 8;
                 <th>类型</th>
                 <th>创建者id</th>
                 <th>创建者名字</th>
+                <th>图片</th>
                 <th>创建时间</th>
 
                 <th>操作</th>
@@ -58,39 +62,40 @@ $this->params['active_nav_group'] = 8;
             <tbody>
             <?php foreach ($list as $index => $value): ?>
                 <tr>
-                    <td><?= $value['id'] ?></td>
-                    <td><?= $value['class_name'] ?></td>
+                    <td><?=$value['id']?></td>
+                    <td><?=$value['class_name']?></td>
                     <td>
 
                         <?php if ($value['type'] == 1): ?>
-                            <span>老师创建</span>
+                            <span>用户创建</span>
                         <?php else: ?>
                             <span>系统创建</span>
-                        <?php endif; ?>
+                        <?php endif;?>
                     </td>
                     <td>
-                        <?= $value['create_user_id'] ?>
+                        <?=$value['create_user_id']?>
                     </td>
                     <td>
-                        <?= $value['username'] ?>
+                        <?=$value['nickname']?>
                     </td>
-                    <td><?= date('Y-m-d H:i:s', $value['create_time']) ?></td>
+                    <td><img src='<?=$value['img_url']?>' height='30px' ></td>
+                    <td><?=date('Y-m-d H:i:s', $value['create_time'])?></td>
 
                     <td>
 
                         <a class="btn btn-sm btn-primary"
-                           href="<?= $urlManager->createUrl(['admin/classes/edit', 'id' => $value['id']]) ?>">修改</a>
+                           href="<?=$urlManager->createUrl(['admin/classes/edit', 'id' => $value['id']])?>">修改</a>
                         <a class="btn btn-sm btn-danger del" href="javascript:" data-content="是否删除？"
-                           data-url="<?= $urlManager->createUrl(['admin/classes/del', 'id' => $value['id']]) ?>">删除</a>
+                           data-url="<?=$urlManager->createUrl(['admin/classes/del', 'id' => $value['id']])?>">删除</a>
                     </td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endforeach;?>
             </tbody>
 
         </table>
         <div class="text-center">
-            <?= \yii\widgets\LinkPager::widget(['pagination' => $pagination,]) ?>
-            <div class="text-muted"><?= $row_count ?>条数据</div>
+            <?=\yii\widgets\LinkPager::widget(['pagination' => $pagination])?>
+            <div class="text-muted"><?=$row_count?>条数据</div>
         </div>
     </div>
 </div>
