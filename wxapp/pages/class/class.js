@@ -59,7 +59,11 @@ Page({
             url: '/pages/class-edit/class-edit',
         })
     },
-
+    listClass: function () {
+      wx.navigateTo({
+        url: '/pages/class-list/class-list',
+      })
+    },
     /**
      * 生命周期函数--监听页面显示
      */

@@ -6,7 +6,7 @@ page {
 
 .info {
     width: 100%;
-    border-top: 1rpx solid #e3e3e3;
+    /* border-top: 1rpx solid #e3e3e3; */
     padding: 0 25rpx;
     padding-top: 20rpx;
     flex-wrap: wrap;

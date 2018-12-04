@@ -1,17 +1,31 @@
-<!-- pages/video/video.wxml -->
+<!-- <view>{{PhoneNumber}}</view> -->
 <import src="/commons/bg/bg.wxml" />
 <template is="bg" data="{{store: store,a:2}}" />
-<!-- 客服开始 -->
-<import src="/commons/float-icon/float-icon.wxml" />
-<template is="item" data="{{store: store,a:2,shareShow:0}}" />
-<!-- 客服结束 -->
-<view bindtap="edit">
-  <import src="/commons/button-a/button-a.wxml" />
-  <template is="buttonA" data="{{buttonTitle:'创建班级'}}" />
+<view class='{{share_show?"blur":""}} {{(share_show || show || show_modal)?"no-scroll":""}} w-100 h-100'>
+  <import src="/commons/float-icon/float-icon.wxml" />
+  <template is="item" data="{{store: store,a:2,shareShow:1}}" />
+  <view style="width:680rpx;margin: 0 auto;padding:45rpx 0;font-size:30rpx;color:#333333;">
+    <view style="box-shadow: 4px 10px 6px 4px rgba(140,32,27, 0.5);">
+      <view style='width:680rpx;height:90rpx;margin:0 auto ;position:relative'>
+        <image class='w-100 h-100' src="/images/course/img_course_class_tablebar1.png" />
+      </view>
+      <view class="weui-cell input-cell-area">
+        <view class="weui-cell__hd input-hd-area">
+          <view class="weui-label label-bold">状态</view>
+        </view>
+        <view class="weui-cell__bd">bd</view>
+        <view class="weui-cell__ft">ft</view>
+      </view>
+      <view class="weui-cell input-cell-area">
+        <view class="weui-cell__hd input-hd-area">
+          <view class="weui-label label-bold">状态</view>
+        </view>
+        <view class="weui-cell__bd">bd</view>
+        <view class="weui-cell__ft">ft</view>
+      </view>
+    </view>
+  </view>
+  <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
+    <image style="width: 160rpx;height: 80rpx" src="/images/loading.svg"></image>
+  </view>
 </view>
-<view class='Toast' wx:if='{{isShowToast}}'>
-  <image src='/images/icon-true.png'></image>
-  <view style=' margin-top: 32rpx;color:#fff;'>{{toast_text}}</view>
-</view>
-<include src="/commons/comment/comment.wxml" />
-<include src="/commons/share/share.wxml" />

@@ -1,7 +1,7 @@
 <template name='item'>
     <view class="float-icon" style="flex-direction:row;display:flex;">
         <navigator url="/pages/cover/cover" open-type="reLaunch">
-            <view class='float-icon-1 flex-y-center' bindtap='backIndex'>
+            <view class='float-icon-1 flex-y-center'>
                 <image src='{{store.index_icon?store.index_icon:"/images/course/btn_course_home_none.png"}}' class='w-100 h-100'></image>
             </view>
         </navigator>

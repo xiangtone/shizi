@@ -23,5 +23,5 @@
     padding: 0 20rpx;
     text-align: center;
     position: relative;
-    z-index: 99999;
+    z-index: 999;
 }

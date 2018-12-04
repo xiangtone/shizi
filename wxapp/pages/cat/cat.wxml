@@ -1,5 +1,23 @@
-<!--pages/cat/cat.wxml-->
-<view class='info flex-row'>
+<!-- pages/cat/cat.wxml -->
+<import src="/commons/bg/bg.wxml" />
+<template is="bg" data="{{store: store,a:2}}" />
+<import src="/commons/float-icon/float-icon.wxml" />
+<template is="item" data="{{store: store,a:2,shareShow:0}}" />
+<view style="position:relative;width:750rpx;height:472rpx" wx:for='{{cat_list}}' wx:for-index='index' wx:for-item='item'>
+  <navigator url='/pages/cat-second/cat-second?cat_id={{item.id}}'>
+  <view style="width:750rpx;height:472rpx;position:absolute;z-index:10">
+    <image class="h-100 w-100" src="/images/course/img_course_choose_block.png" />
+  </view>
+  <view style="width:670rpx;height:384rpx;position:absolute;top:28rpx;left:44rpx;z-index:20">
+    <image class="h-100 w-100" src="{{item.pic_url}}" />
+  </view>
+  <view style="width:304rpx;height:92rpx;position:absolute;top:18rpx;left:58rpx;z-index:30">
+    <image class="h-100 w-100" style="position:absolute;top:0rpx;left:0rpx;z-index:35" src="/images/course/img_course_choose_lable.png" />
+    <view style="width:304rpx;position:absolute;font-size:30rpx;text-align:center;top:10rpx;color:#feffc2;z-index:40">{{item.name}}</view>
+  </view>
+  </navigator>
+</view>
+<!-- <view class='info flex-row'>
   <block wx:for='{{cat_list}}' wx:for-index='index' wx:for-item='item'>
     <navigator url='/pages/cat-second/cat-second?cat_id={{item.id}}'>
       <view class='info-block'>
@@ -13,4 +31,7 @@
       </view>
     </navigator>
   </block>
+</view> -->
+<view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
+  <image style="width: 160rpx;height: 80rpx" src="/images/loading.svg"></image>
 </view>

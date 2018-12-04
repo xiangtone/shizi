@@ -2,6 +2,7 @@
 var app = getApp();
 var api = require('../../api.js');
 var util = require('../../utils/util.js');
+var floatIcon = require('../../commons/float-icon/float-icon.js');
 var is_loading_more = false;
 var is_no_more = false;
 Page({
@@ -37,6 +38,7 @@ Page({
         cat_id: options.cat_id
       });
     }
+    floatIcon.init(this)
   },
 
   /**

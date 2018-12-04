@@ -1,0 +1,114 @@
+<!-- <view>{{PhoneNumber}}</view> -->
+<import src="/commons/bg/bg.wxml" />
+<template is="bg" data="{{store: store,a:2}}" />
+<view class='{{share_show?"blur":""}} {{(share_show || show || show_modal)?"no-scroll":""}} w-100 h-100'>
+  <import src="/commons/float-icon/float-icon.wxml" />
+  <template is="item" data="{{store: store,a:2,shareShow:1}}" />
+  <view style="width:700rpx;margin: 0 auto;padding:45rpx 0;font-size:30rpx;color:#333333;">
+    <view style="box-shadow: 4px 10px 6px 4px rgba(140,32,27, 0.5);">
+      <view style='width:700rpx;height:94rpx;margin:0 auto ;position:relative'>
+        <image  class='w-100 h-100' src="/images/course/img_course_class_tablebar1.png" />
+      </view>
+    </view>
+  </view>
+  <view style="width:680rpx;margin: 0 auto;padding:45rpx 0;font-size:30rpx;color:#333333;">
+    <view style="box-shadow: 4px 10px 6px 4px rgba(140,32,27, 0.5);">
+      <view class="weui-cell weui-cell_input input-cell-area">
+        <view class="weui-cell__hd input-hd-area">
+          <view class="weui-label label-bold">状态</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input bindblur="bindInputBlur" placeholder-class="phcolor" class="weui-input" type="text" placeholder="{{teacher_info.status?'已审核':'审核中'}}" disabled />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input input-cell-area">
+        <view class="weui-cell__hd input-hd-area">
+          <view class="weui-label label-bold">姓名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input bindblur="bindInputBlur" placeholder-class="phcolor" class="weui-input" type="text" placeholder="{{teacher_info.teacher_name}}" disabled />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input input-cell-area">
+        <view class="weui-cell__hd input-hd-area">
+          <view class="weui-label label-bold">单位</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input bindblur="bindInputBlur" placeholder-class="phcolor" class="weui-input" type="text" placeholder="{{teacher_info.school_name}}" disabled />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input input-cell-area">
+        <view class="weui-cell__hd input-hd-area">
+          <view class="weui-label label-bold">开户行</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input bindblur="bindInputBlur" placeholder-class="phcolor" class="weui-input" type="text" placeholder="{{teacher_info.bank_name}}" disabled />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input input-cell-area">
+        <view class="weui-cell__hd input-hd-area">
+          <view class="weui-label label-bold">银行账户</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input bindblur="bindInputBlur" placeholder-class="phcolor" class="weui-input" type="text" placeholder="{{teacher_info.bank_account}}" disabled />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input input-cell-area">
+        <view class="weui-cell__hd input-hd-area">
+          <view class="weui-label label-bold">累计提现</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input bindblur="bindInputBlur" placeholder-class="phcolor" class="weui-input" type="text" placeholder="{{teacher_info.total_withdraw_amount}}" disabled />
+        </view>
+      </view>
+      <block wx-if="{{teacher_info.current_withdrew_amount}}">
+        <view class="weui-cell weui-cell_input input-cell-area">
+          <view class="weui-cell__hd input-hd-area">
+            <view class="weui-label label-bold">提现中金额</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input bindblur="bindInputBlur" placeholder-class="phcolor" class="weui-input" type="text" placeholder="{{teacher_info.current_withdrew_amount}}" disabled />
+          </view>
+        </view>
+      </block>
+      <block wx-if="{{teacher_info.last_withdraw_time}}">
+        <view class="weui-cell weui-cell_input input-cell-area">
+          <view class="weui-cell__hd input-hd-area">
+            <view class="weui-label label-bold">最后提现时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input bindblur="bindInputBlur" placeholder-class="phcolor" class="weui-input" type="text" placeholder="{{teacher_info.last_withdraw_time}}" disabled />
+          </view>
+        </view>
+      </block>
+      <block wx-if="{{teacher_info.apply_withdraw_time}}">
+        <view class="weui-cell weui-cell_input input-cell-area">
+          <view class="weui-cell__hd input-hd-area">
+            <view class="weui-label label-bold">申请提现时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input bindblur="bindInputBlur" placeholder-class="phcolor" class="weui-input" type="text" placeholder="{{teacher_info.apply_withdraw_time}}" disabled />
+          </view>
+        </view>
+      </block>
+      <block wx-if="{{teacher_info.withdraw_status}}">
+        <view class="weui-cell weui-cell_input input-cell-area">
+          <view class="weui-cell__hd input-hd-area">
+            <view class="weui-label label-bold">提现状态</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input bindblur="bindInputBlur" placeholder-class="phcolor" class="weui-input" type="text" placeholder="{{teacher_info.withdraw_status?'':'提现中'}}" disabled />
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <import src="/commons/button-a/button-a.wxml" />
+  <template is="buttonA" data="{{buttonTitle:'修改信息'}}" />
+  <import src="/commons/button-a/button-a.wxml" />
+  <template is="buttonA" data="{{buttonTitle:'修改信息1'}}" />
+  <import src="/commons/button-a/button-a.wxml" />
+  <template is="buttonA" data="{{buttonTitle:'修改信息2'}}" />
+  <!-- <button class="binding-footer" bindtap="edit">修改信息</button> -->
+  <!-- <button class="binding-footer" bindtap="renewal">申请提现</button> -->
+</view>
