@@ -1,0 +1,146 @@
+
+skeleton.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+btn_ear_left
+  rotate: true
+  xy: 263, 35
+  size: 56, 70
+  orig: 56, 70
+  offset: 0, 0
+  index: -1
+btn_ear_right
+  rotate: true
+  xy: 889, 118
+  size: 56, 70
+  orig: 56, 70
+  offset: 0, 0
+  index: -1
+cat_bady
+  rotate: true
+  xy: 178, 93
+  size: 145, 156
+  orig: 145, 156
+  offset: 0, 0
+  index: -1
+cat_card
+  rotate: true
+  xy: 812, 113
+  size: 61, 75
+  orig: 61, 75
+  offset: 0, 0
+  index: -1
+cat_eye_1
+  rotate: false
+  xy: 2, 2
+  size: 126, 96
+  orig: 126, 96
+  offset: 0, 0
+  index: -1
+cat_eye_2
+  rotate: false
+  xy: 336, 142
+  size: 126, 96
+  orig: 126, 96
+  offset: 0, 0
+  index: -1
+cat_eye_3
+  rotate: false
+  xy: 464, 142
+  size: 126, 96
+  orig: 126, 96
+  offset: 0, 0
+  index: -1
+cat_eye_4
+  rotate: false
+  xy: 592, 142
+  size: 126, 96
+  orig: 126, 96
+  offset: 0, 0
+  index: -1
+cat_face
+  rotate: false
+  xy: 2, 100
+  size: 174, 138
+  orig: 174, 138
+  offset: 0, 0
+  index: -1
+cat_face_beard_left
+  rotate: false
+  xy: 972, 206
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+cat_face_beard_right
+  rotate: false
+  xy: 972, 172
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+cat_hand_left
+  rotate: true
+  xy: 336, 52
+  size: 88, 90
+  orig: 88, 90
+  offset: 0, 0
+  index: -1
+cat_hand_right
+  rotate: true
+  xy: 428, 52
+  size: 88, 90
+  orig: 88, 90
+  offset: 0, 0
+  index: -1
+cat_leg_left
+  rotate: true
+  xy: 610, 84
+  size: 56, 90
+  orig: 56, 90
+  offset: 0, 0
+  index: -1
+cat_leg_right
+  rotate: true
+  xy: 171, 35
+  size: 56, 90
+  orig: 56, 90
+  offset: 0, 0
+  index: -1
+cat_mouth_happy
+  rotate: false
+  xy: 880, 176
+  size: 90, 62
+  orig: 90, 62
+  offset: 0, 0
+  index: -1
+cat_mouth_none
+  rotate: true
+  xy: 130, 8
+  size: 90, 39
+  orig: 90, 39
+  offset: 0, 0
+  index: -1
+cat_mouth_sweet
+  rotate: false
+  xy: 720, 135
+  size: 90, 39
+  orig: 90, 39
+  offset: 0, 0
+  index: -1
+cat_shadow
+  rotate: false
+  xy: 720, 176
+  size: 158, 62
+  orig: 158, 62
+  offset: 0, 0
+  index: -1
+img_boom
+  rotate: false
+  xy: 520, 57
+  size: 88, 83
+  orig: 88, 83
+  offset: 0, 0
+  index: -1
