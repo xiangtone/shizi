@@ -1256,7 +1256,7 @@
     "defaultSkin": "",
     "defaultAnimation": "walk on",
     "loop": true,
-    "_premultipliedAlpha": false,
+    "_premultipliedAlpha": true,
     "_N$skeletonData": {
       "__uuid__": "022c247b-f4cd-47cd-8e31-ed72a6e6f804"
     },
