@@ -37,7 +37,8 @@ class CatForm extends Model
             'id','name','pic_url','update_time'
         ])->where([
             'store_id'=>$this->store_id,
-            'is_delete'=>0
+            'is_delete'=>0,
+            'is_display'=>1
         ]);
         $list_count = $query->count();
 

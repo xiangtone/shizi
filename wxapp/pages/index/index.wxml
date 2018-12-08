@@ -1,7 +1,19 @@
 <!--index.wxml-->
 <!--搜索栏开始-->
 <view class='{{share_show?"no-scroll blur":""}}'>
-  
+
+  <!--轮播图开始-->
+  <swiper class='banner' autoplay='true' interval='3000' duration='300' circular='true'>
+    <block wx:for='{{banner_list}}' wx:for-item='item' wx:for-index='index'>
+      <swiper-item>
+        <view bindtap='bannerTo' data-url='{{item.url}}'>
+          <image src="{{item.banner_url}}" class="slide-image" style='width:100%;height:590rpx' />
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+  <!--轮播图结束-->
+
   <!--精选视频开始-->
   <block wx:if='{{video_list}}'>
     <view class='block flex-x-center flex-y-center'>

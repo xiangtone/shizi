@@ -62,6 +62,29 @@ $this->params['active_nav_group'] = 2;
             </div>
             <div class="form-group row">
                 <div class="col-3 text-right">
+                    <label class=" col-form-label">是否显示</label>
+                </div>
+                <div class="col-9">
+                    <div class="pt-1">
+                        <label class="custom-control custom-radio">
+                            <input id="radio3" <?= $list['is_display'] == 1 ? 'checked' : null ?>
+                                   value="1"
+                                   name="model[is_display]" type="radio" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">是</span>
+                        </label>
+                        <label class="custom-control custom-radio">
+                            <input id="radio4" <?= $list['is_display'] == 0 ? 'checked' : null ?>
+                                   value="0"
+                                   name="model[is_display]" type="radio" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">否</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3 text-right">
                     <label class=" col-form-label">是否放置首页</label>
                 </div>
                 <div class="col-9">

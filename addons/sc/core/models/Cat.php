@@ -3,7 +3,6 @@
 namespace app\models;
 
 use Yii;
-use yii\helpers\Html;
 
 /**
  * This is the model class for table "{{%cat}}".
@@ -18,6 +17,7 @@ use yii\helpers\Html;
  * @property integer $sort
  * @property integer $is_show
  * @property string $cover_url
+ * @property integer $is_display
  */
 class Cat extends \yii\db\ActiveRecord
 {
@@ -35,7 +35,7 @@ class Cat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['store_id', 'is_delete', 'addtime', 'update_time', 'sort', 'is_show'], 'integer'],
+            [['store_id', 'is_delete', 'addtime', 'update_time', 'sort', 'is_show', 'is_display'], 'integer'],
             [['pic_url', 'cover_url'], 'string'],
             [['name'], 'string', 'max' => 255],
         ];
@@ -56,15 +56,8 @@ class Cat extends \yii\db\ActiveRecord
             'update_time' => '更新时间',
             'sort' => '排序',
             'is_show' => '是否设为首页推荐',
-            'cover_url' => 'Cover Url',
+            'cover_url' => '首页缩略图',
+            'is_display' => '是否在分页列表中显示',
         ];
-    }
-
-    public function beforeSave($insert)
-    {
-        $this->name = Html::encode($this->name);
-        $this->pic_url = Html::encode($this->pic_url);
-        $this->cover_url = Html::encode($this->cover_url);
-        return parent::beforeSave($insert);
     }
 }
