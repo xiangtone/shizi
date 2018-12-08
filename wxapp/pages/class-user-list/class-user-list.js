@@ -17,46 +17,27 @@ Page({
     app.pageOnLoad(this);
     var page = this;
     app.request({
-      url: api.user.teacher,
+      url: api.user.class_info,
       method: 'get',
       data: {
+        class_id:options.class_id,
         page: 1,
       },
       success: function(res) {
         console.log(res)
-        if (res.code == -3) {
-          wx.showModal({
-            title: '提示',
-            content: res.msg,
-            confirmText: '前往',
-            showCancel:false,
-            success: function(res) {
-              if (res.confirm) {
-                wx.redirectTo({
-                  url: '/pages/user-binding/user-binding',
-                })
-              }
-            }
-          })
-        }else if (res.code == -4) {
-          wx.showModal({
-            title: '提示',
-            content: res.msg,
-            confirmText: '前往',
-            showCancel: false,
-            success: function (res) {
-              if (res.confirm) {
-                wx.redirectTo({
-                  url: '/pages/user-teacher-edit/user-teacher-edit',
-                })
-              }
-            }
-          })
-        } else if (res.code == 0) {
+        if (res.code == 0) {
           page.setData({
             status: true,
-            teacher_info:res.data.teacher_info
+            user_list:res.data.list,
+            class:res.data.class,
+            data:res.data
+            // teacher_info:res.data.teacher_info
           });
+          wx.setNavigationBarTitle({
+            title: res.data.class.class_name,
+          });
+          page.joinStatus()
+          page.checkInClass()
         } else {
           page.setData({
             status: false,
@@ -65,11 +46,56 @@ Page({
       },
     });
   },
-  edit:function(){
-    wx.redirectTo({
-      url: '/pages/user-teacher-edit/user-teacher-edit',
-    })
+  joinClass:function(){
+    var page = this;
+    if (app.checkLogin()){
+      console.log('try join')
+      app.request({
+        url: api.user.class_join,
+        method: 'get',
+        data: {
+          class_id: this.data.class.id,
+        },
+        success: function (res) {
+          console.log(res)
+          if (res.code == 0) {
+            wx.reLaunch({
+              url: '/pages/class-user-list/class-user-list?class_id='+page.data.class.id,
+            })
+          } else {
+            page.setData({
+              status: false,
+            });
+          }
+        },
+      });
+    }
   },
+  checkInClass:function(){
+    let user_info = wx.getStorageSync('user_info')
+    if (app.checkLoginWithoutRedirect()){
+      for (let i in this.data.user_list){
+        if (this.data.user_list[i].id == user_info.id){ 
+          this.setData({
+            isInClass: true,
+          }) 
+          return;
+        }
+      }
+      this.setData({
+        isInClass: false,
+      }) 
+    }else{
+      this.setData({
+        isInClass:false,
+      })
+    }
+  },
+  joinStatus:function(){
+    let user_info =  wx.getStorageSync('user_info')
+    console.log(user_info);
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -84,25 +110,6 @@ Page({
   onShow: function() {
     app.pageOnShow(this);
     var page = this;
-    app.request({
-      url: api.user.index,
-      method: 'GET',
-      success: function(res) {
-        if (res.code == 0) {
-          if (res.data.user_info.binding) {
-            page.setData({
-              binding_num: res.data.user_info.binding,
-              binding: true
-            });
-          } else {
-            page.setData({
-              gainPhone: true,
-              handPhone: false,
-            });
-          }
-        }
-      }
-    });
   },
 
   /**

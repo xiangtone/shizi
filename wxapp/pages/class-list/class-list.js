@@ -17,45 +17,17 @@ Page({
     app.pageOnLoad(this);
     var page = this;
     app.request({
-      url: api.user.teacher,
+      url: api.user.class_list_class,
       method: 'get',
       data: {
         page: 1,
       },
       success: function(res) {
         console.log(res)
-        if (res.code == -3) {
-          wx.showModal({
-            title: '提示',
-            content: res.msg,
-            confirmText: '前往',
-            showCancel:false,
-            success: function(res) {
-              if (res.confirm) {
-                wx.redirectTo({
-                  url: '/pages/user-binding/user-binding',
-                })
-              }
-            }
-          })
-        }else if (res.code == -4) {
-          wx.showModal({
-            title: '提示',
-            content: res.msg,
-            confirmText: '前往',
-            showCancel: false,
-            success: function (res) {
-              if (res.confirm) {
-                wx.redirectTo({
-                  url: '/pages/user-teacher-edit/user-teacher-edit',
-                })
-              }
-            }
-          })
-        } else if (res.code == 0) {
+         if (res.code == 0) {
           page.setData({
             status: true,
-            teacher_info:res.data.teacher_info
+            class_list:res.data.list
           });
         } else {
           page.setData({

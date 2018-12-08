@@ -1,4 +1,16 @@
 
+.class-list-cell-area {
+  background-color: #fae2ae;
+  height: 128rpx;
+}
+
+.class-list-hd-area {
+  width: 200rpx;
+}
+.class-list-placeholder {
+  color: #c9c9c9;
+}
+
 .input-cell-area {
   background-color: #fae2ae;
   height: 90rpx;

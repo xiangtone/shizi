@@ -8,10 +8,8 @@
 
 namespace app\modules\api\controllers;
 
-
 use app\models\User;
 use app\modules\api\behaviors\LoginBehavior;
-use app\models\Classes;
 use app\modules\api\models\ClassForm;
 
 class ClassController extends Controller
@@ -21,7 +19,7 @@ class ClassController extends Controller
         return array_merge(parent::behaviors(), [
             'login' => [
                 'class' => LoginBehavior::className(),
-                'ignore'=>[]
+                'ignore' => ['info','list-class'],
             ],
         ]);
     }
@@ -37,6 +35,39 @@ class ClassController extends Controller
         $this->renderJson($form->edit());
     }
 
+    public function actionListClass()
+    {
+        $form = new ClassForm();
+        $form->attributes = \Yii::$app->request->post();
+        $form->wechat_app = $this->wechat_app;
+        $form->user_id = \Yii::$app->user->identity->id;
+        $form->store_id = $this->store->id;
+        $form->store = $this->store;
+        $this->renderJson($form->listClass());
+    }
+
+    public function actionInfo()
+    {
+        $form = new ClassForm();
+        $form->attributes = \Yii::$app->request->get();
+        $form->wechat_app = $this->wechat_app;
+        $form->user_id = \Yii::$app->user->identity->id;
+        $form->store_id = $this->store->id;
+        $form->store = $this->store;
+        $this->renderJson($form->info());
+    }
+
+    public function actionJoin()
+    {
+        $form = new ClassForm();
+        $form->attributes = \Yii::$app->request->get();
+        $form->wechat_app = $this->wechat_app;
+        $form->user_id = \Yii::$app->user->identity->id;
+        $form->store_id = $this->store->id;
+        $form->store = $this->store;
+        $this->renderJson($form->join());
+    }
+
     /**
      * 用户状态
      */
@@ -46,20 +77,20 @@ class ClassController extends Controller
         if (!$user) {
             $this->renderJson([
                 'code' => -2,
-                'msg' => ''
+                'msg' => '',
             ]);
         }
-        if (!$user->binding){
+        if (!$user->binding) {
             $this->renderJson([
                 'code' => -3,
-                'msg' => '请先绑定手机号码'
+                'msg' => '请先绑定手机号码',
             ]);
         }
         $teacher = Teacher::findOne(['id' => \Yii::$app->user->identity->id]);
-        if (!$teacher){
+        if (!$teacher) {
             $this->renderJson([
                 'code' => -4,
-                'msg' => '请填写资料'
+                'msg' => '请填写资料',
             ]);
         }
         $due_time = date('Y-m-d', $user->due_time);
@@ -67,7 +98,7 @@ class ClassController extends Controller
             'code' => 0,
             'msg' => '',
             'data' => [
-                'teacher_info' => (object)[
+                'teacher_info' => (object) [
                     'status' => $teacher->status,
                     'teacher_name' => $teacher->teacher_name,
                     'school_name' => $teacher->school_name,
@@ -79,11 +110,9 @@ class ClassController extends Controller
                     'bank_account' => $teacher->bank_account,
                     'total_withdraw_amount' => $teacher->total_withdraw_amount,
                     'current_withdrew_amount' => $teacher->current_withdrew_amount,
-                ]
-            ]
+                ],
+            ],
         ]);
     }
-
-    
 
 }

@@ -41,6 +41,8 @@ var api = {
     sms_setting: _api_root + 'user/sms-setting',
     class_edit: _api_root + 'class/edit',
     class_info: _api_root + 'class/info',
+    class_join: _api_root + 'class/join',
+    class_list_class: _api_root + 'class/list-class',
     teacher: _api_root + 'teacher/index',
     teacher_edit: _api_root + 'teacher/edit',
   },

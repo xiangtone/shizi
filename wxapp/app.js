@@ -158,6 +158,31 @@ App({
       }
     });
   },
+  checkLogin:function(){
+    if (this.checkLoginWithoutRedirect()) {
+      return true;
+    }else{
+      wx.showModal({
+        title: '请先登录',
+        confirmText: '去登录',
+        success: function (e) {
+          if (e.confirm) {
+            wx.navigateTo({
+              url: '/pages/user/user',
+            })
+          }
+        }
+      })
+    }
+  },
+  checkLoginWithoutRedirect:function(){
+    let user_info = wx.getStorageSync('user_info')
+    if (user_info && user_info.id) {
+      return true;
+    } else {
+      return false;
+    }
+  },
   getauth: function(object) {
     wx.showModal({
       title: '是否打开设置页面重新授权',
@@ -190,7 +215,7 @@ App({
     })
   },
   request: require('utils/request.js'),
-  //微擎一键发布设置
+  //一键发布设置
   api: require('api.js'),
   setApi: function() {
     var siteroot = this.siteInfo.siteroot;

@@ -7,7 +7,7 @@
   <view style="width:680rpx;margin: 0 auto;padding:45rpx 0;font-size:30rpx;color:#333333;">
     <view style="box-shadow: 4px 10px 6px 4px rgba(140,32,27, 0.5);">
       <view style='width:680rpx;height:90rpx;margin:0 auto ;position:relative'>
-        <image class='w-100 h-100' src="/images/course/img_course_class_tablebar1.png" />
+        <image class='w-100 h-100' src="http://www.dushujielong.com/fm/shizi/wxapp/images/course/img_course_class_tablebar1.png" />
       </view>
       <view class="weui-cell input-cell-area">
         <view class="weui-cell__hd input-hd-area">
@@ -16,13 +16,19 @@
         <view class="weui-cell__bd">bd</view>
         <view class="weui-cell__ft">ft</view>
       </view>
-      <view class="weui-cell input-cell-area">
-        <view class="weui-cell__hd input-hd-area">
-          <view class="weui-label label-bold">状态</view>
+      <block wx:for='{{class_list}}'>
+        <view class="weui-cell class-list-cell-area">
+          <view class="weui-cell__hd input-hd-area">
+            <view class="weui-label label-bold" style='height:102rpx;width:102rpx;border-radius: 15rpx;background: url({{item.img_url}});background-position: left top;background-size:102rpx 102rpx;background-repeat:no-repeat;'>
+              <!-- <image class="h-100 w-100" src='{{item.img_url}}'></image> -->
+            </view>
+          </view>
+          <view class="weui-cell__bd">
+            <navigator url='/pages/class-user-list/class-user-list?class_id={{item.class_id}}'>{{item.class_name}}</navigator>
+          </view>
+          <view class="weui-cell__ft">ft</view>
         </view>
-        <view class="weui-cell__bd">bd</view>
-        <view class="weui-cell__ft">ft</view>
-      </view>
+      </block>
     </view>
   </view>
   <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">

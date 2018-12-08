@@ -22,7 +22,7 @@
           <view style="font-size:30rpx;font-weight:700;color:#ffcab2">{{user_info.nickname}}</view>
         </block>
         <block wx:else>
-          <button class='white-color login-btn' style="font-size:30rpx;font-weight:700;color:#ffcab2;text-align:center;" open-type='getUserInfo' bindgetuserinfo='login' bindtap='login_1'>
+          <button class='white-color login-btn' style="font-size:30rpx;font-weight:700;color:#ffcab2;text-align:center;" open-type='getUserInfo' bindgetuserinfo='login'>
             点击登录
           </button>
         </block>

@@ -208,6 +208,9 @@ Page({
             wx.showToast({
               title: '班级创建成功',
             });
+            wx.redirectTo({
+              url: '/pages/class-user-list/class-user-list?class_id=' + res.class_id,
+            })
           } else{
             wx.showModal({
               title: '提示',

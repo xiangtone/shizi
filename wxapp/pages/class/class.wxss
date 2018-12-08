@@ -3,10 +3,16 @@
 @import "/commons/share/share.wxss";
 @import "../../wxParse/wxParse.wxss";
 @import "/commons/weui.wxss";
+@import "/commons/sc-pub.wxss";
 
 page {
   background-color: #fff;
   /* height: 100%; *//* overflow-y: hidden; */
+}
+
+.select_top {
+  color: #fcebc1;
+  text-shadow: 2rpx 6rpx 8rpx #275359;
 }
 
 .custom_service {
@@ -39,8 +45,7 @@ page {
   /* position: absolute;
   left: 0;
   top: 0;
-  z-index: 99; */
-  /* background-color: #fff; */
+  z-index: 99; *//* background-color: #fff; */
 }
 
 .kong {
@@ -224,9 +229,10 @@ page {
   height: 80rpx;
   margin-right: 5rpx;
 }
+
 .functionBtn {
   width: 100%;
-  padding-top:30rpx;
+  padding-top: 30rpx;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -238,6 +244,7 @@ page {
   padding-left: 20rpx;
   padding-right: 20rpx;
 }
+
 .shareBtn {
   width: 100%;
   position: fixed;
@@ -245,7 +252,7 @@ page {
 
 .shareBtn image {
   position: fixed;
-  right:0;
+  right: 0;
   width: 148rpx;
   height: 84rpx;
   padding-left: 20rpx;

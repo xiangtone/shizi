@@ -14,6 +14,10 @@ use Yii;
  * @property string $create_time
  * @property integer $is_delete
  * @property string $img_url
+ * @property integer $is_top
+ * @property integer $ex_count
+ * @property integer $lesson_count
+ * @property integer $comment_count
  */
 class Classes extends \yii\db\ActiveRecord
 {
@@ -31,7 +35,7 @@ class Classes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'create_user_id', 'create_time', 'is_delete'], 'integer'],
+            [['type', 'create_user_id', 'create_time', 'is_delete', 'is_top', 'ex_count', 'lesson_count', 'comment_count'], 'integer'],
             [['img_url'], 'string'],
             [['class_name'], 'string', 'max' => 200],
         ];
@@ -46,10 +50,14 @@ class Classes extends \yii\db\ActiveRecord
             'id' => 'ID',
             'class_name' => 'Class Name',
             'type' => '0系统自动创建1老师创建',
-            'create_user_id' => '0系统自动创建，老师user_id',
+            'create_user_id' => '0系统自动创建，创建者user_id',
             'create_time' => 'Create Time',
             'is_delete' => '是否已经删除',
             'img_url' => 'Img Url',
+            'is_top' => '是否进入排行榜',
+            'ex_count' => '练习次数',
+            'lesson_count' => '课时次数',
+            'comment_count' => '点评次数',
         ];
     }
 }
