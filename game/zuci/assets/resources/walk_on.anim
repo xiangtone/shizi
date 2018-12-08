@@ -1,0 +1,38 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "walk_on",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1,
+  "sample": 10,
+  "speed": 0.5,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "position": [
+        {
+          "frame": 0,
+          "value": [
+            415,
+            -125
+          ]
+        },
+        {
+          "frame": 0.5,
+          "value": [
+            201,
+            -123
+          ]
+        },
+        {
+          "frame": 1,
+          "value": [
+            4,
+            -104
+          ]
+        }
+      ]
+    }
+  },
+  "events": []
+}
