@@ -13,6 +13,8 @@ use app\models\Classes;
 use app\modules\admin\models\ClassesForm;
 class ClassesController extends Controller
 {
+
+    public $keyword;
     /**
      * @return string
      * 展示班级信息
@@ -35,6 +37,18 @@ class ClassesController extends Controller
         ]);
 
         //return $this->render('index');
+    }
+
+    public function actionListUser($id=null){
+        $form = new ClassesForm();
+        // $form->store_id = $this->store->id;
+        $form->attributes = \Yii::$app->request->get();
+        $arr = $form->search();
+        return $this->render('list-user',[
+            'list'=>$arr['list'],
+            'pagination'=>$arr['pagination'],
+            'row_count'=>$arr['row_count'],
+        ]);
     }
 
     /**

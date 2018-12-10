@@ -35,8 +35,8 @@ $this->params['active_nav_group'] = 8;
         continue;
     }
     ?>
-	                <input type="hidden" name="<?=$_gi?>" value="<?=$_gv?>">
-	            <?php endforeach;?>
+			                <input type="hidden" name="<?=$_gi?>" value="<?=$_gv?>">
+			            <?php endforeach;?>
             <div class="input-group">
                 <input class="form-control" placeholder="班级名称" name="keyword" autocomplete="off"
                        value="<?=isset($_GET['keyword']) ? trim($_GET['keyword']) : null?>" id="title_search">
@@ -62,7 +62,7 @@ $this->params['active_nav_group'] = 8;
             <tbody>
             <?php foreach ($list as $index => $value): ?>
                 <tr>
-                    <td><?=$value['id']?></td>
+                    <td><?=$value['class_id']?></td>
                     <td><?=$value['class_name']?></td>
                     <td>
 
@@ -84,7 +84,9 @@ $this->params['active_nav_group'] = 8;
                     <td>
 
                         <a class="btn btn-sm btn-primary"
-                           href="<?=$urlManager->createUrl(['admin/classes/edit', 'id' => $value['id']])?>">修改</a>
+                           href="<?=$urlManager->createUrl(['admin/classes/edit', 'id' => $value['class_id']])?>">修改</a>
+                        <a class="btn btn-sm btn-primary"
+                           href="<?=$urlManager->createUrl(['admin/classes/list-user', 'class_id' => $value['class_id']])?>">用户</a>
                         <a class="btn btn-sm btn-danger del" href="javascript:" data-content="是否删除？"
                            data-url="<?=$urlManager->createUrl(['admin/classes/del', 'id' => $value['id']])?>">删除</a>
                     </td>
