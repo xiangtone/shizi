@@ -71,7 +71,7 @@
     </view>
   </view>
   <view class="functionBtn">
-    <image src='/images/course/btn_course_cyllk_none.png'></image>
+    <image src='/images/course/btn_course_cyllk_none.png' bindtap='cyllkGame'></image>
   </view>
   <view class="functionBtn">
     <image src='/images/course/btn_course_zjgh_none.png'></image>

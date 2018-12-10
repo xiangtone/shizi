@@ -6,6 +6,6 @@
 //     }
 // }
 var global = module.exports = {
-                                URL: 'http://www.dushujielong.com/ll/shizi/info.php',
-                                
+                                //真机下调试需要开启隧道
+                                URL: 'https://www.dushujielong.com/ll/shizi/addons/sc/core/web/index.php?store_id=1&r=api/exword/',                                        
                              }

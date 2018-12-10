@@ -1,4 +1,4 @@
-﻿#过滤
+#过滤
 *.log
 .htaccess
 /project.config.json
@@ -7,3 +7,4 @@
 addons/hs_video/core/runtime/
 .idea/
 /addons/hs_video/core/runtime
+addons/hs_video/
