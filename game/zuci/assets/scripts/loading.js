@@ -53,6 +53,7 @@ cc.Class({
             this.label_tips.string += Math.floor(this._progress * 100) + "%";
         }
     },
+    
     /**
      * 初始化加载本地、服务器资源
      */
@@ -77,7 +78,33 @@ cc.Class({
         this.start_perloading();
         //加载网络数据
         this.start_http_get();
+        //获取webview传过来的参数
+        cc.zc.http_args = this.urlParse();
+        console.log("参数--->",cc.zc.http_args);
+    },
+    /**
+     * 解析获取http get 传过来的参数值
+     */
+    urlParse:function(){
+        var params = {};
+        if(window.location == null){
+            return params;
+        }
+        var name,value; 
+        var str=window.location.href; //取得整个地址栏
+        var num=str.indexOf("?") 
+        str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
         
+        var arr=str.split("&"); //各个参数放到数组里
+        for(var i=0;i < arr.length;i++){ 
+            num=arr[i].indexOf("="); 
+            if(num>0){ 
+                name=arr[i].substring(0,num);
+                value=arr[i].substr(num+1);
+                params[name]=value;
+            } 
+        }
+        return params;
     },
     /**
      * 预加载网络数据
