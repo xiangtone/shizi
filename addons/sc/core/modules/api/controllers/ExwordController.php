@@ -9,8 +9,8 @@
  */
 
 namespace app\modules\api\controllers;
-header("Access-Control-Allow-Origin: *");
-use app\modules\api\models\ExWord;
+use app\models\ExWord;
+
 class ExwordController extends Controller
 {
     public function actionIndex()
@@ -30,7 +30,7 @@ class ExwordController extends Controller
             }
             //var_dump($rand_word);return;
             //根据video_id获取targetword,然后根据targetword组成信息给用户
-            $target_word_arr = ExWord::find()->select(['new_word','target_word'])->asArray()->where(['video_id' => 9])->all();
+            $target_word_arr = ExWord::find()->select(['new_word','target_word'])->asArray()->where(['video_id' => $video_id])->all();
             //$data=array();
             for($i = 0; $i < count($target_word_arr) ;$i++){
                 shuffle($rand_word);
@@ -39,8 +39,10 @@ class ExwordController extends Controller
             }
         }
         
-        //数组元素随机排序
         
+        //设置可以跨域访问
+        header("Access-Control-Allow-Origin: *");
+        //数组元素随机排序
         $json_str  = json_encode($target_word_arr);
         echo $json_str;
         //var_dump($json_str);

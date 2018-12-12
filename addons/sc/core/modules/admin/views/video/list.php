@@ -143,6 +143,8 @@ $style = ['视频','音频','文章'];
                                href="<?= $urlManager->createUrl(['admin/video/edit', 'id' => $value['id']]) ?>">修改</a>
                             <a class="btn btn-sm btn-danger del" href="javascript:" data-content="是否删除？"
                                data-url="<?= $urlManager->createUrl(['admin/video/del', 'id' => $value['id']]) ?>">删除</a>
+                            <a class="btn btn-sm btn-primary"
+                               href="<?= $urlManager->createUrl(['admin/game/word-list', 'video_id' => $value['id']]) ?>">组词</a>
                     	</td>
 	                </tr> 
 	            <?php endforeach; ?>      	
