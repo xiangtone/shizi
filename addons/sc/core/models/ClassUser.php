@@ -12,6 +12,7 @@ use Yii;
  * @property string $class_id
  * @property string $create_time
  * @property integer $role
+ * @property integer $ex_count
  */
 class ClassUser extends \yii\db\ActiveRecord
 {
@@ -30,7 +31,7 @@ class ClassUser extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'class_id', 'create_time'], 'required'],
-            [['user_id', 'class_id', 'create_time', 'role'], 'integer'],
+            [['user_id', 'class_id', 'create_time', 'role', 'ex_count'], 'integer'],
         ];
     }
 
@@ -40,11 +41,12 @@ class ClassUser extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'user_id' => 'User ID',
-            'class_id' => 'Class ID',
-            'create_time' => 'Create Time',
+            'id' => 'id自增',
+            'user_id' => '用户Id',
+            'class_id' => '班级id',
+            'create_time' => '创建时间',
             'role' => '0普通1创始人2管理员',
+            'ex_count' => '练习次数-相当于对班级贡献',
         ];
     }
 }
