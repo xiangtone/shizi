@@ -53,6 +53,7 @@ $this->params['active_nav_group'] = 2;
                 <th>视频id</th>
                 <th>生字</th>
                 <th>词汇</th>
+                <th>音频地址</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -64,7 +65,7 @@ $this->params['active_nav_group'] = 2;
                     
                     <td><?= $value['new_word'] ?></td>
                     <td><?= $value['target_word'] ?></td>
-                   
+                    <td><?= $value['voice_url'] ?></td>
 
                     <td>
 

@@ -19,8 +19,10 @@ class GameController extends Controller
     {
         
         $form = new ExWordFrom();
+        
         //从http的post 和 get中获取参数
         $form->attributes = \Yii::$app->request->get();
+        
         //var_dump( $form->attributes);return;
         $arr = $form->search();
         //echo $form->attributes['video_id'];return;
@@ -30,6 +32,7 @@ class GameController extends Controller
             'row_count'=>$arr['row_count'],
             'video_id'=>$form->attributes['video_id'],
         ]);
+        
         
         
     }
@@ -51,10 +54,10 @@ class GameController extends Controller
         
         if(\Yii::$app->request->isPost){
 
-             $form = new ExWordFrom();
-             $form->exWord = $exWord;
-             $form->attributes = \Yii::$app->request->post();
-            
+            $form = new ExWordFrom();
+            $form->exWord = $exWord;
+            $form->attributes = \Yii::$app->request->post();
+
             // $this->renderJson([
             //     'code' => 0,
             //     'msg' => '成功',

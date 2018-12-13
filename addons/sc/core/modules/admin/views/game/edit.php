@@ -11,7 +11,7 @@ use \app\models\Level;
 /* @var \app\models\Level $level */
 $urlManager = Yii::$app->urlManager;
 $this->title = '组词编辑';
-$this->params['active_nav_group'] = 6;
+$this->params['active_nav_group'] = 2;
 ?>
 <div class="main-nav" flex="cross:center dir:left box:first">
     <div>
@@ -70,7 +70,29 @@ $this->params['active_nav_group'] = 6;
 
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                            <div class="col-2 text-right">
+                                <label class=" col-form-label required">多媒体链接</label>
+                            </div>
+                            <div class="col-9">
+                            <div class="video-picker" data-url="<?= $urlManager->createUrl(['upload/video']) ?>">
+                                <div class="input-group">
+                                    <input class="video-picker-input video form-control" name="voice_url"
+                                           value="<?= $list['video_url'] ?>" placeholder="请输入多媒体链接源地址或者选择上传多媒体">
+                                    <a href="javascript:" class="btn btn-secondary video-picker-btn">选择多媒体</a>
+                                </div>
+                                <a class="video-check"
+                                   href="<?= $list['video_url'] ? $list['video_url'] : "javascript:" ?>"
+                                   target="_blank">预览</a>
+                                <video id="myVideo" hidden
+                                       src="<?= $list['video_url'] ? $list['video_url'] : "" ?>"></video>
+                                <div class="video-preview"></div>
+                                <div><span class="text-info">支持格式MP3;不支持中文名文件上传</span></div>
+                                <div class="text-danger video-type-error"></div>
+                            </div>
+                        </div>
+                        </div>
+                        
                         <div class="form-group row">
                             <div class="col-9 offset-sm-3">
                                 <div class="text-danger form-error mb-3" style="display: none">错误信息</div>
@@ -118,7 +140,15 @@ $this->params['active_nav_group'] = 6;
             });
             return;
         }
-        
+        /*
+        if (!$("input[name='voice_url']").val()) {
+            btn.btnReset();
+            $.myAlert({
+                content: '请输入音频'
+            });
+            return;
+        }
+        */
         console.log('提交表单-->>'+form.serialize());
         $.ajax({
             type: form.attr("method"),

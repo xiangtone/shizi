@@ -22,6 +22,7 @@ class ExWordFrom extends Model
     public $video_id;
     public $new_word;
     public $target_word;
+    public $voice_url;
     /**
      * @inheritdoc
      */
@@ -42,7 +43,9 @@ class ExWordFrom extends Model
             [['new_word'], 'string', 'max' => 4],
             [['target_word'], 'string', 'max' => 20],
             [['keyword'], 'trim'],
-            [['keyword'], 'string'],
+            [['keyword','voice_url'], 'string'],
+            
+            
             
         ];
     }
@@ -57,6 +60,7 @@ class ExWordFrom extends Model
             'video_id' => 'Video ID',
             'new_word' => 'New Word',
             'target_word' => 'Target Word',
+            'voice_url' => 'Voice Url',
         ];
     }
      /**
@@ -101,7 +105,7 @@ class ExWordFrom extends Model
         $this->exWord->video_id         = $this->video_id;
         $this->exWord->new_word         =  $this->new_word;
         $this->exWord->target_word      = $this->target_word;
-
+        $this->exWord->voice_url        = $this->voice_url;
 
         if ($this->exWord->save()) {
             return [

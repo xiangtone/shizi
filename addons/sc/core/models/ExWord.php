@@ -11,6 +11,7 @@ use Yii;
  * @property integer $video_id
  * @property string $new_word
  * @property string $target_word
+ * @property string $voice_url
  */
 class ExWord extends \yii\db\ActiveRecord
 {
@@ -29,6 +30,7 @@ class ExWord extends \yii\db\ActiveRecord
     {
         return [
             [['video_id'], 'integer'],
+            [['voice_url'], 'string'],
             [['new_word'], 'string', 'max' => 4],
             [['target_word'], 'string', 'max' => 20],
         ];
@@ -40,10 +42,11 @@ class ExWord extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'video_id' => 'Video ID',
-            'new_word' => 'New Word',
-            'target_word' => 'Target Word',
+            'id' => '自增id',
+            'video_id' => '视频id',
+            'new_word' => '生字',
+            'target_word' => '词汇',
+            'voice_url' => '音频url',
         ];
     }
 }
