@@ -126,7 +126,7 @@ class VideoController extends Controller
             $model_pay = \Yii::$app->request->post('pay');
             $model = array_merge($model,$model_pay);
             if($model['style'] == 2){
-//                $form->scenario = 'ARTICLE';
+                //$form->scenario = 'ARTICLE';
             }else{
                 $form->scenario = 'VIDEO';
             }

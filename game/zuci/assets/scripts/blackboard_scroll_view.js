@@ -42,6 +42,19 @@ cc.Class({
     // onLoad () {},
     
     start () {
+        //黑板上显示的字的处理
+        for(var i = 0;i < cc.zc.INFO[cc.zc.lesson].target_word.length;i++){
+
+            var opt_item = cc.instantiate(this.word_on_blackboard_prefab);
+            //stringObject.substr(start,length) start 要抽取的子串的起始下标,length子串中的字符数。必须是数值
+            if(cc.zc.INFO[cc.zc.lesson].target_word.substr(i,1) == cc.zc.INFO[cc.zc.lesson].new_word){
+                opt_item.getChildByName("img_game_ask").active = true;   
+            }else{
+                opt_item.getChildByName("label").getComponent(cc.Label).string = cc.zc.INFO[cc.zc.lesson].target_word.substr(i,1);
+            }
+            this.scrollview.content.addChild(opt_item);
+        }
+        /*
          //处理分词
          var word = cc.zc.INFO[cc.zc.lesson].word.split(",");
          for (var i = 0; i < word.length; i++) {
@@ -64,6 +77,7 @@ cc.Class({
             this.scrollview.content.addChild(opt_item);
 
          }
+         */
     },
 
     update (dt) {

@@ -13,6 +13,6 @@ class CommentController extends Controller
 {
     public function actionIndex()
     {
-
+        echo "comment called";
     }
 }
