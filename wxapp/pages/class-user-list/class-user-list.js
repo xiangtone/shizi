@@ -150,16 +150,11 @@ Page({
   onReachBottom: function() {
 
   },
-
-
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
     var info = this.data.class;
-    if (this.data.isLogin){
-
-    }
     var result = {
       title: '邀请您加入' + this.data.class.class_name,
       path: "/pages/class-user-list/class-user-list?class_id=" + this.data.class.id,

@@ -19,6 +19,7 @@
         <view class="flex-x-center {{show_top=='ex'?'top_tab_active':'top_tab'}}" bindtap='choose_top' data-type-name="ex">
           <view style='margin:0 auto;padding-top:8rpx'>练习排行</view>
         </view>
+        <view style='position:absolute;right:40rpx;color:#99653b;padding-right:40rpx'>积分</view>
       </view>
       <view class="weui-cell class-list-cell-area" wx:for='{{list_top}}' bindtap='goClass' data-class-id='{{item.id}}'>
         <view class="weui-cell__hd input-hd-area" style='padding-left:40rpx'>
@@ -29,7 +30,7 @@
         <view class="weui-cell__bd" style='color:#99653b;font-weight:700'>
           {{item.class_name}}
         </view>
-        <view class="weui-cell__ft" style='color:#99653b;padding-right:40rpx'>{{item.cc}}人</view>
+        <view class="weui-cell__ft" style='color:#99653b;padding-right:40rpx'>{{item.count}}</view>
       </view>
       <view class='flex-y-center' style='position:absolute;bottom:10rpx;width:714rpx;height:76rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/e8/e8a7c33fa141fb7f7ab82c8f369808fc.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
       </view>
