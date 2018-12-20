@@ -61,19 +61,19 @@ cc.Class({
              var opt_item = cc.instantiate(this.word_on_blackboard_prefab);
              //var block_ask = opt_item.getChildByName("img_word_block_ask");
              
-             //console.log();
+             //cc.log();
              //this.word_on_desk_prefab.label.string = "A";
              
              if (cc.zc.INFO[cc.zc.lesson].miss-1 == i){
                 opt_item.getChildByName("img_game_ask").active = true;
-                //console.log("缺少字的地方", opt_item.getChildByName("img_game_ask").getComponent(cc.Sprite));
+                //cc.log("缺少字的地方", opt_item.getChildByName("img_game_ask").getComponent(cc.Sprite));
              }else{
                 opt_item.getChildByName("label").getComponent(cc.Label).string = word[i];
                 //block_ask.getChildByName("label").getComponent(cc.Label).string = word[i];
              }
              
              
-            //  console.log(opt_item.getChildByName("label").getComponent(cc.Label));
+            //  cc.log(opt_item.getChildByName("label").getComponent(cc.Label));
             this.scrollview.content.addChild(opt_item);
 
          }

@@ -42,6 +42,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
+        
         this.init_mgr();
     },
 
@@ -65,9 +66,12 @@ cc.Class({
      */
     init_mgr() {
         cc.zc = {};
+        //关闭cc.log输出信息-->>>>>
+        //cc._initDebugSetting(cc.DebugMode.NONE);
+
         //加载全局配置
         cc.zc.global = require('global');
-        console.log("global=",cc.zc.global);
+        cc.log("global=",cc.zc.global);
         //全局变量
         cc.zc.INFO = null;
         
@@ -85,11 +89,12 @@ cc.Class({
        
         //获取webview传过来的参数 ?video_id=1&user_id=2
         cc.zc.http_args = this.urlParse();
-        console.log("参数--->",cc.zc.http_args);
-
+        cc.log("参数--->",cc.zc.http_args);
+        
+        cc.zc.http_args.video_id = 9;//测试用的id     
          //加载网络数据 
          var url = cc.zc.global.URL+"&video_id="+cc.zc.http_args.video_id;
-         console.log("获取数据url=",url);
+         cc.log("获取数据url=",url);
          this.start_http_get(url);
     },
     /**
@@ -125,12 +130,12 @@ cc.Class({
         this._state_str = "正在连接网络";
         
         cc.zc.http.getInstance().httpGets(url, function (err, data) {
-            console.log(err,data);
+            cc.log(err,data);
             
             if(err == false){
                 self._is_loading = false;
                 self._state_str = "联网出错,请检查网络!";
-                //console.log("联网出错,请检查网络");
+                //cc.log("联网出错,请检查网络");
             }else{
                 self._state_str = "联网成功";
                 var jsonD = JSON.parse(data);
@@ -145,10 +150,10 @@ cc.Class({
                 cc.zc.total_lesson = cc.zc.INFO.length;
                 
                 /*
-                console.log(cc.zc.INFO[0].target_word.length);
-                console.log(cc.zc.INFO[0].target_word.substr(1)); 
+                cc.log(cc.zc.INFO[0].target_word.length);
+                cc.log(cc.zc.INFO[0].target_word.substr(1)); 
                 if(cc.zc.INFO[0].target_word.substr(cc.zc.INFO[0].miss) == cc.zc.INFO[0].new_word){
-                    console.log("找到你了");
+                    cc.log("找到你了");
                 }
                 */
 
@@ -169,13 +174,13 @@ cc.Class({
         //加载资源
         cc.loader.loadResDir("resources",
             function (completedCount, totalCount, item) {
-                //console.log("totalCount:" + totalCount + ",completedCount:" + completedCount);
+                //cc.log("totalCount:" + totalCount + ",completedCount:" + completedCount);
                 if (self._is_loading) {
                     self._progress = completedCount / totalCount;
                 }
             },
             function (err, assets, item) {
-                console.log("onComplete-->>", err, assets);
+                cc.log("onComplete-->>", err, assets);
                  cc.zc.audio_mgr.playBGM("background.mp3");//播放背景音乐
 
             });

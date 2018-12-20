@@ -52,14 +52,14 @@ cc.Class({
         
     },
     btn_click_handler(e, custom) {
-        console.log("btn_click_handler called", e, custom);
+        cc.log("btn_click_handler called", e, custom);
 
         if(typeof(cc.zc.INFO[cc.zc.lesson]) == "undefined"){
             return;
         }
         
         if(custom == cc.zc.INFO[cc.zc.lesson].new_word){
-            console.log("回答正确");
+            cc.log("回答正确");
             cc.zc.audio_mgr.playSFX("win.mp3");
             //播放回答正确动画骨骼
             this.ske_anim.clearTracks();//清理指定管道的索引
@@ -75,7 +75,7 @@ cc.Class({
                     cc.director.loadScene("game_scene");
                 },2);
             }else{
-                console.log("你已经完成这次练习");
+                cc.log("你已经完成这次练习");
                 this.ske_anim.clearTracks();
                 this.ske_anim.addAnimation(1,"win",true )//播放一次
                 this.scheduleOnce(function(){
@@ -83,7 +83,7 @@ cc.Class({
                 },2);  
             }
         }else{
-            console.log("回答错误");
+            cc.log("回答错误");
             cc.zc.audio_mgr.playSFX("lose.mp3");
             //播放回答错误动画骨骼
             this.ske_anim.clearTracks();//清理指定管道的索引         
@@ -91,11 +91,11 @@ cc.Class({
             this.ske_anim.addAnimation(0,"walk on",true)//循环播放
         }
         /*
-        console.log("btn_click_handler called", e, custom,cc.zc.INFO[cc.zc.lesson]);
+        cc.log("btn_click_handler called", e, custom,cc.zc.INFO[cc.zc.lesson]);
 
         //var tmp = cc.find("Canvas/bg/img_game_blackboard/blackboard_scroll/view/content");
         
-        //console.log("a->>",tmp,a);
+        //cc.log("a->>",tmp,a);
         //防止溢出操作
         if(typeof(cc.zc.INFO[cc.zc.lesson]) == "undefined"){
             
@@ -104,7 +104,7 @@ cc.Class({
 
         //
         if (custom == (cc.zc.INFO[cc.zc.lesson].correct - 1)) {
-            console.log("回答正确");
+            cc.log("回答正确");
             cc.zc.audio_mgr.playSFX("win.mp3");
             //播放回答正确动画骨骼
             this.ske_anim.clearTracks();//清理指定管道的索引
@@ -120,7 +120,7 @@ cc.Class({
                     cc.director.loadScene("game_scene");
                 },2);
             }else{
-                console.log("你已经完成这次练习");
+                cc.log("你已经完成这次练习");
                 this.ske_anim.clearTracks();
                 this.ske_anim.addAnimation(1,"win",true )//播放一次
                 this.scheduleOnce(function(){
@@ -130,7 +130,7 @@ cc.Class({
             
             
         }else{
-            console.log("回答错误");
+            cc.log("回答错误");
             cc.zc.audio_mgr.playSFX("lose.mp3");
             //播放回答错误动画骨骼
             this.ske_anim.clearTracks();//清理指定管道的索引         
@@ -161,7 +161,7 @@ cc.Class({
         /*
         //处理分词
         var word = cc.zc.INFO[cc.zc.lesson].choose.split(",");
-        //console.log(word);
+        //cc.log(word);
         for (var i = 0; i < word.length; i++) {
             var opt_item = cc.instantiate(this.word_on_desk_prefab);
             //根据联网数据展示文字
@@ -179,7 +179,7 @@ cc.Class({
             click_event.customEventData = i;
             //添加click事件处理
             item_btn.clickEvents.push(click_event);
-            //console.log(opt_item.getComponent(cc.Button));
+            //cc.log(opt_item.getComponent(cc.Button));
             this.scrollview.content.addChild(opt_item);
         }
         */

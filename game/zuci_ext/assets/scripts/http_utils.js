@@ -49,7 +49,7 @@ var httpUtils = cc.Class({
             if (request.readyState == 4 && (request.status >= 200 && request.status <= 207)) {
                 var httpStatus = request.statusText;
                 var response = request.responseText;
-                console.log("Status: Got GET response! " + httpStatus);
+                cc.log("Status: Got GET response! " + httpStatus);
                 callback(true, response);
             } else {
                 callback(false, request);

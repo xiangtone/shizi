@@ -30,7 +30,7 @@ class ExwordController extends Controller
             }
             //var_dump($rand_word);return;
             //根据video_id获取targetword,然后根据targetword组成信息给用户
-            $target_word_arr = ExWord::find()->select(['new_word','target_word'])->asArray()->where(['video_id' => $video_id])->all();
+            $target_word_arr = ExWord::find()->select(['new_word','target_word','voice_url'])->asArray()->where(['video_id' => $video_id])->all();
             //$data=array();
             for($i = 0; $i < count($target_word_arr) ;$i++){
                 shuffle($rand_word);

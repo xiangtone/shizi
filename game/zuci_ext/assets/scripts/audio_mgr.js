@@ -32,11 +32,11 @@ cc.Class({
         }
         
         cc.game.on(cc.game.EVENT_HIDE, function () {
-            console.log("cc.audioEngine.pauseAll");
+            cc.log("cc.audioEngine.pauseAll");
             cc.audioEngine.pauseAll();
         });
         cc.game.on(cc.game.EVENT_SHOW, function () {
-            console.log("cc.audioEngine.resumeAll");
+            cc.log("cc.audioEngine.resumeAll");
             cc.audioEngine.resumeAll();
         });
     },
@@ -52,7 +52,7 @@ cc.Class({
     //播放背景音乐
     playBGM(url){
         var audioUrl = this.getUrl(url);
-        console.log(audioUrl);
+        cc.log(audioUrl);
         //已经播了就先停再播
         if(this.bgmAudioID >= 0){
             cc.audioEngine.stop(this.bgmAudioID);
@@ -73,7 +73,7 @@ cc.Class({
     },
      //播放网络特效音乐
      playNetSFX(url){
-        console.log(this.sfxAudioId);
+        cc.log(this.sfxAudioId);
         if(this.sfxAudioId >= 0){
             cc.audioEngine.stop(this.sfxAudioId);
         }
