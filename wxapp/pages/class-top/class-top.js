@@ -80,11 +80,6 @@ Page({
         url: '/pages/class-user-list/class-user-list?class_id=' + option.currentTarget.dataset.classId,
       })
     }
-  },
-  goTop:function(){
-    wx.navigateTo({
-      url: '/pages/class-top/class-top' ,
-    })
   }
   ,
   choose_top: function(option) {

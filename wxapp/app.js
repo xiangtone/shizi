@@ -246,7 +246,7 @@ App({
   },
   pageOnShow: function(page) {
     this.page.onShow(page);
-
+    
   },
   pageOnHide: function(page) {
     this.page.onHide(page);

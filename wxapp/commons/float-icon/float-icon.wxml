@@ -5,9 +5,9 @@
                 <image src='{{store.index_icon?store.index_icon:"/images/course/btn_course_home_none.png"}}' class='w-100 h-100'></image>
             </view>
         </navigator>
-        <view class='float-icon-1 flex-y-center' bindtap='backTop' wx:if='{{shareShow}}'>
+        <button class='float-icon-1 flex-y-center'  open-type="share" wx:if='{{shareShow}}' style='padding:0;background:none'>
             <image src='{{store.top_icon?store.top_icon:"/images/course/btn_course_share_none.png"}}' class='w-100 h-100'></image>
-        </view>
+        </button>
         <block wx:if="{{store.show_customer_service == 1}}">
             <button open-type="contact" class="float-icon-btn">
                 <image src="{{store.customer_service_pic?store.customer_service_pic:'/images/icon-service.png'}}"></image>

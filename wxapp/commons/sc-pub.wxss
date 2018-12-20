@@ -1,12 +1,25 @@
-
 .class-list-cell-area {
-  background-color: #fae2ae;
+  /* background-color: #fae2ae; */ 
+  background: url(http://qiniu.xuedonghanzi.com/uploads/image/33/334bc6c5884243ede7dc15e19ac28d9b.png);
+  background-position: left top;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 128rpx;
+}
+
+.class-list-cell-area:first-child {
+  /* background: linear-gradient(#be854b, #f9dbab); *//* background-color: #fae2ae; */
+  background: url(http://qiniu.xuedonghanzi.com/uploads/image/2b/2b5bc13344ec838cd08755b1deb5e469.png);
+  background-position: left top;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   height: 128rpx;
 }
 
 .class-list-hd-area {
   width: 200rpx;
 }
+
 .class-list-placeholder {
   color: #c9c9c9;
 }
@@ -19,10 +32,11 @@
 .input-hd-area {
   width: 200rpx;
 }
+
 .input-placeholder {
   color: #c9c9c9;
 }
 
 .weui-input .phcolor {
-  color: #333333
+  color: #333;
 }

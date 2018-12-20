@@ -3,7 +3,7 @@ defined('YII_RUN') or exit('Access Denied');
 
 /**
  * Created by IntelliJ IDEA.
- * User: luwei
+ 
  * Date: 2017/8/24
  * Time: 10:18
  */

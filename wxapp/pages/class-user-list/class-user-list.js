@@ -16,6 +16,12 @@ Page({
   onLoad: function(options) {
     app.pageOnLoad(this);
     var page = this;
+    app.storeChannel(options)
+    if (app.checkLoginWithoutRedirect()){
+      this.setData({
+        isLogin:true
+      })
+    }
     app.request({
       url: api.user.class_info,
       method: 'get',
@@ -27,7 +33,6 @@ Page({
         console.log(res)
         if (res.code == 0) {
           page.setData({
-            status: true,
             user_list:res.data.list,
             class:res.data.class,
             data:res.data
@@ -39,16 +44,12 @@ Page({
           page.joinStatus()
           page.checkInClass()
         } else {
-          page.setData({
-            status: false,
-          });
         }
       },
     });
   },
   joinClass:function(){
     var page = this;
-    if (app.checkLogin()){
       console.log('try join')
       app.request({
         url: api.user.class_join,
@@ -63,13 +64,21 @@ Page({
               url: '/pages/class-user-list/class-user-list?class_id='+page.data.class.id,
             })
           } else {
-            page.setData({
-              status: false,
-            });
+            wx.showModal({
+              title: '提示',
+              content: res.msg,
+              showCancel: false,
+              success: function (e) {
+                if (e.confirm) {
+                  wx.reLaunch({
+                    url: '/pages/class-user-list/class-user-list?class_id=' + page.data.class.id,
+                  })
+                }
+              }
+            })
           }
         },
       });
-    }
   },
   checkInClass:function(){
     let user_info = wx.getStorageSync('user_info')
@@ -147,6 +156,105 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
+    var info = this.data.class;
+    if (this.data.isLogin){
 
-  }
+    }
+    var result = {
+      title: '邀请您加入' + this.data.class.class_name,
+      path: "/pages/class-user-list/class-user-list?class_id=" + this.data.class.id,
+      //imageUrl: video.pic_url,
+      success: function (res) {
+        wx.showToast({
+          title: '转发成功',
+        });
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    };
+    let user_info = wx.getStorageSync("user_info")
+    if (user_info&&user_info.id){
+      result.title = user_info.nickname + result.title 
+      result.path = result.path + "&fd=" + user_info.id
+    }
+    return result;
+  },
+  login: function (e) {
+    var page = this;
+    var data = e.detail;
+    console.log('user login', e);
+    if (data.errMsg == 'getUserInfo:fail auth deny') {
+      wx.hideLoading();
+      wx.showModal({
+        title: '提示',
+        content: '登录失败',
+        showCancel: false
+      })
+      return;
+    }
+    if (data.errMsg != 'getUserInfo:ok') {
+      wx.hideLoading();
+      wx.showModal({
+        title: '提示',
+        content: '登录失败' + data.errMsg,
+        showCancel: false
+      })
+      return;
+    }
+    wx.showLoading({
+      title: "正在登陆",
+      mask: true
+    });
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          var code = res.code;
+          console.log(res)
+          let fd = wx.getStorageSync("fd");
+          console.info('login fd', fd)
+          let cd = wx.getStorageSync("cd");
+          console.info('login cd', cd)
+          app.request({
+            url: api.passport.login,
+            method: "POST",
+            data: {
+              code: code,
+              user_info: data.rawData,
+              encrypted_data: data.encryptedData,
+              iv: data.iv,
+              signature: data.signature,
+              fd: fd,
+              cd: cd,
+            },
+            success: function (result) {
+              console.log('===>1212 result', result)
+              wx.hideLoading();
+              if (result.code == 0) {
+                wx.setStorageSync("access_token", result.data.access_token);
+                wx.setStorageSync("user_info", result.data);
+                page.setData({
+                  user_info: result.data
+                });
+                page.joinClass();
+              } else {
+                wx.showModal({
+                  title: '警告，请重试',
+                  content: result.msg,
+                  showCancel: false,
+                })
+              }
+            }
+          });
+        } else {
+          wx.showToast({
+            title: res.msg
+          });
+        }
+      },
+      fail: function (e) {
+        console.log(e);
+      }
+    });
+  },
 })

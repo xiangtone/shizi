@@ -4,6 +4,7 @@
     "pages/index/index",
     "pages/cat/cat",
     "pages/class/class",
+    "pages/class-top/class-top",
     "pages/class-edit/class-edit",
     "pages/class-list/class-list",
     "pages/class-user-list/class-user-list",

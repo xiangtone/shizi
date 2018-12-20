@@ -2,8 +2,8 @@
 defined('YII_RUN') or exit('Access Denied');
 /**
  * Created by IntelliJ IDEA.
- * User: luwei
- * Date: 2017/6/19
+ 
+ 
  * Time: 16:52
  * @var \yii\web\View $this
  */

@@ -47,11 +47,13 @@ class ClassForm extends Model
             //->where(['user_id' => $this->user_id])
             //->where(['uc.user_id=:user_id and c.id>:class_id',array(':class_id'=>0,':user_id'=>$this->user_id)])
             //->andWhere('>','uc.class_id',0)
-            $queryMyClass = ClassUser::find()->alias('uc')->where(['user_id' => $this->user_id])->leftJoin(Classes::tableName() . 'c', 'c.id=uc.class_id');
-            $my_class_count = $queryMyClass->count();
-            $my_class_list = $queryMyClass->select([
-                'uc.*', 'c.*',
-            ])->asArray()->all();
+            $querySql ='select c.*,ucc.* from (select class_id,count(*) as cc from '.ClassUser::tableName().' where class_id in ( select class_id  from '.ClassUser::tableName().' where user_id='.$this->user_id.') group by class_id)  as ucc left join '.Classes::tableName().' as c on c.id=ucc.class_id';
+            // $queryMyClass = ClassUser::find()->alias('uc')->where(['user_id' => $this->user_id])->leftJoin(Classes::tableName() . 'c', 'c.id=uc.class_id');
+            // $my_class_count = $queryMyClass->count();
+            // $my_class_list = $queryMyClass->select([
+            //     'uc.*', 'c.*',
+            // ])->asArray()->all();
+            $my_class_list =  \Yii::$app->db->createCommand($querySql)->queryAll();
         }
         $max_top_count = 3;
         $query_lesson_top = Classes::find()->where(['is_top'=>1]);

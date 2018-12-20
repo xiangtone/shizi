@@ -4,7 +4,7 @@
                 <a style="text-align:center;height:auto" onclick="javascript:playVideo('<?=$value['video_url']?>')" href="#">
                 <div style="width:120px;height:60px;background: url(<?=$value['pic_url']?>) no-repeat;background-size: cover;background-position: center">
                         </div>         
-                <div><?=$value['title']?></div></a>
+                <div style="width:120px;word-wrap:break-word;"><?=$value['title']?></div></a>
 </div>
 <?php endforeach;?>
 </div>

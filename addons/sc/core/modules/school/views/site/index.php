@@ -10,7 +10,7 @@ $this->registerJsFile('@web/js/admin.js', ['depends' => 'yii\web\JqueryAsset']);
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
-	<title>后台登录</title>
+	<title>学懂汉字</title>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript">
         $(function(){
@@ -55,7 +55,7 @@ $this->registerJsFile('@web/js/admin.js', ['depends' => 'yii\web\JqueryAsset']);
 <body>
 
 <header id="header">
-	<h1 class="header-box">学懂汉字课程内容</h1>
+	<h1 class="header-box">学懂汉字 课程内容</h1>
 	<div class="header-right header-box">
         <span>您好，<?php echo $userName ?></span>
         <!-- <a href="<?=Url::to(['user/edit'])?>" target="main"" class="pos">修改密码</a> -->

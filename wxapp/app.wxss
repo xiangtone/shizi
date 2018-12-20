@@ -19,6 +19,12 @@ button {
     font-family: inherit;
 }
 
+.select_top {
+  /* color: #fcebc1; */
+  color: #fff;
+  text-shadow: 2rpx 6rpx 8rpx #275359;
+}
+
 .flex {
     display: -webkit-box;
     display: -webkit-flex;
@@ -250,6 +256,10 @@ button {
 .float-icon .float-icon-1 {
     width: 154rpx;
     height: 87rpx;
+}
+
+.float-icon .float-icon-1::after{
+  border: none;
 }
 
 .float-icon .float-icon-1 image {

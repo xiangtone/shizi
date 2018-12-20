@@ -4,6 +4,39 @@
 <view class='{{share_show?"blur":""}} {{(share_show || show || show_modal)?"no-scroll":""}} w-100 h-100'>
   <import src="/commons/float-icon/float-icon.wxml" />
   <template is="item" data="{{store: store,a:2,shareShow:1}}" />
+
+  <view style="width:714rpx;margin: 0 auto;padding:45rpx 0;font-size:30rpx;color:#333333;">
+    <view>
+      <view class='flex-y-center' style='width:714rpx;height:90rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/3e/3eb936d867741fd6ca9d98d7cee5a7ba.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+        <view style='margin:auto;font-size:30rpx;font-weight:700;color:#275359;letter-spacing:4rpx'>
+          <text class='select_top'>排行榜</text>
+        </view>
+      </view>
+      <view style="position:relative">
+        <view class="weui-cell class-list-cell-area flex-y-center">
+          <view class="flex-x-center {{show_top=='lesson'?'top_tab_active':'top_tab'}}" bindtap='choose_top' data-type-name="lesson">
+            <view style='margin:0 auto;padding-top:8rpx'>课时排行</view>
+          </view>
+          <view class="flex-x-center {{show_top=='ex'?'top_tab_active':'top_tab'}}" bindtap='choose_top' data-type-name="ex">
+            <view style='margin:0 auto;padding-top:8rpx'>练习排行</view>
+          </view>
+        </view>
+        <view class="weui-cell class-list-cell-area" wx:for='{{list_top}}' bindtap='goClass' data-class-id='{{item.id}}'>
+          <view class="weui-cell__hd input-hd-area" style='padding-left:40rpx'>
+            <view class="weui-label label-bold" style='height:102rpx;width:102rpx;border-radius: 15rpx;border:3rpx solid #fff ;background: url({{item.img_url}});background-position: left top;background-size:102rpx 102rpx;background-repeat:no-repeat;'>
+              <!-- <image class="h-100 w-100" src='{{item.img_url}}'></image> -->
+            </view>
+          </view>
+          <view class="weui-cell__bd" style='color:#99653b;font-weight:700'>
+            {{item.class_name}}
+          </view>
+          <view class="weui-cell__ft" style='color:#99653b;padding-right:40rpx'>{{item.cc}}人</view>
+        </view>
+        <view class='flex-y-center' style='position:absolute;bottom:10rpx;width:714rpx;height:76rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/e8/e8a7c33fa141fb7f7ab82c8f369808fc.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+        </view>
+      </view>
+    </view>
+  </view>
   <view style='width:100%;height:300rpx;padding:25rpx 0;' class="flex-x-center">
     <view style='width:250rpx;height:250rpx;background: url({{data.class.img_url}});background-position: left top;background-size:100% 100%;background-repeat:no-repeat;border-radius: 50rpx;'></view>
   </view>
@@ -11,12 +44,19 @@
     <text style='padding:0 40rpx'>课时累计：10\n课时排名：20</text>
     <text style='padding:0 40rpx'>练习累计：10\n练习排名：20</text>
   </view>
-  <view bindtap="joinClass" wx-if='{{!isInClass}}'>
+  <button style='width:495rpx;margin:auto' type="primary" wx:if='{{!isLogin}}' open-type='getUserInfo' bindgetuserinfo='login'>
+    加入班级
+  </button>
+  <block wx:else>
+    <view bindtap="joinClass" wx:if='{{!isInClass}}'>
+      <import src="/commons/button-a/button-a.wxml" />
+      <template is="buttonA" data="{{buttonTitle:'加入班级'}}" />
+    </view>
+  </block>
+  <button style='margin:0;padding:0'>
     <import src="/commons/button-a/button-a.wxml" />
-    <template is="buttonA" data="{{buttonTitle:'加入班级'}}" />
-  </view>
-  <import src="/commons/button-a/button-a.wxml" />
-  <template is="buttonA" data="{{buttonTitle:'邀请加入'}}" />
+    <template is="buttonA" data="{{buttonTitle:'分享邀请'}}" />
+  </button>
   <view style="width:680rpx;margin: 0 auto;padding:45rpx 0;font-size:30rpx;color:#333333;">
     <view style="box-shadow: 4px 10px 6px 4px rgba(140,32,27, 0.5);">
       <view class='flex-y-center' style='width:680rpx;height:90rpx;margin:0 auto ;position:relative;background: url(http://www.dushujielong.com/fm/shizi/wxapp/images/course/img_course_class_tablebar1.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
