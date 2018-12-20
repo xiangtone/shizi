@@ -26,7 +26,7 @@ $this->params['active_nav_group'] = 2;
     </div>
 </div>
 <div class="main-body p-3" id="app">
-    <a href="<?= $urlManager->createUrl(['admin/game/edit', 'video_id' => $video_id]) ?>" class="btn btn-primary">
+    <a href="<?= $urlManager->createUrl(['admin/game/word-edit', 'video_id' => $video_id]) ?>" class="btn btn-primary">
         添加</a>
     <div class="float-right">
 
@@ -70,10 +70,10 @@ $this->params['active_nav_group'] = 2;
                     <td>
 
                         <a class="btn btn-sm btn-primary"
-                           href="<?= $urlManager->createUrl(['admin/game/edit', 'id' => $value['id'],'video_id' => $video_id]) ?>">修改</a>
+                           href="<?= $urlManager->createUrl(['admin/game/word-edit', 'id' => $value['id'],'video_id' => $video_id]) ?>">修改</a>
                         
                         <a class="btn btn-sm btn-danger del" href="javascript:" data-content="是否删除？"
-                           data-url="<?= $urlManager->createUrl(['admin/game/del', 'id' => $value['id']]) ?>">删除</a>
+                           data-url="<?= $urlManager->createUrl(['admin/game/word-del', 'id' => $value['id']]) ?>">删除</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

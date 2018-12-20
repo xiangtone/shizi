@@ -33,10 +33,10 @@ cc.Class({
 
     // onLoad () {},
 
-    start () {
-        
+    start() {
+
     },
-    on_click(){
+    on_click() {
 
         //方法1
         /*
@@ -45,8 +45,13 @@ cc.Class({
             var audioID = cc.audioEngine.play(clip, false);
         });
         */
-        //方法2
-        cc.zc.audio_mgr.playNetSFX("http://qiniu.agsew.com/uploads/video/20181213141801/1544681881f67356259ffa3871.mp3");
+        cc.log(cc.zc.INFO[0].voice_url);
+        if (cc.zc.INFO[0].voice_url != null) {
+            cc.log('xxx');
+            //方法2
+            cc.zc.audio_mgr.playNetSFX(cc.zc.INFO[0].voice_url);
+        }
+
     },
     // update (dt) {},
 });

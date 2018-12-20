@@ -91,7 +91,7 @@ cc.Class({
         cc.zc.http_args = this.urlParse();
         cc.log("参数--->",cc.zc.http_args);
         
-        cc.zc.http_args.video_id = 9;//测试用的id     
+        cc.zc.http_args.video_id = 9;//lltest用的id     
          //加载网络数据 
          var url = cc.zc.global.URL+"&video_id="+cc.zc.http_args.video_id;
          cc.log("获取数据url=",url);
@@ -158,7 +158,7 @@ cc.Class({
                 */
 
                 
-                self.onload_complete();
+                //self.onload_complete();
             }
             
         });

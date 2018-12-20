@@ -145,6 +145,8 @@ $style = ['视频','音频','文章'];
                                data-url="<?= $urlManager->createUrl(['admin/video/del', 'id' => $value['id']]) ?>">删除</a>
                             <a class="btn btn-sm btn-primary"
                                href="<?= $urlManager->createUrl(['admin/game/word-list', 'video_id' => $value['id']]) ?>">组词</a>
+                            <a class="btn btn-sm btn-primary"
+                               href="<?= $urlManager->createUrl(['admin/game/sentence-list', 'video_id' => $value['id']]) ?>">组句</a>
                     	</td>
 	                </tr> 
 	            <?php endforeach; ?>      	
