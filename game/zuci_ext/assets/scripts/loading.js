@@ -86,7 +86,7 @@ cc.Class({
         //cc.zc.audio_mgr.playBGM("bg.mp3");
         //加载本地游戏资源
         this.start_perloading();
-       
+        
         //获取webview传过来的参数 ?video_id=1&user_id=2
         cc.zc.http_args = this.urlParse();
         cc.log("参数--->",cc.zc.http_args);
@@ -96,6 +96,7 @@ cc.Class({
          var url = cc.zc.global.URL+"&video_id="+cc.zc.http_args.video_id;
          cc.log("获取数据url=",url);
          this.start_http_get(url);
+         
     },
     /**
      * 解析获取http get 传过来的参数值
@@ -171,8 +172,8 @@ cc.Class({
         this._is_loading = true;
         var self = this;
 
-        //加载资源
-        cc.loader.loadResDir("resources",
+        //加载资源,系统会默认加resource,"/" 表示resource下的所有目录的资源加载
+        cc.loader.loadResDir("/",
             function (completedCount, totalCount, item) {
                 //cc.log("totalCount:" + totalCount + ",completedCount:" + completedCount);
                 if (self._is_loading) {
