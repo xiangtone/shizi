@@ -158,7 +158,7 @@ cc.Class({
                 */
 
                 
-                //self.onload_complete();
+                self.onload_complete();
             }
             
         });
