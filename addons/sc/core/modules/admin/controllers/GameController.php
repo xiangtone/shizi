@@ -19,6 +19,8 @@ class GameController extends Controller
      * 组词游戏 字汇列表
      */
     public function actionWordList(){
+
+        //echo \Yii::$app->params['zuciUrl'];return;
         $form = new ExWordFrom();
         //从http的post 和 get中获取参数
         $form->attributes = \Yii::$app->request->get();

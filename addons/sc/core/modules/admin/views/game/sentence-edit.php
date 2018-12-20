@@ -128,7 +128,6 @@ $this->params['active_nav_group'] = 2;
 </div>
 <script>
     //JS保存按钮相关处理
-
     $(document).on("click", ".submit-btn-1", "click", function () {
 
 

@@ -28,6 +28,8 @@ $this->params['active_nav_group'] = 2;
 <div class="main-body p-3" id="app">
     <a href="<?= $urlManager->createUrl(['admin/game/word-edit', 'video_id' => $video_id]) ?>" class="btn btn-primary">
         添加</a>
+
+    <a class="btn btn-primary" href="javascript:" onClick="openwin()">预览</a>
     <div class="float-right">
 
         <form method="get">
@@ -74,6 +76,8 @@ $this->params['active_nav_group'] = 2;
                         
                         <a class="btn btn-sm btn-danger del" href="javascript:" data-content="是否删除？"
                            data-url="<?= $urlManager->createUrl(['admin/game/word-del', 'id' => $value['id']]) ?>">删除</a>
+                       
+                           
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -104,4 +108,17 @@ $this->params['active_nav_group'] = 2;
             }
         });
     }
+    
+    function openwin(){
+        var openUrl = "<?php echo \Yii::$app->params['zuciUrl'].'?video_id='.$video_id;?>";//弹出窗口的url
+        console.log("url="+openUrl);
+        var iWidth=640; //弹出窗口的宽度;
+        var iHeight=960; //弹出窗口的高度;
+        var iTop = (window.screen.availHeight-30-iHeight)/2; //获得窗口的垂直位置;
+        var iLeft = (window.screen.availWidth-10-iWidth)/2; //获得窗口的水平位置;
+        window.open(openUrl,"_blank","height="+iHeight+",width="+iWidth+", top="+iTop+",left="+iLeft+",menubar=no,toolbar=no,status=no,location=no"); 
+        //window.open('http://baidu.com','newwindow', "height=100, width=450, top=200,left=200 , toolbar =no, menubar=no, scrollbars=no, resizeable=no, location=no, status=no"); 
+        //window.open ('http://baidu.com', "newwindow", "height=400, width=550, top=100, left=380, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no");
+    } 
+
 </script>
