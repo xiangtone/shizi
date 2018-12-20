@@ -261,6 +261,9 @@ button {
 .float-icon .float-icon-1::after{
   border: none;
 }
+.float-icon-1::after{
+  border: none;
+}
 
 .float-icon .float-icon-1 image {
     width: 154rpx;

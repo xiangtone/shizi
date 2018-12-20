@@ -9,69 +9,65 @@
     <view>
       <view class='flex-y-center' style='width:714rpx;height:90rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/3e/3eb936d867741fd6ca9d98d7cee5a7ba.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
         <view style='margin:auto;font-size:30rpx;font-weight:700;color:#275359;letter-spacing:4rpx'>
-          <text class='select_top'>排行榜</text>
+          <text class='select_top'>班级详情</text>
         </view>
       </view>
-      <view style="position:relative">
-        <view class="weui-cell class-list-cell-area flex-y-center">
-          <view class="flex-x-center {{show_top=='lesson'?'top_tab_active':'top_tab'}}" bindtap='choose_top' data-type-name="lesson">
-            <view style='margin:0 auto;padding-top:8rpx'>课时排行</view>
+      <view style="position:relative;color:#99653b">
+        <view class="weui-cell class-list-cell-area flex-y-center" style="position:relative;height:160rpx;">
+          <view style='width:40rpx'></view>
+          <view style='width:110rpx;height:110rpx;background: url({{data.class.img_url}});background-position: left top;background-size:100% 100%;background-repeat:no-repeat;border-radius: 15rpx;border:3rpx solid #f9daa6 ;'></view>
+          <view style='font-size:30rpx;color:#99653b;padding-left:30rpx'>
+            <view style='font-weight:700'>{{class.class_name}}</view>
+            <view>{{user_list.length}}人</view>
           </view>
-          <view class="flex-x-center {{show_top=='ex'?'top_tab_active':'top_tab'}}" bindtap='choose_top' data-type-name="ex">
-            <view style='margin:0 auto;padding-top:8rpx'>练习排行</view>
+          <view style='position:absolute;right:60rpx'>
+            <button class='flex-x-center float-icon-1' open-type="share" style='width:130rpx;height:69rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/31/319bf7929f24fd43b449e528424bc60e.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+              <!-- <image src='http://qiniu.xuedonghanzi.com/uploads/image/31/319bf7929f24fd43b449e528424bc60e.png' class='w-100 h-100'></image> -->
+              <view style='position:absolute;top:0rpx;font-size:24rpx;color:#fff;letter-spacing:4rpx'>
+                <text>邀请</text>
+              </view>
+            </button>
+            <!-- <view class='flex-x-center' style='width:130rpx;height:69rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/31/319bf7929f24fd43b449e528424bc60e.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+              <view style='position:absolute;top:12rpx;font-size:24rpx;color:#fff;letter-spacing:4rpx'>
+                <text>邀请</text>
+              </view>
+            </view> -->
+            <block wx:if='{{!isLogin}}'>
+              <button class='flex-x-center float-icon-1' open-type='getUserInfo' bindgetuserinfo='login' style='width:130rpx;height:69rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/96/9670e24b58a114a4f9d9042d355b0bc6.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+                <!-- <image src='http://qiniu.xuedonghanzi.com/uploads/image/31/319bf7929f24fd43b449e528424bc60e.png' class='w-100 h-100'></image> -->
+                <view style='position:absolute;top:0rpx;font-size:24rpx;color:#fff;letter-spacing:4rpx'>
+                  <text>加入</text>
+                </view>
+              </button>
+            </block>
+            <block wx:else>
+              <view class='flex-x-center' wx:if='{{!isInClass}}' bindtap="joinClass" style='width:130rpx;height:69rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/96/9670e24b58a114a4f9d9042d355b0bc6.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+                <view style='position:absolute;top:12rpx;font-size:24rpx;color:#fff;letter-spacing:4rpx'>
+                  <text>加入</text>
+                </view>
+              </view>
+            </block>
           </view>
         </view>
-        <view class="weui-cell class-list-cell-area" wx:for='{{list_top}}' bindtap='goClass' data-class-id='{{item.id}}'>
+        <view class="weui-cell class-list-cell-area" style='font-size:24rpx;color:#99653b'>
+          <text style='padding:0 40rpx'>课时积分：{{class.lesson_count}}\n练习积分：{{class.ex_count}}</text>
+          <text style='padding:0 40rpx'>课时排名：第{{class.lesson_top}}名\n练习排名：第{{class.ex_top}}名</text>
+        </view>
+        <view class="weui-cell class-list-cell-area without-line flex-y-center" style='position:absolute;width:714rpx;height:80rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/7c/7cb35702548dcd56523410e1f2e07083.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+          <text style='padding:0 60rpx;font-size:24rpx;font-weight:700;'>班级成员</text>
+        </view>
+        <view class="weui-cell {{index%2==1?'class-list-cell-area':'class-list-cell-area-1'}} without-line" wx:for='{{user_list}}' >
           <view class="weui-cell__hd input-hd-area" style='padding-left:40rpx'>
-            <view class="weui-label label-bold" style='height:102rpx;width:102rpx;border-radius: 15rpx;border:3rpx solid #fff ;background: url({{item.img_url}});background-position: left top;background-size:102rpx 102rpx;background-repeat:no-repeat;'>
+            <view class="weui-label label-bold" style='height:78rpx;width:78rpx;border-radius: 50%;background: url({{item.avatar_url}});background-position: left top;background-size:100% 100%;background-repeat:no-repeat;border:3rpx solid #fff'>
               <!-- <image class="h-100 w-100" src='{{item.img_url}}'></image> -->
             </view>
           </view>
           <view class="weui-cell__bd" style='color:#99653b;font-weight:700'>
-            {{item.class_name}}
+            {{item.nickname}}
           </view>
-          <view class="weui-cell__ft" style='color:#99653b;padding-right:40rpx'>{{item.cc}}人</view>
+          <view class="weui-cell__ft" style='color:#99653b;padding-right:40rpx'></view>
         </view>
         <view class='flex-y-center' style='position:absolute;bottom:10rpx;width:714rpx;height:76rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/e8/e8a7c33fa141fb7f7ab82c8f369808fc.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
-        </view>
-      </view>
-    </view>
-  </view>
-  <view style='width:100%;height:300rpx;padding:25rpx 0;' class="flex-x-center">
-    <view style='width:250rpx;height:250rpx;background: url({{data.class.img_url}});background-position: left top;background-size:100% 100%;background-repeat:no-repeat;border-radius: 50rpx;'></view>
-  </view>
-  <view style='width:100%;height:200rpx;padding:25rpx 0;' class="flex-x-center">
-    <text style='padding:0 40rpx'>课时累计：10\n课时排名：20</text>
-    <text style='padding:0 40rpx'>练习累计：10\n练习排名：20</text>
-  </view>
-  <button style='width:495rpx;margin:auto' type="primary" wx:if='{{!isLogin}}' open-type='getUserInfo' bindgetuserinfo='login'>
-    加入班级
-  </button>
-  <block wx:else>
-    <view bindtap="joinClass" wx:if='{{!isInClass}}'>
-      <import src="/commons/button-a/button-a.wxml" />
-      <template is="buttonA" data="{{buttonTitle:'加入班级'}}" />
-    </view>
-  </block>
-  <button style='margin:0;padding:0'>
-    <import src="/commons/button-a/button-a.wxml" />
-    <template is="buttonA" data="{{buttonTitle:'分享邀请'}}" />
-  </button>
-  <view style="width:680rpx;margin: 0 auto;padding:45rpx 0;font-size:30rpx;color:#333333;">
-    <view style="box-shadow: 4px 10px 6px 4px rgba(140,32,27, 0.5);">
-      <view class='flex-y-center' style='width:680rpx;height:90rpx;margin:0 auto ;position:relative;background: url(http://www.dushujielong.com/fm/shizi/wxapp/images/course/img_course_class_tablebar1.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
-        <!-- <image class='w-100 h-100' src="http://www.dushujielong.com/fm/shizi/wxapp/images/course/img_course_class_tablebar1.png" style='position:absolute;top:0;left:0' /> -->
-        <view style='margin:auto;font-size:30rpx;font-weight:700;color:#105861'>班级成员</view>
-      </view>
-      <view>
-        <view class="weui-cell class-list-cell-area" wx:for='{{user_list}}'>
-          <view class="weui-cell__hd input-hd-area">
-            <view class="weui-label label-bold" style='height:102rpx;width:102rpx;border-radius: 50%;background: url({{item.avatar_url}});background-position: left top;background-size:102rpx 102rpx;background-repeat:no-repeat;'>
-              <!-- <image class="h-100 w-100" src='{{item.img_url}}'></image> -->
-            </view>
-          </view>
-          <view class="weui-cell__bd">{{item.nickname}}</view>
-          <view class="weui-cell__ft">ft</view>
         </view>
       </view>
     </view>

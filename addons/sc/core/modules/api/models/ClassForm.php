@@ -55,12 +55,16 @@ class ClassForm extends Model
             // ])->asArray()->all();
             $my_class_list =  \Yii::$app->db->createCommand($querySql)->queryAll();
         }
-        $max_top_count = 3;
+        $max_top_count = 10;
         $query_lesson_top = Classes::find()->where(['is_top'=>1]);
-        $list_lesson_top = $query_lesson_top->orderBy(['lesson_count'=> SORT_DESC])->limit($max_top_count)->asArray()->all();
+        $list_lesson_top = $query_lesson_top->orderBy(['lesson_top'=> SORT_ASC])->limit($max_top_count)->select([
+            '*', 'lesson_count as count',
+        ])->asArray()->all();
 
         $query_ex_top = Classes::find()->where(['is_top'=>1]);
-        $list_ex_top = $query_ex_top->orderBy(['ex_count'=> SORT_DESC])->limit($max_top_count)->asArray()->all();
+        $list_ex_top = $query_ex_top->orderBy(['ex_top'=> SORT_ASC])->limit($max_top_count)->select([
+            '*', 'ex_count as count',
+        ])->asArray()->all();
         
         return [
             'code' => 0,

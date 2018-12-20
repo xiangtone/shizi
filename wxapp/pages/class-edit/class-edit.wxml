@@ -2,36 +2,44 @@
 <view class="pbg">
   <image src="/images/course/img_course_block_1a.jpg" />
 </view>
-<view class='{{share_show?"blur":""}} {{(share_show || show || show_modal)?"no-scroll":""}} w-100 h-100'>
-  <!-- 客服开始 -->
-  <import src="/commons/float-icon/float-icon.wxml" />
-  <template is="item" data="{{store: store,a:2}}" />
-  <!-- 客服结束 -->
-  <form bindsubmit='createClass' report-submit='true'>
-    <view style="width:680rpx;margin: 0 auto;padding:45rpx 0;font-size:30rpx;color:#333333;">
-      <view style="box-shadow: 4px 10px 6px 4px rgba(140,32,27, 0.5);">
-        <view class="weui-cell weui-cell_input input-cell-area">
-          <view class="weui-cell__hd input-hd-area">
-            <view class="weui-label label-bold">班级名称</view>
-          </view>
-          <view class="weui-cell__bd">
-            <input bindinput='inputClassName' bindconfirm='inputClassName' bindblur='inputClassName' bindblur="bindInputBlur" placeholder-class="phcolor" class="weui-input" type="text" placeholder="请填写班级名称" />
+<view style="width:714rpx;margin: 0 auto;padding:45rpx 0;font-size:24rpx;color:#99653b;">
+  <view>
+    <view class='flex-y-center' style='width:714rpx;height:90rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/3e/3eb936d867741fd6ca9d98d7cee5a7ba.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+      <view style='margin:auto;font-size:30rpx;font-weight:700;color:#275359;letter-spacing:4rpx'>
+        <text class='select_top'>创建班级</text>
+      </view>
+    </view>
+    <view style="position:relative">
+      <view class="weui-cell class-list-cell-area flex-y-center">
+        <view class="weui-cell__hd input-hd-area" style='padding-left:10rpx;width:150rpx'>
+          <view class="weui-label label-bold">班级名称</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input bindinput='inputClassName' style='width:442rpx;height:92rpx;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/96/96a43fc29779de89706029a5226f8c82.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;padding-left:30rpx;font-size:30rpx;'
+            placeholder-style='font-size:30rpx;color:#f9dbab' bindconfirm='inputClassName' bindblur='inputClassName' bindblur="bindInputBlur" placeholder-class="phcolor" class="weui-input" type="text" placeholder="请填写班级名称" />
+        </view>
+      </view>
+      <view class="weui-cell class-list-cell-area flex-y-center" style='height:270rpx'>
+        <view class="weui-cell__hd input-hd-area" style='padding-left:10rpx;width:150rpx'>
+          <view class="weui-label label-bold">班级头像</view>
+        </view>
+        <view class="weui-cell__bd">
+          <view class='flex-y-center  flex-x-center' bindtap="chooseImg" style='width:245rpx;height:245rpx;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/e2/e2afbe2ee876c0c5c950ff9e9d9bec40.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+            <block wx:if='{{img_list.length>0}}' wx:for='{{img_list}}'>
+              <image src='{{item}}' bindtap='chooseImg' data-index='{{index}}' style='width:225rpx;height:225rpx;'></image>
+            </block>
           </view>
         </view>
       </view>
+      <view class='flex-y-center' style='position:absolute;bottom:10rpx;width:714rpx;height:76rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/e8/e8a7c33fa141fb7f7ab82c8f369808fc.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+      </view>
     </view>
-    <view>
-      <block wx:if='{{img_list.length>0}}' wx:for='{{img_list}}'>
-        <image src='{{item}}' bindtap='chooseImg' data-index='{{index}}'></image>
-      </block>
-    </view>
-    <button class="binding-footer" bindtap="chooseImg" style='background:none;width:80%'>
-      选择班级图片
-    </button>
-    <button class="binding-footer" bindtap="createClass" style='background:none;width:80%'>
-      创建
-    </button>
-  </form>
+  </view>
+</view>
+<view class='flex-y-center flex-x-center'>
+  <view class='flex-y-center flex-x-center' bindtap='createClass' style='font-size:30rpx;color:#fff;width:290rpx;height:103rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/d4/d449a77a6cb2c57cbb50902ed3f09003.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+    <view style='position:absolute;top:20rpx' bindtap="createClass">创建</view>
+  </view>
 </view>
 <view class='Toast' wx:if='{{isShowToast}}'>
   <image src='/images/icon-true.png'></image>
