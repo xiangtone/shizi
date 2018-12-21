@@ -1,110 +1,48 @@
 <!--index.wxml-->
 <!--搜索栏开始-->
+<import src="/commons/bg/bg.wxml" />
+<template is="bg" data="{{store: store,a:2}}" />
+<!-- 客服开始 -->
+<import src="/commons/float-icon/float-icon.wxml" />
+<template is="item" data="{{store: store,a:2,shareShow:0}}" />
+
+
 <view class='{{share_show?"no-scroll blur":""}}'>
+  <view style='width:100%;height:20rpx'></view>
+  <view class='flex-y-center flex-x-center' style='width:736rpx;height:495rpx;;margin:0 auto;position:relative'>
+    <!--轮播图开始-->
+    <swiper style='width:650rpx;height:410rpx;top:-4rpx;z-index:10' indicator-dots indicator-color='rgba(0, 0, 0, .3)' indicator-active-color='#fff' autoplay='true' interval='3000' duration='300' circular='true'>
+      <block wx:for='{{banner_list}}' wx:for-item='item' wx:for-index='index'>
+        <swiper-item>
+          <view bindtap='bannerTo' data-url='{{item.url}}' class='w-100 h-100'>
+            <image src="{{item.banner_url}}" class="slide-image" style='width:100%;height:100%' />
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view style='width:736rpx;height:83rpx;top:0;z-index:20;position:absolute;background: url(http://qiniu.xuedonghanzi.com/uploads/image/9e/9efc5c0bd397ddc59922861f4d3ce65a.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'></view>
+    <view style='width:736rpx;height:94rpx;bottom:0;z-index:20;position:absolute;background: url(http://qiniu.xuedonghanzi.com/uploads/image/a7/a7e3cbe9d2ac224024d35da963a2a23d.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'></view>
+    <view style='width:45rpx;height:319rpx;top:83rpx;left:0;z-index:30;position:absolute;background: url(http://qiniu.xuedonghanzi.com/uploads/image/c5/c5cb06e987dfffba20762a5c72ffc3d4.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'></view>
+    <view style='width:45rpx;height:319rpx;top:83rpx;right:0;z-index:30;position:absolute;background: url(http://qiniu.xuedonghanzi.com/uploads/image/f8/f8b0bcdc2baec84fa3fa80afcd348828.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'></view>
+    <!--轮播图结束-->
+  </view>
+  <!-- <view class='flex-y-center flex-x-center' style='width:725rpx;height:522rpx;;margin:0 auto;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/16/1623b6e412a5ecc4150aad4b9454113a.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+    
+    <swiper style='width:660rpx;height:366rpx;top:-4rpx' autoplay='true' interval='3000' duration='300' circular='true'>
+      <block wx:for='{{banner_list}}' wx:for-item='item' wx:for-index='index'>
+        <swiper-item>
+          <view bindtap='bannerTo' data-url='{{item.url}}' class='w-100 h-100'>
+            <image src="{{item.banner_url}}" class="slide-image" style='width:100%;height:100%' />
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+    
+  </view> -->
 
-  <!--轮播图开始-->
-  <swiper class='banner' autoplay='true' interval='3000' duration='300' circular='true'>
-    <block wx:for='{{banner_list}}' wx:for-item='item' wx:for-index='index'>
-      <swiper-item>
-        <view bindtap='bannerTo' data-url='{{item.url}}'>
-          <image src="{{item.banner_url}}" class="slide-image" style='width:100%;height:590rpx' />
-        </view>
-      </swiper-item>
-    </block>
-  </swiper>
-  <!--轮播图结束-->
-
-  <!--精选视频开始-->
-  <block wx:if='{{video_list}}'>
-    <view class='block flex-x-center flex-y-center'>
-      <image src='{{home.video_pic?home.video_pic:"/images/icon-choice.png"}}'></image>
-      <text class='black-color font-13' style='font-weight:bold;'>{{home.video_text?home.video_text:"首页精选"}}</text>
-    </view>
-  </block>
-  <block wx:for='{{video_list}}' wx:for-item='item' wx:for-index='index'>
-    <block wx:if="{{item.is_index == 0}}">
-      <view style='width:100%;padding-bottom:72rpx;'>
-        <view class='video-head'>
-          <view class='video-head {{index==hide?"hide":""}}'>
-            <block wx:if="{{item.style == 0 || item.style == 1}}">
-              <image src='{{item.pic_url}}' style='width:100%;height:100%;'></image>
-              <image class='play' src='/images/icon-play-big.png' bindtap='play' data-index='{{index}}'></image>
-            </block>
-            <block wx:else>
-              <image src='{{item.pic_url}}' style='width:100%;height:100%;' bindtap='videoplay' data-id='{{item.id}}'></image>
-            </block>
-            <image class='pic_style' src='{{store.video_icon?store.video_icon:"/images/icon-video-icon.png"}}' wx:if='{{store.pic_style==1 && item.style==0}}'></image>
-            <image class='pic_style' src='{{store.audio_icon?store.audio_icon:"/images/icon-audio-icon.png"}}' wx:if='{{store.pic_style==1 && item.style==1}}'></image>
-            <view class='pay-style flex-x-center flex-y-center' wx:if='{{item.pay}}'>收费</view>
-            <view class='shadow'></view>
-          </view>
-          <video id='video_{{index}}' class='' bindtimeupdate='timeUpdate' bindplay='play_2' data-index='{{index}}' wx:if='{{index == hide}}' src='{{item.video_url}}' controls='controls' duration='{{item.is_pay == 1?item.pay.time:""}}' autoplay='true'>
-            <cover-view class='w-100 h-100 {{show_buy?"hide":""}}' wx:if='{{item.style == 1}}'>
-              <cover-image style='width:100%;height:100%;' src='{{item.pic_url}}'></cover-image>
-              <cover-image src='/images/icon-pause.png' class='play' bindtap='pause' data-index='{{index}}'></cover-image>
-            </cover-view>
-            <cover-view class='buy-cover {{show_buy?"":"hide"}}' wx:if='{{item.is_pay == 1}}'>
-              <cover-view class='pay-text flex-x-center'>
-                <cover-view>此内容需￥{{item.pay.price}}元购买</cover-view>
-              </cover-view>
-              <cover-view class='flex-row flex-x-center'>
-                <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-1' bindtap='is_wifi' data-index='{{index}}'>
-                  <cover-view>试看{{item.pay.d_time}}</cover-view>
-                </cover-view>
-                <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='buyVideo' data-index='{{index}}'>
-                  <cover-view>立即购买</cover-view>
-                </cover-view>
-                <!-- <cover-view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='buyCat' data-index='{{index}}'>
-                                    <cover-view>立即购买</cover-view>
-                                </cover-view> -->
-              </cover-view>
-            </cover-view>
-          </video>
-        </view>
-        <view class='video-title flex-row flex-y-center'>
-          <view class='flex-grow-1 font-15 black-color text-more' bindtap='videoplay' data-id='{{item.id}}'>{{item.title}}</view>
-          <view class='flex-y-center flex-grow-0'>
-            <view class='flex-y-center share-btn' bindtap='share' data-index='{{index}}'>
-              <image src='/images/icon-share.png' class='share'></image>
-            </view>
-            <view class='flex-y-center' style='height:100%;margin-right:12rpx;' bindtap='collect' data-index='{{index}}'>
-              <image src='{{collect_loading==index?"/images/loading2.svg":(item.collect!=0?"/images/icon-collect-un.png":"/images/icon-collect.png")}}' class='collect'></image>
-              <text style='width:auto;'>{{item.collect_count}}</text>
-            </view>
-            <view class='flex-y-center' style='height:100%;' bindtap='comment' data-index='{{index}}'>
-              <image src='/images/icon-comment.png' class='collect'></image>
-              <text style='width:auto;'>{{item.comment_count}}</text>
-            </view>
-          </view>
-        </view>
-        <view class='video-content'>
-          <view bindtap='videoplay' data-id='{{item.id}}' class='flex-y-center flex-row m-border-top' style='height:100rpx;'>
-            <view class='flex-grow-0' style='margin-right:32rpx;' wx:if='{{item.style != 2}}'>时长：{{item.video_time}}</view>
-            <view class='flex-grow-0 page-view flex-row flex-y-center'>
-              <image src='/images/icon-page-view.png'></image>
-              <view>{{item.page_view}}</view>
-            </view>
-          </view>
-          <view class='content'>
-            <view bindtap='videoplay' data-id='{{item.id}}' class='{{item.show!=-1?"":"more"}}'>{{item.content}}</view>
-            <view class='flex-y-center' style='position:relative;margin-top:34rpx;height:45rpx;'>
-              <view class='right flex-y-center' bindtap='more' data-index='{{index}}'>
-                <image src='{{item.show!=-1?"/images/icon-up.png":"/images/icon-down.png"}}' style='width:28rpx;height:14rpx;margin-right:10rpx;'></image>
-                <text class='font-9'>{{item.show!=-1?"收起":"展开"}}</text>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </block>
-  </block>
-  <!--精选视频结束-->
 
   <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
     <image style="width: 160rpx;height: 80rpx" src="/images/loading.svg"></image>
-  </view>
-  <view>
-    {{fd}}
   </view>
 </view>
 <include src="/commons/share/share.wxml" />

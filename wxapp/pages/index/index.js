@@ -2,6 +2,7 @@
 //获取应用实例
 var app = getApp();
 var api = require('../../api.js');
+var siteInfo = require('../../siteinfo.js')
 var is_loading_more = false;
 var is_no_more = false;
 var share = require('../../commons/share/share.js');
@@ -61,8 +62,12 @@ Page({
     var page = this;
     var user_info = wx.getStorageSync("user_info");
     app.request({
-      url: api.default.index,
+      url: api.default.index ,
+      data: {
+        news_cat_id: siteInfo.newscatid,
+      },
       success: function(res) {
+        console.log(res)
         if (res.code == 0) {
           page.setData(res.data);
         }
@@ -73,7 +78,7 @@ Page({
     });
     is_loading_more = true;
     app.request({
-      url: api.user.video_list,
+      url: api.user.video_list ,
       success: function(res) {
         if (res.code == 0) {
           page.setData({

@@ -25,6 +25,8 @@ class VideoForm extends Model
     public $title;
     public $pic_url;
     public $video_url;
+    public $video_720;
+    public $video_1080;
     public $content;
     public $sort;
     public $is_show;
@@ -40,7 +42,6 @@ class VideoForm extends Model
     public $type;
     public $style;
 
-
     public $is_pay;
     //pay_ 为前缀的表示视频的付费设置
     public $pay_price;
@@ -51,15 +52,15 @@ class VideoForm extends Model
     {
         return [
             [['video_url'], 'required', 'on' => 'VIDEO'],
-            [['pay_time'],'integer','on'=>'VIDEO'],
+            [['pay_time'], 'integer', 'on' => 'VIDEO'],
             [['cat_id', 'title', 'pic_url', 'content'], 'required'],
-            [['title', 'pic_url', 'video_url', 'content', 'introduce', 'banner_url', 'form_list', 'form_name'], 'trim'],
-            [['title', 'pic_url', 'video_url', 'content', 'introduce', 'banner_url', 'detail', 'form_name'], 'string'],
+            [['title', 'pic_url', 'video_url', 'video_720','video_1080', 'content', 'introduce', 'banner_url', 'form_list', 'form_name'], 'trim'],
+            [['title', 'pic_url', 'video_url', 'video_720','video_1080', 'content', 'introduce', 'banner_url', 'detail', 'form_name'], 'string'],
             [['sort', 'is_show', 'order', 'refund', 'page_view', 'type', 'style', 'is_pay'], 'integer'],
             [['sort'], 'default', 'value' => 100],
             [['video_time', 'money'], 'number', 'min' => 0],
-            [['money', 'pay_time'], 'default', 'value' => 0,],
-            [['pay_price'], 'default', 'value' => 0.01,],
+            [['money', 'pay_time'], 'default', 'value' => 0],
+            [['pay_price'], 'default', 'value' => 0.01],
         ];
     }
 
@@ -86,15 +87,18 @@ class VideoForm extends Model
 
     public function save()
     {
-        if (!$this->validate())
+        if (!$this->validate()) {
             return $this->getModelError();
+        }
 
         $cat = Cat::find()->where(['is_delete' => 0, 'id' => $this->cat_id])->one();
-        if (!$cat)
+        if (!$cat) {
             return [
                 'code' => 1,
-                'msg' => '分类不存在'
+                'msg' => '分类不存在',
             ];
+        }
+
         if ($this->video->isNewRecord) {
             $this->video->is_delete = 0;
             $this->video->addtime = time();
@@ -105,7 +109,7 @@ class VideoForm extends Model
             if (!$cat->save()) {
                 return [
                     'code' => 1,
-                    'msg' => '网络异常'
+                    'msg' => '网络异常',
                 ];
             }
         }
@@ -114,13 +118,13 @@ class VideoForm extends Model
             if ($this->pay_price < 0.01) {
                 return [
                     'code' => 1,
-                    'msg' => '付费金额不能小于0.01'
+                    'msg' => '付费金额不能小于0.01',
                 ];
             }
             if (floatval($this->pay_time) > floatval($this->video_time)) {
                 return [
                     'code' => 1,
-                    'msg' => '免费时长不能超过视频时长'
+                    'msg' => '免费时长不能超过视频时长',
                 ];
             }
         }
@@ -128,6 +132,8 @@ class VideoForm extends Model
         $this->video->title = $this->title;
         $this->video->pic_url = $this->pic_url;
         $this->video->video_url = $this->video_url;
+        $this->video->video_720 = $this->video_720;
+        $this->video->video_1080 = $this->video_1080;
         $this->video->content = $this->content;
         $this->video->sort = $this->sort;
         $this->video->is_show = $this->is_show;
@@ -143,7 +149,7 @@ class VideoForm extends Model
             if (!$this->banner_url) {
                 return [
                     'code' => 1,
-                    'msg' => '请上传轮播图'
+                    'msg' => '请上传轮播图',
                 ];
             }
             $this->video->introduce = $this->introduce;
@@ -160,7 +166,7 @@ class VideoForm extends Model
                     if (!$value['name']) {
                         return [
                             'code' => 1,
-                            'msg' => '请输入字段名称'
+                            'msg' => '请输入字段名称',
                         ];
                     }
                     if ($value['id']) {
@@ -182,7 +188,7 @@ class VideoForm extends Model
                 }
             }
             if ($this->form_name) {
-                $form_name = Form::findOne(['store_id' => $this->store_id, 'type' => 'form_name','video_id'=>$this->video->id]);
+                $form_name = Form::findOne(['store_id' => $this->store_id, 'type' => 'form_name', 'video_id' => $this->video->id]);
                 if (!$form_name) {
                     $form_name = new Form();
                     $form_name->type = 'form_name';
@@ -206,7 +212,7 @@ class VideoForm extends Model
             }
             return [
                 'code' => 0,
-                'msg' => '成功'
+                'msg' => '成功',
             ];
         } else {
             return $this->getModelError($this->video);

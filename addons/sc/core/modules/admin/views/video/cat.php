@@ -39,7 +39,7 @@ $this->params['active_nav_group'] = 2;
                         </div>
                         <div class="card-footer text-muted">
                             <a class="btn btn-sm btn-primary mb-2"
-                               href="<?= $urlManager->createUrl(['admin/video/list', 'cat_id' => $value['id']]) ?>">查看视频</a>
+                               href="<?= $urlManager->createUrl(['admin/video/list', 'cat_id' => $value['id']]) ?>">查看内容</a>
                             <a class="btn btn-sm btn-primary mb-2"
                                href="<?= $urlManager->createUrl(['admin/video/cat-edit', 'id' => $value['id']]) ?>">修改</a>
                             <a class="btn btn-sm btn-danger del cat-del mb-2" href="javascript:" data-content="是否删除？"

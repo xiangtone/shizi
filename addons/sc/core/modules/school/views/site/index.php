@@ -58,7 +58,7 @@ $this->registerJsFile('@web/js/admin.js', ['depends' => 'yii\web\JqueryAsset']);
 	<h1 class="header-box">学懂汉字 课程内容</h1>
 	<div class="header-right header-box">
         <span>您好，<?php echo $userName ?></span>
-        <!-- <a href="<?=Url::to(['user/edit'])?>" target="main"" class="pos">修改密码</a> -->
+        <!-- | <a href="<?=Url::to(['user/edit'])?>" target="main" >修改密码</a> -->
          |  <a href="<?=Url::to(['site/logout'])?>">安全退出</a>
 	</div>
 </header>

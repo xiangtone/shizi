@@ -134,7 +134,7 @@ $this->params['active_nav_group'] = 2;
 
                     <div class="form-group row style-2" <?= $list['style'] == 2 ? "hidden" : "" ?>>
                         <div class="col-3 text-right">
-                            <label class=" col-form-label required">多媒体链接</label>
+                            <label class=" col-form-label required">多媒体480P链接</label>
                         </div>
                         <div class="col-9">
                             <div class="video-picker" data-url="<?= $urlManager->createUrl(['upload/video']) ?>">
@@ -143,11 +143,57 @@ $this->params['active_nav_group'] = 2;
                                            value="<?= $list['video_url'] ?>" placeholder="请输入多媒体链接源地址或者选择上传多媒体">
                                     <a href="javascript:" class="btn btn-secondary video-picker-btn">选择多媒体</a>
                                 </div>
-                                <a class="video-check"
+                                <!-- <a class="video-check"
                                    href="<?= $list['video_url'] ? $list['video_url'] : "javascript:" ?>"
-                                   target="_blank">预览</a>
+                                   target="_blank">预览</a> -->
                                 <video id="myVideo" hidden
                                        src="<?= $list['video_url'] ? $list['video_url'] : "" ?>"></video>
+                                <div class="video-preview"></div>
+                                <div><span class="text-info">支持格式MP4，MP3;支持编码H.264;不支持中文名文件上传</span></div>
+                                <div class="text-danger video-type-error"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row style-2" <?= $list['style'] == 2 ? "hidden" : "" ?>>
+                        <div class="col-3 text-right">
+                            <label class=" col-form-label">720P链接</label>
+                        </div>
+                        <div class="col-9">
+                            <div class="video-picker" data-url="<?= $urlManager->createUrl(['upload/video']) ?>">
+                                <div class="input-group">
+                                    <input class="video-picker-input video form-control" name="model[video_720]"
+                                           value="<?= $list['video_720'] ?>" placeholder="请输入多媒体链接源地址或者选择上传多媒体">
+                                    <a href="javascript:" class="btn btn-secondary video-picker-btn">选择多媒体</a>
+                                </div>
+                                <!-- <a class="video-check"
+                                   href="<?= $list['video_720'] ? $list['video_720'] : "javascript:" ?>"
+                                   target="_blank">预览</a> -->
+                                <video id="myVideo" hidden
+                                       src="<?= $list['video_720'] ? $list['video_720'] : "" ?>"></video>
+                                <div class="video-preview"></div>
+                                <div><span class="text-info">支持格式MP4，MP3;支持编码H.264;不支持中文名文件上传</span></div>
+                                <div class="text-danger video-type-error"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row style-2" <?= $list['style'] == 2 ? "hidden" : "" ?>>
+                        <div class="col-3 text-right">
+                            <label class=" col-form-label">1080P链接</label>
+                        </div>
+                        <div class="col-9">
+                            <div class="video-picker" data-url="<?= $urlManager->createUrl(['upload/video']) ?>">
+                                <div class="input-group">
+                                    <input class="video-picker-input video form-control" name="model[video_1080]"
+                                           value="<?= $list['video_1080'] ?>" placeholder="请输入多媒体链接源地址或者选择上传多媒体">
+                                    <a href="javascript:" class="btn btn-secondary video-picker-btn">选择多媒体</a>
+                                </div>
+                                <!-- <a class="video-check"
+                                   href="<?= $list['video_1080'] ? $list['video_1080'] : "javascript:" ?>"
+                                   target="_blank">预览</a> -->
+                                <video id="myVideo" hidden
+                                       src="<?= $list['video_1080'] ? $list['video_1080'] : "" ?>"></video>
                                 <div class="video-preview"></div>
                                 <div><span class="text-info">支持格式MP4，MP3;支持编码H.264;不支持中文名文件上传</span></div>
                                 <div class="text-danger video-type-error"></div>

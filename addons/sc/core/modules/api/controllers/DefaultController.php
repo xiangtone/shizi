@@ -30,6 +30,7 @@ class DefaultController extends Controller
     {
         $form = new ListForm();
         $form->store_id = $this->store->id;
+        $form->attributes = \Yii::$app->request->get();
         $this->renderJson($form->search());
     }
 
