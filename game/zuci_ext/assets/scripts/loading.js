@@ -182,7 +182,7 @@ cc.Class({
             },
             function (err, assets, item) {
                 cc.log("onComplete-->>", err, assets);
-                 cc.zc.audio_mgr.playBGM("background.mp3");//播放背景音乐
+                cc.zc.audio_mgr.playBGM("background.mp3");//播放背景音乐
 
             });
     

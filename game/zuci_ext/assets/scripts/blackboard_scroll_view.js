@@ -42,6 +42,7 @@ cc.Class({
     // onLoad () {},
     
     start () {
+        
         //黑板上显示的字的处理
         for(var i = 0;i < cc.zc.INFO[cc.zc.lesson].target_word.length;i++){
 

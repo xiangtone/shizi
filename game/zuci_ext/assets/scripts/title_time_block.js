@@ -38,10 +38,15 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        //拼字符串为--练习(1/2)
-        var process = (cc.zc.lesson+1) + "/" + cc.zc.total_lesson;
-        this.label_times.string = "(" + process + ")";
-        cc.log(this.label_times.string);
+        cc.log(cc.zc);
+        if (typeof(cc.zc) != "undefined") {
+            //拼字符串为--练习(1/2)
+            var process = (cc.zc.lesson + 1) + "/" + cc.zc.total_lesson;
+            this.label_times.string = "(" + process + ")";
+            cc.log(this.label_times.string);
+        }
+        
+
     },
 
     // update (dt) {},
