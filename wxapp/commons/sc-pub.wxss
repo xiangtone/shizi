@@ -11,6 +11,14 @@
   height: 128rpx;
 }
 
+.comment-list-cell-area {
+  /* background-color: #fae2ae; */ 
+  background: url(http://qiniu.xuedonghanzi.com/uploads/image/33/334bc6c5884243ede7dc15e19ac28d9b.png);
+  background-position: left top;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
 .class-list-cell-area-1 {
   /* background-color: #fae2ae; */ 
   background: url(http://qiniu.xuedonghanzi.com/uploads/image/7d/7d1af7670c9671c7ab7222091df4d173.png);

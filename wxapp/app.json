@@ -10,6 +10,7 @@
     "pages/class-user-list/class-user-list",
     "pages/user/user",
     "pages/video/video",
+    "pages/news/news",
     "pages/video1/video1",
     "pages/search/search",
     "pages/collect/collect",

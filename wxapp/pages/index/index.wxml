@@ -26,6 +26,26 @@
     <view style='width:45rpx;height:319rpx;top:83rpx;right:0;z-index:30;position:absolute;background: url(http://qiniu.xuedonghanzi.com/uploads/image/f8/f8b0bcdc2baec84fa3fa80afcd348828.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'></view>
     <!--轮播图结束-->
   </view>
+  <view style='color:#99653b'>
+    <view class='flex-y-center' style='width:714rpx;height:90rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/1b/1bd47bc0e0ecc33cea2d826d8ba5dad1.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+      <view style='margin:auto;font-size:30rpx;font-weight:700;letter-spacing:4rpx'>
+        <text>新闻</text>
+      </view>
+    </view>
+    <view style="position:relative">
+      <view class="weui-cell class-list-cell-area" wx:for='{{news}}' bindtap='goNews' data-news-id='{{item.id}}' style='width:714rpx;height:200rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/2d/2dc07a792a8194bc1bdd2a634a44e0fe.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+        <view style='padding-left:20rpx;width:360rpx;height:200rpx;position:relative'>
+          <view style='position:absolute;top:30rpx;width:100%;height:100rpx;overflow: hidden;text-overflow:ellipsis;font-size:30rpx'>{{item.title}}</view>
+          <view style='position:absolute;bottom:10rpx;width:100%;height:40rpx;color:#d09964;font-size:24rpx'>{{item.page_view}}浏览 {{item.comment_count}}评论</view>
+        </view>
+        <view style='padding-left:20rpx;color:#99653b;font-weight:700;width:240rpx;height:100%;position:relative'>
+          <image src='{{item.pic_url}}' style='width:220rpx;height:150rpx;border: 3rpx solid #fbe6c4;bottom:10rpx;'></image>
+        </view>
+      </view>
+      <view class='flex-y-center' style='position:absolute;width:714rpx;height:76rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/3c/3cc573cb77127ea0b94bdda5c087263c.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+      </view>
+    </view>
+  </view>
   <!-- <view class='flex-y-center flex-x-center' style='width:725rpx;height:522rpx;;margin:0 auto;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/16/1623b6e412a5ecc4150aad4b9454113a.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
     
     <swiper style='width:660rpx;height:366rpx;top:-4rpx' autoplay='true' interval='3000' duration='300' circular='true'>

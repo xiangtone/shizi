@@ -109,6 +109,13 @@ Page({
       hide: -1
     });
   },
+  goNews: function (option) {
+    if (option.currentTarget.dataset.newsId) {
+      wx.navigateTo({
+        url: '/pages/news/news?id=' + option.currentTarget.dataset.newsId,
+      })
+    }
+  },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */

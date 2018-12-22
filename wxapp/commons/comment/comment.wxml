@@ -14,9 +14,9 @@
           <view class='flex-grow-1'></view>
           <view class='flex-grow-0 flex-row flex-y-center'>
 
-            <block wx:if='{{img_list.length<5}}'>
+            <!-- <block wx:if='{{img_list.length<5}}'>
               <image class='flex-grow-0' src='/images/icon-add-img.png' bindtap='chooseImg' style='width:60rpx;height:60rpx;margin-right:20rpx;'></image>
-            </block>
+            </block> -->
             <button class='submit flex-grow-1 {{(content!=""||img_list.length>0)?"active":""}}' form-type='submit'>发送</button>
           </view>
         </view>
