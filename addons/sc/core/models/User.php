@@ -25,10 +25,11 @@ use yii\web\IdentityInterface;
  * @property integer $is_clerk
  * @property integer $is_member
  * @property integer $due_time
- * @property integer $binding
+ * @property string $binding
  * @property integer $teacher_id
  * @property integer $channel_id
  * @property integer $is_teacher
+ * @property integer $last_video
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -46,10 +47,11 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['type', 'addtime', 'is_delete', 'store_id', 'is_comment', 'is_clerk', 'is_member', 'due_time','binding','teacher_id','channel_id','is_teacher'], 'integer'],
+            [['type', 'addtime', 'is_delete', 'store_id', 'is_comment', 'is_clerk', 'is_member', 'due_time', 'teacher_id', 'channel_id', 'is_teacher', 'last_video'], 'integer'],
             [['username', 'password', 'auth_key', 'access_token', 'avatar_url'], 'required'],
             [['avatar_url'], 'string'],
             [['username', 'password', 'auth_key', 'access_token', 'wechat_open_id', 'wechat_union_id', 'nickname'], 'string', 'max' => 255],
+            [['binding'], 'string', 'max' => 11],
         ];
     }
 
@@ -73,13 +75,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'avatar_url' => '头像url',
             'store_id' => '商城id',
             'is_comment' => '是否禁言 0--否 1--是',
-            'is_clerk' => '是否核销员',
+            'is_clerk' => 'Is Clerk',
             'is_member' => '是否是会员',
             'due_time' => '会员到期时间',
             'binding' => '授权手机号',
-            'teacher_id' =>'老师ID',
-            'channel_id' =>'渠道ID',
-            'is_teacher'=>'是否教师',
+            'teacher_id' => '上线老师ID',
+            'channel_id' => '渠道ID',
+            'is_teacher' => '是否是老师',
+            'last_video' => '最后打开的视频',
         ];
     }
 

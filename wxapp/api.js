@@ -20,6 +20,7 @@ var api = {
   user: {
     collect: _api_root + 'user/collect',
     video: _api_root + 'user/video', //获取视频详情
+    next_video: _api_root + 'user/next-video', //获取视频详情
     collect_video: _api_root + 'user/collect-video',
     video_list: _api_root + 'user/video-list', //视频列表
     video_cat_list: _api_root + 'user/video-cat-list', //视频分类列表

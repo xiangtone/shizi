@@ -39,11 +39,11 @@
         <text style='z-index:20;position:absolute;left:75rpx;top:35rpx;font-weight:bold;color:#ffcab2;font-size:30rpx;'>{{video.title}}</text>
       </view>
       <view class='flex-y-center flex-grow-0'>
-        <view class='flex-y-center' style='height:100%;'>
+        <view class='flex-y-center' style='height:100%;' bindtap='goNext' data-direction='previous'>
           <image src='/images/course/btn_course_last_none.png' class='collect'></image>
         </view>
-        <view class='flex-y-center' style='height:100%;'>
-          <image src='/images/course/btn_course_next_none.png' class='collect'></image>
+        <view class='flex-y-center' style='height:100%;' bindtap='goNext' data-direction='next'>
+          <image src='/images/course/btn_course_next_none.png' class='collect' ></image>
         </view>
       </view>
     </view>

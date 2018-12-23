@@ -73,6 +73,6 @@
     </view>
   </view>
   <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
-    <image style="width: 160rpx;height: 181rpx" src="/images/loading.svg"></image>
+    <image style="width: 160rpx;height: 251rpx" src="/images/loading.svg"></image>
   </view>
 </view>

@@ -42,7 +42,7 @@ class CatVideoForm extends Model
         $count = $query->count();
         $p = new Pagination(['totalCount'=>$count,'pageSize'=>$this->limit,'page'=>$this->page]);
         $list = $query->select([
-            'v.id','v.pic_url','v.title','v.video_time','v.style'
+            'v.id','v.pic_url','v.title','v.video_time','v.style','v.content'
         ])->orderBy(['v.sort'=>SORT_ASC,'v.addtime'=>SORT_DESC])->offset($p->offset)->limit($p->limit)->asArray()->all();
         $cat = Cat::findOne(['store_id'=>$this->store_id,'is_delete'=>0,'id'=>$this->cat_id]);
         foreach($list as $index=>$value){

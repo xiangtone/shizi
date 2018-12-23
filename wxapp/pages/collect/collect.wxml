@@ -15,5 +15,5 @@
   <view class='flex-x-center' style='margin-top:30rpx;'>快去首页找些自己喜欢的内容吧</view>
 </block>
 <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
-  <image style="width: 160rpx;height: 181rpx" src="/images/loading.svg"></image>
+  <image style="width: 160rpx;height: 251rpx" src="/images/loading.svg"></image>
 </view>

@@ -69,7 +69,7 @@ Page({
       success: function(res) {
         if (res.code == 0) {
           if (!res.data.cat_name) {
-            wx.switchTab({
+            wx.navigateTo({
               url: '/pages/index/index',
             });
             return;

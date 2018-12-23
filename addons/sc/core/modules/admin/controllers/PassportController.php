@@ -23,7 +23,7 @@ class PassportController extends Controller
         $we7_account = \Yii::$app->session->get('we7_account');
         if(empty($we7_user) || empty($we7_account)){
             $current_url = \Yii::$app->request->absoluteUrl;
-            $key = 'addons/sc/core/web';
+            $key = 'addons/'.WE7_MODULE_NAME.'/core/web';
             $we7_url = mb_substr($current_url,0,stripos($current_url,$key));
             $this->redirect($we7_url)->send();
             exit();

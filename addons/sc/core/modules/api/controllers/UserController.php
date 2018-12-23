@@ -8,7 +8,8 @@
 
 namespace app\modules\api\controllers;
 
-
+use app\extensions\Sms;
+use app\models\SmsSetting;
 use app\models\User;
 use app\modules\api\behaviors\LoginBehavior;
 use app\modules\api\models\BuyVideoForm;
@@ -17,16 +18,12 @@ use app\modules\api\models\CollectVideoForm;
 use app\modules\api\models\CommentForm;
 use app\modules\api\models\CommentListForm;
 use app\modules\api\models\ListForm;
-use app\modules\api\models\PrewForm;
 use app\modules\api\models\ThumpForm;
 use app\modules\api\models\UserCommentForm;
-use app\modules\api\models\UserCouponQrcodeForm;
-use app\modules\api\models\VideoForm;
 use app\modules\api\models\UserCouponForm;
-use app\models\UserCoupon;
+use app\modules\api\models\UserCouponQrcodeForm;
 use app\modules\api\models\UserForm;
-use app\extensions\Sms;
-use app\models\SmsSetting;
+use app\modules\api\models\VideoForm;
 
 class UserController extends Controller
 {
@@ -35,7 +32,7 @@ class UserController extends Controller
         return array_merge(parent::behaviors(), [
             'login' => [
                 'class' => LoginBehavior::className(),
-                'ignore'=>['video-list','video','index','comment-list']
+                'ignore' => ['video-list', 'video', 'index', 'comment-list'],
             ],
         ]);
     }
@@ -65,6 +62,18 @@ class UserController extends Controller
     }
 
     /**
+     * 上一个或者下一个视频id
+     */
+    public function actionNextVideo()
+    {
+        $form = new VideoForm();
+        $form->store_id = $this->store->id;
+        $form->user_id = \Yii::$app->user->identity->id;
+        $form->attributes = \Yii::$app->request->get();
+        $this->renderJson($form->nextVideo());
+    }
+
+    /**
      * 收藏的视频列表
      */
     public function actionCollectVideo()
@@ -78,14 +87,14 @@ class UserController extends Controller
     /**
      * 首页视频列表--分类
      */
-     public function actionVideoCatList()
-     {
-         $form = new ListForm();
-         $form->store_id = $this->store->id;
-         $form->user_id = \Yii::$app->user->identity->id;
-         $form->attributes = \Yii::$app->request->get();
-         $this->renderJson($form->getCatList());
-     }
+    public function actionVideoCatList()
+    {
+        $form = new ListForm();
+        $form->store_id = $this->store->id;
+        $form->user_id = \Yii::$app->user->identity->id;
+        $form->attributes = \Yii::$app->request->get();
+        $this->renderJson($form->getCatList());
+    }
     /**
      * 首页视频列表
      */
@@ -156,7 +165,7 @@ class UserController extends Controller
         if (!$user) {
             $this->renderJson([
                 'code' => -2,
-                'msg' => ''
+                'msg' => '',
             ]);
         }
         $due_time = date('Y-m-d', $user->due_time);
@@ -164,7 +173,7 @@ class UserController extends Controller
             'code' => 0,
             'msg' => '',
             'data' => [
-                'user_info' => (object)[
+                'user_info' => (object) [
                     'access_token' => $user->access_token,
                     'nickname' => $user->nickname,
                     'avatar_url' => $user->avatar_url,
@@ -177,8 +186,9 @@ class UserController extends Controller
                     'teacher_id' => $user->teacher_id,
                     'channel_id' => $user->channel_id,
                     'is_teacher' => $user->is_teacher,
-                ]
-            ]
+                    'last_video' => $user->last_video,
+                ],
+            ],
         ]);
     }
 
@@ -255,8 +265,8 @@ class UserController extends Controller
     {
         $form = new Sms();
         $form->attributes = \Yii::$app->request->post();
-        $code = mt_rand(0,999999);
-        $this->renderJson($form->send_text($this->store->id,$code,$form->attributes['content']));
+        $code = mt_rand(0, 999999);
+        $this->renderJson($form->send_text($this->store->id, $code, $form->attributes['content']));
     }
 
 //    授权手机号确认
@@ -272,15 +282,15 @@ class UserController extends Controller
     public function actionSmsSetting()
     {
         $sms_setting = SmsSetting::findOne(['is_delete' => 0, 'store_id' => $this->store->id]);
-        if($sms_setting->status == 1){
+        if ($sms_setting->status == 1) {
             $this->renderJson([
-                'code'=>0,
-                'data'=>$sms_setting->status
+                'code' => 0,
+                'data' => $sms_setting->status,
             ]);
-        }else{
+        } else {
             $this->renderJson([
-                'code'=>1,
-                'data'=>$sms_setting->status
+                'code' => 1,
+                'data' => $sms_setting->status,
             ]);
         }
     }
