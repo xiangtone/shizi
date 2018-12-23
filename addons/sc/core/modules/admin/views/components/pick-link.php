@@ -117,7 +117,7 @@ defined('YII_RUN') or exit('Access Denied');
                         params: []
                     },
                     {
-                        name: "视频列表",
+                        name: "课程分类",
                         link: "/pages/cat-second/cat-second",
                         open_type: "navigate",
                         params: [
@@ -129,23 +129,35 @@ defined('YII_RUN') or exit('Access Denied');
                         ]
                     },
                     {
-                        name: "视频详情",
-                        link: "/pages/video/video",
+                        name: "课程详情",
+                        link: "/pages/video1/video1",
                         open_type: "navigate",
                         params: [
                             {
                                 key: "id",
                                 value: "",
-                                desc: "id请填写在视频列表中相关视频的ID"
+                                desc: "id请填写在内容列表中相关课程的ID"
                             }
                         ]
                     },
                     {
-                        name: "我的收藏",
-                        link: "/pages/collect/collect",
+                        name: "新闻",
+                        link: "/pages/news/news",
                         open_type: "navigate",
-                        params: []
+                        params: [
+                            {
+                                key: "id",
+                                value: "",
+                                desc: "id请填写在内容列表中相关新闻的ID"
+                            }
+                        ]
                     },
+                    // {
+                    //     name: "我的收藏",
+                    //     link: "/pages/collect/collect",
+                    //     open_type: "navigate",
+                    //     params: []
+                    // },
                     {
                         name: "小程序（同一公众号下关联的小程序）",
                         link: "/",

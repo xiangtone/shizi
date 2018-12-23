@@ -37,8 +37,8 @@ $this->params['active_nav_group'] = 2;
                     <?= \app\widgets\ImageUpload::widget([
                         'name' => 'model[banner_url]',
                         'value' => $list['banner_url'],
-                        'width' => 750,
-                        'height' => 590,
+                        'width' => 650,
+                        'height' => 410,
                     ]) ?>
                 </div>
             </div>

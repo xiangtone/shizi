@@ -1,5 +1,8 @@
 <template name='bg'>
     <view style="position:absolute;width:100%;height:100%;z-index: -1;">
-        <image src="/images/course/img_course_block_1a.jpg" style="position:fixed;height:100%;width:100%;" />
+        <image src="/images/course/img_course_block_1.jpg" style="position:fixed;height:100%;width:100%;" />
+    </view>
+    <view style="position:fixed;width:750rpx;height:264rpx;z-index: 9998;bottom:0">
+        <image src="http://qiniu.xuedonghanzi.com/uploads/image/3e/3e5684091bc1772dadaf2a5935b28f0a.png" style="height:100%;width:100%;" />
     </view>
 </template>
