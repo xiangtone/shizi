@@ -44,6 +44,8 @@ cc.Class({
             type:sp.Skeleton,
             default:null,
         },
+        new_word_ask_idx:0,
+        is_bz_anim_play:false,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -58,6 +60,11 @@ cc.Class({
         this.anim_tb_fly = cc.find("Canvas/anim_tb_fly").getComponent(cc.Animation);
         //监听动画播放完成的事件处理
         this.anim_tb_fly.on('finished', this.on_anim_tb_fly_end_listener, this);
+
+        //3--获取小汉哥的动画
+        this.xhg_ske = cc.find("Canvas/xhg_skeleton");
+        
+        
         /*
         //获取一下spine动画组件
         this.ske_tb_node = cc.find("Canvas/tb_skeleton");
@@ -70,25 +77,61 @@ cc.Class({
         //this.ske_tb_anim.addAnimation(1,"changtai",true )//播放一次
     },
     /**
-     * 动画播放完毕事件处理
+     * 小汉哥动画播放完毕事件处理
+     *
+     */
+    on_anim_xhg_end_listener(){
+        cc.log("on_anim_xhg_end_listener  called-->>");
+        this.xhg_ske.active = false;  //小汉哥动画隐藏  
+        this.anim_tb_fly.node.active=false;//设置天兵下降动画隐藏
+        //展示生字和分词
+        this.show_new_word_block();
+        this.show_target_word_block();
+        //循环播放 组词的声音
+        this.play_word_voice();
+    },
+    /**
+     * 循环播放 组词的声音
+     *
+     */
+    play_word_voice(){
+        cc.log("声音url",cc.zc.INFO[cc.zc.lesson].voice_url);
+
+        //有音频Url就去播放声音
+        if(cc.zc.INFO[cc.zc.lesson].voice_url != null || cc.zc.INFO[cc.zc.lesson].voice_url != "undefined"){
+            cc.log("play voice");
+            cc.zc.audio_mgr.playNetSFX(cc.zc.INFO[cc.zc.lesson].voice_url);//先播一次
+            this.unscheduleAllCallbacks(this);//停止某组件的所有计时器
+            this.schedule(function(){ //每隔5秒执行1次 
+                //播放音频
+                cc.zc.audio_mgr.playNetSFX(cc.zc.INFO[cc.zc.lesson].voice_url);
+             },5);    
+        }
+    },
+    /**
+     * 天兵动画播放完毕事件处理
      * 设置隐藏
      */
     on_anim_tb_fly_end_listener(){
         cc.log("on_anim_tb_fly_end_listener  called-->>");
-        this.anim_tb_fly.node.active=false;//设置动画隐藏
-        //展示生字和分词
-        this.show_new_word_block();
-        this.show_target_word_block();
+        
+        //播放小汉哥的skeleton动画
+        this.xhg_ske.active = true;  //小汉哥可见
+        this.xhg_ske.getComponent(sp.Skeleton).setCompleteListener(this.on_anim_xhg_end_listener.bind(this));
+        
+        
+        
     },
     /**
-     * 动画播放完毕事件处理
+     * 棒子敲打动画播放完毕事件处理
      * 设置隐藏
      */
     on_anim_bz_beat_end_listener(){
-        cc.log("on_anim_bz_beat_end_listener  called-->>");
-        this.anim_bz_beat.node.active=false;//设置动画隐藏
+        cc.log("棒子动画播放结束",this.is_bz_anim_play);
+        this.anim_bz_beat.node.active = false;//设置棒子敲打动画隐藏
+        this.is_bz_anim_play = false;       //棒子动画播放结束标识
     },
-
+    
     /**
      * 生字（备选字）显示
      *
@@ -96,16 +139,17 @@ cc.Class({
     show_new_word_block(){
         //处理生字显示,只是显示
         for(var i = 0;i < cc.zc.INFO[cc.zc.lesson].target_word.length;i++){
-
             var opt_item = cc.instantiate(this.new_word_prefab);
             //修改名字,做一下区分方便以后操作
             opt_item.name = opt_item.name+i;
+            cc.log("处理生字显示",opt_item);
+            opt_item.getChildByName("label").getComponent(cc.Label).string = cc.zc.INFO[cc.zc.lesson].target_word.substr(i,1);
             // /cc.log(opt_item);
             //stringObject.substr(start,length) start 要抽取的子串的起始下标,length子串中的字符数。必须是数值
             if(cc.zc.INFO[cc.zc.lesson].target_word.substr(i,1) == cc.zc.INFO[cc.zc.lesson].new_word){
-                opt_item.getChildByName("img_game_ask").active = true;   
-            }else{
-                opt_item.getChildByName("label").getComponent(cc.Label).string = cc.zc.INFO[cc.zc.lesson].target_word.substr(i,1);
+                opt_item.getChildByName("img_game_ask").active = true; //问号图片设置为可见
+                opt_item.getChildByName("label").active  =false;        //文字显示设置为不可见
+                this.new_word_ask_idx      = i; //保存生字显示的下表
             }
             this.scrollview.content.addChild(opt_item);
             //this.temp.content.addChild(opt_item);
@@ -135,7 +179,6 @@ cc.Class({
             //播放天兵的skeleton动画
             this.tb_ske.getComponent(sp.Skeleton).clearTrack(i);//清理指定管道的索引
             this.tb_ske.getComponent(sp.Skeleton).addAnimation(i,"changtai",true ); //播放一次 
-            
             //cc.log("btn",this.tb.getChildByName("btn_word").getComponent(cc.Button).node.getChildByName("Label").getComponent(cc.Label)) ;
             
         }
@@ -147,11 +190,12 @@ cc.Class({
      * @param {*} pos
      */
     play_bz_beat_anim(pos){
+        cc.log("棒子动画播放开始",this.is_bz_anim_play);
+        this.is_bz_anim_play = true;                                //棒子动画开始标识
         this.anim_bz_beat.node.active=true;                         //设置动画可见
         var node_pos = this.node.parent.convertToNodeSpaceAR(pos);  // 把世界坐标转到相对于它的父亲节点的坐标
         this.anim_bz_beat.node.setPosition(node_pos);               //设置节点坐标
         this.anim_bz_beat.play("bz_clip");                          //播放棒子敲打动画
-        
     },
     
     /**
@@ -170,9 +214,7 @@ cc.Class({
         var tb_ske_comp = tb_ske.getComponent(sp.Skeleton);
         cc.log(idx,path,tb_ske);
         //tb.getChildByName("btn_word").getComponent(cc.Button).node.getChildByName("Label").getComponent(cc.Label).string = cc.zc.INFO[cc.zc.lesson].rand_word[i];
-        tb_ske.getChildByName("btn_word").getComponent(cc.Button).interactable = false ;//设置字的按钮为不可用
-
-        
+        tb_ske.getChildByName("btn_word").getComponent(cc.Button).interactable = false ;//设置字的按钮为不可用  
     },
     /**
      *点击被选自成功和失败的动画处理
@@ -198,8 +240,16 @@ cc.Class({
                 tb_ske_comp.setAnimation(index,"changtai",true ); //循环播放
             },1); 
         }else if(status =='right'){
-             //播放天兵被敲打动画
-             tb_ske_comp.setAnimation(index,"dui",false ); //播放一次 
+                //问好去掉
+                //根据名字获取节点 scrollitem9名字取得节点
+                var word_node = this.scrollview.content.getChildByName("new_word_prefab"+this.new_word_ask_idx);
+                cc.log("获取--",index,word_node);
+                word_node.getChildByName("label").active  =true;
+                word_node.getChildByName("img_game_ask").active = false
+                // this.scrollview.content.getChildByName("scrollitem9").getChildByName("nike_name").getComponent(cc.Label).string ="换字";
+                // opt_item.getChildByName("img_game_ask").active = true;
+                //播放天兵被敲打动画
+                tb_ske_comp.setAnimation(index,"dui",false ); //播放一次 
              
         }
        
@@ -215,43 +265,43 @@ cc.Class({
        
 
         var click_pos = e.getLocation() 
-        cc.log("xxx",e,click_pos);
+       
         //所有课程搞完
         if(typeof(cc.zc.INFO[cc.zc.lesson]) == "undefined"){
             return;
         }
-
-        
+        cc.log("棒子动画播放状态",this.is_bz_anim_play);
+        if(this.is_bz_anim_play == true){
+            return;
+        }
         this.handle_target_word_click(custom);  //点击了哪个字,设置哪个字灰色
         this.play_bz_beat_anim(click_pos);      //播放棒子敲打动画,每次打都播放
+        cc.zc.audio_mgr.playSFX("hit02.mp3");   //播放敲打的声音
 
-        cc.zc.audio_mgr.playSFX("hit02.mp3");
         if(cc.zc.INFO[cc.zc.lesson].rand_word[custom] == cc.zc.INFO[cc.zc.lesson].new_word){
             cc.log("回答正确");
             this.handle_target_word_check(custom,'right');
-            // //播放回答正确动画骨骼
-            // this.ske_anim.clearTracks();//清理指定管道的索引
-            // this.ske_anim.addAnimation(1,"win",true )//播放一次
             
-            //下一个练习
-            cc.zc.lesson = cc.zc.lesson +1
             //延时播放胜利声音
             this.scheduleOnce(function(){ cc.zc.audio_mgr.playSFX("win.mp3");},1);
-           
+            //下一个练习
+            cc.zc.lesson = cc.zc.lesson +1
             //
             if (cc.zc.lesson < cc.zc.INFO.length  ){
+                
+                
                 //延时2秒重入场景
                 this.scheduleOnce(function(){
-                    
                     cc.director.loadScene("game_scene");
                 },2);
             }else{
                 cc.log("你已经完成这次练习");
-                // this.ske_anim.clearTracks();
-                // this.ske_anim.addAnimation(1,"win",true )//播放一次
-                // this.scheduleOnce(function(){
-                //     this.ske_anim.addAnimation(1,"walk on",true)//循环播放
-                // },2);  
+
+                //关闭窗口
+                this.scheduleOnce(function(){
+                    window.close();
+                },2);
+                
             }
         }else{
             cc.log("回答错误");
@@ -269,8 +319,12 @@ cc.Class({
     //
     start () {
 
-        this.anim_tb_fly.node.active=true;                         //设置动画可见
+        //播放动画
+        this.anim_tb_fly.node.active=true;                         //设置天兵动画可见
         this.anim_bz_beat.play("tb_fly_clip");                          //播放动画
+        
+        
+        
         cc.zc.audio_mgr.playSFX("fightbegin.mp3");
     },
 

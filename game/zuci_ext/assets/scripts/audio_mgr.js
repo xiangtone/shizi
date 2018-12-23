@@ -73,7 +73,7 @@ cc.Class({
     },
      //播放网络特效音乐
      playNetSFX(url){
-        cc.log(this.sfxAudioId);
+        //cc.log(this.sfxAudioId);
         if(this.sfxAudioId >= 0){
             cc.audioEngine.stop(this.sfxAudioId);
         }
