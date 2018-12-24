@@ -49,6 +49,8 @@ class ExcompleteController extends Controller
 
         $sql = "UPDATE zjhj_video_classes SET ex_count=ex_count+1 WHERE id IN (SELECT class_id FROM zjhj_video_class_user WHERE user_id='$user_id')";
         $res = \Yii::$app->db->createCommand($sql)->execute();
+        //设置可以跨域访问
+        header("Access-Control-Allow-Origin: *");
         //var_dump($res);
         echo "sucess";
         

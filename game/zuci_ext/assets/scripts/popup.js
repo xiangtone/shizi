@@ -34,9 +34,9 @@ cc.Class({
     // onLoad () {},
     on_btn_exit_click(){
         //关闭窗口
-        this.scheduleOnce(function(){
-            window.close();
-        },2);
+        // cc.director.end();
+        // window.close();
+        window.history.back();
     },
     start () {
 

@@ -300,8 +300,10 @@ cc.Class({
             }else{
                 cc.log("你已经完成这次练习");
                 this.unscheduleAllCallbacks(this);//停止该组件所有的定时器
+                this.http_game_sucess();
                 this.scheduleOnce(function(){
                     this.popup.active = true;//显示弹出框
+                    
                 },1);
             }
         }else{
@@ -316,6 +318,22 @@ cc.Class({
             // this.ske_anim.addAnimation(0,"sidle",false )//播放一次
             // this.ske_anim.addAnimation(0,"walk on",true)//循环播放
         }
+    },
+    /**
+     * 
+     */
+    http_game_sucess(){
+        var url = cc.zc.global.SUCCESS_URL+"&video_id="+cc.zc.http_args.video_id +"&user_id="+cc.zc.http_args.user_id+"&ex_type=1";
+        cc.log("游戏成功URL=",url);
+        //&video_id=9&user_id=16&ex_type=1
+        cc.zc.http.getInstance().httpGets(url, function (err, data) {
+            cc.log(err,data);
+            if(err == false){
+                cc.log("联网出错,请检查网络");
+            }else{
+                cc.log("联网成功,data=",data);
+            }
+        });
     },
     //
     start () {
