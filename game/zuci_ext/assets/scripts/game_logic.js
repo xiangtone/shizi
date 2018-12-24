@@ -39,9 +39,9 @@ cc.Class({
             type: cc.Prefab,
             default: null,
         },
-        //界面绑定
-        ske_tb_anim:{
-            type:sp.Skeleton,
+  
+        popup:{
+            type:cc.Node,
             default:null,
         },
         new_word_ask_idx:0,
@@ -63,6 +63,8 @@ cc.Class({
 
         //3--获取小汉哥的动画
         this.xhg_ske = cc.find("Canvas/xhg_skeleton");
+        
+        
         
         
         /*
@@ -95,8 +97,8 @@ cc.Class({
      *
      */
     play_word_voice(){
-        cc.log("声音url",cc.zc.INFO[cc.zc.lesson].voice_url);
-
+        cc.log("声音url",cc.zc.INFO[cc.zc.lesson].voice_url,cc.zc.lesson);
+       
         //有音频Url就去播放声音
         if(cc.zc.INFO[cc.zc.lesson].voice_url != null || cc.zc.INFO[cc.zc.lesson].voice_url != "undefined"){
             cc.log("play voice");
@@ -279,13 +281,14 @@ cc.Class({
         cc.zc.audio_mgr.playSFX("hit02.mp3");   //播放敲打的声音
 
         if(cc.zc.INFO[cc.zc.lesson].rand_word[custom] == cc.zc.INFO[cc.zc.lesson].new_word){
-            cc.log("回答正确");
+            
             this.handle_target_word_check(custom,'right');
             
             //延时播放胜利声音
             this.scheduleOnce(function(){ cc.zc.audio_mgr.playSFX("win.mp3");},1);
             //下一个练习
             cc.zc.lesson = cc.zc.lesson +1
+            cc.log("回答正确",cc.zc.lesson);
             //
             if (cc.zc.lesson < cc.zc.INFO.length  ){
                 
@@ -296,12 +299,10 @@ cc.Class({
                 },2);
             }else{
                 cc.log("你已经完成这次练习");
-
-                //关闭窗口
+                this.unscheduleAllCallbacks(this);//停止该组件所有的定时器
                 this.scheduleOnce(function(){
-                    window.close();
-                },2);
-                
+                    this.popup.active = true;//显示弹出框
+                },1);
             }
         }else{
             cc.log("回答错误");
@@ -322,9 +323,6 @@ cc.Class({
         //播放动画
         this.anim_tb_fly.node.active=true;                         //设置天兵动画可见
         this.anim_bz_beat.play("tb_fly_clip");                          //播放动画
-        
-        
-        
         cc.zc.audio_mgr.playSFX("fightbegin.mp3");
     },
 
