@@ -157,7 +157,7 @@ cc.Class({
                     cc.log("找到你了");
                 }
                 */
-
+                //cc.zc.audio_mgr.playNetSFX("https://qiniu.agsew.com/uploads/video/20181213141801/1544681881f67356259ffa3871.mp3");
                 
                 self.onload_complete();
             }
@@ -182,8 +182,9 @@ cc.Class({
             },
             function (err, assets, item) {
                 cc.log("onComplete-->>", err, assets);
+                console.log("onComplete-->>", err, assets);
                 cc.zc.audio_mgr.playBGM("background.mp3");//播放背景音乐
-
+                
             });
     
        

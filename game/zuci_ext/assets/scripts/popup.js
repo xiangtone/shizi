@@ -31,15 +31,30 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+        
+    },
     on_btn_exit_click(){
         //关闭窗口
         // cc.director.end();
-        // window.close();
-        window.history.back();
+        cc.log("游戏退出",cc.sys.os,cc.sys.OS_WINDOWS);
+        if(cc.sys.os ==cc.sys.OS_WINDOWS){
+            
+            window.close();
+            window.history.back();
+        }else{
+            wx.miniProgram.navigateBack();
+            window.close();
+        }
+        
     },
     start () {
-
+        //cc.log("弹出框展示-->",this.node.getChildByName('img_light_block'));
+        //获取背光图片
+        var light = this.node.getChildByName('img_light_block');
+        //旋转图片
+        var repeat = cc.repeatForever(cc.rotateBy(3.0, 360));//一直选装
+        light.runAction(repeat);
     },
 
     // update (dt) {},

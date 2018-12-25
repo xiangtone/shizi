@@ -46,6 +46,7 @@ cc.Class({
         },
         new_word_ask_idx:0,
         is_bz_anim_play:false,
+        rand_word:[],
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -64,7 +65,25 @@ cc.Class({
         //3--获取小汉哥的动画
         this.xhg_ske = cc.find("Canvas/xhg_skeleton");
         
+        //4-处理生字 
         
+        if(cc.zc.INFO[cc.zc.lesson].rand_word.length >4){ //生字大于4个的处理
+            //先去掉关键字
+            for(var i = 0 ;i < cc.zc.INFO[cc.zc.lesson].rand_word.length;i++){
+                if(cc.zc.INFO[cc.zc.lesson].rand_word[i] != cc.zc.INFO[cc.zc.lesson].new_word){
+                    temp[j] = cc.zc.INFO[cc.zc.lesson].rand_word[i];
+                    j++;
+                }
+            }
+            //随机获取一下关键字
+            this.rand_word = this.getRandomArrayElements(temp,4);
+            //获取随机下标
+            var idx = Math.floor(4 * Math.random());
+            //替换
+            this.rand_word[idx] = cc.zc.INFO[cc.zc.lesson].new_word;
+        }else{
+            this.rand_word = cc.zc.INFO[cc.zc.lesson].rand_word;
+        }
         
         
         /*
@@ -139,8 +158,11 @@ cc.Class({
      *
      */
     show_new_word_block(){
+        
+
         //处理生字显示,只是显示
         for(var i = 0;i < cc.zc.INFO[cc.zc.lesson].target_word.length;i++){
+            //
             var opt_item = cc.instantiate(this.new_word_prefab);
             //修改名字,做一下区分方便以后操作
             opt_item.name = opt_item.name+i;
@@ -151,19 +173,42 @@ cc.Class({
             if(cc.zc.INFO[cc.zc.lesson].target_word.substr(i,1) == cc.zc.INFO[cc.zc.lesson].new_word){
                 opt_item.getChildByName("img_game_ask").active = true; //问号图片设置为可见
                 opt_item.getChildByName("label").active  =false;        //文字显示设置为不可见
-                this.new_word_ask_idx      = i; //保存生字显示的下表
+                this.new_word_ask_idx      = i; //保存生字显示的下标
             }
             this.scrollview.content.addChild(opt_item);
             //this.temp.content.addChild(opt_item);
         }
     },
+    getRandomArrayElements(arr, count) {
+        var shuffled = arr.slice(0),
+            i = arr.length,
+            min = i - count,
+            temp, index;
+        while (i-- > min) {
+            index = Math.floor((i + 1) * Math.random());
+            temp = shuffled[index];
+            shuffled[index] = shuffled[i];
+            shuffled[i] = temp;
+        }
+        return shuffled.slice(min);
+    },
+
     /**
      * 天兵显示可以点击的字
      *
      */
     show_target_word_block(){
+  
+        
+        var temp = new  Array();
+        var j=0;
+        
+        
+       
+        cc.log("随机字符=",this.rand_word,cc.zc.INFO[cc.zc.lesson].rand_word);
+        
+        for(var i = 0;i < this.rand_word.length;i++){
 
-        for(var i = 0;i < cc.zc.INFO[cc.zc.lesson].rand_word.length;i++){
             var idx = i+1;
             //cc.log("idx=",idx);
             if(i < 2){
@@ -177,13 +222,14 @@ cc.Class({
             
             this.tb_ske.active = true;  //天兵可见
             //设置按钮上的文字
-            this.tb_ske.getChildByName("btn_word").getComponent(cc.Button).node.getChildByName("Label").getComponent(cc.Label).string = cc.zc.INFO[cc.zc.lesson].rand_word[i];
+            this.tb_ske.getChildByName("btn_word").getComponent(cc.Button).node.getChildByName("Label").getComponent(cc.Label).string = this.rand_word[i];
             //播放天兵的skeleton动画
             this.tb_ske.getComponent(sp.Skeleton).clearTrack(i);//清理指定管道的索引
             this.tb_ske.getComponent(sp.Skeleton).addAnimation(i,"changtai",true ); //播放一次 
             //cc.log("btn",this.tb.getChildByName("btn_word").getComponent(cc.Button).node.getChildByName("Label").getComponent(cc.Label)) ;
             
         }
+        
         
     },
     /**
@@ -280,7 +326,7 @@ cc.Class({
         this.play_bz_beat_anim(click_pos);      //播放棒子敲打动画,每次打都播放
         cc.zc.audio_mgr.playSFX("hit02.mp3");   //播放敲打的声音
 
-        if(cc.zc.INFO[cc.zc.lesson].rand_word[custom] == cc.zc.INFO[cc.zc.lesson].new_word){
+        if(this.rand_word[custom] == cc.zc.INFO[cc.zc.lesson].new_word){
             
             this.handle_target_word_check(custom,'right');
             
@@ -299,10 +345,11 @@ cc.Class({
                 },2);
             }else{
                 cc.log("你已经完成这次练习");
-                this.unscheduleAllCallbacks(this);//停止该组件所有的定时器
-                this.http_game_sucess();
-                this.scheduleOnce(function(){
-                    this.popup.active = true;//显示弹出框
+                this.unscheduleAllCallbacks(this);  //停止该组件所有的定时器
+                this.http_game_sucess();            //把练习完成的数据上传到服务器
+
+                this.scheduleOnce(function(){       //显示弹出框
+                    this.popup.active = true;
                     
                 },1);
             }
@@ -320,7 +367,7 @@ cc.Class({
         }
     },
     /**
-     * 
+     * 把练习完成的数据上传到服务器
      */
     http_game_sucess(){
         var url = cc.zc.global.SUCCESS_URL+"&video_id="+cc.zc.http_args.video_id +"&user_id="+cc.zc.http_args.user_id+"&ex_type=1";

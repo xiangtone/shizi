@@ -45,18 +45,30 @@ var httpUtils = cc.Class({
 
         var request = cc.loader.getXMLHttpRequest();
         request.open("GET", url, true);
+        
         request.onreadystatechange = function () {
-            if (request.readyState == 4 && (request.status >= 200 && request.status <= 207)) {
+            
+            if (request.readyState == 4 && request.status >= 200 && request.status < 300) {
                 var httpStatus = request.statusText;
                 var response = request.responseText;
                 cc.log("Status: Got GET response! " + httpStatus);
                 callback(true, response);
             } else {
                 callback(false, request);
+                // if(request.status != 200){
+                //     cc.log("联网错误",request,request.status);
+                //     callback(false, request);
+                // }
+                
             }
         };
         request.send();
-
+        // setTimeout(function () {
+        //     if (request) {
+        //         request.abort();
+        //         callback(false, request);
+        //     }
+        // }, 1500);
     },
 
     httpPost: function (url, params, callback) {
@@ -87,7 +99,7 @@ var httpUtils = cc.Class({
        xhr.open("POST", url, true);
        xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
        xhr.onreadystatechange = function () {
-           if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status <= 207)) {
+           if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 300) {
                err = false;
            } else {
                err = true;
