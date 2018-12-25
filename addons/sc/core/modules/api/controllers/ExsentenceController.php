@@ -42,6 +42,7 @@ class ExsentenceController extends Controller
                 $sentence_arr[$key]['segment2'] = $rand_segment[1];
                 $sentence_arr[$key]['segment3'] = $rand_segment[2];
                 $sentence_arr[$key]['segment4'] = $rand_segment[3];
+                $sentence_arr[$key]['voice_url'] =  str_replace("http","https",$sentence_arr[$key]['voice_url']);
                 
                 //shuffle($rand_segment);
             }
