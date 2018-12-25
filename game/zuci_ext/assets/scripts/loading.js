@@ -33,6 +33,7 @@ cc.Class({
         //     }
         // },
         label_tips: cc.Label,
+        btn_enter:cc.Button,
         _state_str: '',
         _progress: 0.0,
         _splash: null,
@@ -144,6 +145,21 @@ cc.Class({
                 //数据为空-->>提示错误
                 if(cc.zc.INFO.length == 0){
                     self._state_str = "这个章节没有数据,请联系管理员";
+
+                    //游戏资源为空,进入按钮设置不可用
+                    self.btn_enter.interactable = false;
+                    self.btn_enter.node.active = true;
+
+                    /*
+                    var target = self.btn_enter.node.getChildByName("img_loading_light");
+                    
+                    var repeat = cc.moveBy(1, cc.v2(250, 0)) ;//cc.repeatForever();
+                   
+                    target.runAction(repeat);
+                    cc.log("光图", self.btn_enter.node.getChildByName("img_loading_light"));
+                    */
+                    //cc.log("进入按钮", self.btn_enter);
+                    
                     return;
                 }
                 //设置课程
@@ -190,13 +206,22 @@ cc.Class({
        
     },
     /**
+     * 点击进入游戏按钮响应事件
+     */
+    on_btn_enter_game_click(){
+        cc.director.loadScene("game_scene");
+        cc.loader.onComplete = null;
+    },
+    /**
      * 预加载资源完成--进入游戏场景
      */
     onload_complete() {
         this._is_loading = false;
         this._state_str = "加载资源完成";
         
-        cc.director.loadScene("game_scene");
-        cc.loader.onComplete = null;
+        //进入游戏按钮显示
+        this.btn_enter.node.active = true;
+        //
+        
     },
 });

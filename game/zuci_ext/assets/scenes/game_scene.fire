@@ -3267,7 +3267,8 @@
       "__id__": 71
     },
     "new_word_ask_idx": 0,
-    "is_bz_anim_play": false
+    "is_bz_anim_play": false,
+    "rand_word": []
   },
   {
     "__type__": "cc.Animation",

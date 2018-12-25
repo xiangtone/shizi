@@ -66,7 +66,8 @@ cc.Class({
         this.xhg_ske = cc.find("Canvas/xhg_skeleton");
         
         //4-处理生字 
-        
+        var temp = new Array();
+        var j = 0;
         if(cc.zc.INFO[cc.zc.lesson].rand_word.length >4){ //生字大于4个的处理
             //先去掉关键字
             for(var i = 0 ;i < cc.zc.INFO[cc.zc.lesson].rand_word.length;i++){
@@ -108,6 +109,7 @@ cc.Class({
         //展示生字和分词
         this.show_new_word_block();
         this.show_target_word_block();
+        
         //循环播放 组词的声音
         this.play_word_voice();
     },
@@ -116,16 +118,18 @@ cc.Class({
      *
      */
     play_word_voice(){
-        cc.log("声音url",cc.zc.INFO[cc.zc.lesson].voice_url,cc.zc.lesson);
-       
+        //cc.log("声音url", cc.zc.INFO[cc.zc.lesson].voice_url, cc.zc.lesson, typeof (cc.zc.INFO[cc.zc.lesson].voice_url));
+        this.unscheduleAllCallbacks(this); //停止组件的所有计时器
         //有音频Url就去播放声音
-        if(cc.zc.INFO[cc.zc.lesson].voice_url != null || cc.zc.INFO[cc.zc.lesson].voice_url != "undefined"){
-            cc.log("play voice");
+        if (cc.zc.INFO[cc.zc.lesson].voice_url != "") {
+            //cc.log("play voice");
             cc.zc.audio_mgr.playNetSFX(cc.zc.INFO[cc.zc.lesson].voice_url);//先播一次
-            this.unscheduleAllCallbacks(this);//停止某组件的所有计时器
+            
             this.schedule(function(){ //每隔5秒执行1次 
-                //播放音频
-                cc.zc.audio_mgr.playNetSFX(cc.zc.INFO[cc.zc.lesson].voice_url);
+                if (cc.zc.INFO[cc.zc.lesson].voice_url != ""){
+                    //播放音频
+                    cc.zc.audio_mgr.playNetSFX(cc.zc.INFO[cc.zc.lesson].voice_url);
+                } 
              },5);    
         }
     },
@@ -200,9 +204,7 @@ cc.Class({
     show_target_word_block(){
   
         
-        var temp = new  Array();
-        var j=0;
-        
+      
         
        
         cc.log("随机字符=",this.rand_word,cc.zc.INFO[cc.zc.lesson].rand_word);

@@ -77,8 +77,11 @@ cc.Class({
         if(this.sfxAudioId >= 0){
             cc.audioEngine.stop(this.sfxAudioId);
         }
-        if(this.sfxVolume > 0){
-            this.sfxAudioId = cc.audioEngine.play(url,false,this.sfxVolume);    
+        if(this.sfxVolume > 0  ){
+            
+            this.sfxAudioId = cc.audioEngine.play(url, false, this.sfxVolume);
+            
+              
         }
         
     },
