@@ -33,8 +33,15 @@ class ExwordController extends Controller
             $target_word_arr = ExWord::find()->select(['new_word','target_word','voice_url'])->asArray()->where(['video_id' => $video_id])->all();
             //$data=array();
             for($i = 0; $i < count($target_word_arr) ;$i++){
-                shuffle($rand_word);
-                $target_word_arr[$i]['rand_word'] = $rand_word;
+                shuffle($rand_word);//随机一下生字
+                $target_word_arr[$i]['rand_word'] = $rand_word;//赋值
+                //var_dump($target_word_arr[$i]);
+                //处理一下url 把HTTP换成HTTPS 客户端的URL保持一致为HTTPS
+                if($target_word_arr[$i]['voice_url'] != ''){
+                    
+                    $target_word_arr[$i]['voice_url'] =  str_replace("http","https",$target_word_arr[$i]['voice_url']);
+                    //echo $target_word_arr[$i]['voice_url'];
+                }
                 
             }
         }

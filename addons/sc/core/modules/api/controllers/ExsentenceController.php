@@ -42,18 +42,19 @@ class ExsentenceController extends Controller
                 $sentence_arr[$key]['segment2'] = $rand_segment[1];
                 $sentence_arr[$key]['segment3'] = $rand_segment[2];
                 $sentence_arr[$key]['segment4'] = $rand_segment[3];
+                $sentence_arr[$key]['voice_url'] =  str_replace("http","https",$sentence_arr[$key]['voice_url']);
                 
                 //shuffle($rand_segment);
             }
             //var_dump($sentence_arr);
             
-            //设置可以跨域访问
-            header("Access-Control-Allow-Origin: *");
-            //输出json
-            $json_str  = json_encode($sentence_arr);
-            echo $json_str;
+            
         }
-        
+        //设置可以跨域访问
+        header("Access-Control-Allow-Origin: *");
+        //输出json
+        $json_str  = json_encode($sentence_arr);
+        echo $json_str;
         
         
         

@@ -33,6 +33,7 @@ cc.Class({
         //     }
         // },
         label_tips: cc.Label,
+        btn_enter:cc.Button,
         _state_str: '',
         _progress: 0.0,
         _splash: null,
@@ -91,11 +92,11 @@ cc.Class({
         cc.zc.http_args = this.urlParse();
         cc.log("参数--->",cc.zc.http_args);
         
-        cc.zc.http_args.video_id = 9;//lltest用的id     
-         //加载网络数据 
-         var url = cc.zc.global.URL+"&video_id="+cc.zc.http_args.video_id;
-         cc.log("获取数据url=",url);
-         this.start_http_get(url);
+        //cc.zc.http_args.video_id = 9;//lltest用的id     
+        //加载网络数据 
+        var url = cc.zc.global.URL+"&video_id="+cc.zc.http_args.video_id;
+        cc.log("获取数据url=",url);
+        this.start_http_get(url);
          
     },
     /**
@@ -144,6 +145,21 @@ cc.Class({
                 //数据为空-->>提示错误
                 if(cc.zc.INFO.length == 0){
                     self._state_str = "这个章节没有数据,请联系管理员";
+
+                    //游戏资源为空,进入按钮设置不可用
+                    self.btn_enter.interactable = false;
+                    self.btn_enter.node.active = true;
+
+                    /*
+                    var target = self.btn_enter.node.getChildByName("img_loading_light");
+                    
+                    var repeat = cc.moveBy(1, cc.v2(250, 0)) ;//cc.repeatForever();
+                   
+                    target.runAction(repeat);
+                    cc.log("光图", self.btn_enter.node.getChildByName("img_loading_light"));
+                    */
+                    //cc.log("进入按钮", self.btn_enter);
+                    
                     return;
                 }
                 //设置课程
@@ -157,7 +173,7 @@ cc.Class({
                     cc.log("找到你了");
                 }
                 */
-
+                //cc.zc.audio_mgr.playNetSFX("https://qiniu.agsew.com/uploads/video/20181213141801/1544681881f67356259ffa3871.mp3");
                 
                 self.onload_complete();
             }
@@ -182,11 +198,19 @@ cc.Class({
             },
             function (err, assets, item) {
                 cc.log("onComplete-->>", err, assets);
+                console.log("onComplete-->>", err, assets);
                 cc.zc.audio_mgr.playBGM("background.mp3");//播放背景音乐
-
+                
             });
     
        
+    },
+    /**
+     * 点击进入游戏按钮响应事件
+     */
+    on_btn_enter_game_click(){
+        cc.director.loadScene("game_scene");
+        cc.loader.onComplete = null;
     },
     /**
      * 预加载资源完成--进入游戏场景
@@ -195,7 +219,9 @@ cc.Class({
         this._is_loading = false;
         this._state_str = "加载资源完成";
         
-        cc.director.loadScene("game_scene");
-        cc.loader.onComplete = null;
+        //进入游戏按钮显示
+        this.btn_enter.node.active = true;
+        //
+        
     },
 });
