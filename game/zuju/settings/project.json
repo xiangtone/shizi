@@ -8,7 +8,19 @@
   },
   "collision-matrix": [
     [
+      false,
+      false,
+      false
+    ],
+    [
+      false,
+      false,
       true
+    ],
+    [
+      false,
+      true,
+      false
     ]
   ],
   "design-resolution-height": 640,
@@ -17,7 +29,9 @@
   "fit-height": true,
   "fit-width": false,
   "group-list": [
-    "default"
+    "default",
+    "cloud_up",
+    "cloud_down "
   ],
   "simulator-orientation": false,
   "simulator-resolution": {
