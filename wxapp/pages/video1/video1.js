@@ -944,7 +944,24 @@ Page({
       //console.log("已经登陆过了");
       var video = page.data.video;
       var user_info = wx.getStorageSync('user_info');
-      var redirect_url = '/pages/game-web-view/game-web-view' + "?video_id=" + video.id + "&user_id=" + user_info.id;
+      var redirect_url = '/pages/zuci-web-view/zuci-web-view' + "?video_id=" + video.id + "&user_id=" + user_info.id;
+      //console.log("跳转地址->"+redirect_url);
+      wx.redirectTo({
+        url: redirect_url,
+      })
+
+    } else {
+      console.log("去登陆");
+    }
+  },
+  wlcgGame: function() {
+    console.log("我来闯关webview-->>");
+    var page = this;
+    if (app.checkLogin() == true) {
+      //console.log("已经登陆过了");
+      var video = page.data.video;
+      var user_info = wx.getStorageSync('user_info');
+      var redirect_url = '/pages/zuju-web-view/zuju-web-view' + "?video_id=" + video.id + "&user_id=" + user_info.id;
       //console.log("跳转地址->"+redirect_url);
       wx.redirectTo({
         url: redirect_url,
