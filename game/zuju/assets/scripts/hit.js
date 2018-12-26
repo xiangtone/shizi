@@ -31,47 +31,45 @@ cc.Class({
     },
     onLoad() {
         cc.director.getCollisionManager().enabled = true;
-        cc.director.getCollisionManager().enabledDebugDraw = true;
-        cc.director.getCollisionManager().enabledDrawBoundingBox = true;
+        //cc.director.getCollisionManager().enabledDebugDraw = true;
+        //cc.director.getCollisionManager().enabledDrawBoundingBox = true;
         this.pos_collision = this.node.getPosition();
     },
-    touchUp(event) {
-        cc.log("当鼠标从按下状态松开", this.node.name, this.pos_collision);
-        this.node.setPosition(this.pos_collision);
-    },
+    
     touchMove(event) {
+
+        //cc.log("移动跟随移动", this.node.name, this.pos_collision);
         var delta = event.touch.getDelta();
         this.node.x += delta.x;
         this.node.y += delta.y;
-        cc.log("移动跟随", this.node.name, this.pos_collision);
+        
     },
     touchCancel(event){
          cc.log("当手指在目标节点区域外离开屏幕时", this.name, this.pos_collision);
          this.node.setPosition(this.pos_collision);
          //this.setPosition(cc.zc.pos_collision);
     },
+    touchEnd(event) {
+        cc.log("当手指在目标节点区域内离开屏幕时", this.node.name, this.pos_collision);
+        this.node.setPosition(this.pos_collision);
+    },
+    touchStart(event){
+        cc.log("当手指触点落在目标节点区域内时", this.name, this.pos_collision);
+    },
     registerEvent() {
-
-        // this.node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
-
-        //     event.stopPropagation();
-        // }, this);
-        // //鼠标按下
-        // this.node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
-
-        //     this.pos_collision = this.node.getPosition();
-        //     cc.log("鼠标按下", this.node.name, this.pos_collision);
-        // }, this);
        //用于手指移动目标的跟随
        this.node.on(cc.Node.EventType.TOUCH_MOVE, this.touchMove, this);
-       //当鼠标从按下状态松开
-       this.node.on(cc.Node.EventType.MOUSE_UP, this.touchUp, this);
+       //当手指触点落在目标节点区域内时
+       this.node.on(cc.Node.EventType.TOUCH_START, this.touchStart, this);
+       //当手指在目标节点区域内离开屏幕时
+       this.node.on(cc.Node.EventType.TOUCH_END, this.touchEnd, this);
        //当手指在目标节点区域外离开屏幕时
        this.node.on(cc.Node.EventType.TOUCH_CANCEL, this.touchCancel, this);
     },
     unRegisterEvent() {
-        this.node.off(cc.Node.EventType.MOUSE_UP, this.touchUp, this);
-        this.node.off(cc.Node.EventType.TOUCH_MOVE, this.touchMove, this);
+        this.node.off(cc.Node.EventType.TOUCH_MOVE, this.touchUp, this);
+        this.node.off(cc.Node.EventType.TOUCH_START, this.touchMove, this);
+        this.node.off(cc.Node.EventType.TOUCH_END, this.touchCancel, this);
         this.node.off(cc.Node.EventType.TOUCH_CANCEL, this.touchCancel, this);
     },
     start() {
@@ -91,8 +89,8 @@ cc.Class({
         }
         
         //cc.zc.pos_collision = self.node.getPosition();
-        cc.log("碰撞了->>(other,self)", this.pos_collision, other.node.name, self.node.name, other.node.getPosition(), self.node.getPosition(), other);
-        cc.log("碰撞了->>", this.pos_collision);
+        //cc.log("碰撞了->>(other,self)", this.pos_collision, other.node.name, self.node.name, other.node.getPosition(), self.node.getPosition(), other);
+        //cc.log("碰撞了->>", this.pos_collision);
     },
     onCollisionStay: function (other, self) {
         

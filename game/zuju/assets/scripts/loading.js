@@ -127,6 +127,7 @@ cc.Class({
                 self._state_str = "联网成功";
                 var jsonD = JSON.parse(data);
                 cc.zc.INFO = jsonD;
+                cc.log(cc.zc.INFO);
                 //数据为空-->>提示错误
                 if(cc.zc.INFO.length == 0){
                     self._state_str = "这个章节没有数据,请联系管理员";
