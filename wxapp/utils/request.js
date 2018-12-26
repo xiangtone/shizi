@@ -28,7 +28,7 @@ module.exports = function(object){
                     confirmText: '前往登录',
                     success: function (res) {
                         if (res.confirm) {
-                            wx.switchTab({
+                            wx.navigateTo({
                                 url: '/pages/user/user',
                             })
                         }

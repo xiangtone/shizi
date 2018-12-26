@@ -938,6 +938,7 @@ Page({
     });
   },
   cyllkGame: function() {
+    return
     //console.log("词语连连看webview-->>");
     var page = this;
     if (app.checkLogin() == true) {

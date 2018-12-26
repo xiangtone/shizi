@@ -8,7 +8,7 @@ defined('YII_ENV') or define('YII_ENV', 'dev');
 require(__DIR__ . '/../vendor/autoload.php');
 require(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
 defined('YII_RUN') or define('YII_RUN', true);
-defined('WE7_MODULE_NAME') or define('WE7_MODULE_NAME', 'zjhj_video');
+defined('WE7_MODULE_NAME') or define('WE7_MODULE_NAME', 'sc');
 
 $config = require(__DIR__ . '/../config/web.php');
 $app = new yii\web\Application($config);

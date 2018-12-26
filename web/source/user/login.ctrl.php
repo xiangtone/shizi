@@ -12,133 +12,134 @@ load()->classs('oauth2/oauth2client');
 load()->model('setting');
 
 if (checksubmit() || $_W['isajax']) {
-	_login($_GPC['referer']);
+    _login($_GPC['referer']);
 }
 
 $support_login_types = OAuth2Client::supportThirdLoginType();
 if (in_array($_GPC['login_type'], $support_login_types)) {
-	_login($_GPC['referer']);
+    _login($_GPC['referer']);
 }
 
 $setting = $_W['setting'];
-$_GPC['login_type'] = !empty($_GPC['login_type']) ? $_GPC['login_type'] : (!empty($_W['setting']['copyright']['login_type']) ? 'mobile': 'system');
+$_GPC['login_type'] = !empty($_GPC['login_type']) ? $_GPC['login_type'] : (!empty($_W['setting']['copyright']['login_type']) ? 'mobile' : 'system');
 
 $login_urls = user_support_urls();
 template('user/login');
 
-function _login($forward = '') {
-	global $_GPC, $_W;
-	if (empty($_GPC['login_type'])) {
-		$_GPC['login_type'] = 'system';
-	}
+function _login($forward = '')
+{
+    global $_GPC, $_W;
+    if (empty($_GPC['login_type'])) {
+        $_GPC['login_type'] = 'system';
+    }
 
-	if (empty($_GPC['handle_type'])) {
-		$_GPC['handle_type'] = 'login';
-	}
+    if (empty($_GPC['handle_type'])) {
+        $_GPC['handle_type'] = 'login';
+    }
 
-	if ($_GPC['handle_type'] == 'login') {
-		$member = OAuth2Client::create($_GPC['login_type'], $_W['setting']['thirdlogin'][$_GPC['login_type']]['appid'], $_W['setting']['thirdlogin'][$_GPC['login_type']]['appsecret'])->login();
-	} else {
-		$member = OAuth2Client::create($_GPC['login_type'], $_W['setting']['thirdlogin'][$_GPC['login_type']]['appid'], $_W['setting']['thirdlogin'][$_GPC['login_type']]['appsecret'])->bind();
-	}
+    if ($_GPC['handle_type'] == 'login') {
+        $member = OAuth2Client::create($_GPC['login_type'], $_W['setting']['thirdlogin'][$_GPC['login_type']]['appid'], $_W['setting']['thirdlogin'][$_GPC['login_type']]['appsecret'])->login();
+    } else {
+        $member = OAuth2Client::create($_GPC['login_type'], $_W['setting']['thirdlogin'][$_GPC['login_type']]['appid'], $_W['setting']['thirdlogin'][$_GPC['login_type']]['appsecret'])->bind();
+    }
 
-	if (!empty($_W['user']) && $_GPC['handle_type'] == 'bind') {
-		if (is_error($member)) {
-			itoast($member['message'], url('user/profile/bind'), '');
-		} else {
-			itoast('绑定成功', url('user/profile/bind'), '');
-		}
-	}
+    if (!empty($_W['user']) && $_GPC['handle_type'] == 'bind') {
+        if (is_error($member)) {
+            itoast($member['message'], url('user/profile/bind'), '');
+        } else {
+            itoast('绑定成功', url('user/profile/bind'), '');
+        }
+    }
 
-	if (is_error($member)) {
-		itoast($member['message'], url('user/login'), '');
-	}
+    if (is_error($member)) {
+        itoast($member['message'], url('user/login'), '');
+    }
 
-	$user_info = pdo_get('users', array('username' => $member['username']));
-	$is_mobile = preg_match(REGULAR_MOBILE, $member['username']);
-	if (empty($user_info) && is_array($member) && !empty($member['username']) && $is_mobile) {
-		$bind_info = pdo_get('users_bind', array('bind_sign' => $member['username']));
-		if (is_array($bind_info) && !empty($bind_info)) {
-			$username = pdo_getcolumn('users', array('uid' => $bind_info['uid']), 'username');
-			if ($username) {
-				$member['username'] = $username;
-			} else {
-				itoast('账号信息错误！', url('user/login'), '');
-			}
-		} else {
-			itoast('账号信息错误！', url('user/login'), '');
-		}
-	}
+    $user_info = pdo_get('users', array('username' => $member['username']));
+    $is_mobile = preg_match(REGULAR_MOBILE, $member['username']);
+    if (empty($user_info) && is_array($member) && !empty($member['username']) && $is_mobile) {
+        $bind_info = pdo_get('users_bind', array('bind_sign' => $member['username']));
+        if (is_array($bind_info) && !empty($bind_info)) {
+            $username = pdo_getcolumn('users', array('uid' => $bind_info['uid']), 'username');
+            if ($username) {
+                $member['username'] = $username;
+            } else {
+                itoast('账号信息错误！', url('user/login'), '');
+            }
+        } else {
+            itoast('账号信息错误！', url('user/login'), '');
+        }
+    }
 
-	$record = user_single($member);
-	if (!empty($record)) {
-		if ($record['status'] == USER_STATUS_CHECK || $record['status'] == USER_STATUS_BAN) {
-			itoast('您的账号正在审核或是已经被系统禁止，请联系网站管理员解决?', url('user/login'), '');
-		}
-		$_W['uid'] = $record['uid'];
-		$_W['isfounder'] = user_is_founder($record['uid']);
-		$_W['user'] = $record;
+    $record = user_single($member);
+    if (!empty($record)) {
+        if ($record['status'] == USER_STATUS_CHECK || $record['status'] == USER_STATUS_BAN) {
+            itoast('您的账号正在审核或是已经被系统禁止，请联系网站管理员解决?', url('user/login'), '');
+        }
+        $_W['uid'] = $record['uid'];
+        $_W['isfounder'] = user_is_founder($record['uid']);
+        $_W['user'] = $record;
 
-		if (!empty($_W['setting']['copyright']['oauth_bind'])) {
-			if ($record['register_type'] == USER_REGISTER_TYPE_QQ || $record['register_type'] == USER_REGISTER_TYPE_WECHAT) {
-				if (!$record['is_bind'] && empty($_W['isfounder'])) {
-					message('您还没有注册账号，请前往注册', url('user/third-bind/bind_oauth', array('uid' => $record['uid'], 'type' => $record['type'])));
-					exit;
-				}
-			}
-		}
+        if (!empty($_W['setting']['copyright']['oauth_bind'])) {
+            if ($record['register_type'] == USER_REGISTER_TYPE_QQ || $record['register_type'] == USER_REGISTER_TYPE_WECHAT) {
+                if (!$record['is_bind'] && empty($_W['isfounder'])) {
+                    message('您还没有注册账号，请前往注册', url('user/third-bind/bind_oauth', array('uid' => $record['uid'], 'type' => $record['type'])));
+                    exit;
+                }
+            }
+        }
 
-		if (($_GPC['login_type'] == 'qq' || $_GPC['login_type'] == 'wechat') && !empty($_W['setting']['copyright']['oauth_bind']) && !$record['is_bind'] && empty($_W['isfounder']) && ($record['register_type'] == USER_REGISTER_TYPE_QQ || $record['register_type'] == USER_REGISTER_TYPE_WECHAT)) {
-			message('您还没有注册账号，请前往注册', url('user/third-bind/bind_oauth', array('uid' => $record['uid'], 'type' => $record['type'])));
-			exit;
-		}
+        if (($_GPC['login_type'] == 'qq' || $_GPC['login_type'] == 'wechat') && !empty($_W['setting']['copyright']['oauth_bind']) && !$record['is_bind'] && empty($_W['isfounder']) && ($record['register_type'] == USER_REGISTER_TYPE_QQ || $record['register_type'] == USER_REGISTER_TYPE_WECHAT)) {
+            message('您还没有注册账号，请前往注册', url('user/third-bind/bind_oauth', array('uid' => $record['uid'], 'type' => $record['type'])));
+            exit;
+        }
 
-		if (!empty($_W['siteclose']) && empty($_W['isfounder'])) {
-			itoast('站点已关闭，关闭原因:'. $_W['setting']['copyright']['reason'], '', '');
-		}
+        if (!empty($_W['siteclose']) && empty($_W['isfounder'])) {
+            itoast('站点已关闭，关闭原因:' . $_W['setting']['copyright']['reason'], '', '');
+        }
 
-		$cookie = array();
-		$cookie['uid'] = $record['uid'];
-		$cookie['lastvisit'] = $record['lastvisit'];
-		$cookie['lastip'] = $record['lastip'];
-		$cookie['hash'] = md5($record['password'] . $record['salt']);
-		$session = authcode(json_encode($cookie), 'encode');
-		isetcookie('__session', $session, !empty($_GPC['rember']) ? 7 * 86400 : 0, true);
-		$status = array();
-		$status['uid'] = $record['uid'];
-		$status['lastvisit'] = TIMESTAMP;
-		$status['lastip'] = CLIENT_IP;
-		user_update($status);
+        $cookie = array();
+        $cookie['uid'] = $record['uid'];
+        $cookie['lastvisit'] = $record['lastvisit'];
+        $cookie['lastip'] = $record['lastip'];
+        $cookie['hash'] = md5($record['password'] . $record['salt']);
+        $session = authcode(json_encode($cookie), 'encode');
+        isetcookie('__session', $session, !empty($_GPC['rember']) ? 7 * 86400 : 0, true);
+        $status = array();
+        $status['uid'] = $record['uid'];
+        $status['lastvisit'] = TIMESTAMP;
+        $status['lastip'] = CLIENT_IP;
+        user_update($status);
 
-		if (empty($forward)) {
-			$forward = user_login_forward($_GPC['forward']);
-		}
+        if (empty($forward)) {
+            $forward = user_login_forward($_GPC['forward']);
+        }
 
-		if ($record['uid'] != $_GPC['__uid']) {
-			isetcookie('__uniacid', '', -7 * 86400);
-			isetcookie('__uid', '', -7 * 86400);
-		}
-		$failed = pdo_get('users_failed_login', array('username' => trim($_GPC['username']), 'ip' => CLIENT_IP));
-		pdo_delete('users_failed_login', array('id' => $failed['id']));
+        if ($record['uid'] != $_GPC['__uid']) {
+            isetcookie('__uniacid', '', -7 * 86400);
+            isetcookie('__uid', '', -7 * 86400);
+        }
+        $failed = pdo_get('users_failed_login', array('username' => trim($_GPC['username']), 'ip' => CLIENT_IP));
+        pdo_delete('users_failed_login', array('id' => $failed['id']));
 
-		if ((empty($_W['isfounder']) || user_is_vice_founder()) && !empty($_W['user']['endtime']) && $_W['user']['endtime'] < TIMESTAMP) {
-			$url = url('home/welcome/ext', array('m' => 'store'));
-			message('<a href="' . $url . '" class="btn btn-primary">您的账号已到期，请前往商城购买续费！</a>', $url, 'error');
-		}
+        if ((empty($_W['isfounder']) || user_is_vice_founder()) && !empty($_W['user']['endtime']) && $_W['user']['endtime'] < TIMESTAMP) {
+            $url = url('home/welcome/ext', array('m' => 'store'));
+            message('<a href="' . $url . '" class="btn btn-primary">您的账号已到期，请前往商城购买续费！</a>', $url, 'error');
+        }
 //url('account/display/switch', array('module' => $module['name'], 'version_id' => $version_id, 'uniacid' => $_W['uniacid']))
-//url('account/display/switch', array('module' => 'hs_video', 'version_id' => 4, 'uniacid' => 5))
-		//需要在小程序管理中进行用户授权
-		if ($record['username']=='fuming'){
-		itoast("欢迎回来，{$record['username']}", $forward, 'success');	
-	}else{
-		itoast("欢迎回来，{$record['username']}", url('account/display/switch', array('module' => 'hs_video', 'version_id' => 4, 'uniacid' => 5)), 'success');	
-	}
-	} else {
-		if (empty($failed)) {
-			pdo_insert('users_failed_login', array('ip' => CLIENT_IP, 'username' => trim($_GPC['username']), 'count' => '1', 'lastupdate' => TIMESTAMP));
-		} else {
-			pdo_update('users_failed_login', array('count' => $failed['count'] + 1, 'lastupdate' => TIMESTAMP), array('id' => $failed['id']));
-		}
-		itoast('登录失败，请检查您输入的账号和密码', '', '');
-	}
+        //url('account/display/switch', array('module' => 'hs_video', 'version_id' => 4, 'uniacid' => 5))
+        //需要在小程序管理中进行用户授权
+        if ($record['username'] == 'fuming') {
+            itoast("欢迎回来，{$record['username']}", $forward, 'success');
+        } else {
+            itoast("欢迎回来，{$record['username']}", url('account/display/switch', array('module' => 'sc', 'version_id' => 4, 'uniacid' => 5)), 'success');
+        }
+    } else {
+        if (empty($failed)) {
+            pdo_insert('users_failed_login', array('ip' => CLIENT_IP, 'username' => trim($_GPC['username']), 'count' => '1', 'lastupdate' => TIMESTAMP));
+        } else {
+            pdo_update('users_failed_login', array('count' => $failed['count'] + 1, 'lastupdate' => TIMESTAMP), array('id' => $failed['id']));
+        }
+        itoast('登录失败，请检查您输入的账号和密码', '', '');
+    }
 }

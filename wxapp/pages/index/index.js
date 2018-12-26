@@ -124,13 +124,13 @@ Page({
       wx.stopPullDownRefresh();
       return;
     }
-    app.request({
-      url: api.user.index,
-      methos: 'POST',
-      success: function(res) {
-        wx.setStorageSync('user_info', res.data)
-      }
-    });
+    // app.request({
+    //   url: api.user.index,
+    //   methos: 'POST',
+    //   success: function(res) {
+    //     wx.setStorageSync('user_info', res.data)
+    //   }
+    // });
     app.getStore();
     var store = wx.getStorageSync('store');
     this.setData({

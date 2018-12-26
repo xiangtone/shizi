@@ -1,62 +1,82 @@
 <!-- <view>{{PhoneNumber}}</view> -->
+<import src="/commons/bg/bg.wxml" />
+<template is="bg" data="{{store: store,a:2}}" />
+<import src="/commons/float-icon/float-icon.wxml" />
+<template is="item" data="{{store: store,a:2,shareShow:0}}" />
 <block wx:if="{{binding}}">
-    <view class="binding_pic">
-        <image src="/images/binding_pic.png" style="height:100%;width:288rpx;"></image>
+  <view style='width:100%;height:64rpx;'></view>
+  <view class="binding_pic" style='width:700rpx;margin:0'>
+    <image src="/images/binding_pic.png" style="height:100%;width:288rpx;"></image>
+  </view>
+  <view style='width:100%;height:56rpx;'></view>
+  <view class="binding_num" style='width:700rpx;'>
+    <view style="font-size:13px;display: flex;justify-content: center;margin-bottom:16rpx;">已绑定手机</view>
+    <view style="font-size:15px;display: flex;justify-content: center;">{{binding_num}}</view>
+  </view>
+  <view class='flex-y-center flex-x-center'>
+    <view class='flex-y-center flex-x-center' bindtap='renewal' style='font-size:30rpx;color:#fff;width:290rpx;height:103rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/d4/d449a77a6cb2c57cbb50902ed3f09003.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+      <view style='position:absolute;top:20rpx'>更换绑定</view>
     </view>
-    <view class="binding_num">
-        <view style="font-size:13px;display: flex;justify-content: center;margin-bottom:16rpx;">已绑定手机</view>
-        <view style="font-size:15px;display: flex;justify-content: center;">{{binding_num}}</view>
+    <view class='flex-y-center flex-x-center' bindtap='back' style='font-size:30rpx;color:#fff;width:290rpx;height:103rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/f3/f3bc8b1bb0c83de1c3ba91f3e960083c.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+      <view style='position:absolute;top:20rpx'>返回</view>
     </view>
-    <button class="binding-footer" bindtap="renewal">更换绑定</button>
+  </view>
+  <!-- <button class="binding-footer" bindtap="renewal">更换绑定</button> -->
 </block>
 <block wx:else>
-    <view>
-        <view class="binding-header">
-            <view class="empower" style="float:left;">
-                <text class="binding-phone {{gainPhone?'gainPhone':''}}" bindtap='gainPhone'>微信授权</text>
-            </view>
-            <block wx:if="{{status}}">
-                <view class="empower" style="float:right;">
-                    <text class="binding-phone {{handPhone?'handPhone':''}}" bindtap='handPhone'>手动授权</text>
-                </view>
-            </block>
+  <view style='width:100%;height:20rpx'></view>
+  <view style="width:700rpx;margin:0 auto;box-shadow: 4rpx 10rpx 6rpx 4rpx rgba(140,32,27, 0.5);">
+    <view class="binding-header" style="width:700rpx;background-color:#f5d6a2">
+      <view class="empower" style="float:left;width:700rpx;background-color:#f5d6a2">
+        <text class="binding-phone {{gainPhone?'gainPhone':''}}" bindtap='gainPhone'>微信授权</text>
+      </view>
+      <block wx:if="{{status}}">
+        <view class="empower" style="float:right;">
+          <text class="binding-phone {{handPhone?'handPhone':''}}" bindtap='handPhone'>手动授权</text>
         </view>
-        <view style="height:8rpx;background:#f7f7f7;"></view>
-        <block wx:if="{{gainPhone}}">
-            <view class="binding-main flex-row">
-                <view class='flex-grow-1'>
-                    <input maxlength="11" disabled="true" type="number" class="binding-btn {{PhoneNumber?'active':''}}" value='{{PhoneNumber}}' placeholder="授权手机号" name="phone" bindinput="PhoneInput" />
-                </view>
-                <view class='glex-grow-0'>
-                    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" style="color:#ff4544;border-left:1rpx solid #e2e2e2;padding-left:50rpx;white-space:nowrap" class="binding-btn" hover-class="none">点击授权</button>
-                </view>
-            </view>
-        </block>
-
-        <block wx:if="{{status}}">
-            <block wx:if="{{handPhone}}">
-                <view class="binding-main2">
-                    <view style="height:100rpx;border-bottom:1rpx solid #e2e2e2;">
-                        <input bindinput="HandPhoneInput" maxlength="11" type="number" class="binding-btn {{PhoneNumber?'active':''}}" style="float:left;hieght:100rpx;" name="phone" placeholder="输入手机号" />
-                    </view>
-
-                    <view class='flex-row' style="height:100rpx;">
-                        <view class='flex-grow-1'>
-                            <input bindinput="CodeInput" maxlength="11" type="number" class="binding-btn {{PhoneNumber?'active':''}}" name="code" placeholder="输入验证码" maxlength="6" />
-                        </view>
-                        <view class='flex-grow-1'>
-                            <block wx:if="{{timer}}">
-                                <view style="color:#ff4544;border-left:1rpx solid #e2e2e2;padding-left:50rpx;" class="binding-btn">{{second}} S</view>
-                            </block>
-                            <block wx:else>
-                                <view bindtap='nextStep' style="color:#ff4544;border-left:1rpx solid #e2e2e2;padding-left:50rpx;white-space:nowrap" class="binding-btn">获取验证码</view>
-                            </block>
-                        </view>
-                    </view>
-                </view>
-            </block>
-        </block>
-
-        <button class="binding-footer" bindtap="onSubmit">确认</button>
+      </block>
     </view>
+    <view style="margin:0 auto;width:700rpx;height:8rpx;background:#f5d6a2;"></view>
+    <block wx:if="{{gainPhone}}">
+      <view class="binding-main flex-row" style="margin:0 auto;width:700rpx;background-color:#f5d6a2">
+        <view class='flex-grow-1'>
+          <input maxlength="11" style='background-color:#f5d6a2' disabled="true" type="number" class="binding-btn {{PhoneNumber?'active':''}}" value='{{PhoneNumber}}' placeholder="授权手机号" name="phone" bindinput="PhoneInput" />
+        </view>
+        <view class='glex-grow-0'>
+          <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" style="background-color:#f5d6a2;color:#ff4544;border-left:1rpx solid #e2e2e2;padding-left:50rpx;white-space:nowrap" class="binding-btn" hover-class="none">点击授权</button>
+        </view>
+      </view>
+    </block>
+
+    <block wx:if="{{status}}">
+      <block wx:if="{{handPhone}}">
+        <view class="binding-main2">
+          <view style="height:100rpx;border-bottom:1rpx solid #e2e2e2;">
+            <input bindinput="HandPhoneInput" maxlength="11" type="number" class="binding-btn {{PhoneNumber?'active':''}}" style="float:left;hieght:100rpx;" name="phone" placeholder="输入手机号" />
+          </view>
+
+          <view class='flex-row' style="height:100rpx;">
+            <view class='flex-grow-1'>
+              <input bindinput="CodeInput" maxlength="11" type="number" class="binding-btn {{PhoneNumber?'active':''}}" name="code" placeholder="输入验证码" maxlength="6" />
+            </view>
+            <view class='flex-grow-1'>
+              <block wx:if="{{timer}}">
+                <view style="color:#ff4544;border-left:1rpx solid #e2e2e2;padding-left:50rpx;" class="binding-btn">{{second}} S</view>
+              </block>
+              <block wx:else>
+                <view bindtap='nextStep' style="color:#ff4544;border-left:1rpx solid #e2e2e2;padding-left:50rpx;white-space:nowrap" class="binding-btn">获取验证码</view>
+              </block>
+            </view>
+          </view>
+        </view>
+      </block>
+    </block>
+    <!-- <button class="binding-footer" bindtap="onSubmit">确认</button> -->
+  </view>
+  <view style='width:100%;height:40rpx'></view>
+  <view class='flex-y-center flex-x-center'>
+    <view class='flex-y-center flex-x-center' bindtap='onSubmit' style='font-size:30rpx;color:#fff;width:290rpx;height:103rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/d4/d449a77a6cb2c57cbb50902ed3f09003.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+      <view style='position:absolute;top:20rpx'>确认</view>
+    </view>
+  </view>
 </block>

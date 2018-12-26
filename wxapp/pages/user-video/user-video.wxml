@@ -1,23 +1,28 @@
 <!--pages/user-video/user-video.wxml-->
-<view>
-    <block wx:if='{{video_list.length>0}}'>
-        <view class='video-list'>
-            <block wx:for='{{video_list}}'>
-                <view class='video-one border-top flex-row' bindtap='goto' data-index='{{index}}'>
-                    <view class='flex-grow-0 pic' style="background-image:url('{{item.pic_url}}');">
-                    </view>
-                    <view class='flex-grow-1' style='padding-top:6rpx;'>
-                        <view class='text-more-2'>{{item.title}}</view>
-                        <view class='time'>购买时间 {{item.add_time}}</view>
-                    </view>
-                </view>
-            </block>
+<import src="/commons/bg/bg.wxml" />
+<template is="bg" data="{{store: store,a:2}}" />
+<import src="/commons/float-icon/float-icon.wxml" />
+<template is="item" data="{{store: store,a:2,shareShow:0}}" />
+<view style='width:100%;height:40rpx'></view>
+<view style="width:700rpx;margin:0 auto;background-color:#f5d6a2;color:#99653b;box-shadow: 4rpx 10rpx 6rpx 4rpx rgba(140,32,27, 0.5);">
+  <block wx:if='{{video_list.length>0}}'>
+    <view class='video-list'>
+      <block wx:for='{{video_list}}'>
+        <view class='video-one border-top flex-row' style='background-color:#f5d6a2;' bindtap='goto' data-index='{{index}}'>
+          <view class='flex-grow-0 pic' style="background-image:url('{{item.pic_url}}');">
+          </view>
+          <view class='flex-grow-1' style='padding-top:6rpx;'>
+            <view class='text-more-2'>{{item.title}}</view>
+            <view class='time'>购买时间 {{item.add_time}}</view>
+          </view>
         </view>
-    </block>
-    <block wx:else>
-        <view class='grey-color font-9 flex-x-center' style='padding:20rpx'>暂未购买过内容</view>
-    </block>
-    <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
-        <image style="width: 160rpx;height: 251rpx" src="/images/loading.svg"></image>
+      </block>
     </view>
+  </block>
+  <block wx:else>
+    <view class='grey-color font-9 flex-x-center' style='padding:20rpx;color:#99653b;'>暂未购买过内容</view>
+  </block>
+</view>
+<view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
+  <image style="width: 160rpx;height: 251rpx" src="/images/loading.svg"></image>
 </view>

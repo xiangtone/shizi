@@ -35,7 +35,7 @@
     <view style="position:relative">
       <view class="weui-cell class-list-cell-area" wx:for='{{news}}' bindtap='goNews' data-news-id='{{item.id}}' style='width:714rpx;height:200rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/2d/2dc07a792a8194bc1bdd2a634a44e0fe.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
         <view style='padding-left:20rpx;width:360rpx;height:200rpx;position:relative'>
-          <view style='position:absolute;top:30rpx;width:100%;height:100rpx;overflow: hidden;text-overflow:ellipsis;font-size:30rpx'>{{item.title}}</view>
+          <view style='position:absolute;top:30rpx;width:90%;height:100rpx;overflow: hidden;text-overflow:ellipsis;font-size:30rpx'>{{item.title}}</view>
           <view style='position:absolute;bottom:10rpx;width:100%;height:40rpx;color:#d09964;font-size:24rpx'>{{item.page_view}}浏览 {{item.comment_count}}评论</view>
         </view>
         <view style='padding-left:20rpx;color:#99653b;font-weight:700;width:240rpx;height:100%;position:relative'>

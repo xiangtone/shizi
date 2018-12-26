@@ -218,9 +218,6 @@ class UserController extends AdminController
      */
     public function actionEnableAccountOne()
     {
-        //var_dump("actionDisableAccountOne");
-        //var_dump(Yii::$app->request->post());
-        //die();
         if(Yii::$app->request->isPost){
             $username = Yii::$app->request->post()['User']['username'];
             if(empty($username)){

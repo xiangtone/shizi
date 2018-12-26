@@ -21,7 +21,7 @@ Page({
       methos: 'POST',
       success: function (res) {
         console.log(res)
-        if (res.data){
+        if (res.data.user_info){
           t.data.last_video = res.data.user_info.last_video
           wx.setStorageSync('user_info', res.data.user_info)
         }    

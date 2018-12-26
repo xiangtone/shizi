@@ -75,18 +75,18 @@
       <import src="/commons/button-a/button-a.wxml" />
       <template is="buttonA" data="{{buttonTitle:'我的收藏'}}" />
     </navigator> -->
-    <view bindtap="goTeacher">
+    <!-- <view bindtap="goTeacher">
       <import src="/commons/button-a/button-a.wxml" />
       <template is="buttonA" data="{{buttonTitle:'激活会员卡'}}" />
-    </view>
+    </view> -->
     <navigator url='/pages/user-video/user-video'>
       <import src="/commons/button-a/button-a.wxml" />
       <template is="buttonA" data="{{buttonTitle:'已购买课程'}}" />
     </navigator>
-    <view bindtap="goTeacher">
+    <!-- <view bindtap="goTeacher">
       <import src="/commons/button-a/button-a.wxml" />
       <template is="buttonA" data="{{buttonTitle:'老师专区'}}" />
-    </view>
+    </view> -->
 
     <navigator class='block' bindtap='tel' data-tel='{{contact_tel}}' wx:if='{{contact_tel !=""}}'>
       <view class='flex-y-center' style='width:100%;height:100%;position:relative;'>

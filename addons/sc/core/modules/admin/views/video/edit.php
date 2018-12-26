@@ -31,8 +31,8 @@ $this->params['active_nav_group'] = 2;
         <nav class="nav nav-tabs" id="myTab" role="tablist">
             <a class="nav-item nav-link active" id="nav-level-edit" data-toggle="tab" href="#level-edit" role="tab"
                aria-controls="level-edit" aria-selected="true"><?= $this->title ?></a>
-            <a class="nav-item nav-link" id="nav-content-edit" data-toggle="tab" href="#content-edit" role="tab"
-               aria-controls="content-edit" aria-selected="false">预约设置</a>
+            <!-- <a class="nav-item nav-link" id="nav-content-edit" data-toggle="tab" href="#content-edit" role="tab"
+               aria-controls="content-edit" aria-selected="false">预约设置</a> -->
             <a class="nav-item nav-link is_pay" id="nav-pay-edit" data-toggle="tab" href="#pay-edit" role="tab"
                aria-controls="pay-edit" aria-selected="false" <?= $list['style'] == 2 ? "hidden" : "" ?>>付费设置</a>
         </nav>

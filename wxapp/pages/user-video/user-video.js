@@ -143,7 +143,7 @@ Page({
             return;
         }
         wx.navigateTo({
-            url: '/pages/video/video?id=' + video.id,
+            url: '/pages/video1/video1?id=' + video.id,
         })
     }
 })

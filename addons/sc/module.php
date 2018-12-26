@@ -2,11 +2,6 @@
 
 namespace sc;
 
-/**
- * 本破解程序由资源邦提供
- * 更多微擎模块和小程序请访问资源邦官网：www.wazyb.com
- * QQ:993424780  承接网站建设、公众号搭建、小程序建设、企业网站
- */
 use Comodojo\Zip\Zip;
 
 defined('IN_IA') or exit('Access Denied');
@@ -51,6 +46,7 @@ class Init
     {
         global $_W;
         $url = $_W['siteroot'] . 'addons/' . $_W['current_module']['name'] . '/core/web/index.php?r=admin/passport/login';
+        $sitepath = substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/'));
         if (session_status() != PHP_SESSION_ACTIVE)
             session_start();
         $_SESSION['we7_user'] = $_W['user'];

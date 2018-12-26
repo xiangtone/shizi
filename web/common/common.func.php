@@ -471,6 +471,7 @@ function buildframes($framename = ''){
 				$need_upload = !empty($last_modules) && ($module['version'] != $last_modules['version']);
 				$frames['wxapp']['section']['wxapp_module']['menu']['module_menu'.$module['mid']] = array(
 					'title' => "<img src='{$module['logo']}'> {$module['title']}",
+					//'url' => $_W['siteroot'].url('account/display/switch', array('module' => $module['name'], 'version_id' => $version_id, 'uniacid' => $_W['uniacid'])),
 					'url' => url('account/display/switch', array('module' => $module['name'], 'version_id' => $version_id, 'uniacid' => $_W['uniacid'])),
 					'is_display' => 1,
 				);

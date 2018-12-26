@@ -13,7 +13,7 @@
       </view>
     </view>
     <view style="position:relative">
-      <block wx:if='{{list_my_class}}'>
+      <block wx:if='{{list_my_class&&list_my_class.length>0}}'>
         <view class="weui-cell class-list-cell-area" wx:for='{{list_my_class}}' bindtap='goClass' data-class-id='{{item.class_id}}'>
           <view class="weui-cell__hd input-hd-area" style='padding-left:40rpx'>
             <view class="weui-label label-bold" style='height:102rpx;width:102rpx;border-radius: 15rpx;border:3rpx solid #fff ;background: url({{item.img_url}});background-position: left top;background-size:102rpx 102rpx;background-repeat:no-repeat;'>

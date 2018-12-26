@@ -11,7 +11,7 @@ defined('YII_RUN') or exit('Access Denied');
 use yii\widgets\LinkPager;
 
 $urlManager = Yii::$app->urlManager;
-$this->title = '组词列表';
+$this->title = '生字列表';
 $this->params['active_nav_group'] = 2;
 ?>
 <div class="main-nav" flex="cross:center dir:left box:first">
@@ -26,7 +26,7 @@ $this->params['active_nav_group'] = 2;
     </div>
 </div>
 <div class="main-body p-3" id="app">
-    <a href="<?=$urlManager->createUrl(['admin/game/word-edit', 'video_id' => $video_id])?>" class="btn btn-primary">
+    <a href="<?=$urlManager->createUrl(['admin/game/char-edit', 'video_id' => $video_id])?>" class="btn btn-primary">
         添加</a>
 
     <a class="btn btn-primary" href="javascript:" onClick="openwin()">预览</a>
@@ -54,7 +54,6 @@ $this->params['active_nav_group'] = 2;
                 <th>ID</th>
                 <th>视频id</th>
                 <th>生字</th>
-                <th>词汇</th>
                 <th>音频地址</th>
                 <th>操作</th>
             </tr>
@@ -66,7 +65,6 @@ $this->params['active_nav_group'] = 2;
                     <td><?=$value['video_id']?></td>
 
                     <td><?=$value['new_word']?></td>
-                    <td><?=$value['target_word']?></td>
                     <td><?=$value['voice_url']?>
                     <?php if ($value['voice_url']): ?>
                     <audio src="<?=$value['voice_url']?>" controls="controls"></audio>
@@ -75,10 +73,10 @@ $this->params['active_nav_group'] = 2;
                     <td>
 
                         <a class="btn btn-sm btn-primary"
-                           href="<?=$urlManager->createUrl(['admin/game/word-edit', 'id' => $value['id'], 'video_id' => $video_id])?>">修改</a>
+                           href="<?=$urlManager->createUrl(['admin/game/char-edit', 'id' => $value['id'], 'video_id' => $video_id])?>">修改</a>
 
                         <a class="btn btn-sm btn-danger del" href="javascript:" data-content="是否删除？"
-                           data-url="<?=$urlManager->createUrl(['admin/game/word-del', 'id' => $value['id']])?>">删除</a>
+                           data-url="<?=$urlManager->createUrl(['admin/game/char-del', 'id' => $value['id']])?>">删除</a>
 
 
                     </td>
@@ -99,7 +97,7 @@ $this->params['active_nav_group'] = 2;
     function search() {
         var keyword = $("#title_search").val();
         $.ajax({
-            url: "<?=$urlManager->createUrl(['admin/game/word-list'])?>",
+            url: "<?=$urlManager->createUrl(['admin/game/char-list'])?>",
             dataType: "json",
             data: {
                 keyword: keyword,
