@@ -48,13 +48,13 @@ class ExsentenceController extends Controller
             }
             //var_dump($sentence_arr);
             
-            //设置可以跨域访问
-            header("Access-Control-Allow-Origin: *");
-            //输出json
-            $json_str  = json_encode($sentence_arr);
-            echo $json_str;
+            
         }
-        
+        //设置可以跨域访问
+        header("Access-Control-Allow-Origin: *");
+        //输出json
+        $json_str  = json_encode($sentence_arr);
+        echo $json_str;
         
         
         
