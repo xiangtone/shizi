@@ -2014,7 +2014,7 @@
     "_actualFontSize": 35,
     "_fontSize": 35,
     "_lineHeight": 35,
-    "_enableWrapText": false,
+    "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
@@ -2057,7 +2057,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 72,
+      "width": 88,
       "height": 35
     },
     "_rotationX": 0,
@@ -2090,7 +2090,7 @@
     "_lineHeight": 35,
     "_enableWrapText": true,
     "_N$file": null,
-    "_isSystemFontUsed": false,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_N$string": "(0/0)",
     "_N$horizontalAlign": 1,

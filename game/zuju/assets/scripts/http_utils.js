@@ -45,7 +45,7 @@ var httpUtils = cc.Class({
 
         var request = cc.loader.getXMLHttpRequest();
         request.open("GET", url, true);
-        
+        request.timeout = 15000;
         request.onreadystatechange = function () {
             
             if (request.readyState == 4 && request.status >= 200 && request.status < 300) {

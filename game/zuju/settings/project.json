@@ -8,9 +8,7 @@
   },
   "collision-matrix": [
     [
-      false,
-      false,
-      false
+      true
     ],
     [
       false,
@@ -31,7 +29,7 @@
   "group-list": [
     "default",
     "cloud_up",
-    "cloud_down "
+    "cloud_down"
   ],
   "simulator-orientation": false,
   "simulator-resolution": {

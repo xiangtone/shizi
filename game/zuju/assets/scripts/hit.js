@@ -67,9 +67,9 @@ cc.Class({
        this.node.on(cc.Node.EventType.TOUCH_CANCEL, this.touchCancel, this);
     },
     unRegisterEvent() {
-        this.node.off(cc.Node.EventType.TOUCH_MOVE, this.touchUp, this);
-        this.node.off(cc.Node.EventType.TOUCH_START, this.touchMove, this);
-        this.node.off(cc.Node.EventType.TOUCH_END, this.touchCancel, this);
+        this.node.off(cc.Node.EventType.TOUCH_MOVE, this.touchMove, this);
+        this.node.off(cc.Node.EventType.TOUCH_START, this.touchStart, this);
+        this.node.off(cc.Node.EventType.TOUCH_END, this.touchEnd, this);
         this.node.off(cc.Node.EventType.TOUCH_CANCEL, this.touchCancel, this);
     },
     start() {
@@ -77,6 +77,30 @@ cc.Class({
         this.registerEvent();
     },
     onCollisionEnter: function (other, self) {
+        //cc.log(other.node.getComponent('cloud_down_ extra').is_collision);
+        var cloud_down = other.node.getComponent('cloud_down_extra');
+        var cloud_up   = this;
+        //两个云朵碰撞了,就不能再移动位置
+        if(cloud_down.is_collision == false && this.is_collision == false){
+           
+            //设置碰撞坐标
+            //var pos = other.node.getPosition();
+            cloud_up.pos_collision = other.node.getPosition();
+            self.node.setPosition(cloud_up.pos_collision);  
+            cloud_down.segment = cloud_up.node.getChildByName("label").getComponent(cc.Label).string;
+            cloud_down.is_collision = true; //下面的云已碰撞设置
+            cloud_up.is_collision = true;       //上面的云已碰撞设置
+
+            //把碰撞顺序记录下来
+            //cc.zc.INFO.answer.push(cloud_up.node.name);
+            //cc.zc.INFO.answer = cc.zc.INFO.answer+this.node.getChildByName("label").getComponent(cc.Label).string;
+            cc.zc.audio_mgr.playSFX("jump.mp3");   //播放云朵碰撞的声音
+            cc.log("符合条件设置坐标",cc.zc.INFO.answer,this.is_collision,cloud_down.is_collision);
+            
+            
+        }  
+        
+        /* 
         //如果没碰撞过,设置坐标
         if (this.is_collision == false){
             //设置碰撞坐标
@@ -87,7 +111,7 @@ cc.Class({
             cc.log("没碰撞过,设置坐标");
             //this.unRegisterEvent();
         }
-        
+        */
         //cc.zc.pos_collision = self.node.getPosition();
         //cc.log("碰撞了->>(other,self)", this.pos_collision, other.node.name, self.node.name, other.node.getPosition(), self.node.getPosition(), other);
         //cc.log("碰撞了->>", this.pos_collision);
