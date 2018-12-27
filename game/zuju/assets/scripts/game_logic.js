@@ -71,8 +71,15 @@ cc.Class({
      */
     on_xhg_ske_success_end_listener(){
         cc.log("小汉哥动画播放完毕  called-->>",this.xhg_ske);
-        this.xhg_ske.node.active = false;  //小汉哥动画隐藏 
-        this.scheduleOnce(function(){    cc.director.loadScene("game_scene");},1); //重来
+        this.xhg_ske.node.active = false;  //小汉哥动画隐藏
+        if (cc.zc.lesson < cc.zc.INFO.length  ){//判断是否完成练习
+            this.scheduleOnce(function(){    cc.director.loadScene("game_scene");},1); //重来
+        }else{
+            cc.log("你已经完成这次练习");
+            this.http_game_sucess();            //把练习完成的数据上传到服务器
+            this.unscheduleAllCallbacks(this);  //停止该组件所有的定时器
+            this.scheduleOnce(function(){this.popup.active = true;},1); //显示弹出框
+        }
     },
     /**
      * 小汉哥失败动画播放完毕事件处理
@@ -155,16 +162,8 @@ cc.Class({
                 this.xhg_ske.clearTracks();//清理指定管道的索引         
                 this.xhg_ske.setAnimation(0,"chenggong",false)//播放一次
                 cc.zc.audio_mgr.playSFX("win.mp3");   //播放失败的声音
-                if (cc.zc.lesson < cc.zc.INFO.length  ){//判断是否完成练习
-                    //延时2秒重入场景
-                    // this.scheduleOnce(function(){    cc.director.loadScene("game_scene");},3);
-                    this.xhg_ske.getComponent(sp.Skeleton).setCompleteListener(this.on_xhg_ske_success_end_listener.bind(this));//监听小汉哥动画播放完毕事件
-                }else{
-                    cc.log("你已经完成这次练习");
-                    this.unscheduleAllCallbacks(this);  //停止该组件所有的定时器
-                    this.http_game_sucess();            //把练习完成的数据上传到服务器
-                    this.scheduleOnce(function(){this.popup.active = true;},3); //显示弹出框
-                }
+                this.xhg_ske.getComponent(sp.Skeleton).setCompleteListener(this.on_xhg_ske_success_end_listener.bind(this));//监听小汉哥动画播放完毕事件
+                
             }else{//回到错误
                 cc.log("回答错误");
                 cc.zc.audio_mgr.playSFX("fail.mp3");   //播放失败的声音
@@ -185,9 +184,15 @@ cc.Class({
      * 显示云朵运动的文字
      */
     show_sentence() {
+
         for(var i = 0;i < 4 ; i++){
             //
-            this.cloud_up[i].node.getChildByName("label").getComponent(cc.Label).string  = cc.zc.INFO[cc.zc.lesson].segment[i];
+            if(cc.zc.INFO[cc.zc.lesson].segment[i] == ""){
+                this.cloud_up[i].node.setPosition(this.cloud_down[i].node.getPosition());
+            }else{
+                this.cloud_up[i].node.getChildByName("label").getComponent(cc.Label).string  = cc.zc.INFO[cc.zc.lesson].segment[i];
+            }
+            
             //cc.log(this.cloud_up[i].node.getChildByName("label").getComponent(cc.Label).string);
         }
     },

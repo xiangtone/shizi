@@ -77,7 +77,7 @@ cc.Class({
         //获取webview传过来的参数 ?video_id=1&user_id=2
         cc.zc.http_args = this.urlParse();
         cc.log("传入游戏的HTTP参数--->",cc.zc.http_args);
-        cc.zc.http_args.video_id = 9;//lltest用的id     
+        //cc.zc.http_args.video_id = 9;//lltest用的id     
         
          
     },
