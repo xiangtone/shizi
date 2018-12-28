@@ -1,0 +1,50 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "cloud_clip",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.7,
+  "sample": 30,
+  "speed": 1,
+  "wrapMode": "1",
+  "curveData": {
+    "paths": {},
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "b42028d5-bbfc-40f3-9d76-2123a5a3366e"
+            }
+          },
+          {
+            "frame": 0.16666666666666666,
+            "value": {
+              "__uuid__": "bda0841b-2ac0-49e1-950f-1430761ee40a"
+            }
+          },
+          {
+            "frame": 0.3333333333333333,
+            "value": {
+              "__uuid__": "e89fc62e-421e-4e7a-97db-20e3c2d33f91"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "5496228e-e05c-478c-93aa-1c5bfec6110f"
+            }
+          },
+          {
+            "frame": 0.6666666666666666,
+            "value": {
+              "__uuid__": "b8efa6ce-db10-43c0-b80a-7b449756da1e"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

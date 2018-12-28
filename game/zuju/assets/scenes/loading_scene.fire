@@ -311,7 +311,7 @@
     "loop": true,
     "_premultipliedAlpha": true,
     "_N$skeletonData": {
-      "__uuid__": "5ee17354-ce19-4914-abac-f8019a267ef7"
+      "__uuid__": "b932f9cd-70c0-4587-a8e2-16438f907787"
     },
     "_N$timeScale": 1,
     "_N$debugSlots": false,
@@ -330,7 +330,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 11

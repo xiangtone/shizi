@@ -78,10 +78,7 @@ cc.Class({
         cc.zc.http_args = this.urlParse();
         cc.log("传入游戏的HTTP参数--->",cc.zc.http_args);
         //cc.zc.http_args.video_id = 9;//lltest用的id     
-        //加载网络数据 
-        var url = cc.zc.global.URL+"&video_id="+cc.zc.http_args.video_id;
-        cc.log("获取数据url=",url);
-        this.start_http_get(url);
+        
          
     },
     /**
@@ -108,6 +105,7 @@ cc.Class({
         }
         return params;
     },
+    
     /**
      * 预加载网络数据
      */
@@ -120,37 +118,48 @@ cc.Class({
             cc.log(err,data);
             
             if(err == false){
-                self._is_loading = false;
+                
                 self._state_str = "联网出错,请检查网络!";
                 //cc.log("联网出错,请检查网络");
             }else{
                 self._state_str = "联网成功";
                 var jsonD = JSON.parse(data);
                 cc.zc.INFO = jsonD;
+                cc.log(cc.zc.INFO);
+                cc.zc.sentence = new Array();
+                var arr = [];
                 //数据为空-->>提示错误
                 if(cc.zc.INFO.length == 0){
                     self._state_str = "这个章节没有数据,请联系管理员";
-
                     //游戏资源为空,进入按钮设置不可用
                     self.btn_enter.interactable = false;
                     self.btn_enter.node.active = true;
-
-                    /*
-                    var target = self.btn_enter.node.getChildByName("img_loading_light");
-                    
-                    var repeat = cc.moveBy(1, cc.v2(250, 0)) ;//cc.repeatForever();
-                   
-                    target.runAction(repeat);
-                    cc.log("光图", self.btn_enter.node.getChildByName("img_loading_light"));
-                    */
-                    //cc.log("进入按钮", self.btn_enter);
-                    
                     return;
+                }else{//有游戏数据-->整理游戏数据
+                     //设置课程
+                    cc.zc.lesson = 0;
+                    cc.zc.total_lesson = cc.zc.INFO.length;                   
+                    // for(var i =0 ; i<cc.zc.INFO.length;i++){
+                    //     arr[0] = cc.zc.INFO[i].segment1;
+                    //     arr[1] = cc.zc.INFO[i].segment2;
+                    //     arr[2] = cc.zc.INFO[i].segment3;
+                    //     arr[3] = cc.zc.INFO[i].segment4;
+                        
+                    //     //cc.log(arr);
+                    //     var temp = {
+                    //         sentence:cc.zc.INFO[i].segment1+cc.zc.INFO[i].segment2+cc.zc.INFO[i].segment3+cc.zc.INFO[i].segment4,
+                    //         rand_segments:arr.concat(),
+                    //         voice_url:cc.zc.INFO[i].voice_url
+                    //     }
+                    //     // var temp = {};
+                    //     // temp.sentence = cc.zc.INFO[i].segment1+cc.zc.INFO[i].segment2+cc.zc.INFO[i].segment3+cc.zc.INFO[i].segment4;
+                    //     // temp.rand_segments = arr.concat();
+                    //     // temp.voice_url = cc.zc.INFO[i].voice_url;
+                    //     cc.zc.sentence[i] =temp;
+                    // }
+                    // cc.log(cc.zc.sentence);
                 }
-                //设置课程
-                cc.zc.lesson = 0;
-                cc.zc.total_lesson = cc.zc.INFO.length;
-
+               
                 
                 self.onload_complete();
             }
@@ -173,10 +182,16 @@ cc.Class({
                     self._progress = completedCount / totalCount;
                 }
             },
-            function (err, assets, item) {
+            function (err, assets, item) {//资源加载完成
                 cc.log("onComplete-->>", err, assets);
-                console.log("onComplete-->>", err, assets);
-                //cc.zc.audio_mgr.playBGM("background.mp3");//播放背景音乐
+                
+                self._is_loading = false;
+                
+                cc.zc.audio_mgr.playBGM("background.mp3");//播放背景音乐
+                //加载网络数据 
+                var url = cc.zc.global.URL+"&video_id="+cc.zc.http_args.video_id;
+                cc.log("获取数据url=",url);
+                self.start_http_get(url);
                 
             });
     
@@ -195,9 +210,10 @@ cc.Class({
     onload_complete() {
         this._is_loading = false;
         this._state_str = "加载资源完成";
-        
-        //进入游戏按钮显示
+        this.btn_enter.interactable = true;
         this.btn_enter.node.active = true;
+        
+        
         //
         
     },
