@@ -146,11 +146,31 @@ $this->params['active_nav_group'] = 2;
         if (!$("input[name='segment1']").val()) {
             btn.btnReset();
             $.myAlert({
-                content: '请输入至少输入一个分段'
+                content: '请输入分段1'
             });
             return;
         }
-        
+        if (!$("input[name='segment2']").val()) {
+            btn.btnReset();
+            $.myAlert({
+                content: '请输入分段2'
+            });
+            return;
+        }
+        if (!$("input[name='segment3']").val()) {
+            btn.btnReset();
+            $.myAlert({
+                content: '请输入分段3'
+            });
+            return;
+        }
+        if (!$("input[name='segment4']").val()) {
+            btn.btnReset();
+            $.myAlert({
+                content: '请输入分段4'
+            });
+            return;
+        }
         /*
         if (!$("input[name='voice_url']").val()) {
             btn.btnReset();

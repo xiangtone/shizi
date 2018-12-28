@@ -18,6 +18,7 @@ cc.Class({
         cloud_up: [cc.Sprite],//上面的云朵
         cloud_down:[cc.Sprite],//下面的云朵
         xhg_ske:sp.Skeleton,
+        xhg_anim_jump:cc.Node,
         popup:{
             type:cc.Node,
             default:null,
@@ -131,6 +132,17 @@ cc.Class({
         
     },
     /**
+     *   小汉哥组句失败动画播放完成的监听
+     */
+    on_anim_xhg_jump_end_listener(){
+        cc.log("小汉哥跳崖自杀");
+        
+        this.xhg_anim_jump.getComponent(cc.Animation).node.active = false;
+        
+        this.scheduleOnce(function(){    cc.director.loadScene("game_scene");},1); //重来        
+        
+    },
+    /**
      * 检查游戏是否完成
      */
     is_game_compelete(){
@@ -166,17 +178,25 @@ cc.Class({
                 
             }else{//回到错误
                 cc.log("回答错误");
-                cc.zc.audio_mgr.playSFX("fail.mp3");   //播放失败的声音
+                /*
                 //wrong--播放小汉哥失败动画 
                 this.xhg_ske.clearTracks();//清理指定管道的索引         
                 var e = this.xhg_ske.setAnimation(0,"shibai",false )//播放一次
                 this.xhg_ske.getComponent(sp.Skeleton).setCompleteListener(this.on_xhg_ske_fail_end_listener.bind(this));//监听小汉哥动画播放完毕事件
                 //this.xhg_ske.getComponent(sp.Skeleton).setTrackEndListener(e,this.on_xhg_ske_fail_end_listener.bind(this));
-                this.cloud_down_disp(); //下面的云朵消失
-               
-                //cc.log(this.cloud_up[0].node.getChildByName("anim_cloud_disp").getComponent(cc.Animation));
+                */
+               //小汉哥往前走跳动画
+                this.xhg_ske.node.active = false;  //小汉哥动画隐藏 
+                this.xhg_anim_jump.getComponent(cc.Animation).node.active = true;
+                this.xhg_anim_jump.getComponent(cc.Animation).on('finished', this.on_anim_xhg_jump_end_listener, this);
+                this.xhg_anim_jump.getComponent(cc.Animation).play("xhg_jump_clip");
+                //延时配合动画播放声音和云朵消失
+                this.scheduleOnce(function(){  
+                    this.cloud_down_disp(); 
+                    cc.zc.audio_mgr.playSFX("fail.mp3");   //播放失败的声音
+                },0.5); //重来  
                 
-             
+                //cc.log(this.cloud_up[0].node.getChildByName("anim_cloud_disp").getComponent(cc.Animation));
             }
         }
     },
@@ -197,13 +217,11 @@ cc.Class({
         }
     },
     
-   
+    
     //游戏开始
     start () {
         this.show_sentence();//展示文字
         this.xhg_ske.node.active = true;//展示小汉哥正常状态动画
-        
-      
         this.play_word_voice();//循环播放 句子的声音
         this.registerEvent();//用于监听子节点向上冒泡的触摸事件
         
