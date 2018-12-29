@@ -109,7 +109,7 @@ class GameController extends Controller
             'id' => $id,
         ]);
         //echo $id;echo $video_id;return;
-        //var_dump($classes);die();
+        //var_dump($exWord);die();
         if (!$exWord) {
             $exWord = new ExWord();
         }

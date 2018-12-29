@@ -69,23 +69,24 @@ $this->params['active_nav_group'] = 2;
                                 <input class="form-control" name="target_word" value="<?= $exWord->target_word ? $exWord->target_word : '' ?>">
 
                             </div>
+                            
                         </div>
                         <div class="form-group row">
                             <div class="col-2 text-right">
-                                <label class=" col-form-label required">多媒体链接</label>
+                                <label class=" col-form-label required" >多媒体链接</label>
                             </div>
                             <div class="col-9">
                             <div class="video-picker" data-url="<?= $urlManager->createUrl(['upload/video']) ?>">
                                 <div class="input-group">
                                     <input class="video-picker-input video form-control" name="voice_url"
-                                           value="<?= $list['video_url'] ?>" placeholder="请输入多媒体链接源地址或者选择上传多媒体">
+                                           value="<?= $exWord->voice_url ? $exWord->voice_url:''?>" placeholder="请输入多媒体链接源地址或者选择上传多媒体">
                                     <a href="javascript:" class="btn btn-secondary video-picker-btn">选择多媒体</a>
                                 </div>
                                 <a class="video-check"
-                                   href="<?= $list['video_url'] ? $list['video_url'] : "javascript:" ?>"
+                                   href="<?= $exWord->voice_url ? $exWord->voice_url : "javascript:" ?>"
                                    target="_blank">预览</a>
                                 <video id="myVideo" hidden
-                                       src="<?= $list['video_url'] ? $list['video_url'] : "" ?>"></video>
+                                       src="<?= $exWord->voice_url ? $exWord->voice_url : "" ?>"></video>
                                 <div class="video-preview"></div>
                                 <div><span class="text-info">支持格式MP3;不支持中文名文件上传</span></div>
                                 <div class="text-danger video-type-error"></div>
