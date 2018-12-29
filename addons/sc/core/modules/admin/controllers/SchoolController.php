@@ -27,29 +27,21 @@ class SchoolController extends Controller
         ]);
     }
 
-    /**
-     * 审核、取消审核
-     */
-    public function actionStatus($id=null,$status=0)
+    public function actionEdit($id = null)
     {
-        $teacher = Teacher::findOne(['id'=>$id]);
-        if(!$teacher){
-            $this->renderJson([
-                'code'=>1,
-                'msg'=>'记录不存在'
-            ]);
+        $item = School::findOne(['id' => $id, ]);
+        if (!$item)
+            $item = new School();
+        if (\Yii::$app->request->isPost) {
+            $form = new SchoolForm();
+            $form->school = $item;
+            $form->store_id = $this->store->id;
+            $form->attributes = \Yii::$app->request->post();
+            $this->renderJson($form->save());
         }
-        $teacher->status = $status;
-        if($teacher->save()){
-            $this->renderJson([
-                'code'=>0,
-                'msg'=>'成功'
-            ]);
-        }else{
-            $this->renderJson([
-                'code'=>1,
-                'msg'=>'db更新失败'
-            ]);
-        }
+        return $this->render('edit', [
+            'school' => $item
+        ]);
     }
+
 }

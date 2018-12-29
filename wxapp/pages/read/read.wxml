@@ -1,0 +1,31 @@
+<!-- pages/cat/cat.wxml -->
+<import src="/commons/bg/bg.wxml" />
+<template is="bg" data="{{store: store,a:2}}" />
+<import src="/commons/float-icon/float-icon.wxml" />
+<template is="item" data="{{store: store,a:2,shareShow:0}}" />
+<view class='flex-x-center flex-y-center' style='width:750rpx;height:500rpx'>
+  <view style='font-size:200rpx'>口</view>
+</view>
+<view class='flex-x-center flex-y-center .flex-col' style='width:750rpx;height:500rpx'>
+  <view class='flex-y-center flex-x-center' bindtap='playTeacher' style='font-size:30rpx;color:#fff;width:290rpx;height:103rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/d4/d449a77a6cb2c57cbb50902ed3f09003.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+    <view style='position:absolute;top:20rpx'>听老师读</view>
+  </view>
+  <view>
+    <view class='flex-y-center flex-x-center' bindtap='record' style='font-size:30rpx;color:#fff;width:290rpx;height:103rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/f3/f3bc8b1bb0c83de1c3ba91f3e960083c.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+      <view style='position:absolute;top:20rpx'>{{recordStatus?'停止录音':'自己读'}}</view>
+    </view>
+    <view class='flex-y-center flex-x-center' bindtap='playRecord' style='font-size:30rpx;color:#fff;width:290rpx;height:103rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/d4/d449a77a6cb2c57cbb50902ed3f09003.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+      <view style='position:absolute;top:20rpx'>{{tempFilePath?'听自己读':''}}</view>
+    </view>
+  </view>
+  <view class='flex-y-center flex-x-center' bindtap='next' style='font-size:30rpx;color:#fff;width:290rpx;height:103rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/f3/f3bc8b1bb0c83de1c3ba91f3e960083c.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+      <view style='position:absolute;top:20rpx'>下一个字</view>
+    </view>
+  <!-- <view bindtap='playTeacher'>听老师读</view>
+  <view bindtap='record'>{{recordStatus?'停止录音':'自己读'}}</view>
+  <view bindtap='playRecord'>{{tempFilePath?'听自己读':''}}</view>
+  <view bindtap='next'>下一个字</view> -->
+</view>
+<view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
+  <image style="width: 160rpx;height: 251rpx" src="/images/loading.svg"></image>
+</view>

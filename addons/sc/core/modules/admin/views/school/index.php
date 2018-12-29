@@ -20,16 +20,17 @@ $this->params['active_nav_group'] = 3;
     </div>
 </div>
 <div class="main-body p-3" id="app">
+<a href="<?=$urlManager->createUrl(['admin/school/edit'])?>" class="btn btn-primary">
+        添加</a>
     <div class="float-right mb-4">
         <form method="get">
-
             <?php $_s = ['keyword']?>
             <?php foreach ($_GET as $_gi => $_gv): if (in_array($_gi, $_s)) {
         continue;
     }
     ?>
-	                <input type="hidden" name="<?=$_gi?>" value="<?=$_gv?>">
-	            <?php endforeach;?>
+				<input type="hidden" name="<?=$_gi?>" value="<?=$_gv?>">
+		<?php endforeach;?>
 
             <div class="input-group">
                 <input class="form-control" placeholder="微信昵称" name="keyword" autocomplete="off"
@@ -43,7 +44,7 @@ $this->params['active_nav_group'] = 3;
         <thead>
         <tr>
             <td><input type="checkbox" class="check-all">ID</td>
-            
+
             <td>用户名</td>
             <td>加入时间</td>
 
@@ -55,13 +56,14 @@ $this->params['active_nav_group'] = 3;
             <tr>
 
                 <td><input type="checkbox" class="check" value="<?=$value['id']?>"><?=$value['id']?></td>
-                
+
                 <td><?=$value['username']?></td>
                 <!-- <td><?=date('Y-m-d H:i:s', $value['enjoytime'])?></td> -->
-                <td><?= $value['enjoytime']?></td>
+                <td><?=$value['enjoytime']?></td>
 
                 <td>
-                    
+                <a class="btn btn-sm btn-primary"
+                               href="<?=$urlManager->createUrl(['admin/school/edit', 'id' => $value['id']])?>">修改</a>
                 </td>
             </tr>
         <?php endforeach;?>

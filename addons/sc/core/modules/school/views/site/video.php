@@ -19,4 +19,7 @@ function playVideo(video_url){
   // video.src = video_url
   video.play();
 }
+window.onload = function(){
+  $('#videoPlayer').bind('contextmenu',function() { return false; });
+};
 </script>

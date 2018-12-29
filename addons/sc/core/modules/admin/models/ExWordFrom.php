@@ -44,9 +44,6 @@ class ExWordFrom extends Model
             [['target_word'], 'string', 'max' => 20],
             [['keyword'], 'trim'],
             [['keyword','voice_url'], 'string'],
-            
-            
-            
         ];
     }
 
