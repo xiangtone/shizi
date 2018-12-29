@@ -15,7 +15,7 @@ use app\models\ExChar;
  */
 class ExCharForm extends Model
 {
-    public $exWord;
+    public $exChar;
     public $keyword;
     public $limit;
     public $page;
@@ -96,11 +96,11 @@ class ExCharForm extends Model
             return $this->getModelError();
         }
 
-        $this->exWord->video_id = $this->video_id;
-        $this->exWord->new_word = $this->new_word;
-        $this->exWord->voice_url = $this->voice_url;
+        $this->exChar->video_id = $this->video_id;
+        $this->exChar->new_word = $this->new_word;
+        $this->exChar->voice_url = $this->voice_url;
 
-        if ($this->exWord->save()) {
+        if ($this->exChar->save()) {
             return [
                 'code' => 0,
                 'msg' => '成功',

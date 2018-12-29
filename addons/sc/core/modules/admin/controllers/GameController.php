@@ -36,18 +36,18 @@ class GameController extends Controller
 
     public function actionCharEdit($id = null, $video_id = null){
         //根据id查询是否有记录,有记录就是修改,没有就是添加
-        $exWord = ExChar::findOne([
+        $exChar = ExChar::findOne([
             'id' => $id,
         ]);
         //echo $id;echo $video_id;return;
         //var_dump($classes);die();
-        if (!$exWord) {
-            $exWord = new ExChar();
+        if (!$exChar) {
+            $exChar = new ExChar();
         }
         if (\Yii::$app->request->isPost) {
 
             $form = new ExCharForm();
-            $form->exWord = $exWord;
+            $form->exChar = $exChar;
             $form->attributes = \Yii::$app->request->post();
 
             // $this->renderJson([
@@ -57,7 +57,7 @@ class GameController extends Controller
             $this->renderJson($form->save());
         } else {
             return $this->render('char-edit', [
-                'exWord' => $exWord,
+                'exChar' => $exChar,
                 'video_id' => $video_id,
             ]);
         }

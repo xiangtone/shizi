@@ -57,7 +57,7 @@ $this->params['active_nav_group'] = 2;
                                 <label class="col-form-label required">生字</label>
                             </div>
                             <div class="col-5">
-                                <input class="form-control" name="new_word" value="<?= $exWord->new_word ? $exWord->new_word : '' ?>">
+                                <input class="form-control" name="new_word" value="<?= $exChar->new_word ? $exChar->new_word : '' ?>">
 
                             </div>
                         </div>
@@ -69,14 +69,15 @@ $this->params['active_nav_group'] = 2;
                             <div class="video-picker" data-url="<?= $urlManager->createUrl(['upload/video']) ?>">
                                 <div class="input-group">
                                     <input class="video-picker-input video form-control" name="voice_url"
-                                           value="<?= $list['video_url'] ?>" placeholder="请输入多媒体链接源地址或者选择上传多媒体">
+                                           value="<?= $exChar->voice_url ? $exChar->voice_url:'' ?>" placeholder="请输入多媒体链接源地址或者选择上传多媒体">
                                     <a href="javascript:" class="btn btn-secondary video-picker-btn">选择多媒体</a>
                                 </div>
-                                <a class="video-check"
-                                   href="<?= $list['video_url'] ? $list['video_url'] : "javascript:" ?>"
-                                   target="_blank">预览</a>
+                                <audio src="<?= $exChar->voice_url ? $exChar->voice_url:'' ?>" controls="controls"></audio>
+                                <!-- <a class="video-check"
+                                   href="<?= $exChar->voice_url ? $exChar->voice_url : "javascript:" ?>"
+                                   target="_blank">预览</a> -->
                                 <video id="myVideo" hidden
-                                       src="<?= $list['video_url'] ? $list['video_url'] : "" ?>"></video>
+                                       src="<?= $exChar->voice_url ? $exChar->voice_url:'' ?>"></video>
                                 <div class="video-preview"></div>
                                 <div><span class="text-info">支持格式MP3;不支持中文名文件上传</span></div>
                                 <div class="text-danger video-type-error"></div>

@@ -82,9 +82,10 @@ $this->params['active_nav_group'] = 2;
                                            value="<?= $exWord->voice_url ? $exWord->voice_url:''?>" placeholder="请输入多媒体链接源地址或者选择上传多媒体">
                                     <a href="javascript:" class="btn btn-secondary video-picker-btn">选择多媒体</a>
                                 </div>
-                                <a class="video-check"
+                                <!-- <a class="video-check"
                                    href="<?= $exWord->voice_url ? $exWord->voice_url : "javascript:" ?>"
-                                   target="_blank">预览</a>
+                                   target="_blank">预览</a> -->
+                                <audio src="<?= $exWord->voice_url ? $exWord->voice_url:''?>" controls="controls"></audio>
                                 <video id="myVideo" hidden
                                        src="<?= $exWord->voice_url ? $exWord->voice_url : "" ?>"></video>
                                 <div class="video-preview"></div>
