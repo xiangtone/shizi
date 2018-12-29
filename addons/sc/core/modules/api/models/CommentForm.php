@@ -10,6 +10,7 @@ namespace app\modules\api\models;
 
 
 use app\models\Comment;
+use app\models\Video;
 use app\models\User;
 use yii\helpers\Html;
 
@@ -86,6 +87,9 @@ class CommentForm extends Model
         $comment->video_id = $this->video_id;
         $comment->upload_img = $this->upload_img;
         if ($comment->save()) {
+            $video = Video::findOne(['id' => $this->video_id]);
+            $video->comment_count = $video->comment_count +1;
+            $video->save();
             return [
                 'code' => 0,
                 'msg' => '成功'

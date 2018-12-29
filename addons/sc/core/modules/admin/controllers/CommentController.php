@@ -8,8 +8,8 @@
 
 namespace app\modules\admin\controllers;
 
-
 use app\models\Comment;
+use app\models\Video;
 use app\modules\admin\models\CommentListForm;
 
 class CommentController extends Controller
@@ -23,7 +23,7 @@ class CommentController extends Controller
         return $this->render('index', [
             'list' => $arr['list'],
             'pagination' => $arr['pagination'],
-            'row_count' => $arr['row_count']
+            'row_count' => $arr['row_count'],
         ]);
     }
 
@@ -33,20 +33,25 @@ class CommentController extends Controller
         if (!$comment) {
             $this->renderJson([
                 'code' => 1,
-                'msg' => '评论已删除'
+                'msg' => '评论已删除',
             ]);
         }
         $comment->is_delete = 1;
         if ($comment->save()) {
-            Comment::updateAll(['is_delete' => 1,], ['store_id' => $this->store->id, 'top_id' => $comment->id]);
+            Comment::updateAll(['is_delete' => 1], ['store_id' => $this->store->id, 'top_id' => $comment->id]);
+            $video = Video::findOne(['id' => $comment->video_id]);
+            if ($video->comment_count > 0) {
+                $video->comment_count = $video->comment_count - 1;
+                $video->save();
+            }
             $this->renderJson([
                 'code' => 0,
-                'msg' => '删除成功'
+                'msg' => '删除成功',
             ]);
         } else {
             $this->renderJson([
                 'code' => 1,
-                'msg' => '网络异常'
+                'msg' => '网络异常',
             ]);
         }
 
@@ -55,11 +60,11 @@ class CommentController extends Controller
     public function actionBatch()
     {
         $get = \Yii::$app->request->get();
-        Comment::updateAll(['is_delete'=>1],['and',['store_id'=>$this->store->id],['in','id',$get['check']]]);
-        Comment::updateAll(['is_delete'=>1],['and',['store_id'=>$this->store->id],['in','top_id',$get['check']]]);
+        Comment::updateAll(['is_delete' => 1], ['and', ['store_id' => $this->store->id], ['in', 'id', $get['check']]]);
+        Comment::updateAll(['is_delete' => 1], ['and', ['store_id' => $this->store->id], ['in', 'top_id', $get['check']]]);
         $this->renderJson([
-            'code'=>0,
-            'msg'=>'删除成功'
+            'code' => 0,
+            'msg' => '删除成功',
         ]);
     }
 }
