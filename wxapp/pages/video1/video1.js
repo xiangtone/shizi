@@ -205,7 +205,7 @@ Page({
     var video = this.data.video;
     var result = {
       title: video.title,
-      path: "/pages/video/video?id=" + video.id,
+      path: "/pages/video1/video1?id=" + video.id,
       imageUrl: video.pic_url,
       success: function(res) {
         wx.showToast({

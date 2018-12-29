@@ -46,8 +46,8 @@ $this->params['active_nav_group'] = 2;
                     <?= \app\widgets\ImageUpload::widget([
                         'name' => 'model[pic_url]',
                         'value' => $list['pic_url'],
-                        'width' => 300,
-                        'height' => 300,
+                        'width' => 360,
+                        'height' => 200,
                     ]) ?>
                 </div>
             </div>

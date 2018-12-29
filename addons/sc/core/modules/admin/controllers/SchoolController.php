@@ -9,14 +9,14 @@
 namespace app\modules\admin\controllers;
 
 
-use app\models\Teacher;
-use app\modules\admin\models\TeacherForm;
+use app\models\School;
+use app\modules\admin\models\SchoolForm;
 
-class TeacherController extends Controller
+class SchoolController extends Controller
 {
     public function actionIndex()
     {
-        $form = new TeacherForm();
+        $form = new SchoolForm();
         $form->store_id = $this->store->id;
         $form->attributes = \Yii::$app->request->get();
         $arr = $form->search();

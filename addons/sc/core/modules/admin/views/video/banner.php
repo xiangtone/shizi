@@ -32,7 +32,7 @@ $this->params['active_nav_group'] = 2;
             <?php foreach ($list as $index => $value): ?>
                 <div class="col-12 col-sm-6 col-md-3 col-xl-2 mb-4">
                     <div class="card">
-                        <div class="card-img-top" data-responsive="750:590"
+                        <div class="card-img-top" data-responsive="650:410"
                              style="background: url(<?= $value['banner_url'] ?>) no-repeat;background-size: cover;background-position: center">
                         </div>
                         <div class="card-body p-3">

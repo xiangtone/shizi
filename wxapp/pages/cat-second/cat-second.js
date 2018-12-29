@@ -44,7 +44,6 @@ Page({
    */
   onReady: function() {
     app.pageOnReady(this);
-
   },
 
   /**
@@ -75,11 +74,12 @@ Page({
             return;
           }
           page.setData({
-            video_list: res.data.list
+            video_list: res.data.list,
+            cat_name: res.data.cat_name
           });
-          wx.setNavigationBarTitle({
-            title: res.data.cat_name,
-          });
+          // wx.setNavigationBarTitle({
+          //   title: res.data.cat_name,
+          // });
         }
       },
       complete: function() {

@@ -70,7 +70,11 @@ $this->params['active_nav_group'] = 2;
                     <td><?= $value['segment2'] ?></td>
                     <td><?= $value['segment3'] ?></td>
                     <td><?= $value['segment4'] ?></td>
-                    <td><?= $value['voice_url'] ?></td>
+                    <td>
+                    <?php if ($value['voice_url']): ?>
+                    <audio src="<?=$value['voice_url']?>" controls="controls"></audio>
+                    <?php endif;?>
+                    </td>
 
                     <td>
 

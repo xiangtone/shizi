@@ -1,19 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2017/10/12
- * Time: 9:48
- */
 
 namespace app\modules\admin\models;
 
 
 use app\models\Order;
+use app\models\School;
 use app\models\User;
 use yii\data\Pagination;
 
-class UserForm extends Model
+class SchoolForm extends Model
 {
     public $store_id;
 
@@ -40,25 +35,16 @@ class UserForm extends Model
         if (!$this->validate())
             return $this->getModelError();
 
-        $query = User::find()->alias('u')->where([
-            'u.store_id' => $this->store_id,
-            'u.is_delete' => 0,
-            'u.type' => 1
+        $query = School::find()->where([
+            
         ]);
 
-        $query->andWhere(['like', 'u.nickname', $this->keyword]);
+        // $query->andWhere(['like', 'u.nickname', $this->keyword]);
 
         $count = $query->count();
         $p = new Pagination(['totalCount' => $count, 'pageSize' => $this->limit, 'page' => $this->page - 1]);
-        $query->leftJoin(User::tableName() . ' tu', 'tu.id=u.teacher_id')->select([
-            'u.*', 'tu.nickname as t_nickname','tu.avatar_url as t_avatar_url'
-        ]);
-        $list = $query->orderBy(['addtime' => SORT_DESC])->limit($p->limit)->offset($p->offset)->asArray()->all();
-        foreach ($list as $index => $value) {
-            $video_count = Order::find()->where(['is_pay' => 1, 'store_id' => $this->store_id, 'type' => 1, 'user_id' => $value['id']])->count();
-            $list[$index]['video_count'] = $video_count;
-            $list[$index]['due_time'] = $value['due_time'] ? date('Y-m-d', $value['due_time']) : '无';
-        }
+        $list = $query->orderBy(['id' => SORT_DESC])->limit($p->limit)->offset($p->offset)->asArray()->all();
+        
         return [
             'list' => $list,
             'pagination' => $p,

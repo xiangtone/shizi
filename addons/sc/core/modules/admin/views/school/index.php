@@ -1,16 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2017/10/12
- * Time: 9:58
- */
+
 defined('YII_RUN') or exit('Access Denied');
 
 use yii\widgets\LinkPager;
 
 $urlManager = Yii::$app->urlManager;
-$this->title = '用户列表';
+$this->title = '学校列表';
 $this->params['active_nav_group'] = 3;
 ?>
 <div class="main-nav" flex="cross:center dir:left box:first">
@@ -25,14 +20,6 @@ $this->params['active_nav_group'] = 3;
     </div>
 </div>
 <div class="main-body p-3" id="app">
-    <div class="float-left">
-        <a href="javascript:void(0)" class="btn btn-danger batch"
-           data-url="<?=$urlManager->createUrl(['admin/user/batch'])?>" data-content="是否确认禁言？"
-           data-type="1">批量禁言</a>
-        <a href="javascript:void(0)" class="btn btn-primary batch"
-           data-url="<?=$urlManager->createUrl(['admin/user/batch'])?>" data-content="是否确认禁言？"
-           data-type="0">批量解除</a>
-    </div>
     <div class="float-right mb-4">
         <form method="get">
 
@@ -56,45 +43,25 @@ $this->params['active_nav_group'] = 3;
         <thead>
         <tr>
             <td><input type="checkbox" class="check-all">ID</td>
-            <td>头像</td>
-            <td>昵称</td>
+            
+            <td>用户名</td>
             <td>加入时间</td>
-            <td>绑定手机</td>
-            <td>推荐人</td>
-            <td>购买课程数</td>
-            <td>会员到期时间</td>
-            <td>添加会员</td>
+
             <td>操作</td>
         </tr>
         </thead>
         <tbody>
         <?php foreach ($list as $index => $value): ?>
             <tr>
+
                 <td><input type="checkbox" class="check" value="<?=$value['id']?>"><?=$value['id']?></td>
-                <td><img src="<?=$value['avatar_url']?>" style="width: 30px;height: 30px;"></td>
-                <td><?=$value['nickname']?><br><?=$value['wechat_open_id']?></td>
-                <td><?=date('Y-m-d H:i:s', $value['addtime'])?></td>
-                <td><?=$value['binding']?></td>
+                
+                <td><?=$value['username']?></td>
+                <!-- <td><?=date('Y-m-d H:i:s', $value['enjoytime'])?></td> -->
+                <td><?= $value['enjoytime']?></td>
+
                 <td>
-                    <?php if ($value['t_avatar_url']): ?>
-                    <img src="<?=$value['t_avatar_url']?>" style="width: 30px;height: 30px;"><?=$value['t_nickname']?>
-                    <?php endif;?>
-                </td>
-                <td><?=$value['video_count']?></td>
-                <td><?=$value['due_time']?></td>
-                <td>
-                    <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal" onclick="add_member(<?=$value['id']?>);">添加</button>
-                </td>
-                <td>
-                    <?php if ($value['is_comment'] == 0): ?>
-                        <a class="del" href="javascript:" data-content="是否禁言？"
-                           data-url="<?=$urlManager->createUrl(['admin/user/comment', 'id' => $value['id'], 'status' => 1])?>">禁言</a>
-                    <?php else: ?>
-                        <span class="badge badge-success">已禁言</span>
-                        |
-                        <a class="del" href="javascript:" data-content="是否解除？"
-                           data-url="<?=$urlManager->createUrl(['admin/user/comment', 'id' => $value['id'], 'status' => 0])?>">解除</a>
-                    <?php endif;?>
+                    
                 </td>
             </tr>
         <?php endforeach;?>

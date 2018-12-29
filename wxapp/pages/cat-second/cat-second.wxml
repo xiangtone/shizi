@@ -1,20 +1,54 @@
 <!-- pages/cat-second/cat-second.wxml -->
 <import src="/commons/bg/bg.wxml" />
 <template is="bg" data="{{store: store,a:2}}" />
-<block wx:for='{{video_list}}' wx:key='{{index}}'>
-  <view style='width:100%;padding:20rpx 0;z-index:10'>
-  <navigator url='/pages/video1/video1?id={{item.id}}'>
-    <view class='info flex-y-center' style="width:690rpx;margin:0 auto;border:5px solid #fffce6;box-shadow: 4rpx 10rpx 6rpx 4rpx rgba(140,32,27, 0.5);">
-      <view class='shadow'></view>
-      <image src='{{item.pic_url}}'></image>
-      <view style='width:100%;'>
-        <view class='white-color font-13 title' style='top:30rpx;padding:0 30rpx;position:absolute;text-align:center;font-size:36rpx;text-shadow:-1rpx -1rpx 0 #fff,1rpx 1rpx 0 #333,1rpx 1rpx 0 #444;'>{{item.title}} {{item.content}}</view>
-        <!-- <view class='white-color flex-x-center title' wx:if='{{item.style != 2}}'>
-          时长：{{item.video_time}}
-        </view> -->
+<view style='width:100%;position:relative'>
+  <view class='flex-y-center' style='width:714rpx;height:90rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/3e/3eb936d867741fd6ca9d98d7cee5a7ba.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+    <!-- <image class='w-100 h-100' src="http://www.dushujielong.com/fm/shizi/wxapp/images/course/img_course_class_tablebar1.png" style='position:absolute;top:0;left:0' /> -->
+    <view style='margin:auto;font-size:30rpx;font-weight:700;color:#275359;letter-spacing:4rpx'>
+      <text style="color: #fff;text-shadow: 2rpx 6rpx 8rpx #275359;">{{cat_name}}</text>
+    </view>
+  </view>
+  <view style='width:714rpx;margin: 0 auto;color:#99653b'>
+    <view class="weui-cell class-list-cell-area flex-y-center flex-x-center" style='font-size:33rpx;font-weight:700;height:100rpx;'>
+      目录
+    </view>
+
+    <view class="weui-cell class-list-cell-area flex-y-center flex-x-center" style='font-size:33rpx;font-weight:700;height:200rpx;' wx:for='{{video_list}}' wx:key='{{index}}'>
+      <view class='video-one flex-row' bindtap='goto' data-index='{{index}}'>
+        <view class='flex-grow-0 pic' style="background-image:url('{{item.pic_url}}');">
+        </view>
+        <view class='flex-grow-1' style='padding-top:6rpx;'>
+          <view class='text-more-2' style='font-size:30rpx'>{{item.title}}</view>
+          <view class='flex-row' style='width:100%;justify-content:space-between'>
+            <view style='background-color:#fff;padding:0 20rpx;'>字</view>
+            <view style='background-color:#fff;padding:0 20rpx;'>词</view>
+            <view style='background-color:#fff;padding:0 20rpx;'>句</view>
+          </view>
+        </view>
       </view>
     </view>
-  </navigator>
+
+
+
+    <view class="weui-cell class-list-cell-area flex-x-center without-line " style='width:714rpx;height:10rpx;'></view>
+    <view class='flex-y-center' style='position:absolute;width:714rpx;height:76rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/e8/e8a7c33fa141fb7f7ab82c8f369808fc.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+    </view>
+  </view>
+</view>
+<block wx:for='{{video_list}}' wx:key='{{index}}'>
+  <view style='width:100%;padding:20rpx 0;z-index:10'>
+    <navigator url='/pages/video1/video1?id={{item.id}}'>
+      <view class='info flex-y-center' style="width:690rpx;margin:0 auto;border:5px solid #fffce6;box-shadow: 4rpx 10rpx 6rpx 4rpx rgba(140,32,27, 0.5);">
+        <view class='shadow'></view>
+        <image src='{{item.pic_url}}'></image>
+        <view style='width:100%;'>
+          <view class='white-color font-13 title' style='top:30rpx;padding:0 30rpx;position:absolute;text-align:center;font-size:36rpx;text-shadow:-1rpx -1rpx 0 #fff,1rpx 1rpx 0 #333,1rpx 1rpx 0 #444;'>{{item.title}} {{item.content}}</view>
+          <!-- <view class='white-color flex-x-center title' wx:if='{{item.style != 2}}'>
+          时长：{{item.video_time}}
+        </view> -->
+        </view>
+      </view>
+    </navigator>
   </view>
 </block>
 <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">

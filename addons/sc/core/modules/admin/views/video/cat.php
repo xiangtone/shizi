@@ -26,7 +26,7 @@ $this->params['active_nav_group'] = 2;
             <?php foreach ($list as $index => $value): ?>
                 <div class="col-12 col-sm-6 col-md-3 col-xl-2">
                     <div class="card">
-                        <div class="card-img-top" data-responsive="300:300"
+                        <div class="card-img-top" data-responsive="360:200"
                              style="background: url(<?= $value['pic_url'] ?>) no-repeat;background-size: cover;background-position: center">
                         </div>
                         <div class="card-body p-3">

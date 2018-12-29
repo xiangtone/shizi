@@ -89,7 +89,8 @@ $is_auth = Yii::$app->cache->get('IS_AUTH');
         <div class="nav-group <?=$this->params['active_nav_group'] == 3 ? 'active' : null?>">
             <a href="javascript:"><i class="iconfont icon-person"></i>用户管理</a>
             <div class="sub-nav-list">
-                <a href="<?=$urlManager->createUrl(['admin/user/index'])?>">列表</a>
+                <a href="<?=$urlManager->createUrl(['admin/user/index'])?>">小程序用户</a>
+                <a href="<?=$urlManager->createUrl(['admin/school/index'])?>">学校</a>
                 <!-- <a href="<?=$urlManager->createUrl(['admin/user/clerk'])?>">核销员列表</a> -->
             </div>
         </div>
