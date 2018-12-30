@@ -99,4 +99,25 @@ class ClassesController extends Controller
             ]);
         }
     }
+    
+    /*
+     * 删除班级用户
+     */
+    public function actionDelUser($id)
+    {
+
+        $form = new ClassesForm();
+
+        if ($form->delUser($id)) {
+            $this->renderJson([
+                'code' => 0,
+                'msg' => '刪除成功'
+            ]);
+        } else {
+            $this->renderJson([
+                'code' => 1,
+                'msg' => '刪除失敗'
+            ]);
+        }
+    }
 }

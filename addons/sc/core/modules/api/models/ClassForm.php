@@ -43,29 +43,29 @@ class ClassForm extends Model
 
     public function listClass()
     {
-        if ($this->user_id){
+        if ($this->user_id) {
             //->where(['user_id' => $this->user_id])
             //->where(['uc.user_id=:user_id and c.id>:class_id',array(':class_id'=>0,':user_id'=>$this->user_id)])
             //->andWhere('>','uc.class_id',0)
-            $querySql ='select c.*,ucc.* from (select class_id,count(*) as cc from '.ClassUser::tableName().' where class_id in ( select class_id  from '.ClassUser::tableName().' where user_id='.$this->user_id.') group by class_id)  as ucc left join '.Classes::tableName().' as c on c.id=ucc.class_id';
+            $querySql = 'select c.*,ucc.* from (select class_id,count(*) as cc from ' . ClassUser::tableName() . ' where is_delete=0 and class_id in ( select class_id  from ' . ClassUser::tableName() . ' where is_delete=0 and user_id=' . $this->user_id . ') group by class_id)  as ucc left join ' . Classes::tableName() . ' as c on c.id=ucc.class_id';
             // $queryMyClass = ClassUser::find()->alias('uc')->where(['user_id' => $this->user_id])->leftJoin(Classes::tableName() . 'c', 'c.id=uc.class_id');
             // $my_class_count = $queryMyClass->count();
             // $my_class_list = $queryMyClass->select([
             //     'uc.*', 'c.*',
             // ])->asArray()->all();
-            $my_class_list =  \Yii::$app->db->createCommand($querySql)->queryAll();
+            $my_class_list = \Yii::$app->db->createCommand($querySql)->queryAll();
         }
         $max_top_count = 10;
-        $query_lesson_top = Classes::find()->where(['is_top'=>1]);
-        $list_lesson_top = $query_lesson_top->orderBy(['lesson_top'=> SORT_ASC])->limit($max_top_count)->select([
+        $query_lesson_top = Classes::find()->where(['is_top' => 1]);
+        $list_lesson_top = $query_lesson_top->orderBy(['lesson_top' => SORT_ASC])->limit($max_top_count)->select([
             '*', 'lesson_count as count',
         ])->asArray()->all();
 
-        $query_ex_top = Classes::find()->where(['is_top'=>1]);
-        $list_ex_top = $query_ex_top->orderBy(['ex_top'=> SORT_ASC])->limit($max_top_count)->select([
+        $query_ex_top = Classes::find()->where(['is_top' => 1]);
+        $list_ex_top = $query_ex_top->orderBy(['ex_top' => SORT_ASC])->limit($max_top_count)->select([
             '*', 'ex_count as count',
         ])->asArray()->all();
-        
+
         return [
             'code' => 0,
             'msg' => 'success',
@@ -81,7 +81,7 @@ class ClassForm extends Model
     public function info()
     {
         $class = Classes::find()->where(['id' => $this->class_id])->asArray()->one();
-        $query = ClassUser::find()->alias('uc')->where(['class_id' => $this->class_id])->leftJoin(User::tableName() . 'u', 'u.id=uc.user_id');
+        $query = ClassUser::find()->alias('uc')->where(['class_id' => $this->class_id, 'uc.is_delete' => 0])->leftJoin(User::tableName() . 'u', 'u.id=uc.user_id');
         $count = $query->count();
         $list = $query->select([
             'uc.*', 'u.*',
@@ -100,14 +100,16 @@ class ClassForm extends Model
     public function join()
     {
         $class = Classes::find()->where(['id' => $this->class_id])->asArray()->one();
-        $query = ClassUser::find()->alias('uc')->where(['class_id' => $this->class_id,'user_id' => $this->user_id]);
+        $query = ClassUser::find()->alias('uc')->where(['class_id' => $this->class_id,
+            'user_id' => $this->user_id, 
+            'is_delete' => 0]);
         $count = $query->count();
-        if ($count>0){
+        if ($count > 0) {
             return [
                 'code' => 2,
                 'msg' => '已经加入班级，不能重复加入',
-            ];  
-        }else{
+            ];
+        } else {
             $classUser = new ClassUser();
             $classUser->user_id = $this->user_id;
             $classUser->class_id = $this->class_id;

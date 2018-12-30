@@ -88,7 +88,7 @@ $this->params['active_nav_group'] = 8;
                         <a class="btn btn-sm btn-primary"
                            href="<?=$urlManager->createUrl(['admin/classes/list-user', 'class_id' => $value['class_id']])?>">用户</a>
                         <a class="btn btn-sm btn-danger del" href="javascript:" data-content="是否删除？"
-                           data-url="<?=$urlManager->createUrl(['admin/classes/del', 'id' => $value['id']])?>">删除</a>
+                           data-url="<?=$urlManager->createUrl(['admin/classes/del', 'id' => $value['class_id']])?>">删除</a>
                     </td>
                 </tr>
             <?php endforeach;?>

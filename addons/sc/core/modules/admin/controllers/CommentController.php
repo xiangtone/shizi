@@ -38,10 +38,10 @@ class CommentController extends Controller
         }
         $comment->is_delete = 1;
         if ($comment->save()) {
-            Comment::updateAll(['is_delete' => 1], ['store_id' => $this->store->id, 'top_id' => $comment->id]);
+            $count = Comment::updateAll(['is_delete' => 1], ['store_id' => $this->store->id, 'top_id' => $comment->id])+1;
             $video = Video::findOne(['id' => $comment->video_id]);
-            if ($video->comment_count > 0) {
-                $video->comment_count = $video->comment_count - 1;
+            if ($video->comment_count >= $count) {
+                $video->comment_count = $video->comment_count - $count;
                 $video->save();
             }
             $this->renderJson([

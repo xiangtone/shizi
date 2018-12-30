@@ -13,6 +13,8 @@ use Yii;
  * @property string $create_time
  * @property integer $role
  * @property integer $ex_count
+ * @property integer $lesson_count
+ * @property integer $is_delete
  */
 class ClassUser extends \yii\db\ActiveRecord
 {
@@ -31,7 +33,8 @@ class ClassUser extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'class_id', 'create_time'], 'required'],
-            [['user_id', 'class_id', 'create_time', 'role', 'ex_count'], 'integer'],
+            [['user_id', 'class_id', 'create_time', 'role', 'ex_count', 'lesson_count', 'is_delete'], 'integer'],
+            [['user_id', 'class_id'], 'unique', 'targetAttribute' => ['user_id', 'class_id'], 'message' => 'The combination of 用户Id and 班级id has already been taken.'],
         ];
     }
 
@@ -46,7 +49,9 @@ class ClassUser extends \yii\db\ActiveRecord
             'class_id' => '班级id',
             'create_time' => '创建时间',
             'role' => '0普通1创始人2管理员',
-            'ex_count' => '练习次数-相当于对班级贡献',
+            'ex_count' => '练习次数-班级贡献',
+            'lesson_count' => '购买课程数量-班级贡献',
+            'is_delete' => 'Is Delete',
         ];
     }
 }

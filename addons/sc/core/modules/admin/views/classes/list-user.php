@@ -58,7 +58,8 @@ $this->params['active_nav_group'] = 8;
                 <td><?=$value['nickname']?><br><?=$value['wechat_open_id']?></td>
                 <td><?=date('Y-m-d H:i:s', $value['addtime'])?></td>
                 <td>
-                    
+                <a class="btn btn-sm btn-danger del" href="javascript:" data-content="是否删除？"
+                           data-url="<?=$urlManager->createUrl(['admin/classes/del-user', 'id' => $value['id']])?>">删除</a>
                 </td>
             </tr>
         <?php endforeach;?>
