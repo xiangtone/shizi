@@ -99,6 +99,7 @@ class PayNotifyController extends Controller
         $order->pay_type = 1;
         $order->is_use =0;     //设置为使用,不设置会有问题
         if ($order->save()) {
+            $this->procClassLessonCount($order);
             if($order->type == 0){
                 $wechat_tpl_meg_sender = new WechatTplMsg($order->store_id, $order->id, $wechat);
                 $wechat_tpl_meg_sender->payMsg();//支付成功消息通知
@@ -109,6 +110,13 @@ class PayNotifyController extends Controller
             echo "支付失败";
             return;
         }
+    }
+
+    private function procClassLessonCount($order){
+        $sql = 'update zjhj_video_class_user set lesson_count=lesson_count+1 where user_id = '.$order->user_id;
+        \Yii::$app->db->createCommand($sql)->execute();
+        $sql = 'update zjhj_video_classes set lesson_count=lesson_count+1 where id in (select class_id from zjhj_video_class_user where user_id = '.$order->user_id.')';
+        \Yii::$app->db->createCommand($sql)->execute();
     }
     
     /*
