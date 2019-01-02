@@ -172,7 +172,7 @@ cc.Class({
             }
             cc.log("组句答案=",answer_string);
             //return;
-            this.unRegisterEvent();//注销触摸事件的冒泡
+            this.unscheduleAllCallbacks(this); //停止组件的所有计时器
             cc.zc.audio_mgr.stopNetSfx();//停止音频
             this.unRegisterEvent();//注销触摸事件的冒泡
             //检查练习是否已经完全做完 否-每次递增一课 是-弹出成功动画弹框
