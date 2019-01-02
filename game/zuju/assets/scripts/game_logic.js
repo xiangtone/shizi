@@ -77,9 +77,14 @@ cc.Class({
             this.scheduleOnce(function(){    cc.director.loadScene("game_scene");},1); //重来
         }else{
             cc.log("你已经完成这次练习");
+            
+            
             this.http_game_sucess();            //把练习完成的数据上传到服务器
             this.unscheduleAllCallbacks(this);  //停止该组件所有的定时器
-            this.scheduleOnce(function(){this.popup.active = true;},1); //显示弹出框
+            this.scheduleOnce(function(){
+                cc.zc.audio_mgr.playSFX("pass.mp3");//过关音效
+                this.popup.active = true;
+            },1); //显示弹出框
         }
     },
     /**
@@ -136,10 +141,10 @@ cc.Class({
      */
     on_anim_xhg_jump_end_listener(){
         cc.log("小汉哥跳崖自杀");
-        
-        this.xhg_anim_jump.getComponent(cc.Animation).node.active = false;
-        
-        this.scheduleOnce(function(){    cc.director.loadScene("game_scene");},1); //重来        
+
+        this.scheduleOnce(function(){    
+            this.xhg_anim_jump.getComponent(cc.Animation).node.active = false;//隐藏动画
+            cc.director.loadScene("game_scene");},2); //重来        
         
     },
     /**

@@ -3457,12 +3457,12 @@
     "_paused": false,
     "defaultSkin": "",
     "defaultAnimation": "shibai",
-    "loop": true,
+    "loop": false,
     "_premultipliedAlpha": true,
     "_N$skeletonData": {
       "__uuid__": "0852990a-726a-4005-8a05-8f1f775ca888"
     },
-    "_N$timeScale": 1,
+    "_N$timeScale": 0.7,
     "_N$debugSlots": false,
     "_N$debugBones": false
   },
