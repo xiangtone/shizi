@@ -26,7 +26,7 @@ class ExcompleteController extends Controller
         
         $model = new UserEx();
         //1 对 zjhj_video_user_ex 根据video_id 和 user_id 查找记录，不存在插入，存在则更新
-        $query = $model->find()->where(['user_id' => $user_id,'video_id'=>$video_id])->one();
+        $query = $model->find()->where(['user_id' => $user_id,'video_id'=>$video_id,'ex_type'=>$ex_type])->one();
         //var_dump($query);var_dump($query->video_id);
         if (!$query) {//没有找到记录就插入
             $model->video_id = $video_id;
