@@ -70,18 +70,20 @@
       </view>
     </view>
   </view>
-  <view class="functionBtn">
-    <image src='/images/course/btn_course_dyd_none.png' bindtap='cyllkGame'></image>
+  <view class='flex-x-center flex-col' style='width:100%'>
+    <view class="functionBtn">
+      <image src='/images/course/btn_course_dyd_none.png' bindtap='charRead'></image>
+    </view>
+    <view class="functionBtn">
+      <image src='/images/course/btn_course_cyllk3_none.png' bindtap='cyllkGame'></image>
+    </view>
+    <view class="functionBtn">
+      <image src='/images/course/btn_course_zjgh2_none.png' bindtap='wlcgGame'></image>
+    </view>
+    <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
+      <image style="width: 160rpx;height: 251rpx" src="/images/loading.svg"></image>
+    </view>
   </view>
-  <view class="functionBtn">
-    <image src='/images/course/btn_course_cyllk3_none.png' bindtap='cyllkGame'></image>
-  </view>
-  <view class="functionBtn">
-    <image src='/images/course/btn_course_zjgh2_none.png' bindtap='wlcgGame'></image>
-  </view>
-  <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
-  <image style="width: 160rpx;height: 251rpx" src="/images/loading.svg"></image>
-</view>
 </view>
 
 <view class='Toast' wx:if='{{isShowToast}}'>

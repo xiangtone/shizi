@@ -937,6 +937,11 @@ Page({
       complete: function(res) {}
     });
   },
+  charRead:function(){
+    wx.navigateTo({
+      url: '/pages/read/read' + "?video_id=" + this.data.video.id ,
+    })
+  },
   cyllkGame: function() {
     // return
     //console.log("词语连连看webview-->>");
