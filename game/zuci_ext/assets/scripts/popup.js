@@ -44,7 +44,7 @@ cc.Class({
             window.history.back();
         }else{
             wx.miniProgram.navigateBack();
-            window.close();
+            //window.close();
         }
         
     },

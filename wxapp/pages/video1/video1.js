@@ -943,7 +943,7 @@ Page({
     })
   },
   cyllkGame: function() {
-    // return
+    
     //console.log("词语连连看webview-->>");
     var page = this;
     if (app.checkLogin() == true) {
@@ -952,9 +952,10 @@ Page({
       var user_info = wx.getStorageSync('user_info');
       var redirect_url = '/pages/zuci-web-view/zuci-web-view' + "?video_id=" + video.id + "&user_id=" + user_info.id;
       //console.log("跳转地址->"+redirect_url);
-      wx.redirectTo({
+      wx.navigateTo({
         url: redirect_url,
       })
+
     } else {
       console.log("去登陆");
     }
@@ -968,7 +969,7 @@ Page({
       var user_info = wx.getStorageSync('user_info');
       var redirect_url = '/pages/zuju-web-view/zuju-web-view' + "?video_id=" + video.id + "&user_id=" + user_info.id;
       //console.log("跳转地址->"+redirect_url);
-      wx.redirectTo({
+      wx.navigateTo({
         url: redirect_url,
       })
 

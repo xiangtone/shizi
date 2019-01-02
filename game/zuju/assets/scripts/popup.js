@@ -44,7 +44,7 @@ cc.Class({
             window.history.back();
         }else{
             wx.miniProgram.navigateBack();
-            window.close();
+            //window.close();
         }
         
     },
@@ -53,7 +53,7 @@ cc.Class({
         //获取背光图片
         var light = this.node.getChildByName('img_light_block');
         //旋转图片
-        var repeat = cc.repeatForever(cc.rotateBy(3.0, 360));//一直选装
+        var repeat = cc.repeatForever(cc.rotateBy(3.0, 360));//一直旋转
         light.runAction(repeat);
     },
 
