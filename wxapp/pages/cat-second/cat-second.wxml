@@ -21,15 +21,15 @@
         </view>
         <view style='position:absolute;left:115rpx;bottom:0;font-size:36rpx;letter-spacing:10rpx;color:#000'>{{item.content}}</view>
         <view  class='flex-row' style='position:absolute;right:20rpx;bottom:0;'>
-          <view class="flex-y-center flex-x-center" style='width:50rpx;height:50rpx;border-radius: 50%;background-color:#bbd7e5'>
+          <view class="flex-y-center flex-x-center" catchtap='goChar' data-video-id='{{item.id}}' style='width:50rpx;height:50rpx;border-radius: 50%;background-color:#bbd7e5'>
             <view style='color:#35717b'>字</view>
           </view>
           <view style='width:20rpx;height:50rpx;'></view>
-          <view  class="flex-y-center flex-x-center" style='width:50rpx;height:50rpx;border-radius: 50%;background-color:#b2dacf'>
+          <view  class="flex-y-center flex-x-center" catchtap='goWord' data-video-id='{{item.id}}' style='width:50rpx;height:50rpx;border-radius: 50%;background-color:#b2dacf'>
             <view style='color:#064028'>词</view>
           </view>
           <view style='width:20rpx;height:50rpx;'></view>
-          <view  class="flex-y-center flex-x-center" style='width:50rpx;height:50rpx;border-radius: 50%;background-color:#ffffe3'>
+          <view  class="flex-y-center flex-x-center" catchtap='goSentence' data-video-id='{{item.id}}' style='width:50rpx;height:50rpx;border-radius: 50%;background-color:#ffffe3'>
             <view style='color:#96936a'>句</view>
           </view>
         </view>

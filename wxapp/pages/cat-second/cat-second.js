@@ -45,6 +45,47 @@ Page({
       })
     }
   },
+  goChar: function (e) {
+    if (e.currentTarget.dataset.videoId) {
+      wx.navigateTo({
+        url: '/pages/read/read?video_id=' + e.currentTarget.dataset.videoId,
+      })
+    }
+  },
+  goSentence: function (e) {
+    if (e.currentTarget.dataset.videoId) {
+      var page = this;
+      if (app.checkLogin() == true) {
+        //console.log("已经登陆过了");
+        var video = page.data.video;
+        var user_info = wx.getStorageSync('user_info');
+        var redirect_url = '/pages/zuju-web-view/zuju-web-view' + "?video_id=" + e.currentTarget.dataset.videoId + "&user_id=" + user_info.id;
+        //console.log("跳转地址->"+redirect_url);
+        wx.redirectTo({
+          url: redirect_url,
+        })
+      } else {
+        console.log("去登陆");
+      }
+    }
+  },
+  goWord: function (e) {
+    if (e.currentTarget.dataset.videoId) {
+      var page = this;
+      if (app.checkLogin() == true) {
+        //console.log("已经登陆过了");
+        var video = page.data.video;
+        var user_info = wx.getStorageSync('user_info');
+        var redirect_url = '/pages/zuci-web-view/zuci-web-view' + "?video_id=" + e.currentTarget.dataset.videoId + "&user_id=" + user_info.id;
+        //console.log("跳转地址->"+redirect_url);
+        wx.redirectTo({
+          url: redirect_url,
+        })
+      } else {
+        console.log("去登陆");
+      }
+    }
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

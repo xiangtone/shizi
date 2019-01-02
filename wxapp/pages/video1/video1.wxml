@@ -43,7 +43,7 @@
           <image src='/images/course/btn_course_last_none.png' class='collect'></image>
         </view>
         <view class='flex-y-center' style='height:100%;' bindtap='goNext' data-direction='next'>
-          <image src='/images/course/btn_course_next_none.png' class='collect' ></image>
+          <image src='/images/course/btn_course_next_none.png' class='collect'></image>
         </view>
       </view>
     </view>
@@ -71,15 +71,22 @@
     </view>
   </view>
   <view class="functionBtn">
-    <image src='/images/course/btn_course_cyllk_none.png' bindtap='cyllkGame'></image>
+    <image src='/images/course/btn_course_dyd_none.png' bindtap='cyllkGame'></image>
   </view>
   <view class="functionBtn">
-    <image src='/images/course/btn_course_zjgh_none.png' bindtap='wlcgGame'></image>
+    <image src='/images/course/btn_course_cyllk3_none.png' bindtap='cyllkGame'></image>
   </view>
+  <view class="functionBtn">
+    <image src='/images/course/btn_course_zjgh2_none.png' bindtap='wlcgGame'></image>
+  </view>
+  <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
+  <image style="width: 160rpx;height: 251rpx" src="/images/loading.svg"></image>
 </view>
+</view>
+
 <view class='Toast' wx:if='{{isShowToast}}'>
   <image src='/images/icon-true.png'></image>
   <view style=' margin-top: 32rpx;color:#fff;'>{{toast_text}}</view>
 </view>
-<include src="/commons/comment/comment.wxml" />
+<!-- <include src="/commons/comment/comment.wxml" /> -->
 <include src="/commons/share/share.wxml" />
