@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/read/read",
+    
     "pages/cover/cover",
+    "pages/read/read",
     "pages/index/index",
     "pages/cat/cat",
-    
     "pages/class/class",
     "pages/class-top/class-top",
     "pages/class-edit/class-edit",

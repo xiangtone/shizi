@@ -72,7 +72,12 @@ Page({
             title: '提示',
             content: res.msg,
             showCancel: false,
-            success: function (res) {
+            success: function (e) {
+              if (e.confirm) {
+                wx.navigateBack({
+                  
+                })
+              }
             },
             fail: function () {
               console.log("openfail");

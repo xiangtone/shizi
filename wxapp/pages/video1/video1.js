@@ -938,7 +938,7 @@ Page({
     });
   },
   cyllkGame: function() {
-    return
+    // return
     //console.log("词语连连看webview-->>");
     var page = this;
     if (app.checkLogin() == true) {
@@ -950,7 +950,6 @@ Page({
       wx.redirectTo({
         url: redirect_url,
       })
-
     } else {
       console.log("去登陆");
     }
