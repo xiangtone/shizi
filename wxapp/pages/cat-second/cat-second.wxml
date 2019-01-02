@@ -8,21 +8,61 @@
       <text style="color: #fff;text-shadow: 2rpx 6rpx 8rpx #275359;">{{cat_name}}</text>
     </view>
   </view>
-  <view style='width:714rpx;margin: 0 auto;color:#99653b'>
+  <view style='width:714rpx;margin: 0 auto;color:#a67548'>
     <view class="weui-cell class-list-cell-area flex-y-center flex-x-center" style='font-size:33rpx;font-weight:700;height:100rpx;'>
       目录
     </view>
 
-    <view class="weui-cell class-list-cell-area flex-y-center flex-x-center" style='font-size:33rpx;font-weight:700;height:200rpx;' wx:for='{{video_list}}' wx:key='{{index}}'>
+    <view class="weui-cell class-list-cell-area flex-y-center flex-x-center" style='font-size:33rpx;height:100rpx;' bindtap='goVideo' data-video-id='{{item.id}}' wx:for='{{video_list}}' wx:key='{{index}}'>
+      <view style='width:100%;height:100%;position:relative'>
+        <view class='flex-row' style='position:absolute;left:0;bottom:0;color:red;text-shadow: 0 0 0.5em #0ae642, 0 0 0.2em #5c5c5c'>
+          <view>{{item.title1}}</view>
+          <view>{{item.titleNum}}</view>
+        </view>
+        <view style='position:absolute;left:115rpx;bottom:0;font-size:36rpx;letter-spacing:10rpx;color:#000'>{{item.content}}</view>
+        <view  class='flex-row' style='position:absolute;right:20rpx;bottom:0;'>
+          <view class="flex-y-center flex-x-center" style='width:50rpx;height:50rpx;border-radius: 50%;background-color:#bbd7e5'>
+            <view style='color:#35717b'>字</view>
+          </view>
+          <view style='width:20rpx;height:50rpx;'></view>
+          <view  class="flex-y-center flex-x-center" style='width:50rpx;height:50rpx;border-radius: 50%;background-color:#b2dacf'>
+            <view style='color:#064028'>词</view>
+          </view>
+          <view style='width:20rpx;height:50rpx;'></view>
+          <view  class="flex-y-center flex-x-center" style='width:50rpx;height:50rpx;border-radius: 50%;background-color:#ffffe3'>
+            <view style='color:#96936a'>句</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-cell class-list-cell-area flex-x-center without-line " style='width:714rpx;height:10rpx;'></view>
+    <view class='flex-y-center' style='position:absolute;width:714rpx;height:76rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/e8/e8a7c33fa141fb7f7ab82c8f369808fc.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+    </view>
+  </view>
+</view>
+<!-- <view style='width:100%;position:relative'>
+  <view class='flex-y-center' style='width:714rpx;height:90rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/3e/3eb936d867741fd6ca9d98d7cee5a7ba.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+    
+    <view style='margin:auto;font-size:30rpx;font-weight:700;color:#275359;letter-spacing:4rpx'>
+      <text style="color: #fff;text-shadow: 2rpx 6rpx 8rpx #275359;">{{cat_name}}</text>
+    </view>
+  </view>
+  <view style='width:714rpx;margin: 0 auto;color:#a67548'>
+    <view class="weui-cell class-list-cell-area flex-y-center flex-x-center" style='font-size:33rpx;font-weight:700;height:100rpx;'>
+      目录
+    </view>
+
+    <view class="weui-cell class-list-cell-area flex-y-center flex-x-center" style='font-size:33rpx;font-weight:700;height:200rpx;' bindtap='goVideo' data-video-id='{{item.id}}' wx:for='{{video_list}}' wx:key='{{index}}'>
       <view class='video-one flex-row' bindtap='goto' data-index='{{index}}'>
         <view class='flex-grow-0 pic' style="background-image:url('{{item.pic_url}}');">
         </view>
         <view class='flex-grow-1' style='padding-top:6rpx;'>
-          <view class='text-more-2' style='font-size:30rpx'>{{item.title}}</view>
+          <view class='text-more-2' style='font-size:27rpx'>{{item.title}}</view>
           <view class='flex-row' style='width:100%;justify-content:space-between'>
-            <view style='background-color:#fff;padding:0 20rpx;'>字</view>
-            <view style='background-color:#fff;padding:0 20rpx;'>词</view>
-            <view style='background-color:#fff;padding:0 20rpx;'>句</view>
+            <view class='flex-x-center flex-y-center' style='color:#fff;width:96rpx;height:90rpx;background: url(http://qiniu.xuedonghanzi.com/uploads/image/fd/fdb44f3b1b7ca15da403724b093fd0fd.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>字</view>
+            <view class='flex-x-center flex-y-center' style='color:#fff;width:96rpx;height:90rpx;background: url(http://qiniu.xuedonghanzi.com/uploads/image/fd/fdb44f3b1b7ca15da403724b093fd0fd.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>词</view>
+            <view class='flex-x-center flex-y-center' style='color:#fff;width:96rpx;height:90rpx;background: url(http://qiniu.xuedonghanzi.com/uploads/image/fd/fdb44f3b1b7ca15da403724b093fd0fd.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>句</view>
           </view>
         </view>
       </view>
@@ -43,14 +83,12 @@
         <image src='{{item.pic_url}}'></image>
         <view style='width:100%;'>
           <view class='white-color font-13 title' style='top:30rpx;padding:0 30rpx;position:absolute;text-align:center;font-size:36rpx;text-shadow:-1rpx -1rpx 0 #fff,1rpx 1rpx 0 #333,1rpx 1rpx 0 #444;'>{{item.title}} {{item.content}}</view>
-          <!-- <view class='white-color flex-x-center title' wx:if='{{item.style != 2}}'>
-          时长：{{item.video_time}}
-        </view> -->
+          
         </view>
       </view>
     </navigator>
   </view>
-</block>
+</block> -->
 <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
   <image style="width: 160rpx;height: 251rpx" src="/images/loading.svg"></image>
 </view>

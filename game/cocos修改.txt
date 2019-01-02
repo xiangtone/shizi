@@ -1,0 +1,27 @@
+如何构建项目中去掉cocoscreator的SPLASH
+
+1.C:\CocosCreator\resources\static\build-templates\web-mobile\template\index.html
+下删除
+<div id="splash">
+    <div class="progress-bar stripes">
+      <span style="width: 0%"></span>
+    </div>
+  </div>
+
+2.C:\CocosCreator\resources\static\build-templates\shares\style-mobile.css下删除
+#splash {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #171717 url(./splash.png) no-repeat center;
+  background-size: 40%;
+}
+
+3.C:\CocosCreator\resources\static\build-templates\shares\main.js
+注释掉代码
+var splash = document.getElementById('splash');
+splash.style.display = 'block';
+
+注释调用setLoadingDisplay();的地方

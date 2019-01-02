@@ -217,7 +217,7 @@ $this->params['active_nav_group'] = 2;
                     </div>
                     <div class="form-group row">
                         <div class="col-3 text-right">
-                            <label class="col-form-label required">简介</label>
+                            <label class="col-form-label required">简介(生字)</label>
                         </div>
                         <div class="col-9">
                     <textarea class="form-control" name="model[content]"

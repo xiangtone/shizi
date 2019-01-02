@@ -11,7 +11,8 @@ Page({
   data: {
     page: 1,
     recordStatus: false,
-    tempFilePath:''
+    tempFilePath:'',
+    currentIndex:0
   },
 
   /**
@@ -21,6 +22,15 @@ Page({
     app.pageOnLoad(this);
     is_loading_more = false;
     is_no_more = false;
+    if (options.video_id){
+      this.setData({
+        video_id: options.video_id
+       });
+    }else{
+      this.setData({
+        video_id: 13
+      });
+    }
   },
 
   /**
@@ -28,7 +38,6 @@ Page({
    */
   onReady: function() {
     app.pageOnReady(this);
-
   },
 
   /**
@@ -39,22 +48,36 @@ Page({
     this.loadData();
   },
   loadData: function() {
+    if (!this.data.video_id){
+      return
+    }
     var page = this;
     wx.showLoading({
       title: '正在加载',
     })
     is_loading_more = true;
     app.request({
-      url: api.default.cat,
+      url: api.default.ex_char,
       data: {
-        page: 1
+        video_id: this.data.video_id
       },
       success: function(res) {
+        console.log(res)
         if (res.code == 0) {
           page.setData({
-            cat_list: res.data.cat_list,
-            page_count: res.data.page_count
+            list: res.data.list,
           });
+        }else{
+          wx.showModal({
+            title: '提示',
+            content: res.msg,
+            showCancel: false,
+            success: function (res) {
+            },
+            fail: function () {
+              console.log("openfail");
+            }
+          })
         }
       },
       complete: function() {
@@ -62,13 +85,25 @@ Page({
         wx.hideLoading();
         is_loading_more = false;
       }
-
     });
+  },
+  next:function(){
+    if (this.data.currentIndex < this.data.list.length-1){
+      this.setData({
+        currentIndex : this.data.currentIndex+1
+      })
+    }
+  },
+  done:function(){
+    wx.navigateBack({
+      
+    })
   },
   playTeacher: function() {
     const innerAudioContext = wx.createInnerAudioContext();
     innerAudioContext.autoplay = false;
-    innerAudioContext.src = 'http://qiniu.agsew.com/uploads/video/20181227152550/15458955503733fdc71dfaada1.mp3'
+    innerAudioContext.obeyMuteSwitch = false;
+    innerAudioContext.src = this.data.list[this.data.currentIndex].voice_url
     innerAudioContext.play()
   },
   beginRecord: function() {

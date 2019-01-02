@@ -12,6 +12,7 @@ var api = {
     search: _api_root + 'default/search',
     hot_search: _api_root + 'default/hot-search',
     upload_img: _api_root + 'default/upload-img',
+    ex_char: _api_root + 'ex/char-index',
     share: _api_root + 'default/share'
   },
   passport: {

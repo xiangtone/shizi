@@ -38,7 +38,13 @@ Page({
       });
     }
   },
-
+  goVideo: function (e) {
+    if (e.currentTarget.dataset.videoId){
+      wx.navigateTo({
+        url: '/pages/video1/video1?id=' + e.currentTarget.dataset.videoId,
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -73,15 +79,28 @@ Page({
             });
             return;
           }
+          for (let i in res.data.list) {
+            let regexp = /\d+/g
+            let splitNum = res.data.list[i].title.match(regexp)
+            if (splitNum){
+              let splitArr = res.data.list[i].title.split(splitNum)
+              res.data.list[i].title1 = splitArr[0].trim()
+              res.data.list[i].title2 = splitArr[1].trim()
+              res.data.list[i].titleNum = splitNum
+            }
+            console.log(splitNum)
+          }
           page.setData({
             video_list: res.data.list,
             cat_name: res.data.cat_name
           });
+          
           // wx.setNavigationBarTitle({
           //   title: res.data.cat_name,
           // });
         }
       },
+
       complete: function() {
         wx.hideLoading();
         wx.stopPullDownRefresh();
@@ -89,7 +108,10 @@ Page({
       }
     });
   },
-
+  testWord:function(ori){
+    console.log('testWord')
+    return ori+':'
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

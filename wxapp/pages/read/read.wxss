@@ -1,4 +1,6 @@
 /* pages/cat/cat.wxss */
+@import "/commons/weui.wxss";
+@import "/commons/sc-pub.wxss";
 
 page {
     background-color: #fff;
