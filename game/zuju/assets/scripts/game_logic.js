@@ -57,13 +57,14 @@ cc.Class({
         if (cc.zc.INFO[cc.zc.lesson].voice_url != "") {
             //cc.log("play voice");
             cc.zc.audio_mgr.playNetSFX(cc.zc.INFO[cc.zc.lesson].voice_url);//先播一次
-            
+            //cc.audioEngine.play(cc.zc.INFO[cc.zc.lesson].voice_url, false);
             this.schedule(function(){ //每隔5秒执行1次 
-                if (cc.zc.INFO[cc.zc.lesson].voice_url != ""){
+                if (cc.zc.INFO[cc.zc.lesson].voice_url != "" ){
                     //播放音频
                     cc.zc.audio_mgr.playNetSFX(cc.zc.INFO[cc.zc.lesson].voice_url);
+                    //cc.audioEngine.play(cc.zc.INFO[cc.zc.lesson].voice_url, false);
                 } 
-             },5);    
+             },8);    
         }
     },
     /**
@@ -73,6 +74,8 @@ cc.Class({
     on_xhg_ske_success_end_listener(){
         cc.log("小汉哥动画播放完毕  called-->>",this.xhg_ske);
         this.xhg_ske.node.active = false;  //小汉哥动画隐藏
+        cc.zc.lesson = cc.zc.lesson +1;//下一个练习
+        
         if (cc.zc.lesson < cc.zc.INFO.length  ){//判断是否完成练习
             this.scheduleOnce(function(){    cc.director.loadScene("game_scene");},1); //重来
         }else{
@@ -170,11 +173,12 @@ cc.Class({
             cc.log("组句答案=",answer_string);
             //return;
             this.unRegisterEvent();//注销触摸事件的冒泡
-            
+            cc.zc.audio_mgr.stopNetSfx();//停止音频
+            this.unRegisterEvent();//注销触摸事件的冒泡
             //检查练习是否已经完全做完 否-每次递增一课 是-弹出成功动画弹框
             if(cc.zc.INFO[cc.zc.lesson].sentence == answer_string){
                 cc.log("回答正确",cc.zc.lesson);
-                cc.zc.lesson = cc.zc.lesson +1;//下一个练习
+                //cc.zc.lesson = cc.zc.lesson +1;//下一个练习
                 // ritht--播放小汉哥成功动画 
                 this.xhg_ske.clearTracks();//清理指定管道的索引         
                 this.xhg_ske.setAnimation(0,"chenggong",false)//播放一次

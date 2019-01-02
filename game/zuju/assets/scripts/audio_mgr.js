@@ -17,6 +17,7 @@ cc.Class({
         
         bgmAudioID:-1,
         sfxAudioId:-1,
+        sfxNetAudioId:-1,
     },
 
     // use this for initialization
@@ -74,16 +75,21 @@ cc.Class({
      //播放网络特效音乐
      playNetSFX(url){
         //cc.log(this.sfxAudioId);
-        if(this.sfxAudioId >= 0){
-            cc.audioEngine.stop(this.sfxAudioId);
+        if(this.sfxNetAudioId >= 0){
+            cc.audioEngine.stop(this.sfxNetAudioId);
         }
         if(this.sfxVolume > 0  ){
             
-            this.sfxAudioId = cc.audioEngine.play(url, false, this.sfxVolume);
+            this.sfxNetAudioId = cc.audioEngine.play(url, false, this.sfxVolume);
             
               
         }
         
+    },
+    stopNetSfx(){
+        if(this.sfxNetAudioId >= 0){
+            cc.audioEngine.pause(this.sfxNetAudioId);
+        }
     },
     //设置特效音量
     setSFXVolume:function(v){
