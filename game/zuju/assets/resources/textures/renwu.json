@@ -1,5 +1,5 @@
 {
-"skeleton": { "hash": "oO/ZK2VgHeJqE9lNMOfZtHOHPbg", "spine": "3.6.53", "width": 958.88, "height": 640.01, "images": "./切图/" },
+"skeleton": { "hash": "fub8KSXGBHXSYg+iRZHH8dlKYEk", "spine": "3.6.53", "width": 958.88, "height": 640.01, "images": "./切图/" },
 "bones": [
 	{ "name": "root" },
 	{ "name": "bone", "parent": "root", "length": 38.11, "rotation": 90.84, "x": 5.49, "y": 108.17 },
@@ -89,11 +89,9 @@
 	{ "name": "youbi", "bone": "bone14", "attachment": "youbi_1" },
 	{ "name": "youzhang", "bone": "bone16", "attachment": "youzhang" },
 	{ "name": "youzu", "bone": "root", "attachment": "youzu_1" },
-	{ "name": "zui1", "bone": "bone3", "attachment": "zui1" },
-	{ "name": "zui2", "bone": "root" },
+	{ "name": "zui1", "bone": "bone3", "attachment": "zuiba4" },
 	{ "name": "zuozhang", "bone": "bone13", "attachment": "zuozhang" },
-	{ "name": "yan7", "bone": "root" },
-	{ "name": "zui3", "bone": "root" }
+	{ "name": "yan7", "bone": "root" }
 ],
 "skins": {
 	"default": {
@@ -178,7 +176,9 @@
 		"zui1": {
 			"zui1": { "x": -4.25, "y": -7.77, "rotation": -90, "width": 8, "height": 2 },
 			"zui2": { "x": -4.25, "y": -7.77, "rotation": -90, "width": 22, "height": 10 },
-			"zui3": { "x": -5.14, "y": -6.88, "rotation": -90, "width": 21, "height": 13 }
+			"zui3": { "x": -5.14, "y": -6.88, "rotation": -90, "width": 21, "height": 13 },
+			"zuiba4": { "x": -5.51, "y": -6.86, "scaleX": 0.9, "scaleY": 0.9, "rotation": -97.51, "width": 21, "height": 13 },
+			"zuiba5": { "x": -5.72, "y": -7.22, "scaleX": 0.903, "scaleY": 0.903, "rotation": -97.51, "width": 21, "height": 13 }
 		},
 		"zuobi": {
 			"zuobi_1": { "x": 16.06, "y": -5.97, "rotation": 58.77, "width": 53, "height": 55 }
@@ -2014,6 +2014,7 @@
 			},
 			"zui1": {
 				"attachment": [
+					{ "time": 0, "name": "zui2" },
 					{ "time": 2.7333, "name": "zui1" },
 					{ "time": 3.3333, "name": "zui1" },
 					{ "time": 4.3333, "name": "zui1" }
@@ -2703,25 +2704,25 @@
 			{
 				"time": 0.6667,
 				"offsets": [
-					{ "slot": "zuozhang", "offset": -13 }
+					{ "slot": "zuozhang", "offset": -12 }
 				]
 			},
 			{
 				"time": 2,
 				"offsets": [
-					{ "slot": "zuozhang", "offset": -13 }
+					{ "slot": "zuozhang", "offset": -12 }
 				]
 			},
 			{
 				"time": 3.3333,
 				"offsets": [
-					{ "slot": "zuozhang", "offset": -13 }
+					{ "slot": "zuozhang", "offset": -12 }
 				]
 			},
 			{
 				"time": 4.6667,
 				"offsets": [
-					{ "slot": "zuozhang", "offset": -13 }
+					{ "slot": "zuozhang", "offset": -12 }
 				]
 			}
 		]

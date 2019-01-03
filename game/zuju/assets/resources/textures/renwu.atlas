@@ -5,8 +5,8 @@ format: RGBA8888
 filter: Linear,Linear
 repeat: none
 mao
-  rotate: true
-  xy: 352, 31
+  rotate: false
+  xy: 300, 27
   size: 9, 11
   orig: 9, 11
   offset: 0, 0
@@ -41,42 +41,42 @@ tun_1
   index: -1
 yan1_1
   rotate: false
-  xy: 322, 94
+  xy: 428, 94
   size: 51, 27
   orig: 51, 27
   offset: 0, 0
   index: -1
 yan2_1
   rotate: false
-  xy: 375, 94
+  xy: 57, 2
   size: 51, 27
   orig: 51, 27
   offset: 0, 0
   index: -1
 yan3
   rotate: false
-  xy: 428, 94
+  xy: 322, 94
   size: 51, 27
   orig: 51, 27
   offset: 0, 0
   index: -1
 yan4_1
   rotate: false
-  xy: 57, 2
+  xy: 320, 65
   size: 51, 27
   orig: 51, 27
   offset: 0, 0
   index: -1
 yan5_1
   rotate: false
-  xy: 320, 65
+  xy: 373, 65
   size: 51, 27
   orig: 51, 27
   offset: 0, 0
   index: -1
 yan6
   rotate: false
-  xy: 373, 65
+  xy: 375, 94
   size: 51, 27
   orig: 51, 27
   offset: 0, 0
@@ -139,12 +139,26 @@ zui1
   index: -1
 zui2
   rotate: true
-  xy: 406, 41
+  xy: 352, 18
   size: 22, 10
   orig: 22, 10
   offset: 0, 0
   index: -1
 zui3
+  rotate: true
+  xy: 406, 42
+  size: 21, 13
+  orig: 21, 13
+  offset: 0, 0
+  index: -1
+zuiba4
+  rotate: false
+  xy: 447, 49
+  size: 21, 13
+  orig: 21, 13
+  offset: 0, 0
+  index: -1
+zuiba5
   rotate: true
   xy: 113, 41
   size: 21, 13
@@ -181,7 +195,7 @@ zuotui_1
   index: -1
 zuozhang
   rotate: false
-  xy: 418, 39
+  xy: 421, 39
   size: 24, 23
   orig: 24, 23
   offset: 0, 0
