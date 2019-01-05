@@ -13,13 +13,13 @@
       目录
     </view>
 
-    <view class="weui-cell class-list-cell-area flex-y-center flex-x-center" style='font-size:33rpx;height:100rpx;' bindtap='goVideo' data-video-id='{{item.id}}' wx:for='{{video_list}}' wx:key='{{index}}'>
+    <view class="weui-cell class-list-cell-area flex-y-center flex-x-center" style='font-size:33rpx;height:100rpx;' wx:for='{{video_list}}' wx:key='{{index}}'>
       <view style='width:100%;height:100%;position:relative'>
-        <view class='flex-row' style='position:absolute;left:0;bottom:0;color:red;text-shadow: 0 0 0.5em #0ae642, 0 0 0.2em #5c5c5c'>
+        <view class='flex-row' bindtap='goVideo' data-video-id='{{item.id}}' style='position:absolute;left:0;bottom:0;color:red;text-shadow: 0 0 0.5em #0ae642, 0 0 0.2em #5c5c5c'>
           <view>{{item.title1}}</view>
           <view>{{item.titleNum}}</view>
         </view>
-        <view style='position:absolute;left:115rpx;bottom:0;font-size:36rpx;letter-spacing:10rpx;color:#000'>{{item.content}}</view>
+        <view bindtap='goVideo' data-video-id='{{item.id}}' style='position:absolute;left:115rpx;bottom:0;font-size:36rpx;letter-spacing:10rpx;color:#000'>{{item.content}}</view>
         <view  class='flex-row' style='position:absolute;right:20rpx;bottom:0;'>
           <view class="flex-y-center flex-x-center" catchtap='goChar' data-video-id='{{item.id}}' style='width:50rpx;height:50rpx;border-radius: 50%;background-color:#bbd7e5'>
             <view style='color:#35717b'>字</view>

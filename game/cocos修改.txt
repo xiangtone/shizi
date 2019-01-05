@@ -1,12 +1,23 @@
 如何构建项目中去掉cocoscreator的SPLASH
 
 1.C:\CocosCreator\resources\static\build-templates\web-mobile\template\index.html
-下删除
+删除cocos title
+<title>Cocos Creator | <%=project%></title>
+
+删除splash
 <div id="splash">
     <div class="progress-bar stripes">
       <span style="width: 0%"></span>
     </div>
   </div>
+  
+最后加上微信返回
+
+<!-- 微信相关添加 -->
+<script
+  type="text/javascript"
+  src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"
+></script>
 
 2.C:\CocosCreator\resources\static\build-templates\shares\style-mobile.css下删除
 #splash {
@@ -20,8 +31,24 @@
 }
 
 3.C:\CocosCreator\resources\static\build-templates\shares\main.js
-注释掉代码
+注释掉代码，window.document下
 var splash = document.getElementById('splash');
 splash.style.display = 'block';
 
+
 注释调用setLoadingDisplay();的地方
+
+
+5.正式发布需要修改游戏中的URL
+打开F:\phpstudy\PHPTutorial\WWW\ll\shizi\game\zuju\assets\scripts\global.js
+
+ URL: 'https://www.dushujielong.com/ll/shizi/addons/sc/core/web/index.php?store_id=1&r=api/exsentence/index',   //组句过河URL
+SUCCESS_URL: 'https://www.dushujielong.com/ll/shizi/addons/sc/core/web/index.php?store_id=1&r=api/excomplete/index',  
+修改为正式服务器域名
+
+打开F:\phpstudy\PHPTutorial\WWW\ll\shizi\game\zuci_ext\assets\scripts\global.js
+
+URL: 'https://www.dushujielong.com/ll/shizi/addons/sc/core/web/index.php?store_id=1&r=api/exword/',   
+SUCCESS_URL: 'https://www.dushujielong.com/ll/shizi/addons/sc/core/web/index.php?store_id=1&r=api/excomplete/index',
+修改为正式服务器域名 
+

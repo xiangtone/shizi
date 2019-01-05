@@ -1,4 +1,4 @@
 {
     "navigationBarTitleText": "读一读，认一认",
-    "enablePullDownRefresh": true
+    "enablePullDownRefresh": false
 }

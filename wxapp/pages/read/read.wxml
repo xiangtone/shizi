@@ -43,16 +43,16 @@
     </view>
   </view>
 </view>
-<view class='flex-x-center flex-y-center' style='width:750rpx;height:500rpx'>
+<!-- <view class='flex-x-center flex-y-center' style='width:750rpx;height:500rpx'>
   <view style='font-size:200rpx'>口</view>
 </view>
 <view class='flex-x-center flex-y-center flex-col' style='width:750rpx;height:500rpx'>
 
-  <!-- <view bindtap='playTeacher'>听老师读</view>
+  <view bindtap='playTeacher'>听老师读</view>
   <view bindtap='record'>{{recordStatus?'停止录音':'自己读'}}</view>
   <view bindtap='playRecord'>{{tempFilePath?'听自己读':''}}</view>
-  <view bindtap='next'>下一个字</view> -->
-</view>
+  <view bindtap='next'>下一个字</view>
+</view> -->
 <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
   <image style="width: 160rpx;height: 251rpx" src="/images/loading.svg"></image>
 </view>

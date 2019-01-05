@@ -61,7 +61,7 @@ Page({
         var user_info = wx.getStorageSync('user_info');
         var redirect_url = '/pages/zuju-web-view/zuju-web-view' + "?video_id=" + e.currentTarget.dataset.videoId + "&user_id=" + user_info.id;
         //console.log("跳转地址->"+redirect_url);
-        wx.redirectTo({
+        wx.navigateTo({
           url: redirect_url,
         })
       } else {
@@ -78,7 +78,7 @@ Page({
         var user_info = wx.getStorageSync('user_info');
         var redirect_url = '/pages/zuci-web-view/zuci-web-view' + "?video_id=" + e.currentTarget.dataset.videoId + "&user_id=" + user_info.id;
         //console.log("跳转地址->"+redirect_url);
-        wx.redirectTo({
+        wx.navigateTo({
           url: redirect_url,
         })
       } else {
@@ -185,21 +185,23 @@ Page({
   onShareAppMessage: function(res) {
     var result = {
       title: "",
-      path: "/pages/index/index",
+      path: "/pages/cover/cover",
       success: function(res) {
-        wx.showToast({
-          title: '转发成功',
-        });
       },
       fail: function(res) {
         // 转发失败
       }
     };
-    if (res.from == 'button') {
-      var share = this.data.share;
-      result.title = share.title;
-      result.path = "/pages/video/video?id=" + share.id;
-      result.imageUrl = share.pic_url;
+    if (this.data.cat_id){
+      result.path = "/pages/cat-second/cat-second?cat_id=" + this.data.cat_id
+    }
+    var user_info = wx.getStorageSync('user_info');
+    if (user_info && user_info.id) {
+      if (result.path.indexOf("?")!=-1){
+        result.path = result.path+"&fd=" + user_info.id  
+      }else{
+        result.path = result.path + "?fd=" + user_info.id  
+      }
     }
     return result;
   },
