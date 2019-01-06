@@ -3279,11 +3279,11 @@
     },
     "_enabled": true,
     "_defaultClip": {
-      "__uuid__": "d68493ff-85d8-48ac-942b-253b280f336a"
+      "__uuid__": "f0d89935-1be7-4cfd-8e67-04e4f36d9f22"
     },
     "_clips": [
       {
-        "__uuid__": "d68493ff-85d8-48ac-942b-253b280f336a"
+        "__uuid__": "f0d89935-1be7-4cfd-8e67-04e4f36d9f22"
       }
     ],
     "playOnLoad": false
