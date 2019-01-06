@@ -211,6 +211,7 @@ cc.Class({
     on_btn_enter_game_click(){
         cc.director.loadScene("game_scene");
         cc.loader.onComplete = null;
+        cc.zc.flag = false;
     },
     /**
      * 预加载资源完成--进入游戏场景

@@ -44,6 +44,7 @@ cc.Class({
             type:cc.Node,
             default:null,
         },
+        
         new_word_ask_idx:0,
         is_bz_anim_play:false,
         rand_word:[],
@@ -52,11 +53,12 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
     
     onLoad () {
+        
         //1--获取棒子动画组件
         this.anim_bz_beat = cc.find("Canvas/anim_bz_beat").getComponent(cc.Animation);
         //监听动画播放完成的事件处理
         this.anim_bz_beat.on('finished', this.on_anim_bz_beat_end_listener, this);
-
+        
         //2--获取天兵下降动画组件
         this.anim_tb_fly = cc.find("Canvas/anim_tb_fly").getComponent(cc.Animation);
         //监听动画播放完成的事件处理
@@ -64,6 +66,8 @@ cc.Class({
 
         //3--获取小汉哥的动画
         this.xhg_ske = cc.find("Canvas/xhg_skeleton");
+        
+       
         
         //4-处理生字 
         var temp = new Array();
@@ -106,6 +110,7 @@ cc.Class({
         cc.log("on_anim_xhg_end_listener  called-->>");
         this.xhg_ske.active = false;  //小汉哥动画隐藏  
         this.anim_tb_fly.node.active=false;//设置天兵下降动画隐藏
+        cc.zc.flag = true; //标志
         //展示生字和分词
         this.show_new_word_block();
         this.show_target_word_block();
@@ -340,7 +345,7 @@ cc.Class({
             //
             if (cc.zc.lesson < cc.zc.INFO.length  ){
                 
-                
+                this.unscheduleAllCallbacks(this); //停止组件的所有计时器
                 //延时2秒重入场景
                 this.scheduleOnce(function(){
                     cc.director.loadScene("game_scene");
@@ -349,7 +354,7 @@ cc.Class({
                 cc.log("你已经完成这次练习");
                 this.unscheduleAllCallbacks(this);  //停止该组件所有的定时器
                 this.http_game_sucess();            //把练习完成的数据上传到服务器
-
+                cc.zc.flag =false;
                 this.scheduleOnce(function(){       //显示弹出框
                     this.popup.active = true;
                     
@@ -386,11 +391,23 @@ cc.Class({
     },
     //
     start () {
+        cc.log("动画播放状态"+this.flag);
+        if(cc.zc.flag == false){
+            //播放动画
+            this.anim_tb_fly.node.active=true;                         //设置天兵动画可见
+            this.anim_tb_fly.play("tb_fly_clip");                          //播放动画
+            cc.zc.audio_mgr.playSFX("fightbegin.mp3");
+        }else{
 
-        //播放动画
-        this.anim_tb_fly.node.active=true;                         //设置天兵动画可见
-        this.anim_bz_beat.play("tb_fly_clip");                          //播放动画
-        cc.zc.audio_mgr.playSFX("fightbegin.mp3");
+            //展示生字和分词
+            this.show_new_word_block();
+            this.show_target_word_block();
+            //循环播放 组词的声音
+            this.play_word_voice();
+        }
+        
+        
+        
     },
 
     // update (dt) {},
