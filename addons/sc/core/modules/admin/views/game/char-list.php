@@ -111,10 +111,10 @@ $this->params['active_nav_group'] = 2;
     }
 
     function openwin(){
-        var openUrl = "<?php echo \Yii::$app->params['zuciUrl'] . '?video_id=' . $video_id; ?>";//弹出窗口的url
+        var openUrl = "<?php echo \Yii::$app->params['charUrl'] . '?video_id=' . $video_id; ?>";//弹出窗口的url
         console.log("url="+openUrl);
-        var iWidth=640; //弹出窗口的宽度;
-        var iHeight=960; //弹出窗口的高度;
+        var iWidth=750; //弹出窗口的宽度;
+        var iHeight=800; //弹出窗口的高度;
         var iTop = (window.screen.availHeight-30-iHeight)/2; //获得窗口的垂直位置;
         var iLeft = (window.screen.availWidth-10-iWidth)/2; //获得窗口的水平位置;
         window.open(openUrl,"_blank","height="+iHeight+",width="+iWidth+", top="+iTop+",left="+iLeft+",menubar=no,toolbar=no,status=no,location=no");

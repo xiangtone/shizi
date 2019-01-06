@@ -315,7 +315,6 @@ Page({
    */
   onShareAppMessage: function(res) {
     console.log('onShareAppMessage')
-    var user_info = wx.getStorageSync('user_info');
     var result = {
       title: "",
       path: "/pages/index/index",
@@ -328,22 +327,22 @@ Page({
         // 转发失败
       }
     };
+    var user_info = wx.getStorageSync('user_info');
     if (user_info && user_info.id) {
-      result.path = "/pages/index/index?fd=" + user_info.id,
-        console.log('onShareAppMessage', result.path)
+      result.path = "/pages/index/index?fd=" + user_info.id
     }
     if (res.from == 'button') {
       console.log('onShareAppMessage from button')
       var share = this.data.share;
       result.title = share.title;
-      result.path = "/pages/video/video?id=" + share.id;
+      result.path = "/pages/video1/video1?id=" + share.id;
       result.imageUrl = share.pic_url;
     }
     return result;
   },
   videoplay: function(options) {
     wx.navigateTo({
-      url: '/pages/video/video?id=' + options.currentTarget.dataset.id,
+      url: '/pages/video1/video1?id=' + options.currentTarget.dataset.id,
     })
   },
   comment: function(e) {

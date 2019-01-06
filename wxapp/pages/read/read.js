@@ -260,12 +260,12 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
-    if (is_no_more) {
-      return;
-    }
-    this.loadMore();
-  },
+  // onReachBottom: function() {
+  //   if (is_no_more) {
+  //     return;
+  //   }
+  //   this.loadMore();
+  // },
   loadMore: function() {
     var page = this;
     var p = page.data.page;
