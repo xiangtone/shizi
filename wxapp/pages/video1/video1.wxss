@@ -224,10 +224,10 @@ page {
   margin-right: 5rpx;
 }
 .functionBtn {
-  width: 600rpx;
-  height:270rpx;
+  width: 400rpx;
+  height:160rpx;
   margin:0 auto;
-  padding-top:30rpx;
+  /* padding-top:30rpx; */
   display: flex;
   flex-direction: row;
   justify-content: center;

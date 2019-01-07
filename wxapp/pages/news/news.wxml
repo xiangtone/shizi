@@ -9,7 +9,7 @@
     <view class='flex-y-center' style='width:714rpx;height:90rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/3e/3eb936d867741fd6ca9d98d7cee5a7ba.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
       <!-- <image class='w-100 h-100' src="http://www.dushujielong.com/fm/shizi/wxapp/images/course/img_course_class_tablebar1.png" style='position:absolute;top:0;left:0' /> -->
       <view style='margin:auto;font-size:30rpx;font-weight:700;color:#275359;letter-spacing:4rpx'>
-        <text style="color: #fff;text-shadow: 2rpx 6rpx 8rpx #275359;">新闻</text>
+        <text style="color: #fff;text-shadow: 2rpx 6rpx 8rpx #275359;">中文至美</text>
       </view>
     </view>
     <view style='width:714rpx;margin: 0 auto;color:#99653b'>
