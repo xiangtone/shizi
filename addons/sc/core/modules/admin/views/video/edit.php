@@ -143,9 +143,9 @@ $this->params['active_nav_group'] = 2;
                                            value="<?= $list['video_url'] ?>" placeholder="请输入多媒体链接源地址或者选择上传多媒体">
                                     <a href="javascript:" class="btn btn-secondary video-picker-btn">选择多媒体</a>
                                 </div>
-                                <!-- <a class="video-check"
+                                <a class="video-check"
                                    href="<?= $list['video_url'] ? $list['video_url'] : "javascript:" ?>"
-                                   target="_blank">预览</a> -->
+                                   target="_blank">预览</a>
                                 <video id="myVideo" hidden
                                        src="<?= $list['video_url'] ? $list['video_url'] : "" ?>"></video>
                                 <div class="video-preview"></div>
@@ -166,9 +166,9 @@ $this->params['active_nav_group'] = 2;
                                            value="<?= $list['video_720'] ?>" placeholder="请输入多媒体链接源地址或者选择上传多媒体">
                                     <a href="javascript:" class="btn btn-secondary video-picker-btn">选择多媒体</a>
                                 </div>
-                                <!-- <a class="video-check"
+                                <a class="video-check"
                                    href="<?= $list['video_720'] ? $list['video_720'] : "javascript:" ?>"
-                                   target="_blank">预览</a> -->
+                                   target="_blank">预览</a>
                                 <video id="myVideo" hidden
                                        src="<?= $list['video_720'] ? $list['video_720'] : "" ?>"></video>
                                 <div class="video-preview"></div>
@@ -189,9 +189,9 @@ $this->params['active_nav_group'] = 2;
                                            value="<?= $list['video_1080'] ?>" placeholder="请输入多媒体链接源地址或者选择上传多媒体">
                                     <a href="javascript:" class="btn btn-secondary video-picker-btn">选择多媒体</a>
                                 </div>
-                                <!-- <a class="video-check"
+                                <a class="video-check"
                                    href="<?= $list['video_1080'] ? $list['video_1080'] : "javascript:" ?>"
-                                   target="_blank">预览</a> -->
+                                   target="_blank">预览</a>
                                 <video id="myVideo" hidden
                                        src="<?= $list['video_1080'] ? $list['video_1080'] : "" ?>"></video>
                                 <div class="video-preview"></div>
