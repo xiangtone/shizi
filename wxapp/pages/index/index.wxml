@@ -28,8 +28,8 @@
   </view>
   <view style='color:#99653b'>
     <view class='flex-y-center' style='width:714rpx;height:90rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/1b/1bd47bc0e0ecc33cea2d826d8ba5dad1.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
-      <view style='margin:auto;font-size:30rpx;font-weight:700;letter-spacing:4rpx'>
-        <text>新闻</text>
+      <view style='margin:auto;font-size:30rpx;font-weight:700;letter-spacing:2rpx'>
+        <text>中文至美</text>
       </view>
     </view>
     <view style="position:relative">

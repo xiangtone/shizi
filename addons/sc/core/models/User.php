@@ -48,7 +48,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             [['type', 'addtime', 'is_delete', 'store_id', 'is_comment', 'is_clerk', 'is_member', 'due_time', 'teacher_id', 'channel_id', 'is_teacher', 'last_video'], 'integer'],
-            [['username', 'password', 'auth_key', 'access_token', 'avatar_url'], 'required'],
+            [['username', 'password', 'auth_key', 'access_token'], 'required'],
             [['avatar_url'], 'string'],
             [['username', 'password', 'auth_key', 'access_token', 'wechat_open_id', 'wechat_union_id', 'nickname'], 'string', 'max' => 255],
             [['binding'], 'string', 'max' => 11],
