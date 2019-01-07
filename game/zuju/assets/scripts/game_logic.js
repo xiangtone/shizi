@@ -159,7 +159,12 @@ cc.Class({
             this.cloud_up[1].node.getComponent('hit').is_collision == true &&
             this.cloud_up[2].node.getComponent('hit').is_collision == true &&
             this.cloud_up[3].node.getComponent('hit').is_collision == true ){
-
+                
+            //注销云的按键事件响应
+            this.cloud_up[0].node.getComponent('hit').unRegisterEvent();
+            this.cloud_up[1].node.getComponent('hit').unRegisterEvent();
+            this.cloud_up[2].node.getComponent('hit').unRegisterEvent();
+            this.cloud_up[3].node.getComponent('hit').unRegisterEvent();
             //根据碰撞顺序,获取字符串的连接  
             var answer_string = "";
             // for(var i = 0;i<cc.zc.INFO.answer.length;i++){

@@ -487,9 +487,9 @@
     "transition": 2,
     "pressedColor": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 211,
+      "g": 211,
+      "b": 211,
       "a": 255
     },
     "hoverColor": {
@@ -510,26 +510,26 @@
     "_N$enableAutoGrayEffect": false,
     "_N$normalColor": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 214,
+      "g": 214,
+      "b": 214,
       "a": 255
     },
     "_N$disabledColor": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 124,
+      "g": 124,
+      "b": 124,
       "a": 255
     },
     "_N$normalSprite": {
       "__uuid__": "66c294b0-c9f5-4dbb-b38a-1d36778af853"
     },
     "_N$pressedSprite": {
-      "__uuid__": "33f6b330-a661-48e7-be40-a900ee7ffc49"
+      "__uuid__": "66c294b0-c9f5-4dbb-b38a-1d36778af853"
     },
     "pressedSprite": {
-      "__uuid__": "33f6b330-a661-48e7-be40-a900ee7ffc49"
+      "__uuid__": "66c294b0-c9f5-4dbb-b38a-1d36778af853"
     },
     "_N$hoverSprite": {
       "__uuid__": "66c294b0-c9f5-4dbb-b38a-1d36778af853"
@@ -538,7 +538,7 @@
       "__uuid__": "66c294b0-c9f5-4dbb-b38a-1d36778af853"
     },
     "_N$disabledSprite": {
-      "__uuid__": "33f6b330-a661-48e7-be40-a900ee7ffc49"
+      "__uuid__": "b0b52578-7bc6-4d76-b101-d9d73a2b3908"
     },
     "_N$target": {
       "__id__": 8
