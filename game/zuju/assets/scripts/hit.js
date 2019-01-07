@@ -33,7 +33,8 @@ cc.Class({
         cc.director.getCollisionManager().enabled = true;
         //cc.director.getCollisionManager().enabledDebugDraw = true;
         //cc.director.getCollisionManager().enabledDrawBoundingBox = true;
-        this.pos_collision = this.node.getPosition();
+        this.pos_collision  = this.node.getPosition();
+        this.current_pos    = this.node.getPosition();
     },
     
     touchMove(event) {
@@ -46,12 +47,23 @@ cc.Class({
     },
     touchCancel(event){
          cc.log("当手指在目标节点区域外离开屏幕时", this.name, this.pos_collision);
-         this.node.setPosition(this.pos_collision);
+         
+         if( this.is_collision == true){
+            this.node.setPosition(this.pos_collision);
+         }else{
+            this.node.setPosition(this.current_pos);
+         }
          //this.setPosition(cc.zc.pos_collision);
     },
     touchEnd(event) {
         cc.log("当手指在目标节点区域内离开屏幕时", this.node.name, this.pos_collision);
-        this.node.setPosition(this.pos_collision);
+        
+         
+         if( this.is_collision == true){
+            this.node.setPosition(this.pos_collision);
+         }else{
+            this.node.setPosition(this.current_pos);
+         }
     },
     touchStart(event){
         cc.log("当手指触点落在目标节点区域内时", this.name, this.pos_collision);
@@ -121,7 +133,13 @@ cc.Class({
         //cc.log('碰撞持续中-->>', this.pos_collision);
     },
     onCollisionExit: function (other, self) {
-        //cc.log('碰撞结束-->>', this.pos_collision);
+        cc.log('碰撞结束-->>', this.current_pos,other,self);
+        this.is_collision = false;
+        other.node.getComponent('cloud_down_extra').is_collision =false;
+           // self.node.setPosition(this.current_pos);
+               
+        
+       
             // this.touchingNumber--;
 
             // cc.log("碰撞离开onCollisionExit-->>",this.touchingNumber,this.pos);
