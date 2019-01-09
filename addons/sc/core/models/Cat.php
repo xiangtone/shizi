@@ -18,6 +18,7 @@ use Yii;
  * @property integer $is_show
  * @property string $cover_url
  * @property integer $is_display
+ * @property integer $is_pay
  */
 class Cat extends \yii\db\ActiveRecord
 {
@@ -35,7 +36,7 @@ class Cat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['store_id', 'is_delete', 'addtime', 'update_time', 'sort', 'is_show', 'is_display'], 'integer'],
+            [['store_id', 'is_delete', 'addtime', 'update_time', 'sort', 'is_show', 'is_display', 'is_pay'], 'integer'],
             [['pic_url', 'cover_url'], 'string'],
             [['name'], 'string', 'max' => 255],
         ];
@@ -58,6 +59,7 @@ class Cat extends \yii\db\ActiveRecord
             'is_show' => '是否设为首页推荐',
             'cover_url' => '首页缩略图',
             'is_display' => '是否在分页列表中显示',
+            'is_pay' => '是否开启付费',
         ];
     }
 }
