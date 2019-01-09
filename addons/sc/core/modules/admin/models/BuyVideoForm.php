@@ -13,6 +13,7 @@ use app\models\MemberOrder;
 use app\models\Order;
 use app\models\User;
 use app\models\Video;
+use app\models\Cat;
 use yii\data\Pagination;
 
 class BuyVideoForm extends Model
@@ -47,7 +48,7 @@ class BuyVideoForm extends Model
 
         $query = Order::find()->alias('o')->where([
             'o.store_id' => $this->store_id, 'o.type' => 1, 'o.is_pay' => 1, 'o.is_delete' => 0
-        ])->leftJoin(Video::tableName() . ' v', 'v.id=o.video_id')
+        ])->leftJoin(Cat::tableName() . ' c', 'c.id=o.product_id')
             ->leftJoin(User::tableName() . ' u', 'u.id=o.user_id');
         if ($this->keyword) {
             $query->andWhere([
@@ -60,7 +61,7 @@ class BuyVideoForm extends Model
         $p = new Pagination(['totalCount' => $count, 'pageSize' => $this->limit]);
 
         $list = $query->select([
-            'o.id', 'v.is_delete', 'v.title', 'v.pic_url', 'v.status', 'v.is_delete', 'v.video_url'
+            'o.id', 'c.is_delete', 'c.name as title' , 'c.pic_url', 'c.is_display', 'c.is_delete'
             , 'o.addtime', 'u.nickname', 'o.order_no', 'o.price'
         ])->orderBy(['o.addtime' => SORT_DESC])->limit($p->limit)->offset($p->offset)->asArray()->all();
         return [
