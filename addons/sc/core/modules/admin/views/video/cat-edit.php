@@ -35,12 +35,8 @@ $this->params['active_nav_group'] = 2;
             <a class="nav-item nav-link is_pay" id="nav-pay-edit" data-toggle="tab" href="#pay-edit" role="tab"
                 aria-controls="pay-edit" aria-selected="false">付费设置</a>
         </nav>
-
     </div>
     <form class="form auto-submit-form" method="post" autocomplete="off" data-return="<?= $urlManager->createUrl(['admin/video/cat']) ?>">
-        <div class="form-title">
-            <?= $this->title ?>
-        </div>
         <div class="form-body">
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="level-edit" role="tabpanel" aria-labelledby="nav-level-edit">

@@ -19,6 +19,7 @@ use app\models\Video;
 use app\models\VideoCoupon;
 use app\models\VideoPay;
 use app\models\CatPay;
+use app\models\Cat;
 
 class VideoForm extends Model
 {
@@ -108,8 +109,8 @@ class VideoForm extends Model
             'v.store_id' => $this->store_id,
             'v.is_delete' => 0,
             'v.id' => $this->video_id,
-        ])->select([
-            'v.*',
+        ])->leftJoin(['c' => Cat::tableName()], 'c.id = v.cat_id')->select([
+            'v.*','c.is_pay as cat_is_pay'
         ])->asArray()->one();
         $video['video_time'] = TimeToDay::time($video['video_time']);
         $video['page_view'] = TimeToDay::getPageView($video['page_view']);
@@ -134,10 +135,15 @@ class VideoForm extends Model
         $video_list = $this->getGroom($this->store_id, $this->video_id);
         $video_pay = VideoPay::find()->where(['store_id' => $this->store_id, 'video_id' => $video['id']])->asArray()->orderBy(['id' => SORT_DESC])->one();
         $video_pay['d_time'] = TimeToDay::date($video_pay['time']);
-        if ($video_pay){
-            if (!($video_pay['price']>0)){
-                $video['is_pay'] = 0;
-            }
+        $video['checkMark'] = 0;
+        // if ($video_pay){
+        //     if ($video_pay['price']=='0'){
+        //         $video['is_pay'] = 0;
+        //         $video['checkMark'] = 1;
+        //     }
+        // }
+        if ($video['cat_is_pay']==0){
+            $video['is_pay']  = 0;
         }
         $cat_pay = CatPay::find()->where(['store_id' => $this->store_id, 'cat_id' => $video['cat_id']])->asArray()->orderBy(['id' => SORT_DESC])->one();
         if($cat_pay){

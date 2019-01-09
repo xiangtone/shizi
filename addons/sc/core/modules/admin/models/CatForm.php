@@ -62,10 +62,10 @@ class CatForm extends Model
         }
         //判断付费视频参数
         if ($this->is_pay == 1) {
-            if ($this->pay_price < 0.01) {
+            if ($this->pay_price < 0) {
                 return [
                     'code' => 1,
-                    'msg' => '付费金额不能小于0.01',
+                    'msg' => '付费金额不能小于0',
                 ];
             }
         }

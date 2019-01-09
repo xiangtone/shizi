@@ -42,9 +42,9 @@ class CatVideoForm extends Model
         $count = $query->count();
         $p = new Pagination(['totalCount'=>$count,'pageSize'=>$this->limit,'page'=>$this->page]);
         $list = $query->select([
-            'v.id','v.pic_url','v.title','v.video_time','v.style','v.content'
+            'v.id','v.pic_url','v.title','v.video_time','v.style','v.content','v.is_pay'
         ])->orderBy(['v.sort'=>SORT_ASC,'v.addtime'=>SORT_DESC])->offset($p->offset)->limit($p->limit)->asArray()->all();
-        $cat = Cat::findOne(['store_id'=>$this->store_id,'is_delete'=>0,'id'=>$this->cat_id]);
+        $cat = Cat::find()->where(['store_id'=>$this->store_id,'is_delete'=>0,'id'=>$this->cat_id])->asArray()->one();
         foreach($list as $index=>$value){
             $list[$index]['video_time'] = TimeToDay::time($value['video_time']);
         }
@@ -53,7 +53,8 @@ class CatVideoForm extends Model
             'msg'=>'success',
             'data'=>[
                 'list'=>$list,
-                'cat_name'=>$cat->name
+                'cat_name'=>$cat['name'],
+                'cat'=>$cat,
             ]
         ];
     }
