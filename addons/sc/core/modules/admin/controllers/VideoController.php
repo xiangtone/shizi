@@ -15,6 +15,7 @@ use app\models\Cat;
 use app\models\Form;
 use app\models\Video;
 use app\models\VideoPay;
+use app\models\CatPay;
 use app\modules\admin\models\BannerForm;
 use app\modules\admin\models\BannerListForm;
 use app\modules\admin\models\CatForm;
@@ -44,17 +45,36 @@ class VideoController extends Controller
     public function actionCatEdit($id = null)
     {
         $cat = Cat::findOne(['id' => $id, 'is_delete' => 0, 'store_id' => $this->store->id]);
-        if (!$cat)
+        if (!$cat){
             $cat = new Cat();
+        }
+           
+        $cat_pay = CatPay::findOne(['cat_id'=>$cat->id]);
+        if(!$cat_pay){
+            $cat_pay = new CatPay();
+        }
+        $pay = [];
+        foreach($cat_pay as $index=>$value){
+            $pay['pay_'.$index] = $value;
+        }
+        //var_dump($pay);return;
         if (\Yii::$app->request->isPost) {
             $form = new CatForm();
+            $model = \Yii::$app->request->post('model');
+            $model_pay = \Yii::$app->request->post('pay');
+            $model = array_merge($model,$model_pay);
+            
+            $form->attributes = $model;
             $form->cat = $cat;
+            $form->cat_pay = $cat_pay;
             $form->store_id = $this->store->id;
-            $form->attributes = \Yii::$app->request->post('model');
+            
+
             $this->renderJson($form->save());
         }
         return $this->render('cat-edit', [
-            'list' => $cat
+            'list' => $cat,
+            'pay'=>$pay,
         ]);
     }
 
