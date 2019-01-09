@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "zjhj_video_store".
+ * This is the model class for table "{{%store}}".
  *
  * @property integer $id
  * @property integer $acid
@@ -24,6 +24,7 @@ use Yii;
  * @property integer $refund
  * @property integer $member
  * @property string $customer_service_pic
+ * @property string $default_coupon_price
  */
 class Store extends \yii\db\ActiveRecord
 {
@@ -32,7 +33,7 @@ class Store extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'zjhj_video_store';
+        return '{{%store}}';
     }
 
     /**
@@ -43,6 +44,7 @@ class Store extends \yii\db\ActiveRecord
         return [
             [['acid', 'user_id', 'wechat_platform_id', 'wechat_app_id', 'pic_style', 'refund', 'member'], 'integer'],
             [['video_icon', 'audio_icon', 'customer_service_pic'], 'string'],
+            [['default_coupon_price'], 'number'],
             [['name', 'copyright', 'copyright_pic_url', 'copyright_url', 'contact_tel', 'show_customer_service'], 'string', 'max' => 255],
         ];
     }
@@ -63,13 +65,14 @@ class Store extends \yii\db\ActiveRecord
             'copyright_pic_url' => '版权图片链接',
             'copyright_url' => '版权的超链接',
             'contact_tel' => 'Contact Tel',
-            'show_customer_service' => '客服  1开启  0关闭',
+            'show_customer_service' => 'Show Customer Service',
             'pic_style' => '是否开启类型标签0--关闭 1--开启',
             'video_icon' => '视频标签',
             'audio_icon' => '音频标签',
             'refund' => '是否开启退款功能 0关闭 1--开启',
             'member' => '是否开通会员 0--不开通 1--开通',
-            'customer_service_pic' => '客服图标',
+            'customer_service_pic' => 'Customer Service Pic',
+            'default_coupon_price' => '默认优惠券金额',
         ];
     }
 }

@@ -115,12 +115,12 @@ class VideoForm extends Model
         }
         //判断付费视频参数
         if ($this->is_pay == 1 && $this->style != 2) {
-            if ($this->pay_price < 0.01) {
-                return [
-                    'code' => 1,
-                    'msg' => '付费金额不能小于0.01',
-                ];
-            }
+            // if ($this->pay_price < 0.01) {
+            //     return [
+            //         'code' => 1,
+            //         'msg' => '付费金额不能小于0.01',
+            //     ];
+            // }
             if (floatval($this->pay_time) > floatval($this->video_time)) {
                 return [
                     'code' => 1,

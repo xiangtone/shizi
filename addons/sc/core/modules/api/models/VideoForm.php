@@ -18,10 +18,12 @@ use app\models\UserCoupon;
 use app\models\Video;
 use app\models\VideoCoupon;
 use app\models\VideoPay;
+use app\models\CatPay;
 
 class VideoForm extends Model
 {
     public $store_id;
+    public $store;
     public $video_id;
     public $user_id;
     public $cat_id;
@@ -132,6 +134,18 @@ class VideoForm extends Model
         $video_list = $this->getGroom($this->store_id, $this->video_id);
         $video_pay = VideoPay::find()->where(['store_id' => $this->store_id, 'video_id' => $video['id']])->asArray()->orderBy(['id' => SORT_DESC])->one();
         $video_pay['d_time'] = TimeToDay::date($video_pay['time']);
+        if ($video_pay){
+            if (!($video_pay['price']>0)){
+                $video['is_pay'] = 0;
+            }
+        }
+        $cat_pay = CatPay::find()->where(['store_id' => $this->store_id, 'cat_id' => $video['cat_id']])->asArray()->orderBy(['id' => SORT_DESC])->one();
+        if($cat_pay){
+            if (!($cat_pay['price']>0)){
+                $video['is_pay'] = 0;
+            }
+            $video_pay['price'] = $cat_pay['price'];
+        }
         if ($this->user_id) {
             $collect = Collect::find()->where(['store_id' => $this->store_id, 'video_id' => $this->video_id, 'user_id' => $this->user_id])->one();
             if (!$collect) {
@@ -141,19 +155,33 @@ class VideoForm extends Model
             }
             //查看该视频id是否购买
             $order1 = Order::find()->where([
-                'store_id' => $this->store_id, 'type' => 1, 'is_pay' => 1, 'video_id' => $video['id'],
+                'store_id' => $this->store_id, 'type' => 1, 'is_pay' => 1, 'video_id' => $video['id'],'product_type'=>'video',
                 'user_id' => $this->user_id, 'is_delete' => 0,
             ])->exists();
 
             //查看分类id是否购买了
             $order2 = Order::find()->where([
-                'store_id' => $this->store_id, 'type' => 1, 'is_pay' => 1, 'product_id' => $video['cat_id'],
+                'store_id' => $this->store_id, 'type' => 1, 'is_pay' => 1, 'product_id' => $video['cat_id'],'product_type'=>'cat',
                 'user_id' => $this->user_id, 'is_delete' => 0,
             ])->exists();
 
             //只要有一个买了就可以播放了
             if ($order2 || $order1) {
                 $video['is_pay'] = 0;
+            }
+
+            if ($this->store->default_coupon_price){
+                $orderAny = Order::find()->where([
+                    'store_id' => $this->store_id, 'type' => 1, 'is_pay' => 1, 
+                    'user_id' => $this->user_id, 'is_delete' => 0,
+                ])->exists();
+                if ($orderAny){
+                    if ($video_pay['price']>$this->store->default_coupon_price){
+                        $video_pay['price_origin'] = $video_pay['price'];
+                        $video_pay['price'] = $video_pay['price']-$this->store->default_coupon_price;
+                        $video_pay['default_coupon_price'] = $this->store->default_coupon_price;
+                    }   
+                }
             }
 
             $user = User::findOne(['id' => $this->user_id]);

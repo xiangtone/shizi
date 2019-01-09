@@ -32,7 +32,7 @@ class UserController extends Controller
         return array_merge(parent::behaviors(), [
             'login' => [
                 'class' => LoginBehavior::className(),
-                'ignore' => ['video-list', 'video', 'index', 'comment-list'],
+                'ignore' => ['video-list','next-video', 'video', 'index', 'comment-list'],
             ],
         ]);
     }
@@ -56,6 +56,7 @@ class UserController extends Controller
     {
         $form = new VideoForm();
         $form->store_id = $this->store->id;
+        $form->store = $this->store;
         $form->user_id = \Yii::$app->user->identity->id;
         $form->attributes = \Yii::$app->request->get();
         $this->renderJson($form->search());
@@ -201,7 +202,7 @@ class UserController extends Controller
         $form->store_id = $this->store->id;
         $form->user = \Yii::$app->user->identity;
         $form->attributes = \Yii::$app->request->get();
-        $this->renderJson($form->search());
+        $this->renderJson($form->searchCat());
     }
 
 //领取优惠券
