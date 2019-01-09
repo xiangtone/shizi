@@ -33,7 +33,7 @@ $this->params['active_nav_group'] = 2;
                 aria-controls="level-edit" aria-selected="true">
                 <?= $this->title ?></a>
             <a class="nav-item nav-link is_pay" id="nav-pay-edit" data-toggle="tab" href="#pay-edit" role="tab"
-                aria-controls="pay-edit" aria-selected="false">付费设置</a>
+                aria-controls="pay-edit" aria-selected="false" <?= $list['is_display'] == 0 ? "hidden" : "" ?>>付费设置</a>
         </nav>
 
     </div>
@@ -136,8 +136,8 @@ $this->params['active_nav_group'] = 2;
                     </div>
                 </div>
                 <!-- 付费 -->
-                <div class="tab-pane fade show" id="pay-edit" role="tabpanel" aria-labelledby="nav-pay-edit">
-                    <div class="form-group row is_pay">
+                <div class="tab-pane fade show" id="pay-edit" role="tabpanel" aria-labelledby="nav-pay-edit" >
+                    <div class="form-group row is_pay" >
                         <div class="col-3 text-right">
                             <label class=" col-form-label">是否开启付费观看</label>
                         </div>
