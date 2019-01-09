@@ -7,7 +7,7 @@
 <view style="width:700rpx;margin:0 auto;background-color:#f5d6a2;color:#99653b;box-shadow: 4rpx 10rpx 6rpx 4rpx rgba(140,32,27, 0.5);">
   <block wx:if='{{video_list.length>0}}'>
     <view class='video-list'>
-      <block wx:for='{{video_list}}'>
+      <block wx:for='{{video_list}}' wx:key='{{index}}'>
         <view class='video-one border-top flex-row' style='background-color:#f5d6a2;' bindtap='goto' data-index='{{index}}'>
           <view class='flex-grow-0 pic' style="background-image:url('{{item.pic_url}}');">
           </view>

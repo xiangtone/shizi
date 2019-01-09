@@ -20,17 +20,20 @@
       <image src='/images/icon-play-big.png' class='cover-play' bindtap='playVideo' wx:if='{{video.style < 2}}'></image>
     </view>
     <view class='cover {{play?"hidden":""}} bg' wx:if='{{video.is_pay==1}}'>
-      <view class='pay-text flex-x-center'>此内容需￥{{video_pay.price}}元购买</view>
+      <view class='pay-text flex-x-center' wx:if='{{video_pay.default_coupon_price}}'>
+      <text>本册内容原价：￥{{video_pay.price_origin}}元\n您的优惠券：￥{{video_pay.default_coupon_price}}元\n优惠购买价格：￥{{video_pay.price}}元</text></view>
+      <view class='pay-text flex-x-center' wx:else>
+      <text>本册内容需￥{{video_pay.price}}元购买\n购买即送20元优惠券，下次购买可用</text></view>
       <view class='flex-row flex-x-center'>
-        <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-1' bindtap='playVideo' wx:if='{{video_pay.time != 0}}'>
+        <!-- <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-1' bindtap='playVideo' wx:if='{{video_pay.time != 0}}'>
           <view>试看{{video_pay.d_time}}</view>
-        </view>
-        <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='{{store.member == 1 ? "showModal" : "buyVideo"}}'>
+        </view> -->
+        <!-- <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='{{store.member == 1 ? "showModal" : "buyVideo"}}'>
+          <view>立即购买</view>
+        </view> -->
+        <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='{{store.member == 1 ? "showModal" : "buyCat"}}'>
           <view>立即购买</view>
         </view>
-        <!-- <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-2' bindtap='{{store.member == 1 ? "showModal" : "buyCat"}}'>
-                    <view>立即购买</view>
-                </view> -->
       </view>
     </view>
     <view class='flex-y-center flex-row info-title'>

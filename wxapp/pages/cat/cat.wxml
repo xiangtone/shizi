@@ -3,7 +3,7 @@
 <template is="bg" data="{{store: store,a:2}}" />
 <import src="/commons/float-icon/float-icon.wxml" />
 <template is="item" data="{{store: store,a:2,shareShow:0}}" />
-<view style="position:relative;width:750rpx;height:472rpx" wx:for='{{cat_list}}' wx:for-index='index' wx:for-item='item'>
+<view style="position:relative;width:750rpx;height:472rpx" wx:for='{{cat_list}}' wx:for-index='index'  wx:key='index' wx:for-item='item'>
   <navigator url='/pages/cat-second/cat-second?cat_id={{item.id}}'>
   <view style="width:750rpx;height:472rpx;position:absolute;z-index:10">
     <image class="h-100 w-100" src="/images/course/img_course_choose_block.png" />

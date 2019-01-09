@@ -32,27 +32,27 @@ Page({
           cat_id: cat_id
         });
       }
-    }else{
+    } else {
       page.setData({
         cat_id: options.cat_id
       });
     }
   },
-  goVideo: function (e) {
-    if (e.currentTarget.dataset.videoId){
+  goVideo: function(e) {
+    if (e.currentTarget.dataset.videoId) {
       wx.navigateTo({
         url: '/pages/video1/video1?id=' + e.currentTarget.dataset.videoId,
       })
     }
   },
-  goChar: function (e) {
+  goChar: function(e) {
     if (e.currentTarget.dataset.videoId) {
       wx.navigateTo({
         url: '/pages/read/read?video_id=' + e.currentTarget.dataset.videoId,
       })
     }
   },
-  goSentence: function (e) {
+  goSentence: function(e) {
     if (e.currentTarget.dataset.videoId) {
       var page = this;
       if (app.checkLogin() == true) {
@@ -69,7 +69,7 @@ Page({
       }
     }
   },
-  goWord: function (e) {
+  goWord: function(e) {
     if (e.currentTarget.dataset.videoId) {
       var page = this;
       if (app.checkLogin() == true) {
@@ -98,7 +98,9 @@ Page({
    */
   onShow: function() {
     app.pageOnShow(this);
-    this.loadData();
+    if (!this.data.video_list) {
+      this.loadData();
+    }
   },
 
   loadData: function() {
@@ -113,6 +115,7 @@ Page({
         cat_id: page.data.cat_id
       },
       success: function(res) {
+        console.log('res', res)
         if (res.code == 0) {
           if (!res.data.cat_name) {
             wx.navigateTo({
@@ -123,19 +126,24 @@ Page({
           for (let i in res.data.list) {
             let regexp = /\d+/g
             let splitNum = res.data.list[i].title.match(regexp)
-            if (splitNum){
+            if (splitNum) {
               let splitArr = res.data.list[i].title.split(splitNum)
               res.data.list[i].title1 = splitArr[0].trim()
               res.data.list[i].title2 = splitArr[1].trim()
               res.data.list[i].titleNum = splitNum
             }
-            console.log(splitNum)
+            if (res.data.cat.is_pay == '1' && res.data.list[i].is_pay=='0'){
+              res.data.list[i].freeBlink = 1 
+            }else{
+              res.data.list[i].freeBlink = 0
+            }
           }
           page.setData({
             video_list: res.data.list,
-            cat_name: res.data.cat_name
+            cat_name: res.data.cat_name,
+            cat: res.data.cat,
           });
-          
+
           // wx.setNavigationBarTitle({
           //   title: res.data.cat_name,
           // });
@@ -149,9 +157,9 @@ Page({
       }
     });
   },
-  testWord:function(ori){
+  testWord: function(ori) {
     console.log('testWord')
-    return ori+':'
+    return ori + ':'
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -186,21 +194,20 @@ Page({
     var result = {
       title: "",
       path: "/pages/cover/cover",
-      success: function(res) {
-      },
+      success: function(res) {},
       fail: function(res) {
         // 转发失败
       }
     };
-    if (this.data.cat_id){
+    if (this.data.cat_id) {
       result.path = "/pages/cat-second/cat-second?cat_id=" + this.data.cat_id
     }
     var user_info = wx.getStorageSync('user_info');
     if (user_info && user_info.id) {
-      if (result.path.indexOf("?")!=-1){
-        result.path = result.path+"&fd=" + user_info.id  
-      }else{
-        result.path = result.path + "?fd=" + user_info.id  
+      if (result.path.indexOf("?") != -1) {
+        result.path = result.path + "&fd=" + user_info.id
+      } else {
+        result.path = result.path + "?fd=" + user_info.id
       }
     }
     return result;
@@ -234,6 +241,21 @@ Page({
       success: function(res) {
         if (res.data.list.length == 0)
           is_no_more = true;
+        for (let i in res.data.list) {
+          let regexp = /\d+/g
+          let splitNum = res.data.list[i].title.match(regexp)
+          if (splitNum) {
+            let splitArr = res.data.list[i].title.split(splitNum)
+            res.data.list[i].title1 = splitArr[0].trim()
+            res.data.list[i].title2 = splitArr[1].trim()
+            res.data.list[i].titleNum = splitNum
+          }
+          if (res.data.cat.is_pay == '1' && res.data.list[i].is_pay == '0') {
+            res.data.list[i].freeBlink = 1
+          } else {
+            res.data.list[i].freeBlink = 0
+          }
+        }
         var video_list = page.data.video_list.concat(res.data.list);
         page.setData({
           video_list: video_list,

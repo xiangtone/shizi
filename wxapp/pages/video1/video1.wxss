@@ -494,7 +494,7 @@ page {
 
 .bg {
   background-color: #181818;
-  padding-top: 128rpx;
+  padding-top: 100rpx;
   color: #fff;
 }
 
