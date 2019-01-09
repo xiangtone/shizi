@@ -3474,8 +3474,14 @@
       "__id__": 101
     },
     "_enabled": false,
-    "_defaultClip": null,
-    "_clips": [],
+    "_defaultClip": {
+      "__uuid__": "07309ddb-ba3a-46ac-8b46-ad419c6ae953"
+    },
+    "_clips": [
+      {
+        "__uuid__": "07309ddb-ba3a-46ac-8b46-ad419c6ae953"
+      }
+    ],
     "playOnLoad": false
   },
   {
