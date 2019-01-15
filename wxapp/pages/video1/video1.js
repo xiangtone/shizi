@@ -44,6 +44,12 @@ Page({
     });
     comment.init(page);
     share.init(page);
+    const systemInfo = wx.getSystemInfoSync()
+    if (systemInfo.system && systemInfo.system.toUpperCase().indexOf('IOS')!=-1){
+      page.setData({
+        isIOS :true,
+      })
+    }
   },
 
 
@@ -60,6 +66,11 @@ Page({
    */
   onShow: function() {
     app.pageOnShow(this);
+    if (app.checkLoginWithoutRedirect()) {
+      this.setData({
+        isLogin: true
+      })
+    }
     var page = this;
     wx.showLoading({
       title: '加载中',
@@ -135,6 +146,7 @@ Page({
             }
             page.setData({
               video: res.data.video,
+              storeFromVideo: res.data.store,
               video_list: res.data.video_list,
               video_id: res.data.video.id,
               video_pay: res.data.video_pay,
@@ -268,104 +280,6 @@ Page({
       }
     });
   },
-  buyNow: function(option) {
-    var page = this;
-    var data = option.currentTarget.dataset;
-    var video_coupon = page.data.draw_type;
-    var video_coupon_check = video_coupon.find(function(v) {
-      return v.id == data.id
-    })
-    if (video_coupon_check.total_count <= 0) {
-      wx.showToast({
-        title: '优惠券已领取完',
-        image: '/images/icon-warning.png'
-      });
-      return
-    }
-    video_coupon_check.total_count -= 1;
-    wx.showLoading({
-      title: '提交中',
-    })
-    app.request({
-      url: api.order.video_coupon,
-      method: 'POST',
-      data: {
-        video_coupon_id: video_coupon_check.coupon_id,
-        price: video_coupon_check.coupon_price,
-        video_id: video_coupon_check.video_id,
-        coupon_id: video_coupon_check.id
-      },
-      success: function(res) {
-        if (res.code == 0) {
-          app.request({
-            url: api.order.get_pay_data,
-            method: 'POST',
-            data: {
-              order_id: res.data,
-              pay_type: 'WECHAT_PAY',
-              pay_data_type: 'video_coupon'
-            },
-            success: function(result) {
-              wx.hideLoading();
-              if (result.code == 0) {
-                var pay_data = result.data;
-                wx.requestPayment({
-                  timeStamp: pay_data.timeStamp,
-                  nonceStr: pay_data.nonceStr,
-                  package: pay_data.package,
-                  signType: pay_data.signType,
-                  paySign: pay_data.paySign,
-                  success: function(res) {
-                    wx.showToast({
-                      title: '订单支付成功',
-                      icon: 'success'
-                    });
-                    setTimeout(function() {
-                      video_coupon_check.num += 1;
-                      if (video_coupon_check.user_num == video_coupon_check.num) {
-                        video_coupon_check.type = 1;
-                      }
-                      var count = video_coupon_check.count;
-                      var percentage = video_coupon_check.percentage;
-                      var percentageint = parseInt(percentage);
-                      var c = (parseInt(1) / parseInt(count)) * 100;
-                      video_coupon_check.percentage = (percentageint - c);
-                      video_coupon_check.percentage = Math.round(video_coupon_check.percentage)
-                      video_coupon_check.percentage = video_coupon_check.percentage + '%'
-                      page.setData({
-                        draw_type: video_coupon,
-                      });
-                      wx.setStorageSync("video_coupon", video_coupon);
-                      console.log(video_coupon)
-                    }, 2000)
-                  },
-                  fail: function(res) {
-                    wx.showToast({
-                      title: '订单未支付',
-                      image: '/images/icon-warning.png'
-                    });
-                  }
-                });
-              } else {
-                wx.showModal({
-                  title: '警告',
-                  content: result.msg,
-                  showCancel: false
-                });
-              }
-            },
-          });
-        } else {
-          wx.showModal({
-            title: '警告',
-            content: res.msg,
-            showCancel: false
-          })
-        }
-      }
-    });
-  },
-
   collect: function(option) {
     var page = this;
     var video = page.data.video;
@@ -570,152 +484,6 @@ Page({
       urls: img_list,
     })
   },
-  formInput: function(e) {
-    var page = this;
-    var index = e.currentTarget.dataset.index;
-    var video = page.data.video
-    var form_list = video.form_list;
-    form_list[index].value = e.detail.value;
-    video.form_list = form_list;
-    page.setData({
-      video: video
-    });
-  },
-  formSubmit: function(e) {
-    var page = this;
-    var formId = e.detail.formId;
-    wx.showModal({
-      title: '提示',
-      content: '是否立即预约？',
-      success: function(e) {
-        if (e.confirm) {
-          var video = page.data.video;
-          var form_list = video.form_list;
-          for (var i in form_list) {
-            if (form_list[i].required == 1) {
-              if (!form_list[i].value || form_list[i].value == undefined) {
-                wx.showToast({
-                  title: '请输入' + form_list[i].name,
-                  image: '/images/icon-warning.png'
-                })
-                return;
-              }
-            }
-          }
-          wx.showLoading({
-            title: '提交中',
-          });
-          app.request({
-            url: api.order.prew,
-            method: 'POST',
-            data: {
-              formId: formId,
-              form_list: JSON.stringify(form_list),
-              video_id: video.id,
-              price: parseFloat(video.money)
-            },
-            success: function(res) {
-              if (res.code == 0) {
-                if (video.money == 0) {
-                  wx.hideLoading();
-                  wx.redirectTo({
-                    url: '/pages/order/order?status=1',
-                  });
-                } else {
-                  app.request({
-                    url: api.order.get_pay_data,
-                    method: 'POST',
-                    data: {
-                      order_id: res.data,
-                      pay_type: 'WECHAT_PAY',
-                    },
-                    success: function(result) {
-                      wx.hideLoading();
-                      if (result.code == 0) {
-                        var pay_data = result.data;
-                        wx.requestPayment({
-                          timeStamp: pay_data.timeStamp,
-                          nonceStr: pay_data.nonceStr,
-                          package: pay_data.package,
-                          signType: pay_data.signType,
-                          paySign: pay_data.paySign,
-                          success: function(res) {
-                            wx.showToast({
-                              title: '订单支付成功',
-                              icon: 'success'
-                            });
-                            setTimeout(function() {
-                              wx.redirectTo({
-                                url: '/pages/order/order?status=1',
-                              })
-                            }, 2000)
-                          },
-                          fail: function(res) {
-                            wx.showToast({
-                              title: '订单未支付',
-                              image: '/images/icon-warning.png'
-                            });
-                          }
-                        });
-                      } else {
-                        wx.showModal({
-                          title: '提示',
-                          content: result.msg,
-                          showCancel: false
-                        });
-                      }
-                    }
-                  });
-                }
-              } else {
-                wx.hideLoading();
-                wx.showToast({
-                  title: res.msg,
-                  image: '/images/icon-warning.png'
-                });
-              }
-            }
-          });
-        }
-      }
-    })
-  },
-  playVideo: function() {
-    var page = this;
-    var video_play = wx.createVideoContext('video');
-    var video = page.data.video;
-    if (video.status == 1) {
-      wx.showModal({
-        title: '提示',
-        content: '该内容已下架',
-        showCancel: false
-      })
-    } else {
-      wx.getNetworkType({
-        success: function(res) {
-          if (res.networkType != 'wifi') {
-            wx.showModal({
-              title: '提示',
-              content: '当前网络状态不是WiFi，是否播放',
-              success: function(e) {
-                if (e.confirm) {
-                  page.setData({
-                    play: true
-                  });
-                  video_play.play();
-                }
-              }
-            })
-          } else {
-            page.setData({
-              play: true
-            });
-            video_play.play();
-          }
-        },
-      })
-    }
-  },
   pause: function() {
     var page = this;
     var video_play = wx.createVideoContext('video');
@@ -794,7 +562,7 @@ Page({
                         },
                         fail: function(res) {
                           wx.showToast({
-                            title: '订单未支付',
+                            title: '订单未支付3',
                             image: '/images/icon-warning.png'
                           });
                         }
@@ -821,10 +589,88 @@ Page({
       }
     })
   },
+  login: function (e) {
+    var page = this;
+    var data = e.detail;
+    console.log('user login', e);
+    if (data.errMsg == 'getUserInfo:fail auth deny') {
+      wx.hideLoading();
+      wx.showModal({
+        title: '提示',
+        content: '登录失败',
+        showCancel: false
+      })
+      return;
+    }
+    if (data.errMsg != 'getUserInfo:ok') {
+      wx.hideLoading();
+      wx.showModal({
+        title: '提示',
+        content: '登录失败' + data.errMsg,
+        showCancel: false
+      })
+      return;
+    }
+    wx.showLoading({
+      title: "正在登陆",
+      mask: true
+    });
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          var code = res.code;
+          console.log(res)
+          let fd = wx.getStorageSync("fd");
+          console.info('login fd', fd)
+          let cd = wx.getStorageSync("cd");
+          console.info('login cd', cd)
+          app.request({
+            url: api.passport.login,
+            method: "POST",
+            data: {
+              code: code,
+              user_info: data.rawData,
+              encrypted_data: data.encryptedData,
+              iv: data.iv,
+              signature: data.signature,
+              fd: fd,
+              cd: cd,
+            },
+            success: function (result) {
+              console.log('===>1212 result', result)
+              wx.hideLoading();
+              if (result.code == 0) {
+                wx.setStorageSync("access_token", result.data.access_token);
+                wx.setStorageSync("user_info", result.data);
+                page.setData({
+                  user_info: result.data
+                });
+                page.buyCat();
+              } else {
+                wx.showModal({
+                  title: '警告，请重试',
+                  content: result.msg,
+                  showCancel: false,
+                })
+              }
+            }
+          });
+        } else {
+          wx.showToast({
+            title: res.msg
+          });
+        }
+      },
+      fail: function (e) {
+        console.log(e);
+      }
+    });
+  },
   /**
    * 购买分类
    */
   buyCat: function() {
+    console.log('arguments', arguments)
     var page = this;
     var video = page.data.video;
     console.log('buyCat-->cat_id' + video.cat_id);
@@ -907,8 +753,44 @@ Page({
       }
     })
   },
+  playVideo: function () {
+    var page = this;
+    var video_play = wx.createVideoContext('video');
+    var video = page.data.video;
+    if (video.status == 1) {
+      wx.showModal({
+        title: '提示',
+        content: '该内容已下架',
+        showCancel: false
+      })
+    } else {
+      wx.getNetworkType({
+        success: function (res) {
+          if (res.networkType != 'wifi') {
+            wx.showModal({
+              title: '提示',
+              content: '当前网络状态不是WiFi，是否播放',
+              success: function (e) {
+                if (e.confirm) {
+                  page.setData({
+                    play: true
+                  });
+                  video_play.play();
+                }
+              }
+            })
+          } else {
+            page.setData({
+              play: true
+            });
+            video_play.play();
+          }
+        },
+      })
+    }
+  },
   goNext: function (option) {
-    let t = this;
+    let page = this;
     app.request({
       url: api.user.next_video,
       data: {
@@ -920,9 +802,13 @@ Page({
       success: function(res) {
         console.log('视频相关信息', res);
         if (res.code == 0) {
-          wx.navigateTo({
-            url: '/pages/video1/video1?id='+res.data.next_video.id,
-          })
+          // wx.navigateTo({
+          //   url: '/pages/video1/video1?id='+res.data.next_video.id,
+          // })
+          page.setData({
+            video_id: res.data.next_video.id,
+          });
+          page.onShow()
         }else{
           wx.showModal({
             title: '提示',
@@ -943,7 +829,6 @@ Page({
     })
   },
   cyllkGame: function() {
-    
     //console.log("词语连连看webview-->>");
     var page = this;
     if (app.checkLogin() == true) {

@@ -16,7 +16,7 @@
     <view class="weui-cell class-list-cell-area flex-y-center flex-x-center" style='font-size:30rpx;height:100rpx;' wx:for='{{video_list}}' wx:key='{{index}}'>
       <view style='width:100%;height:100%;position:relative'>
         <!-- <view class='roomWarn' style='position:absolute;left:0;top:-10rpx;color:red;font-size:20rpx;' wx:if='{{item.freeBlink}}'>免费</view> -->
-        <view  style='position:absolute;left:0;bottom:0;color:red' wx:if='{{item.freeBlink}}'>免费</view>
+        <view  style='position:absolute;left:0;bottom:0;color:blue;font-weight:700;font-size:36rpx' wx:if='{{item.freeBlink}}'>免费</view>
         <view class='flex-row' bindtap='goVideo' data-video-id='{{item.id}}' wx:else style='position:absolute;left:0;bottom:0;color:red;'>
           <view>{{item.title1}}</view>
           <view>{{item.titleNum}}</view>

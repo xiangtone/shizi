@@ -17,25 +17,25 @@ Page({
     app.pageOnLoad(this);
     var page = this;
     app.storeChannel(options)
-    if (app.checkLoginWithoutRedirect()){
+    if (app.checkLoginWithoutRedirect()) {
       this.setData({
-        isLogin:true
+        isLogin: true
       })
     }
     app.request({
       url: api.user.class_info,
       method: 'get',
       data: {
-        class_id:options.class_id,
+        class_id: options.class_id,
         page: 1,
       },
       success: function(res) {
         console.log(res)
         if (res.code == 0) {
           page.setData({
-            user_list:res.data.list,
-            class:res.data.class,
-            data:res.data
+            user_list: res.data.list,
+            class: res.data.class,
+            data: res.data
             // teacher_info:res.data.teacher_info
           });
           wx.setNavigationBarTitle({
@@ -43,65 +43,64 @@ Page({
           });
           page.joinStatus()
           page.checkInClass()
+        } else {}
+      },
+    });
+  },
+  joinClass: function() {
+    var page = this;
+    console.log('try join')
+    app.request({
+      url: api.user.class_join,
+      method: 'get',
+      data: {
+        class_id: this.data.class.id,
+      },
+      success: function(res) {
+        console.log(res)
+        if (res.code == 0) {
+          wx.reLaunch({
+            url: '/pages/class-user-list/class-user-list?class_id=' + page.data.class.id,
+          })
         } else {
+          wx.showModal({
+            title: '提示',
+            content: res.msg,
+            showCancel: false,
+            success: function(e) {
+              if (e.confirm) {
+                wx.reLaunch({
+                  url: '/pages/class-user-list/class-user-list?class_id=' + page.data.class.id,
+                })
+              }
+            }
+          })
         }
       },
     });
   },
-  joinClass:function(){
-    var page = this;
-      console.log('try join')
-      app.request({
-        url: api.user.class_join,
-        method: 'get',
-        data: {
-          class_id: this.data.class.id,
-        },
-        success: function (res) {
-          console.log(res)
-          if (res.code == 0) {
-            wx.reLaunch({
-              url: '/pages/class-user-list/class-user-list?class_id='+page.data.class.id,
-            })
-          } else {
-            wx.showModal({
-              title: '提示',
-              content: res.msg,
-              showCancel: false,
-              success: function (e) {
-                if (e.confirm) {
-                  wx.reLaunch({
-                    url: '/pages/class-user-list/class-user-list?class_id=' + page.data.class.id,
-                  })
-                }
-              }
-            })
-          }
-        },
-      });
-  },
-  checkInClass:function(){
+  checkInClass: function() {
     let user_info = wx.getStorageSync('user_info')
-    if (app.checkLoginWithoutRedirect()){
-      for (let i in this.data.user_list){
-        if (this.data.user_list[i].id == user_info.id){ 
+    if (app.checkLoginWithoutRedirect()) {
+      for (let i in this.data.user_list) {
+        if (this.data.user_list[i].id == user_info.id) {
           this.setData({
             isInClass: true,
-          }) 
+          })
           return;
         }
       }
       this.setData({
         isInClass: false,
-      }) 
-    }else{
+      })
+    } else {
       this.setData({
-        isInClass:false,
+        isInClass: false,
       })
     }
   },
-  joinStatus:function(){
-    let user_info =  wx.getStorageSync('user_info')
+  joinStatus: function() {
+    let user_info = wx.getStorageSync('user_info')
     console.log(user_info);
   },
 
@@ -159,23 +158,23 @@ Page({
       title: '邀请您加入' + this.data.class.class_name,
       path: "/pages/class-user-list/class-user-list?class_id=" + this.data.class.id,
       //imageUrl: video.pic_url,
-      success: function (res) {
+      success: function(res) {
         wx.showToast({
           title: '转发成功',
         });
       },
-      fail: function (res) {
+      fail: function(res) {
         // 转发失败
       }
     };
     let user_info = wx.getStorageSync("user_info")
-    if (user_info&&user_info.id){
-      result.title = user_info.nickname + result.title 
+    if (user_info && user_info.id) {
+      result.title = user_info.nickname + result.title
       result.path = result.path + "&fd=" + user_info.id
     }
     return result;
   },
-  login: function (e) {
+  login: function(e) {
     var page = this;
     var data = e.detail;
     console.log('user login', e);
@@ -202,7 +201,7 @@ Page({
       mask: true
     });
     wx.login({
-      success: function (res) {
+      success: function(res) {
         if (res.code) {
           var code = res.code;
           console.log(res)
@@ -222,7 +221,7 @@ Page({
               fd: fd,
               cd: cd,
             },
-            success: function (result) {
+            success: function(result) {
               console.log('===>1212 result', result)
               wx.hideLoading();
               if (result.code == 0) {
@@ -247,7 +246,7 @@ Page({
           });
         }
       },
-      fail: function (e) {
+      fail: function(e) {
         console.log(e);
       }
     });
