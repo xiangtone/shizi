@@ -134,7 +134,8 @@ $status = ['已下架', '已上架'];
                                    data-url="<?=$urlManager->createUrl(['admin/video/is-index', 'id' => $value['id'], 'is_index' => 0])?>">展示</a>
                             <?php endif;?>
                         </td> -->
-                    	<td><?=$value['name']?></td>
+                    	<td><a class="btn btn-sm btn-primary mb-2"
+                               href="<?= $urlManager->createUrl(['admin/video/list', 'cat_id' => $value['cat_id']]) ?>"><?=$value['name']?></a></td>
                     	<td><?=$style[$value['style']]?></td>
                     	<td><img src='<?=$value['pic_url']?>' height='30px' ></td>
                     	<td><?=$value['video_time']?></td>

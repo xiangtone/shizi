@@ -25,6 +25,7 @@ use Yii;
  * @property integer $member
  * @property string $customer_service_pic
  * @property string $default_coupon_price
+ * @property integer $enable_ios_pay
  */
 class Store extends \yii\db\ActiveRecord
 {
@@ -42,7 +43,7 @@ class Store extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['acid', 'user_id', 'wechat_platform_id', 'wechat_app_id', 'pic_style', 'refund', 'member'], 'integer'],
+            [['acid', 'user_id', 'wechat_platform_id', 'wechat_app_id', 'pic_style', 'refund', 'member', 'enable_ios_pay'], 'integer'],
             [['video_icon', 'audio_icon', 'customer_service_pic'], 'string'],
             [['default_coupon_price'], 'number'],
             [['name', 'copyright', 'copyright_pic_url', 'copyright_url', 'contact_tel', 'show_customer_service'], 'string', 'max' => 255],
@@ -73,6 +74,7 @@ class Store extends \yii\db\ActiveRecord
             'member' => '是否开通会员 0--不开通 1--开通',
             'customer_service_pic' => 'Customer Service Pic',
             'default_coupon_price' => '默认优惠券金额',
+            'enable_ios_pay' => '是否允许IOS支付',
         ];
     }
 }

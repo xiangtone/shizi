@@ -1,14 +1,17 @@
 <script src="https://cdn.bootcss.com/vue/2.4.4/vue.min.js"></script>
 <div style="width:100%">
-<?php foreach ($list as $index => $value): ?>
-        <div style="float:left;padding:10px;" >
+<?php foreach ($list as $index => $value):
+  if (!strstr($value['title'],'免费')){ ?>
+  <div style="display:inline-block;vertical-align:top;padding:10px;" >
                 <a style="text-align:center;height:auto" onclick="javascript:playVideo('<?=$value['video_1080'] ? $value['video_1080'] : $value['video_url']?>',<?=$value['id']?>)" href="#">
                 <div style="width:120px;height:60px;">
                 <img src='<?=$value['pic_url']?>' style="width:100%;height:100%" >
                   </div>
                 <div style="width:120px;word-wrap:break-word;"><?=$value['title']?></div></a>
-</div>
-<?php endforeach;?>
+  </div>
+<?php
+  }
+ endforeach;?>
 </div>
 <div id='lesson' v-if='currentId' style="width:100%;display: -webkit-box;
     display: -webkit-flex;

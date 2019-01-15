@@ -62,8 +62,8 @@ $this->params['active_nav_group'] = 3;
             <td>绑定手机</td>
             <td>推荐人</td>
             <td>购买课程数</td>
-            <td>会员到期时间</td>
-            <td>添加会员</td>
+            <!-- <td>会员到期时间</td>
+            <td>添加会员</td> -->
             <td>操作</td>
         </tr>
         </thead>
@@ -81,10 +81,10 @@ $this->params['active_nav_group'] = 3;
                     <?php endif;?>
                 </td>
                 <td><?=$value['video_count']?></td>
-                <td><?=$value['due_time']?></td>
+                <!-- <td><?=$value['due_time']?></td>
                 <td>
                     <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal" onclick="add_member(<?=$value['id']?>);">添加</button>
-                </td>
+                </td> -->
                 <td>
                     <?php if ($value['is_comment'] == 0): ?>
                         <a class="del" href="javascript:" data-content="是否禁言？"

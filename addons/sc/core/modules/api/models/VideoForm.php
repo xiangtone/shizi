@@ -61,9 +61,9 @@ class VideoForm extends Model
             'status' => 0,
         ]);
         if ($this->direction == 'next') {
-            $next_video->andWhere(['>', 'sort', $this->sort])->orderBy('sort', SORT_ASC);
+            $next_video->andWhere(['>', 'sort', $this->sort])->orderBy('sort');
         } else {
-            $next_video->andWhere(['<', 'sort', $this->sort])->orderBy('sort', SORT_DESC);
+            $next_video->andWhere(['<', 'sort', $this->sort])->orderBy('sort DESC');
         }
         $next_video = $next_video->select([
             'id',
@@ -243,6 +243,8 @@ class VideoForm extends Model
                 'video_list' => $video_list,
                 'video_pay' => $video_pay,
                 'video_coupon' => $video_coupon,
+                'store' => array('default_coupon_price'=>$this->store->default_coupon_price,
+                'enable_ios_pay'=>$this->store->enable_ios_pay,),
             ],
         ];
     }
