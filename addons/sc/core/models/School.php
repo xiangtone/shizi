@@ -19,6 +19,8 @@ use Yii;
  * @property string $status
  * @property string $intro
  * @property string $portrait
+ * @property string $last_login_ip
+ * @property string $last_login_date
  */
 class School extends \yii\db\ActiveRecord
 {
@@ -36,8 +38,8 @@ class School extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['enjoytime'], 'safe'],
-            [['intro', 'portrait'], 'string'],
+            [['enjoytime', 'last_login_date'], 'safe'],
+            [['intro', 'portrait', 'last_login_ip'], 'string'],
             [['username', 'password', 'level', 'realname', 'appointment', 'sheng', 'shi', 'status'], 'string', 'max' => 255],
             [['username'], 'unique'],
         ];
@@ -61,6 +63,8 @@ class School extends \yii\db\ActiveRecord
             'status' => '状态',
             'intro' => '介绍',
             'portrait' => '头像',
+            'last_login_ip' => '最后登录IP',
+            'last_login_date' => '最后登录时间',
         ];
     }
 }

@@ -26,7 +26,7 @@ class VideoListForm extends Model
 
     public function getList()
     {
-        $query = Video::find()->alias('v')->where(['v.is_delete' => 0, 'cat_id' => $this->cat_id])
+        $query = Video::find()->alias('v')->where(['v.is_delete' => 0,'v.status' => 0, 'cat_id' => $this->cat_id])
         //'status'=>0,
         //->leftJoin(Cat::tableName() . ' c', 'c.id=v.cat_id')
         ;
