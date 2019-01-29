@@ -8,6 +8,8 @@ namespace app\modules\admin\controllers;
 
 use app\models\ExChar;
 use app\modules\admin\models\ExCharForm;
+use app\models\ExRedical;
+use app\modules\admin\models\ExRedicalForm;
 use app\models\ExWord;
 use app\modules\admin\models\ExWordFrom;
 use app\models\ExSentence;
@@ -65,6 +67,67 @@ class GameController extends Controller
    
     public function actionCharDel($id){
         $form = new ExCharForm();
+        if ($form->del($id)) {
+            $this->renderJson([
+                'code' => 0,
+                'msg' => '刪除成功'
+            ]);
+        } else {
+            $this->renderJson([
+                'code' => 1,
+                'msg' => '刪除失敗'
+            ]);
+        }
+    }
+    public function actionRedicalList(){
+
+        //echo \Yii::$app->params['zuciUrl'];return;
+        $form = new ExRedicalForm();
+        //从http的post 和 get中获取参数
+        $form->attributes = \Yii::$app->request->get();
+        
+        //var_dump( $form->attributes);return;
+        $arr = $form->search();
+        //echo $form->attributes['video_id'];return;
+        return $this->render('redical-list', [
+            'list' => $arr['list'],
+            'pagination' => $arr['pagination'],
+            'row_count' => $arr['row_count'],
+            'video_id' => $form->attributes['video_id'],
+        ]);
+    }
+
+    public function actionRedicalEdit($id = null, $video_id = null){
+        //根据id查询是否有记录,有记录就是修改,没有就是添加
+        $ex = ExRedical::findOne([
+            'id' => $id,
+        ]);
+        //echo $id;echo $video_id;return;
+        //var_dump($classes);die();
+        if (!$ex) {
+            $ex = new ExRedical();
+        }
+        if (\Yii::$app->request->isPost) {
+
+            $form = new ExRedicalForm();
+            $form->exRedical = $ex;
+            $form->attributes = \Yii::$app->request->post();
+
+            // $this->renderJson([
+            //     'code' => 0,
+            //     'msg' => '成功',
+            // ]);
+            $this->renderJson($form->save());
+        } else {
+            return $this->render('redical-edit', [
+                'ex' => $ex,
+                'video_id' => $video_id,
+            ]);
+        }
+    }
+   
+    public function actionRedicalDel($id){
+        $form = new ExRedicalForm();
         if ($form->del($id)) {
             $this->renderJson([
                 'code' => 0,

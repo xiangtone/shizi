@@ -3,7 +3,7 @@
 <?php foreach ($list as $index => $value):
   if (!strstr($value['title'],'免费')){ ?>
   <div style="display:inline-block;vertical-align:top;padding:10px;" >
-                <a style="text-align:center;height:auto" onclick="javascript:playVideo('<?=$value['video_1080'] ? $value['video_1080'] : $value['video_url']?>',<?=$value['id']?>)" href="#">
+                <a style="text-align:center;height:auto" onclick="javascript:playVideo('<?=$value['video_720'] ? $value['video_720'] : $value['video_url']?>',<?=$value['id']?>)" href="#">
                 <div style="width:120px;height:60px;">
                 <img src='<?=$value['pic_url']?>' style="width:100%;height:100%" >
                   </div>

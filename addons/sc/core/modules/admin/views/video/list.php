@@ -68,8 +68,8 @@ $status = ['已下架', '已上架'];
         continue;
     }
     ?>
-	                <input type="hidden" name="<?=$_gi?>" value="<?=$_gv?>">
-	            <?php endforeach;?>
+		                <input type="hidden" name="<?=$_gi?>" value="<?=$_gv?>">
+		            <?php endforeach;?>
 
             <div class="input-group">
                 <input class="form-control" placeholder="标题" name="keyword" autocomplete="off"
@@ -135,7 +135,7 @@ $status = ['已下架', '已上架'];
                             <?php endif;?>
                         </td> -->
                     	<td><a class="btn btn-sm btn-primary mb-2"
-                               href="<?= $urlManager->createUrl(['admin/video/list', 'cat_id' => $value['cat_id']]) ?>"><?=$value['name']?></a></td>
+                               href="<?=$urlManager->createUrl(['admin/video/list', 'cat_id' => $value['cat_id']])?>"><?=$value['name']?></a></td>
                     	<td><?=$style[$value['style']]?></td>
                     	<td><img src='<?=$value['pic_url']?>' height='30px' ></td>
                     	<td><?=$value['video_time']?></td>
@@ -153,6 +153,8 @@ $status = ['已下架', '已上架'];
                                href="<?=$urlManager->createUrl(['admin/game/word-list', 'video_id' => $value['id']])?>">词</a>
                             <a class="btn btn-sm btn-primary"
                                href="<?=$urlManager->createUrl(['admin/game/sentence-list', 'video_id' => $value['id']])?>">句</a>
+                            <a class="btn btn-sm btn-primary"
+                               href="<?=$urlManager->createUrl(['admin/game/redical-list', 'video_id' => $value['id']])?>">造字</a>
                     	</td>
 	                </tr>
 	            <?php endforeach;?>
