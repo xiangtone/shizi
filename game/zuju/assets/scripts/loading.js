@@ -186,7 +186,7 @@ cc.Class({
                 cc.log("onComplete-->>", err, assets);
                 
                 self._is_loading = false;
-                cc.zc.audio_mgr.setBGMVolume(0.3);
+                cc.zc.audio_mgr.setBGMVolume(0.1);
                 cc.zc.audio_mgr.playBGM("background.mp3");//播放背景音乐
                 //加载网络数据 
                 var url = cc.zc.global.URL+"&video_id="+cc.zc.http_args.video_id;
