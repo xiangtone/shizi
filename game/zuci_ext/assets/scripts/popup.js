@@ -35,17 +35,21 @@ cc.Class({
         
     },
     on_btn_exit_click(){
-        //关闭窗口
-        // cc.director.end();
-        cc.log("游戏退出",cc.sys.os,cc.sys.OS_WINDOWS);
-        if(cc.sys.os ==cc.sys.OS_WINDOWS){
+        var url = cc.zc.global.ZUJU_URL+"?video_id="+cc.zc.http_args.video_id+"&user_id="+cc.zc.http_args.user_id;
+        cc.log("组句URL",url);
+        window.location.href=url; 
+        
+        // //关闭窗口
+        // // cc.director.end();
+        // cc.log("游戏退出",cc.sys.os,cc.sys.OS_WINDOWS);
+        // if(cc.sys.os ==cc.sys.OS_WINDOWS){
             
-            window.close();
-            window.history.back();
-        }else{
-            wx.miniProgram.navigateBack();
-            //window.close();
-        }
+        //     window.close();
+        //     window.history.back();
+        // }else{
+        //     wx.miniProgram.navigateBack();
+        //     //window.close();
+        // }
         
     },
     start () {
@@ -53,7 +57,7 @@ cc.Class({
         //获取背光图片
         var light = this.node.getChildByName('img_light_block');
         //旋转图片
-        var repeat = cc.repeatForever(cc.rotateBy(3.0, 360));//一直选装
+        var repeat = cc.repeatForever(cc.rotateBy(3.0, 360));//一直旋转
         light.runAction(repeat);
     },
 

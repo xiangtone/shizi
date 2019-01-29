@@ -456,7 +456,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "d6b652db-5172-40f6-ac57-a7185f549d42"
+      "__uuid__": "82cc5b32-79bd-4b10-a29a-37d09b117fee"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -503,7 +503,7 @@
         "__id__": 13
       }
     ],
-    "_N$interactable": true,
+    "_N$interactable": false,
     "_N$enableAutoGrayEffect": false,
     "_N$normalColor": {
       "__type__": "cc.Color",

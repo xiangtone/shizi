@@ -146,9 +146,8 @@ cc.Class({
                 if(cc.zc.INFO.length == 0){
                     self._state_str = "这个章节没有数据,请联系管理员";
 
-                    //游戏资源为空,进入按钮设置不可用
-                    self.btn_enter.interactable = false;
-                    self.btn_enter.node.active = true;
+                    
+                    // self.btn_enter.node.active = true;
 
                     /*
                     var target = self.btn_enter.node.getChildByName("img_loading_light");
@@ -162,6 +161,8 @@ cc.Class({
                     
                     return;
                 }
+                //进入按钮设置为可用
+                self.btn_enter.interactable = true;
                 //设置课程
                 cc.zc.lesson = 0;
                 cc.zc.total_lesson = cc.zc.INFO.length;
@@ -199,6 +200,7 @@ cc.Class({
             function (err, assets, item) {
                 cc.log("onComplete-->>", err, assets);
                 console.log("onComplete-->>", err, assets);
+                cc.zc.audio_mgr.setBGMVolume(0.1);
                 cc.zc.audio_mgr.playBGM("background.mp3");//播放背景音乐
                 
             });
@@ -209,6 +211,7 @@ cc.Class({
      * 点击进入游戏按钮响应事件
      */
     on_btn_enter_game_click(){
+        
         cc.director.loadScene("game_scene");
         cc.loader.onComplete = null;
         cc.zc.flag = false;
@@ -217,11 +220,12 @@ cc.Class({
      * 预加载资源完成--进入游戏场景
      */
     onload_complete() {
+        
         this._is_loading = false;
         this._state_str = "加载资源完成";
         
         //进入游戏按钮显示
-        this.btn_enter.node.active = true;
+        //this.btn_enter.node.active = true;
         //
         
     },
