@@ -90,7 +90,7 @@ Page({
 
   },
   card:function(){
-    if (this.user_info){
+    if (this.data.user_info){
       wx.navigateTo({
         url: '/pages/user-card/user-card',
       })

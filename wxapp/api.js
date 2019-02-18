@@ -39,6 +39,7 @@ var api = {
     video_coupon: _api_root + 'order/video-coupon',
     clerk: _api_root + 'user/clerk',
     user_binding: _api_root + 'user/user-binding',
+    user_card: _api_root + 'user/card',
     user_hand_binding: _api_root + 'user/user-hand-binding',
     user_empower: _api_root + 'user/user-empower',
     sms_setting: _api_root + 'user/sms-setting',

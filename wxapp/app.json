@@ -30,6 +30,7 @@
     "pages/cancel-coupon/cancel-coupon",
     "pages/user-binding/user-binding",
     "pages/user-teacher/user-teacher",
+    "pages/user-card/user-card",
     "pages/user-teacher-edit/user-teacher-edit",
     "pages/zuci-web-view/zuci-web-view",
     "pages/zuju-web-view/zuju-web-view"
