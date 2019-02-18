@@ -1,0 +1,69 @@
+/* pages/cat/cat.wxss */
+@import "/commons/weui.wxss";
+@import "/commons/sc-pub.wxss";
+
+page {
+  background-color: #fff;
+}
+
+.word {
+  position: relative;
+  color: rgba(255, 255, 255, 1);
+  text-decoration: none;
+  background-color: rgba(219, 87, 5, 1);
+  font-family: 'Yanone Kaffeesatz';
+  font-weight: 700;
+  font-size: 3em;
+  display: block;
+  padding: 4px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0px 9px 0px rgba(219, 31, 5, 1), 0px 9px 25px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0px 9px 0px rgba(219, 31, 5, 1), 0px 9px 25px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 9px 0px rgba(219, 31, 5, 1), 0px 9px 25px rgba(0, 0, 0, 0.7);
+  margin: 50rpx auto;
+  width: 200rpx;
+  text-align: center;
+  -webkit-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -ms-transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+}
+
+.info {
+  width: 100%;
+  /* border-top: 1rpx solid #e3e3e3; */
+  padding: 0 25rpx;
+  padding-top: 20rpx;
+  flex-wrap: wrap;
+}
+
+.info .info-block {
+  width: 300rpx;
+  margin: 0 25rpx;
+  margin-bottom: 30rpx;
+  float: left;
+}
+
+.img {
+  width: 100%;
+  height: 300rpx;
+  position: relative;
+}
+
+.img image {
+  width: 300rpx;
+  height: 300rpx;
+  border-radius: 10rpx;
+}
+
+.img .info-t {
+  position: absolute;
+  bottom: 16rpx;
+  right: 12rpx;
+  color: #fff;
+  font-size: 9pt;
+  z-index: 999;
+}

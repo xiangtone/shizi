@@ -20,7 +20,7 @@
     </view>
   </block>
   <block wx:else>
-    <view class='grey-color font-9 flex-x-center' style='padding:20rpx;color:#99653b;'>暂未购买过内容</view>
+    <view class='grey-color font-9 flex-x-center' style='padding:20rpx;color:#99653b;'>您还没有完整课程可用</view>
   </block>
 </view>
 <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">

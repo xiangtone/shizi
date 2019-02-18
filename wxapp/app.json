@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/cover/cover",
+    "pages/redical/redical",
     "pages/read/read",
     "pages/index/index",
     "pages/cat/cat",
@@ -41,5 +42,5 @@
     "navigationBarTextStyle": "black",
     "backgroundColor": "#EFEFF4"
   },
-  "debug": "false"
+  "debug": true
 }

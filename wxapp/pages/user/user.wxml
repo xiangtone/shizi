@@ -41,7 +41,7 @@
     </navigator> -->
     <navigator url='/pages/user-binding/user-binding'>
       <import src="/commons/button-a/button-a.wxml" />
-      <template is="buttonA" data="{{buttonTitle:'绑定手机号'}}" />
+      <template is="buttonA" data="{{buttonTitle:'绑定手机'}}" />
     </navigator>
 
     <!-- <navigator class='block' url='/pages/user-video/user-video'>
@@ -79,9 +79,18 @@
       <import src="/commons/button-a/button-a.wxml" />
       <template is="buttonA" data="{{buttonTitle:'激活会员卡'}}" />
     </view> -->
+    <!-- <navigator url='/pages/user-video/user-video' wx:if='{{!isIOS}}'> -->
     <navigator url='/pages/user-video/user-video'>
       <import src="/commons/button-a/button-a.wxml" />
-      <template is="buttonA" data="{{buttonTitle:'已购买课程'}}" />
+      <template is="buttonA" data="{{buttonTitle:'我的课程'}}" />
+    </navigator>
+    <view bindtap='card'>
+      <import src="/commons/button-a/button-a.wxml" />
+      <template is="buttonA" data="{{buttonTitle:'学生卡'}}" />
+    </view>
+    <navigator url='/pages/news/news?id=75'>
+      <import src="/commons/button-a/button-a.wxml" />
+      <template is="buttonA" data="{{buttonTitle:'关于我们'}}" />
     </navigator>
     <!-- <view bindtap="goTeacher">
       <import src="/commons/button-a/button-a.wxml" />

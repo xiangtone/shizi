@@ -23,7 +23,7 @@
         </view>
       </view>
       <view class="weui-cell class-list-cell-area flex-x-center without-line " style='width:714rpx;height:10rpx;'></view>
-      <view class="weui-cell class-list-cell-area without-line" style='width:714rpx;height:78rpx;position:relative'>
+      <!-- <view class="weui-cell class-list-cell-area without-line" style='width:714rpx;height:78rpx;position:relative'>
         <image src='/images/course/img_news_comment_block.png' style='width:714rpx;height:78rpx'></image>
         <view class='flex-x-center flex-y-center' style='position:absolute;top:0;left:0;width:714rpx;height:78rpx;text-align:center;font-size:33rpx;'>
           <view>评论（{{comment_count}}）</view>
@@ -90,39 +90,18 @@
             </view>
           </view>
         </view>
-      </view>
+      </view> -->
       <view class='flex-y-center' style='position:absolute;width:714rpx;height:76rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/e8/e8a7c33fa141fb7f7ab82c8f369808fc.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
       </view>
-      <view class='flex-y-center flex-x-center'>
+      <!-- <view class='flex-y-center flex-x-center'>
         <view class='flex-y-center flex-x-center' bindtap='show'  data-id='{{0}}' style='font-size:30rpx;color:#fff;width:290rpx;height:103rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/d4/d449a77a6cb2c57cbb50902ed3f09003.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
           <view style='position:absolute;top:20rpx' bindtap="createClass">我要评论</view>
         </view>
-      </view>
+      </view> -->
     </view>
     <!-- <scroll-view scroll-y='true' style='height:100%;' bindscrolltolower='load'> -->
     <!-- <view class='kong'></view> -->
     <!-- </scroll-view> -->
-  </view>
-  <view class='show_modal flex-row flex-x-center flex-y-center {{show_modal?"":"hidden"}}'>
-    <view class='modal'>
-      <view class='modal-title'>
-        <image class='w-100 h-100' src='/images/icon-video-title.png'></image>
-        <view class='modal-xx flex-x-center flex-y-center' bindtap='closeModal'>
-          <image src='/images/icon-video-xx.png'></image>
-        </view>
-      </view>
-      <view class='modal-body'>
-        <view>此视频为付费视频</view>
-        <view>单独购买需支付￥{{video_pay.price}}</view>
-        <view>开通VIP自由畅想全站影视</view>
-      </view>
-      <view class='modal-footer flex-row flex-x-center'>
-        <!-- <view class='flex-grow-0 flex-x-center flex-y-center pay-btn-1 btn-3' bindtap='buyVideo'>单独购买</view> -->
-        <!-- 以下是测试分类购买接口 -->
-        <view class='flex-grow-0 flex-x-center flex-y-center pay-btn-1 btn-3' bindtap='buyCat'>单独购买</view>
-        <view class='flex-grow-0 flex-x-center flex-y-center pay-btn-1 btn-2' bindtap='buyVip'>开通VIP</view>
-      </view>
-    </view>
   </view>
   <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
     <image style="width: 160rpx;height: 251rpx" src="/images/loading.svg"></image>

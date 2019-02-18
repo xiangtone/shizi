@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    isIOS:false
   },
 
   /**
@@ -20,6 +20,13 @@ Page({
       contact_tel: contact_tel,
       store: wx.getStorageSync("store")
     });
+    let page = this
+    const systemInfo = wx.getSystemInfoSync()
+    if (systemInfo.system && systemInfo.system.toUpperCase().indexOf('IOS') != -1) {
+      page.setData({
+        isIOS: true,
+      })
+    }
   },
 
   /**
@@ -36,6 +43,9 @@ Page({
   onShow: function() {
     app.pageOnShow(this);
     var page = this;
+    page.setData({
+      user_info: {}
+    });
     app.request({
       url: api.user.index,
       method: 'GET',
@@ -78,6 +88,22 @@ Page({
    */
   onReachBottom: function() {
 
+  },
+  card:function(){
+    if (this.user_info){
+      wx.navigateTo({
+        url: '/pages/user-card/user-card',
+      })
+    }else{
+      wx.showModal({
+        title: '提示',
+        content: '请先点击登录',
+        confirmText: '确认',
+        showCancel: false,
+        success: function (res) {
+        }
+      })
+    }
   },
   goTeacher:function(){
     var page = this;

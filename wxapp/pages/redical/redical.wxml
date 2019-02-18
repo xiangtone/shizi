@@ -1,0 +1,97 @@
+<!-- pages/cat/cat.wxml -->
+<import src="/commons/bg/bg.wxml" />
+<template is="bg" data="{{store: store,a:2}}" />
+<import src="/commons/float-icon/float-icon.wxml" />
+<template is="item" data="{{store: store,a:2,shareShow:0}}" />
+<view style='width:100%;position:relative'>
+  <view class='flex-y-center' style='width:714rpx;height:90rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/3e/3eb936d867741fd6ca9d98d7cee5a7ba.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+    <!-- <image class='w-100 h-100' src="http://www.dushujielong.com/fm/shizi/wxapp/images/course/img_course_class_tablebar1.png" style='position:absolute;top:0;left:0' /> -->
+    <view style='margin:auto;font-size:30rpx;font-weight:700;color:#275359;letter-spacing:4rpx'>
+      <text style="color: #fff;text-shadow: 2rpx 6rpx 8rpx #275359;">偏旁造字</text>
+    </view>
+  </view>
+  <view style='width:714rpx;margin: 0 auto;color:#a67548'>
+    <view class="weui-cell class-list-cell-area flex-y-center flex-x-center" style='font-size:33rpx;font-weight:700;height:100rpx;'>
+      ({{currentIndex+1}}/{{list.length}})
+      <!-- ({{currentIndex+1}}/12) -->
+    </view>
+    <view wx:if='{{redicalStep==2}}' class="weui-cell class-list-cell-area flex-y-center flex-x-center without-line" style='font-size:33rpx;width:100%;height:300rpx;'>
+      <view class='flex-x-center flex-y-center' style='width:275rpx;height:275rpx;border-style: solid; border-width: 5rpx;border-color:#BEAc8e;background-color:#fefbe8'>
+        <!-- <view style='font-size:200rpx;font-weight:700;color:#000'>{{list[currentIndex].new_word}}</view> -->
+        <view style='font-size:200rpx;font-weight:700;color:#000'>{{list[currentIndex].new_word}}</view>
+      </view>
+    </view>
+    <block wx:if='{{redicalStep==1}}'>
+      <view wx:if='{{list[currentIndex].combine_type=="左"}}' class="weui-cell class-list-cell-area flex-y-center flex-x-center without-line" style='font-size:33rpx;width:100%;height:450rpx;'>
+        <view class='flex-y-center flex-row' style='border-width:10rpx;border-style:solid;border-color:#ffb028;border-radius:60rpx;font-size:120rpx;padding:20rpx'>
+          <view style='font-weight:600;color:black;'>{{list[currentIndex].redical_word}}</view>
+          <view style='display:inline-block;vertical-align:middle;width:80rpx;height:80rpx;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/47/47027a61aad41b1cdd4c9a2815be057b.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'></view>
+          <view style='width:80rpx;height:80rpx;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/71/71f3b51dcd5c3671c7380bdc705496f4.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+          </view>
+        </view>
+      </view>
+      <view wx:if='{{list[currentIndex].combine_type=="右"}}' class="weui-cell class-list-cell-area flex-y-center flex-x-center without-line" style='font-size:33rpx;width:100%;height:450rpx;'>
+        <view class='flex-y-center flex-row' style='border-width:10rpx;border-style:solid;border-color:#ffb028;border-radius:60rpx;font-size:120rpx;padding:20rpx'>
+          <view style='display:inline-block;vertical-align:middle;width:80rpx;height:80rpx;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/71/71f3b51dcd5c3671c7380bdc705496f4.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+          </view>
+          <view style='display:inline-block;vertical-align:middle;width:80rpx;height:80rpx;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/47/47027a61aad41b1cdd4c9a2815be057b.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+          </view>
+          <view style='display:inline-block;vertical-align:middle;font-weight:600;color:black;'>{{list[currentIndex].redical_word}}</view>
+        </view>
+      </view>
+      <view wx:if='{{list[currentIndex].combine_type=="上"}}' class="weui-cell class-list-cell-area flex-y-center flex-x-center without-line" style='font-size:33rpx;width:100%;height:450rpx;'>
+        <view class='flex-x-center flex-col' style='border-width:10rpx;border-style:solid;border-color:#ffb028;border-radius:60rpx;font-size:120rpx;padding:20rpx;'>
+          <view style='font-weight:600;margin:-20rpx auto;color:black;'>{{list[currentIndex].redical_word}}</view>
+          <view style='font-weight:900;margin:-20rpx auto;'>+</view>
+          <view class='flex-x-center' style='width:80rpx;height:80rpx;margin:0 auto;'>
+            <image class='w-100 h-100' src='http://qiniu.xuedonghanzi.com/uploads/image/71/71f3b51dcd5c3671c7380bdc705496f4.png'></image>
+          </view>
+        </view>
+      </view>
+      <view wx:if='{{list[currentIndex].combine_type=="下"}}' class="weui-cell class-list-cell-area flex-y-center flex-x-center without-line" style='font-size:33rpx;width:100%;height:450rpx;'>
+        <view class='flex-x-center flex-col' style='border-width:10rpx;border-style:solid;border-color:#ffb028;border-radius:60rpx;font-size:120rpx;padding:20rpx;'>
+          <view class='flex-x-center' style='width:80rpx;height:80rpx;margin:0 auto;'>
+            <image class='w-100 h-100' src='http://qiniu.xuedonghanzi.com/uploads/image/71/71f3b51dcd5c3671c7380bdc705496f4.png'></image>
+          </view>
+          <view style='font-weight:900;margin:-20rpx auto;'>+</view>
+          <view style='font-weight:600;margin:-20rpx auto;color:black;'>{{list[currentIndex].redical_word}}</view>
+        </view>
+      </view>
+      <view wx:if='{{list[currentIndex].combine_type=="围"}}' class="weui-cell class-list-cell-area flex-y-center flex-x-center without-line" style='font-size:33rpx;width:100%;height:450rpx;'>
+        <view class='flex-x-center' style='position:relative;width:250rpx;height:250rpx;border-width:10rpx;border-style:solid;border-color:#ffb028;border-radius:60rpx;'>
+          <view class='w-100 h-100 flex-x-center flex-y-center' style='position:absolute;z-index:10;font-weight:600;top:-10rpx;left:0;right:0;bottom:0;margin:auto;font-size:200rpx;color:black'>{{list[currentIndex].redical_word}}</view>
+        </view>
+      </view>
+    </block>
+    <view class="weui-cell class-list-cell-area flex-x-center without-line flex-col" style='width:100%;height:450rpx'>
+      <view wx:if='{{redicalStep==1}}' bindtap='combine' class='word'>{{list[currentIndex].combine_word}}</view>
+      <view style='width:100%;height:40rpx'></view>
+      <!-- <view class='flex-y-center flex-x-center' bindtap='next' wx:if='{{currentIndex<list.length-1}}' style='font-size:30rpx;color:#fff;width:290rpx;height:103rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/f3/f3bc8b1bb0c83de1c3ba91f3e960083c.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+        <view style='position:absolute;top:20rpx'>下一个字</view>
+      </view>
+      <view class='flex-y-center flex-x-center' bindtap='done' wx:else style='font-size:30rpx;color:#fff;width:290rpx;height:103rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/f3/f3bc8b1bb0c83de1c3ba91f3e960083c.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+        <view style='position:absolute;top:20rpx'>完成</view>
+      </view> -->
+      <view class='flex-y-center flex-x-center' bindtap='done' wx:if='{{redicalStep==2&&currentIndex==list.length-1}}' style='font-size:30rpx;color:#fff;width:290rpx;height:103rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/f3/f3bc8b1bb0c83de1c3ba91f3e960083c.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+        <view style='position:absolute;top:20rpx'>完成</view>
+      </view>
+    </view>
+
+    <view class="weui-cell class-list-cell-area flex-x-center without-line " style='width:714rpx;height:10rpx;'></view>
+    <view class='flex-y-center' style='position:absolute;width:714rpx;height:76rpx;margin:0 auto ;position:relative;background: url(http://qiniu.xuedonghanzi.com/uploads/image/e8/e8a7c33fa141fb7f7ab82c8f369808fc.png);background-position: left top;background-size:100% 100%;background-repeat:no-repeat;'>
+    </view>
+  </view>
+</view>
+<!-- <view class='flex-x-center flex-y-center' style='width:750rpx;height:500rpx'>
+  <view style='font-size:200rpx'>口</view>
+</view>
+<view class='flex-x-center flex-y-center flex-col' style='width:750rpx;height:500rpx'>
+
+  <view bindtap='playTeacher'>听老师读</view>
+  <view bindtap='record'>{{recordStatus?'停止录音':'自己读'}}</view>
+  <view bindtap='playRecord'>{{tempFilePath?'听自己读':''}}</view>
+  <view bindtap='next'>下一个字</view>
+</view> -->
+<view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
+  <image style="width: 160rpx;height: 251rpx" src="/images/loading.svg"></image>
+</view>

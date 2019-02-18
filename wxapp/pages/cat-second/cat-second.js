@@ -52,6 +52,13 @@ Page({
       })
     }
   },
+  goRedical: function (e) {
+    if (e.currentTarget.dataset.videoId) {
+      wx.navigateTo({
+        url: '/pages/redical/redical?video_id=' + e.currentTarget.dataset.videoId,
+      })
+    }
+  },
   goSentence: function(e) {
     if (e.currentTarget.dataset.videoId) {
       var page = this;
@@ -132,10 +139,22 @@ Page({
               res.data.list[i].title2 = splitArr[1].trim()
               res.data.list[i].titleNum = splitNum
             }
+            if (res.data.list[i].content.length>7){
+              res.data.list[i].content = res.data.list[i].content.substr(0,7)
+            }
+            if (res.data.list[i].ex_types){
+              let splitArr2 = res.data.list[i].ex_types.split(',')
+              for (let j in splitArr2){
+                res.data.list[i]["e" + splitArr2[j]]=true
+              }
+            }
             if (res.data.cat.is_pay == '1' && res.data.list[i].is_pay=='0'){
               res.data.list[i].freeBlink = 1 
             }else{
               res.data.list[i].freeBlink = 0
+            }
+            if (res.data.list[i].title.indexOf('免费') != -1) {
+              res.data.list[i].freeBlink = 1
             }
           }
           page.setData({
@@ -250,10 +269,23 @@ Page({
             res.data.list[i].title2 = splitArr[1].trim()
             res.data.list[i].titleNum = splitNum
           }
+          if (res.data.list[i].content.length > 7) {
+            res.data.list[i].content = res.data.list[i].content.substr(0, 7)
+          }
+          if (res.data.list[i].ex_types) {
+            let splitArr2 = res.data.list[i].ex_types.split(',')
+            for (let j in splitArr2) {
+              res.data.list[i]["e" + splitArr2[j]] = true
+            }
+          }
+          
           if (res.data.cat.is_pay == '1' && res.data.list[i].is_pay == '0') {
             res.data.list[i].freeBlink = 1
           } else {
             res.data.list[i].freeBlink = 0
+          }
+          if (res.data.list[i].title.indexOf('免费') != -1) {
+            res.data.list[i].freeBlink = 1
           }
         }
         var video_list = page.data.video_list.concat(res.data.list);

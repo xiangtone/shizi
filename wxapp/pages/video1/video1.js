@@ -22,6 +22,7 @@ Page({
     comment_count: 0,
     goods_loading: -1,
     page: 1,
+    tryEnd:false,
   },
 
   /**
@@ -143,6 +144,12 @@ Page({
                 draw_type: draw_type,
                 flag: 0,
               })
+            }
+            if (res.data.video.ex_types) {
+              let splitArr2 = res.data.video.ex_types.split(',')
+              for (let j in splitArr2) {
+                res.data.video["e" + splitArr2[j]] = true
+              }
             }
             page.setData({
               video: res.data.video,
@@ -495,7 +502,7 @@ Page({
   timeupdate: function(e) {
     var page = this;
     var video_pay = page.data.video_pay;
-    if (page.data.video.is_pay == 0) {
+    if (page.data.video.is_pay == 0 || video_pay.time==0) {
       return;
     }
     var video = wx.createVideoContext('video');
@@ -503,7 +510,8 @@ Page({
       video.seek(0);
       video.pause();
       page.setData({
-        play: false
+        play: false,
+        tryEnd:true,
       });
     }
   },
@@ -583,6 +591,9 @@ Page({
                   showCancel: false
                 })
               }
+            },
+            complete: function () {
+              wx.hideLoading();
             }
           });
         }
@@ -746,7 +757,11 @@ Page({
                   content: res.msg,
                   showCancel: false
                 })
+                page.onShow()
               }
+            },
+            complete: function () {
+              wx.hideLoading();
             }
           });
         }
@@ -826,6 +841,11 @@ Page({
   charRead:function(){
     wx.navigateTo({
       url: '/pages/read/read' + "?video_id=" + this.data.video.id ,
+    })
+  },
+  redicalGame: function () {
+    wx.navigateTo({
+      url: '/pages/redical/redical' + "?video_id=" + this.data.video.id,
     })
   },
   cyllkGame: function() {

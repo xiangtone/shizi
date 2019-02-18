@@ -13,6 +13,8 @@ Page({
     recordStatus: false,
     tempFilePath:'',
     currentIndex:0,
+    showStatus:'左',
+    redicalStep: 1,
   },
 
   /**
@@ -28,7 +30,7 @@ Page({
        });
     }else{
       this.setData({
-        video_id: 13
+        video_id: 18
       });
     }
   },
@@ -57,7 +59,7 @@ Page({
     })
     is_loading_more = true;
     app.request({
-      url: api.default.ex_char,
+      url: api.default.ex_redical,
       data: {
         video_id: this.data.video_id
       },
@@ -93,16 +95,44 @@ Page({
     });
   },
   next:function(){
+    console.log('next')
     if (this.data.currentIndex < this.data.list.length-1){
       this.setData({
-        currentIndex : this.data.currentIndex+1
+        currentIndex : this.data.currentIndex+1,
+        redicalStep:1
       })
     }
   },
   done:function(){
-    wx.navigateBack({
-      
+    wx.navigateBack({ 
     })
+  },
+  combine:function(){
+    let page = this
+    const innerAudioContext = wx.createInnerAudioContext();
+    innerAudioContext.autoplay = false;
+    innerAudioContext.obeyMuteSwitch = false;
+    innerAudioContext.src = this.data.list[this.data.currentIndex].voice_url
+    innerAudioContext.onEnded((res) => {
+      console.log('innerAudioContext.onEnded',res)
+      setTimeout(function(){
+        page.next()
+      },1000)
+    })
+    innerAudioContext.onCanplay(() => {
+      wx.hideLoading();
+      page.setData({
+        redicalStep:2
+      })
+    })
+    innerAudioContext.onWaiting(() => {
+      // wx.showLoading();
+    })
+    innerAudioContext.onError((res) => {
+      console.log(res.errMsg)
+      console.log(res.errCode)
+    })
+    innerAudioContext.play()
   },
   playTeacher: function() {
     const innerAudioContext = wx.createInnerAudioContext();

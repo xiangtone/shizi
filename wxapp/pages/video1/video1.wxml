@@ -7,7 +7,7 @@
   <template is="item" data="{{store: store,a:2,shareShow:1}}" />
   <!-- 客服结束 -->
   <view class='video {{show?"hidden":""}} {{share_show?"hidden":""}}'>
-    <video src='{{video.video_url}}' class='{{play?"":"hidden"}}' controls='controls' id='video' poster='{{video.pic_url}}' duration='{{video.is_pay == 1 ? video_pay.time:""}}' bindtimeupdate='timeupdate' autoplay='true' wx:if='{{play}}'>
+    <video src='{{video.video_url}}' class='{{play?"":"hidden"}}' controls='controls' id='video' poster='{{video.pic_url}}' duration='{{video_pay.time>0 ? video_pay.time:""}}' bindtimeupdate='timeupdate' autoplay='true' wx:if='{{play}}'>
       <cover-view style='width:750rpx;height:420rpx;' wx:if='{{video.style == 1}}'>
         <cover-view class='w-100 h-100'>
           <cover-image style='width:100%;height:100%;' src='{{video.pic_url}}'></cover-image>
@@ -19,19 +19,26 @@
       <image src='{{video.pic_url}}' class='cover-img'></image>
       <image src='/images/icon-play-big.png' class='cover-play' bindtap='playVideo' wx:if='{{video.style < 2}}'></image>
     </view>
-    <view class='cover {{play?"hidden":""}} bg' wx:if='{{video.is_pay==1}}'>
+    <block wx:else>
+    <view class='cover {{play?"hidden":""}}' wx:if='{{!tryEnd&&video_pay.time>0}}'>
+      <image src='{{video.pic_url}}' class='cover-img'></image>
+      <image src='/images/icon-play-big.png' class='cover-play' bindtap='playVideo' wx:if='{{video.style < 2}}'></image>
+    </view>
+    <view class='cover {{play?"hidden":""}} bg' wx:else>
       <block wx:if='{{storeFromVideo.enable_ios_pay==0&&isIOS}}'>
       <view class='pay-text flex-x-center' >
-        <text>安卓手机可付费可观看\n苹果手机不能付款但可播放哦！</text>
+        <!-- <text>安卓手机可付费可观看\n苹果手机不能付款但可播放哦！</text> -->
+        <text>iOS功能暂不可用</text>
         <!-- <text>安卓手机可付费可观看\n苹果手机不能付款但可播放哦！暂不支持IOS购买\n请使用安卓手机登录微信后购买观看</text> -->
       </view>
       </block>
       <block wx:else>
-      <view class='pay-text flex-x-center' wx:if='{{video_pay.default_coupon_price}}'>
+      <!-- <view class='pay-text flex-x-center' wx:if='{{video_pay.default_coupon_price}}'>
         <text>本册内容原价：￥{{video_pay.price_origin}}元\n您的优惠券：￥{{video_pay.default_coupon_price}}元\n优惠购买价格：￥{{video_pay.price}}元</text>
-      </view>
-      <view class='pay-text flex-x-center' wx:else>
-        <text>本册内容需￥{{video_pay.price}}元购买\n购买即送{{storeFromVideo.default_coupon_price}}元优惠券，下次购买可用</text>
+      </view> -->
+      <view class='pay-text flex-x-center'>
+        <!-- <text>本册内容需￥{{video_pay.price}}元购买\n购买即送{{storeFromVideo.default_coupon_price}}元优惠券，下次购买可用</text> -->
+        <text>本册内容需￥{{video_pay.price}}元购买</text>
       </view>
       <view class='flex-row flex-x-center'>
         <!-- <view class='flex-grow-0 flex-x-center flex-y-center pay-btn btn-1' bindtap='playVideo' wx:if='{{video_pay.time != 0}}'>
@@ -53,6 +60,7 @@
       </view>
       </block>
     </view>
+    </block>
     <view class='flex-y-center flex-row info-title'>
       <view class='font-13 text-more flex-grow-1'>
         <image src="/images/course/img_course_title_block.png" style="width:410rpx;height:120rpx;z-index:10;position:absolute;left:0;top:0"></image>
@@ -91,14 +99,17 @@
     </view>
   </view>
   <view class='flex-x-center flex-col' style='width:100%'>
-    <view class="functionBtn">
+    <view class="functionBtn" wx:if="{{video.e1}}">
       <image src='/images/course/btn_course_dyd_none.png' bindtap='charRead'></image>
     </view>
-    <view class="functionBtn">
+    <view class="functionBtn" wx:if="{{video.e2}}">
       <image src='/images/course/btn_course_cyllk3_none.png' bindtap='cyllkGame'></image>
     </view>
-    <view class="functionBtn">
+    <view class="functionBtn" wx:if="{{video.e3}}">
       <image src='/images/course/btn_course_zjgh2_none.png' bindtap='wlcgGame'></image>
+    </view>
+    <view class="functionBtn" wx:if="{{video.e4}}">
+      <image src='http://qiniu.xuedonghanzi.com/uploads/image/d1/d156159bfa253f141a3423188f52c19a.png' bindtap='redicalGame'></image>
     </view>
     <view class="loading-bar {{show_loading_bar?'active':''}}" style="text-align: center">
       <image style="width: 160rpx;height: 251rpx" src="/images/loading.svg"></image>
