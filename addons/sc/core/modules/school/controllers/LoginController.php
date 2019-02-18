@@ -23,8 +23,6 @@ class LoginController extends CommonController
             return true;
         }
         return false;
-
-
     }
 
     public function actions()

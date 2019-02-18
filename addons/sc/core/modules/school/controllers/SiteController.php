@@ -29,7 +29,6 @@ class SiteController extends AdminController
         $arr = $form->getList();
         return $this->render('video', [
             'list' => $arr['list'],
-
         ]);
 
         // return $this->render('cat', [

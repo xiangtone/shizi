@@ -23,6 +23,7 @@ use app\modules\api\models\UserCommentForm;
 use app\modules\api\models\UserCouponForm;
 use app\modules\api\models\UserCouponQrcodeForm;
 use app\modules\api\models\UserForm;
+use app\modules\api\models\CardForm;
 use app\modules\api\models\VideoForm;
 
 class UserController extends Controller
@@ -72,6 +73,15 @@ class UserController extends Controller
         $form->user_id = \Yii::$app->user->identity->id;
         $form->attributes = \Yii::$app->request->get();
         $this->renderJson($form->nextVideo());
+    }
+
+    public function actionCard()
+    {
+        $form = new CardForm();
+        $form->store_id = $this->store->id;
+        $form->user_id = \Yii::$app->user->identity->id;
+        $form->attributes = \Yii::$app->request->get();
+        $this->renderJson($form->activeCard());
     }
 
     /**

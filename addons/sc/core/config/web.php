@@ -62,6 +62,9 @@ $config = [
         'admin' => [
             'class' => 'app\modules\admin\Module',
         ],
+        'client' => [
+            'class' => 'app\modules\client\Module',
+        ],
         'school' => [
             'class' => 'app\modules\school\Module',
         ],

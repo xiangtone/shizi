@@ -89,6 +89,7 @@ class LoginForm extends Model
             }else{
                 $user->nickname = preg_replace('/[\xf0-\xf7].{3}/', '', $data['nickName']);
                 $user->avatar_url = $data['avatarUrl'];
+                $user->wechat_union_id = isset($data['unionId']) ? $data['unionId'] : '';
                 $user->save();
             }
             return [

@@ -76,14 +76,15 @@ $is_auth = Yii::$app->cache->get('IS_AUTH');
 
 
 
-        <!-- <div class="nav-group <?=$this->params['active_nav_group'] == 7 ? 'active' : null?>">
+        <div class="nav-group <?=$this->params['active_nav_group'] == 7 ? 'active' : null?>">
             <a href="javascript:"><i class="iconfont icon-person"></i>营销管理</a>
             <div class="sub-nav-list">
-                <a href="<?=$urlManager->createUrl(['admin/coupon/list'])?>">优惠券</a>
+                <a href="<?=$urlManager->createUrl(['admin/card/type-list'])?>">学生卡</a>
+                <!-- <a href="<?=$urlManager->createUrl(['admin/coupon/list'])?>">优惠券</a>
                 <a href="<?=$urlManager->createUrl(['admin/coupon/provide-coupon'])?>">发放券管理</a>
-                <a href="<?=$urlManager->createUrl(['admin/coupon/user-coupon'])?>">用户优惠券</a>
+                <a href="<?=$urlManager->createUrl(['admin/coupon/user-coupon'])?>">用户优惠券</a> -->
             </div>
-        </div> -->
+        </div>
 
 
         <div class="nav-group <?=$this->params['active_nav_group'] == 3 ? 'active' : null?>">

@@ -34,6 +34,7 @@ use Yii;
  * @property string $video_720
  * @property string $video_1080
  * @property integer $comment_count
+ * @property string $ex_types
  */
 class Video extends \yii\db\ActiveRecord
 {
@@ -55,6 +56,7 @@ class Video extends \yii\db\ActiveRecord
             [['pic_url', 'video_url', 'content', 'banner_url', 'detail', 'video_720', 'video_1080'], 'string'],
             [['video_time', 'money'], 'number'],
             [['title', 'introduce'], 'string', 'max' => 255],
+            [['ex_types'], 'string', 'max' => 20],
         ];
     }
 
@@ -91,6 +93,7 @@ class Video extends \yii\db\ActiveRecord
             'video_720' => '720视频地址',
             'video_1080' => '1080视频地址',
             'comment_count' => '评论数',
+            'ex_types' => '1字2词3句4偏旁造字',
         ];
     }
 }
