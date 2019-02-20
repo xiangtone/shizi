@@ -43,7 +43,7 @@ class SchoolForm extends Model
 
         $count = $query->count();
         $p = new Pagination(['totalCount' => $count, 'pageSize' => $this->limit, 'page' => $this->page - 1]);
-        $list = $query->orderBy(['id' => SORT_DESC])->limit($p->limit)->offset($p->offset)->asArray()->all();
+        $list = $query->orderBy(['last_login_date' => SORT_DESC])->limit($p->limit)->offset($p->offset)->asArray()->all();
         
         return [
             'list' => $list,

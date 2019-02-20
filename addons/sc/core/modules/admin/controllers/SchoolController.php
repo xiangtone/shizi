@@ -11,6 +11,7 @@ namespace app\modules\admin\controllers;
 
 use app\models\School;
 use app\modules\admin\models\SchoolForm;
+use app\modules\admin\models\SchoolAddBatchForm;
 
 class SchoolController extends Controller
 {
@@ -24,6 +25,18 @@ class SchoolController extends Controller
             'list'=>$arr['list'],
             'pagination'=>$arr['pagination'],
             'row_count'=>$arr['row_count'],
+        ]);
+    }
+
+    public function actionAddBatch(){
+        if (\Yii::$app->request->isPost) {
+            $form = new SchoolAddBatchForm();
+            $form->store_id = $this->store->id;
+            $form->attributes = \Yii::$app->request->post('model');
+            $this->renderJson($form->save());
+        }
+        return $this->render('add-batch', [
+            
         ]);
     }
 

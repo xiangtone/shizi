@@ -36,7 +36,7 @@ class CardForm extends Model
     {
         // $query = Comment::find()->alias('c')->where(['c.store_id' => $this->store_id, 'c.is_delete' => 0])
         //     ->leftJoin(User::tableName() . ' u', 'u.id=c.user_id')
-        $card = Card::findOne(['id' => $this->card_id, 'password' => $this->password]);
+        $card = Card::findOne(['id' => strtoupper($this->card_id), 'password' => $this->password]);
         // ->alias('c')->where(['c.id' => $this->card_id, 'c.password' => $this->password])
         //     ->leftJoin(CardType::tableName() . ' ct', 'ct.id=c.card_type_id')->select([
         //     'c.*', 'ct.product_id',

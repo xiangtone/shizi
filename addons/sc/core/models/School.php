@@ -21,6 +21,9 @@ use Yii;
  * @property string $portrait
  * @property string $last_login_ip
  * @property string $last_login_date
+ * @property integer $login_count
+ * @property string $expire_date
+ * @property string $init_password
  */
 class School extends \yii\db\ActiveRecord
 {
@@ -38,9 +41,11 @@ class School extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['enjoytime', 'last_login_date'], 'safe'],
+            [['enjoytime', 'last_login_date', 'expire_date'], 'safe'],
             [['intro', 'portrait', 'last_login_ip'], 'string'],
+            [['login_count'], 'integer'],
             [['username', 'password', 'level', 'realname', 'appointment', 'sheng', 'shi', 'status'], 'string', 'max' => 255],
+            [['init_password'], 'string', 'max' => 20],
             [['username'], 'unique'],
         ];
     }
@@ -56,7 +61,7 @@ class School extends \yii\db\ActiveRecord
             'password' => '密码',
             'level' => '权限级别',
             'enjoytime' => '注册时间',
-            'realname' => '姓名',
+            'realname' => '学校名称',
             'appointment' => '职位',
             'sheng' => '省',
             'shi' => '市',
@@ -65,6 +70,9 @@ class School extends \yii\db\ActiveRecord
             'portrait' => '头像',
             'last_login_ip' => '最后登录IP',
             'last_login_date' => '最后登录时间',
+            'login_count' => '登录次数',
+            'expire_date' => '过期时间',
+            'init_password' => '初始密码明文',
         ];
     }
 }

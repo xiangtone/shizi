@@ -21,8 +21,9 @@ $this->params['active_nav_group'] = 3;
 </div>
 <div class="main-body p-3" id="app">
 <a href="<?=$urlManager->createUrl(['admin/school/edit'])?>" class="btn btn-primary">
-        添加</a>
-    <div class="float-right mb-4">
+        添加</a> <a href="<?=$urlManager->createUrl(['admin/school/add-batch'])?>" class="btn btn-primary">
+        批量添加</a>
+    <!-- <div class="float-right mb-4">
         <form method="get">
             <?php $_s = ['keyword']?>
             <?php foreach ($_GET as $_gi => $_gv): if (in_array($_gi, $_s)) {
@@ -38,7 +39,7 @@ $this->params['active_nav_group'] = 3;
                 <span class="input-group-btn"><button class="btn btn-primary">搜索</button></span>
             </div>
         </form>
-    </div>
+    </div> -->
 
     <table class="table table-bordered bg-white">
         <thead>
@@ -47,7 +48,9 @@ $this->params['active_nav_group'] = 3;
 
             <td>用户名</td>
             <td>加入时间</td>
-
+            <td>最后登录时间</td>
+            <td>登录次数</td>
+            <td>过期时间</td>
             <td>操作</td>
         </tr>
         </thead>
@@ -60,7 +63,9 @@ $this->params['active_nav_group'] = 3;
                 <td><?=$value['username']?></td>
                 <!-- <td><?=date('Y-m-d H:i:s', $value['enjoytime'])?></td> -->
                 <td><?=$value['enjoytime']?></td>
-
+                <td><?=$value['last_login_date']?></td>
+                <td><?=$value['login_count']?></td>
+                <td><?=$value['expire_date']?></td>
                 <td>
                 <a class="btn btn-sm btn-primary"
                                href="<?=$urlManager->createUrl(['admin/school/edit', 'id' => $value['id']])?>">修改</a>
