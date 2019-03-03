@@ -128,6 +128,7 @@ class LoginForm extends Model
         $user = School::findOne($this->user['id']);
         $user->last_login_ip = Yii::$app->request->getUserIP();
         $user->last_login_date = date('Y-m-d H:i:s');
+        $user->login_count = $user->login_count+1;
         return $user->save();
     }
 
